@@ -6,20 +6,21 @@ router.get("/", (req, res) => {
     res.send("User Router");
 });
 
-router.post("/adduser", (req, res) => {
+router.get("/all", async (req, res) => {
+    const result = await UserSchema.find({}).exec();
+    return res.json(result);
+});
+
+router.post("/adduser", async (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
-    const user = new UserSchema({
+    const userdata = new UserSchema({
         name: name,
         email: email,
         password: password,
     });
-    user.save((err, user) => {
-        if (err) {
-            res.send(err);
-        }
-        res.send(user);
-    });
+    const result = await userdata.save();
+    res.redirect("/");
 });
 module.exports = router;
