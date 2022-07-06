@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './views/components/Loginbox';
-import About from './views/components/About';
-import NotFound from './views/components/NotFound';
+import Login from './components/Loginbox';
+import About from './components/About';
+import NotFound from './components/NotFound';
 
 export function AppRouter() {
   return (

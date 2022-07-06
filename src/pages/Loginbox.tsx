@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as LoginForm from '../components/LoginForm';
 
 const Container = styled.div`
@@ -17,8 +17,8 @@ const Container = styled.div`
 
 export default Login;
 function Login() {
-  const [email, setEmail] = useState<string | null>(null);
-  const [password, setPassword] = useState<string | null>(null);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value);
   };
@@ -30,19 +30,19 @@ function Login() {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     console.log(`email: ${email}, password: ${password} `);
   };
-  useEffect(() => {
-    console.log(`email: ${email}, password: ${password} `);
-  }, [email, password]);
+
   return (
     <Container>
       <LoginForm.Title>로그인</LoginForm.Title>
       <LoginForm.InputBox
         title={'이메일'}
         handleChange={handleEmailChange}
+        value={email}
       ></LoginForm.InputBox>
       <LoginForm.InputBox
         title={'비밀번호'}
         handleChange={handlePasswordChange}
+        value={password}
       ></LoginForm.InputBox>
       <LoginForm.FindPasswordtag>비밀번호 찾기</LoginForm.FindPasswordtag>
       <LoginForm.Button onClick={handleClick}>로그인 버튼</LoginForm.Button>
