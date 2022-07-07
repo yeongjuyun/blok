@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-    width: 100%;
+    min-width: 560px;
     height: 100%;
-    left: 560px;
+    border-right: 1px solid #D1D1D1;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+    justify-content: center;
+    align-items: flex-start;
 `;
 
 const InnerContainer = styled.div`
@@ -15,11 +14,10 @@ const InnerContainer = styled.div`
     width: 80%;
 `;
 
-export default PreviewArticle;
-function PreviewArticle() {
+export default EditArticle;
+function EditArticle() {
     return <Container>
         <InnerContainer>
-            
         </InnerContainer>
     </Container>
 }

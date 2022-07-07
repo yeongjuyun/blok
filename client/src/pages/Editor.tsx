@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import Header from '../components/Editor/Header/Header';
-import Article from '../components/Editor/Article/Article';
+import Content from '../components/Editor/Content';
 
 const Container = styled.div`
     min-width: 1920px;
@@ -16,8 +15,7 @@ export default Editor;
 function Editor() {
   return (
     <Container>
-        <Header />
-        <Article />
+      <Content />
     </Container>
   );
 }

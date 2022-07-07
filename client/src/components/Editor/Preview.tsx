@@ -4,16 +4,26 @@ import styled from 'styled-components';
 const domain = 'domain/name';
 
 const Container = styled.div`
-    width: 100%;
-    left: 560px;
+    width: 1360px;
+    height: 100%;
+    position: fixed;
+    left: 561px; 
+`;
+
+const Header = styled.div`
+    width: 595px;
+    height: 80px;
+    background-color: white;
+    position: fixed;
+    top: 0;
+
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
 `;
 
 const InnerContainer = styled.div`
-    width: auto;
     height: 80px;
     align-items: center;
     display: flex;
@@ -49,7 +59,6 @@ const SaveButton = styled.button`
     border: 1px solid black;
     padding: 5px 10px;
     border-radius: 40px / 40px;
-    margin-left: 10px;
 
     font-weight: 600;
     color: white;
@@ -59,6 +68,10 @@ const SaveButton = styled.button`
         cursor: pointer;
     }
 `;
+
+const Article = styled.div`
+    height: 100vh;
+`
 
 async function copyHandler() {
     try {
@@ -73,13 +86,14 @@ async function copyHandler() {
 export default PreviewBar;
 function PreviewBar() {
     return <Container>
-        <InnerContainer>
-            <MyPage>My Page:</MyPage>
-            <Domain href={domain}>{domain}</Domain>
-            <CopyButton onClick={() => copyHandler()}>Copy</CopyButton>
-        </InnerContainer>
-        <InnerContainer>
+        <Header>
+            <InnerContainer>
+                <MyPage>My Page:</MyPage>
+                <Domain href={domain}>{domain}</Domain>
+                <CopyButton onClick={() => copyHandler()}>Copy</CopyButton>
+            </InnerContainer>
             <SaveButton>Save</SaveButton>
-        </InnerContainer>
+        </Header>
+        <Article />
     </Container>
 }
