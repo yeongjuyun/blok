@@ -25,6 +25,9 @@ db.on("error", (error) =>
     )
 );
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 const userRouter = require("./routers/user-router");
 
 app.use("/users", userRouter);
