@@ -1,5 +1,5 @@
 const express = require("express");
-const UserSchema = require("../models/User");
+const User = require("../models/User");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/all", async (req, res) => {
-    const result = await UserSchema.find({}).exec();
+    const result = await User.find({}).exec();
     return res.json(result);
 });
 
@@ -15,12 +15,12 @@ router.post("/adduser", async (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
-    const userdata = new UserSchema({
+    const userdata = new User({
         name: name,
         email: email,
         password: password,
     });
-    const result = await userdata.save();
+    await userdata.save();
     res.redirect("/");
 });
 module.exports = router;
