@@ -24,7 +24,7 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')));
 //   모든 request에 대해서 build폴더 아래 index.html을 보내도록 되어 있는데,
 //       이부분을 수정하여 server side 프로그래밍을 한다.
 
-const PORT = process.env.SERVER_PORT || 9000;
+const PORT = process.env.PORT || 9000;
 
 app.listen(PORT, () => {
   console.log(`listening on http://localhost:${PORT}`);
