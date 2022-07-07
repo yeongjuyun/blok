@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
-import * as LoginForm from './LoginForm';
+import * as LoginForm from '../components/LoginForm';
+
+import axios from 'axios';
 
 const Container = styled.div`
   background-color: #fff;
@@ -39,22 +41,20 @@ function Login() {
       `${data ? '로그인정보 이미 있습니다.' : '로그인 정보가 없습니다.'}`
     );
   }, []);
+  useEffect(() => {
+    axios.get('/123').then((res): void => console.log(res));
+  }, []);
   return (
     <Container>
       <LoginForm.Title>로그인</LoginForm.Title>
       <LoginForm.InputBox
         title={'이메일'}
         handleChange={handleEmailChange}
-        placeholder={'이메일 주소를 입력하세요.'}
-        type={'string'}
         value={email}
       ></LoginForm.InputBox>
-
       <LoginForm.InputBox
         title={'비밀번호'}
         handleChange={handlePasswordChange}
-        placeholder={'비밀번호는 6자리 이상이여야 합니다.'}
-        type={'password'}
         value={password}
       ></LoginForm.InputBox>
       <LoginForm.FindPasswordtag>비밀번호 찾기</LoginForm.FindPasswordtag>

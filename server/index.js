@@ -1,12 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-// var cors = require('cors');
+const cors = require('cors');
 
 const app = express();
 
 // Setup logger
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -24,7 +24,7 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')));
 //   모든 request에 대해서 build폴더 아래 index.html을 보내도록 되어 있는데,
 //       이부분을 수정하여 server side 프로그래밍을 한다.
 
-const PORT = process.env.SERVER_PORT || 8000;
+const PORT = process.env.SERVER_PORT || 9000;
 
 app.listen(PORT, () => {
   console.log(`listening on http://localhost:${PORT}`);
