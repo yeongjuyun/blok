@@ -1,21 +1,14 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-    min-width: 560px;
-    height: 100%;
-    border-right: 1px solid #D1D1D1;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
 `;
 
-const InnerContainer = styled.div`
-    margin-top: 120px;
-    width: 80%;
-`;
-
 const NewBlockButton = styled.button`
-    width: 100%;
+    width: 450px;
     padding: 10px 20px;
     background-color: black;
     border: 1px solid black;
@@ -33,8 +26,6 @@ const NewBlockButton = styled.button`
 export default EditArticle;
 function EditArticle() {
     return <Container>
-        <InnerContainer>
             <NewBlockButton>Add New Block</NewBlockButton>
-        </InnerContainer>
     </Container>
 }

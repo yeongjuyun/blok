@@ -11,7 +11,7 @@ export function AppRouter() {
       <Routes>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/about' element={<About />} />
-        <Route path='/edit' element={<Editor />} />
+        <Route path='/editor' element={<Editor />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </Router>

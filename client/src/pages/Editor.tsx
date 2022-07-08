@@ -1,21 +1,21 @@
-import styled from 'styled-components';
-import Content from '../components/Editor/Content';
+import styled from "styled-components";
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Editor-new/Header";
+import Article from "../components/Editor-new/Article";
 
 const Container = styled.div`
-    min-width: 1920px;
-    width: auto;
-    min-height: 100vh;
-    height: auto;
-    background-color: #F7F7F9;
-    display: flex;
-    flex-wrap: wrap;
+  background-color: #f7f7f9;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export default Editor;
 function Editor() {
   return (
     <Container>
-      <Content />
+      <Sidebar />
+      <Header />
+      <Article />
     </Container>
   );
 }
