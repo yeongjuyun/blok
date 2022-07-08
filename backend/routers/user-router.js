@@ -37,7 +37,7 @@ userRouter.post("/adduser", upload.single("file"), async (req, res) => {
   await userdata.save();
   res.redirect("/");
 });
-
+// post '/api/register'
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
 userRouter.post("/register", async (req, res, next) => {
   try {
@@ -64,7 +64,7 @@ userRouter.post("/register", async (req, res, next) => {
     next(error);
   }
 });
-
+// post '/api/login'
 // 로그인 api (아래는 /login 이지만, 실제로는 /api/login로 요청해야 함.)
 // passport local 및 jwt 전략 사용
 userRouter.post(
@@ -86,7 +86,43 @@ userRouter.post(
     }
   }
 );
+// post '/api/reset-password'
+// 비밀번호 초기화 api
+// 테스트 아직 안해봤음.
+userRouter.post("/reset-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+    await userService.resetPassword(email);
+    // res.redirect 필요할 것 같음. 프론트와 상의
+    res.json({ message: "비밀번호가 초기화 되었습니다!", status: 200 });
+  } catch (error) {
+    next(error);
+  }
+});
 
+// delete '/api/users/:userId'
+// 회원탈퇴, 도메인 삭제는 그때가서 생각.
+// 문제 생길 확률이 높음 cascade 관련해서 이후에 다시 구현 예정
+userRouter.delete(
+  "/users/:userId",
+  loginRequired,
+  async function (req, res, next) {
+    try {
+      // params로부터 id를 가져옴
+      const userId = req.params.userId;
+      // 접근한 주소와 유저가 다를 경우, 접근 불가능
+      if (req.user.userId !== userId) {
+        throw new Error("본인의 계정만 삭제할 수 있습니다.");
+      }
+      const deletedUserInfo = await userService.deleteUser(userId);
+      res.status(200).json(deletedUserInfo);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// get '/api/auth/google'
 // google strategy 인증 부분
 // 이 url로 접근하면 구글 oauth가 진행됨
 userRouter.get(
@@ -105,7 +141,7 @@ userRouter.get(
     res.redirect("/");
   }
 );
-
+// get '/api/auth/kakao'
 // kakao stragegy 인증 부분
 userRouter.get("/auth/kakao", passport.authenticate("kakao"));
 // 카카오 로그인이 된다면 jwt 쿠키 생성
@@ -117,20 +153,22 @@ userRouter.get(
     res.redirect("/");
   }
 );
-
+// get '/api/logincheck'
 // userId, email, role, userName 전달하는 함수, 이 값이 존재한다면 로그인 상태임을 확인할 수 있음.
 // jwttoken을 통해(쿠키로 전달되기 때문에 클라이언트에선 변수 없이 호출)
 userRouter.get("/logincheck", loginRequired, (req, res) => {
   return res.status(200).json({
     user: {
-      id: req.user.userId,
-      role: req.user.role,
-      email: req.user.email,
-      userName: req.user.userName,
+      userId: user.userId,
+      email: user.email,
+      userName: user.userName,
+      role: user.role,
+      oauth: user.oauth,
+      passwordReset: user.passwordReset,
     },
   });
 });
-
+// get '/api/logout'
 // logout api
 userRouter.get("/logout", async function (req, res, next) {
   //쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
@@ -155,6 +193,18 @@ userRouter.get("/logout", async function (req, res, next) {
 //   }
 // });
 
+// get '/api/users/:userId'
+// 유저 정보 전달 api
+userRouter.get("/users/:userId", loginRequired, async function (req, res) {
+  try {
+    const userId = req.params.userId;
+    const user = await userService.getUsers(userId);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// patch '/api/users/"userId'
 // 사용자 비밀번호 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 // shortId로 접근
@@ -200,40 +250,6 @@ userRouter.patch(
       );
       // 업데이트 이후의 유저 데이터를 프론트에 보내 줌
       res.status(200).json(updatedUserInfo);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-// 비밀번호 초기화 api
-// 테스트 아직 안해봤음.
-userRouter.post("/reset-password", async (req, res) => {
-  try {
-    const { email } = req.body;
-    await userService.resetPassword(email);
-    // res.redirect 필요할 것 같음. 프론트와 상의
-    res.json({ message: "비밀번호가 초기화 되었습니다!", status: 200 });
-  } catch (error) {
-    next(error);
-  }
-});
-
-// 회원탈퇴, 도메인 삭제는 그때가서 생각.
-// 문제 생길 확률이 높음 cascade 관련해서 이후에 다시 구현 예정
-userRouter.delete(
-  "/users/:userId",
-  loginRequired,
-  async function (req, res, next) {
-    try {
-      // params로부터 id를 가져옴
-      const userId = req.params.userId;
-      // 접근한 주소와 유저가 다를 경우, 접근 불가능
-      if (req.user.userId !== userId) {
-        throw new Error("본인의 계정만 삭제할 수 있습니다.");
-      }
-      const deletedUserInfo = await userService.deleteUser(userId);
-      res.status(200).json(deletedUserInfo);
     } catch (error) {
       next(error);
     }
