@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import TemplateModal from "./TemplateModal";
+import { useSelector, useDispatch } from "react-redux";
 
 const Container = styled.div`
   width: 1000px;
@@ -98,6 +100,10 @@ export function templateList() {
 
 export function DashboardInfo() {
   const [domain, setDomain] = useState([]);
+  const [modal, setModal] = useState(false);
+
+  const dispatch = useDispatch();
+  const modalState = useSelector((state: any) => state.modalReducer.isModal);
 
   const getUserInfo = async () => {
     axios.get("/user").then((res): void => {
@@ -109,6 +115,11 @@ export function DashboardInfo() {
   useEffect(() => {
     getUserInfo();
   }, []);
+
+  const showModalHandler = () => {
+    setModal(!modal);
+    dispatch({ type: "MODAL_ON" });
+  };
 
   return (
     <Container>
@@ -137,7 +148,10 @@ export function DashboardInfo() {
           ))}
         </tbody>
       </Table>
-      <Button className={"new"}>New</Button>
+      <Button className={"new"} onClick={showModalHandler}>
+        New
+      </Button>
+      {modalState && <TemplateModal />}
     </Container>
   );
 }
