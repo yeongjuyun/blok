@@ -48,7 +48,53 @@ const Button = styled.button`
   margin-right: 20px;
 `;
 
-export default function DashboardInfo() {
+const Title = styled.div`
+  font-weight: 500;
+  font-size: 26px;
+  margin-bottom: 32px;
+`;
+
+const TemplateBox = styled.div`
+  width: 950px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div {
+    width: 240px;
+    height: 200px;
+    background-color: #d9d9d9;
+    text-align: center;
+    margin: 0 40px 10px 0;
+  }
+`;
+
+const ContentBox = styled.div``;
+
+export function templateList() {
+  return (
+    <Container>
+      <Title>Template</Title>
+      <TemplateBox>
+        <ContentBox>
+          <div></div>
+          <span>포트폴리오 3분 기적</span>
+        </ContentBox>
+        <ContentBox>
+          <div></div>
+          <span>포트폴리오 3분 기적</span>
+        </ContentBox>
+        <ContentBox>
+          <div></div>
+          <span>포트폴리오 3분 기적</span>
+        </ContentBox>
+      </TemplateBox>
+    </Container>
+  );
+}
+
+export function DashboardInfo() {
   const [domain, setDomain] = useState([]);
 
   const getUserInfo = async () => {
