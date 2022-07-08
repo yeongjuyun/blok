@@ -1,6 +1,8 @@
-const express = require("express");
-const User = require("../models/User");
-const router = express.Router();
+import User from "../models/User";
+import { Router } from "express";
+import { s3Uploadv2, upload } from "../controller";
+
+const router = Router();
 
 router.get("/", (req, res) => {
     res.send("User Router");
@@ -11,14 +13,17 @@ router.get("/all", async (req, res) => {
     return res.json(result);
 });
 
-router.post("/adduser", async (req, res) => {
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
+router.post("/adduser", upload.single("file"), async (req, res) => {
+    // S3 이미지 처리 process
+    const profileImg = [];
+    const results = await s3Uploadv2(req.file);
+
+    profileImg.push(results.Location);
+    // S3 이미지 저장 주소
+    await console.log(profileImg);
+    // Mongo DB 저장
     const userdata = new User({
-        name: name,
-        email: email,
-        password: password,
+        profileImg: profileImg,
     });
     await userdata.save();
     res.redirect("/");
