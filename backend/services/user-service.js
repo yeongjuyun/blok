@@ -1,6 +1,9 @@
 import { userModel } from "../db";
 import { generateRandomPassword, sendMail } from "../utils";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class UserService {
   // 본 파일의 맨 아래에서, new UserService(userModel) 하면, 이 함수의 인자로 전달됨
@@ -11,7 +14,7 @@ class UserService {
   // 회원가입
   async addUser(userInfo) {
     // 객체 destructuring
-    const { email, password } = userInfo;
+    const { userName, email, password } = userInfo;
 
     // 이메일 중복 확인
     const user = await this.userModel.findByEmail(email);
@@ -26,7 +29,7 @@ class UserService {
     // 우선 비밀번호 해쉬화(암호화)
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUserInfo = { email, password: hashedPassword };
+    const newUserInfo = { userName, email, password: hashedPassword };
 
     // db에 저장
     const createdNewUser = await this.userModel.create(newUserInfo);
@@ -103,6 +106,15 @@ class UserService {
     return users;
   }
 
+  // 사용자 정보 주는 함수
+  async getUserInfo(userId) {
+    const user = await this.userModel.findByShortId(userId);
+    if (!user) {
+      throw new Error("존재하지 않는 유저입니다.");
+    }
+    return user;
+  }
+
   // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
   async setUser(userInfoRequired, toUpdate) {
     // 객체 destructuring
@@ -147,11 +159,11 @@ class UserService {
     if (!user) {
       throw new Error("해당 메일로 가입된 사용자가 없습니다.");
     }
-    if (user.oauth !== "local-user") {
+    if (user.oauth == true) {
       throw new Error("소셜 로그인 계정은 사용하실 수 없는 계정입니다.");
     }
     // 랜덤 패스워드 생성하기
-    const password = generateRandomPassword();
+    let password = generateRandomPassword();
     password = await bcrypt.hash(password, 10);
     const userId = user.userId;
     await userModel.update(

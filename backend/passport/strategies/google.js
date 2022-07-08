@@ -1,5 +1,8 @@
 import { Strategy } from "passport-google-oauth20";
 import { userService } from "../../services";
+import dotenv from "dotenv";
+
+dotenv.config();
 // 환경변수 설정
 const config = {
   clientID: process.env.GOOGLE_CLIENT_ID,

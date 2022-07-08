@@ -1,6 +1,8 @@
 import { Strategy } from "passport-jwt";
 import { userModel } from "../../db";
+import dotenv from "dotenv";
 
+dotenv.config();
 const cookieExtractor = (req) => {
   // req 의 cookies 에서 jwttoken 사용하기
   // return req.signedCookies.jwttoken

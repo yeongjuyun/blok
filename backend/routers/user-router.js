@@ -50,10 +50,12 @@ userRouter.post("/register", async (req, res, next) => {
     }
 
     // req (request)의 body 에서 데이터 가져오기
+    const userName = req.body.userName;
     const email = req.body.email;
     const password = req.body.password;
     // 위 데이터를 유저 db에 추가하기
     const newUser = await userService.addUser({
+      userName,
       email,
       password,
     });
@@ -89,10 +91,10 @@ userRouter.post(
 // post '/api/reset-password'
 // 비밀번호 초기화 api
 // 테스트 아직 안해봤음.
-userRouter.post("/reset-password", async (req, res) => {
+userRouter.post("/reset-password", async (req, res, next) => {
   try {
     const { email } = req.body;
-    await userService.resetPassword(email);
+    await userService.passwordReset(email);
     // res.redirect 필요할 것 같음. 프론트와 상의
     res.json({ message: "비밀번호가 초기화 되었습니다!", status: 200 });
   } catch (error) {
@@ -158,14 +160,12 @@ userRouter.get(
 // jwttoken을 통해(쿠키로 전달되기 때문에 클라이언트에선 변수 없이 호출)
 userRouter.get("/logincheck", loginRequired, (req, res) => {
   return res.status(200).json({
-    user: {
-      userId: user.userId,
-      email: user.email,
-      userName: user.userName,
-      role: user.role,
-      oauth: user.oauth,
-      passwordReset: user.passwordReset,
-    },
+    userId: req.user.userId,
+    email: req.user.email,
+    userName: req.user.userName,
+    role: req.user.role,
+    oauth: req.user.oauth,
+    passwordReset: req.user.passwordReset,
   });
 });
 // get '/api/logout'
@@ -173,7 +173,7 @@ userRouter.get("/logincheck", loginRequired, (req, res) => {
 userRouter.get("/logout", async function (req, res, next) {
   //쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
   try {
-    res.status(200).clearCookie("jwttoken");
+    res.status(200).clearCookie("jwttoken").redirect("/");
   } catch (error) {
     next(error);
   }
@@ -198,7 +198,8 @@ userRouter.get("/logout", async function (req, res, next) {
 userRouter.get("/users/:userId", loginRequired, async function (req, res) {
   try {
     const userId = req.params.userId;
-    const user = await userService.getUsers(userId);
+    const user = await userService.getUserInfo(userId);
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }
