@@ -60,10 +60,12 @@ const TemplateBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
+  border-radius: 30px;
 
   div {
     width: 240px;
-    height: 200px;
+    height: 170px;
     background-color: #d9d9d9;
     text-align: center;
     margin: 0 40px 10px 0;

@@ -31,13 +31,13 @@ export default function Menu() {
   return (
     <MenuContainer>
       <List>
-        <Link to="/">
+        <Link to="/account">
           <FaUserAlt />
           <span>Account</span>
         </Link>
       </List>
       <List>
-        <Link to="/">
+        <Link to="/dashboard">
           <MdOutlineSpaceDashboard />
           <span>Dashboard</span>
         </Link>

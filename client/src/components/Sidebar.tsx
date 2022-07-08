@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logoImg from "./../imgs/logo.png";
-import Menu from "./Menu";
+import Menu from "./MenuModal";
 
 // import icon
 import { GrMenu } from "react-icons/gr";
