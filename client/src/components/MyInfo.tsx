@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 
 const MainContainer = styled.div`
-  padding: 100px;
+  margin: 100px;
 `;
 
 const Container = styled.div`
@@ -12,14 +12,14 @@ const Container = styled.div`
 
 export const MainTitle = styled.div`
   font-weight: 600;
-  font-size: 32px;
+  font-size: 2rem;
   text-align: center;
   margin-bottom: 70px;
 `;
 
 const Title = styled.div`
   font-weight: 600;
-  font-size: 24px;
+  font-size: 1.5rem;
   margin-bottom: 32px;
 `;
 
@@ -35,19 +35,20 @@ const ContentContainer = styled.div`
 
 const ContentDiv = styled.div`
   display: flex;
+  width: 16rem;
 `;
 
 const ContentTitle = styled.div`
-  font-size: 18px;
+  font-size: 1.125em;
   font-weight: 500;
-  width: 100px;
+  width: 6.25em;
   text-align: center;
   margin-right: 43px;
 `;
 
 const Content = styled.div`
-  font-size: 18px;
-  width: 300px;
+  font-size: 1.125em;
+  width: 18.75em;
   height: 1.5rem;
   background-color: #fff;
   border-bottom: 1px solid #e5e5e5;
@@ -58,8 +59,8 @@ const ResetButton = styled.button`
   border-radius: 30px;
   background-color: #ffffff;
   color: black;
-  width: 212px;
-  height: 48px;
+  width: 13.25em;
+  height: 3rem;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -71,9 +72,9 @@ const DeleteButton = styled.button`
   border-radius: 30px;
   background-color: #9747ff;
   color: #ffffff;
-  width: 212px;
-  height: 48px;
-  font-size: 16px;
+  width: 13.25em;
+  height: 3em;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
 `;
