@@ -12,13 +12,14 @@ const MenuContainer = styled.div`
   border-radius: 30px;
   border: 1px solid black;
 
-  position: absolute;
+  position: fixed;
   bottom: 54px;
   left: 58px;
 
   @media screen and (max-width: 780px) {
     top: 54px;
     right: 0;
+    left: auto;
   }
 `;
 

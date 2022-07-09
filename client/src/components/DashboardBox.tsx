@@ -100,10 +100,7 @@ export function templateList() {
 
 export function DashboardInfo() {
   const [domain, setDomain] = useState([]);
-  const [modal, setModal] = useState(false);
-
   const dispatch = useDispatch();
-  const modalState = useSelector((state: any) => state.modalReducer.isModal);
 
   const getUserInfo = async () => {
     axios.get("/user").then((res): void => {
@@ -117,7 +114,6 @@ export function DashboardInfo() {
   }, []);
 
   const showModalHandler = () => {
-    setModal(!modal);
     dispatch({ type: "MODAL_ON" });
   };
 
@@ -151,7 +147,6 @@ export function DashboardInfo() {
       <Button className={"new"} onClick={showModalHandler}>
         New
       </Button>
-      {modalState && <TemplateModal />}
     </Container>
   );
 }

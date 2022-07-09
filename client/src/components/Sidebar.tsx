@@ -10,7 +10,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 
 const Nav = styled.nav`
   width: 72px;
-  height: 100%;
+  height: 100vh;
   background-color: #ffffff;
   border: 1px solid #cccccc;
   position: fixed;
@@ -19,7 +19,7 @@ const Nav = styled.nav`
   display: flex;
 
   @media screen and (max-width: 780px) {
-    width: 100%;
+    width: 100vw;
     height: 52px;
     justify-content: space-between;
     align-items: center;

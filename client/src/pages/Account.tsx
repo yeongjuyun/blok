@@ -7,6 +7,11 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   min-height: 100vh;
+
+  @media screen and (max-width: 780px) {
+    position: fiexed;
+    top: 72;
+  }
 `;
 
 export default function Account() {
