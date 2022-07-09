@@ -20,6 +20,7 @@ const local = new Strategy(config, async (email, password, done) => {
       password,
       correctPasswordHash
     );
+    // 비밀번호가 일치하지 않는 경우 예외처리
     if (!isPasswordCorrect) {
       throw new Error(
         "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요."

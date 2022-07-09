@@ -94,7 +94,9 @@ class UserService {
       userName,
       email,
       profileImage,
+      // 비밀번호는 어쩌피 사용되지 않기 때문에 일단 고정값으로 설정
       password: "OAUTH",
+      // oauth 계정은 모두 true로 설정
       oauth: true,
     });
 
@@ -166,18 +168,22 @@ class UserService {
     let password = generateRandomPassword();
     password = await bcrypt.hash(password, 10);
     const userId = user.userId;
+    // userId로 유저를 찾고, 비밀번호를 바꾼다.
     await userModel.update(
       { userId },
       {
         // hashPassword 로 업데이트 하기
         password,
+        // 이 경우 비밀번호 변경을 강제하는 로직을 위해 passwordReset을 true로 설정
         passwordReset: true,
       }
     );
     // 패스워드 발송하기
     await sendMail(
       email,
-      "[블록]비밀번호가 변경되었습니다.",
+      // 제목
+      "[블록] 비밀번호가 변경되었습니다.",
+      // 내용
       `변경된 비밀번호는 ${password} 입니다.`
     );
   }
