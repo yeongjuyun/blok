@@ -30,8 +30,6 @@ function loginRequired(req, res, next) {
           reason: "정상적인 토큰이 아닙니다.",
         });
       }
-      // req.user = user;
-      console.log("loginrequired");
       next();
     }
   )(req, res, next);

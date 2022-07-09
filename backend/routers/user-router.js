@@ -61,9 +61,7 @@ userRouter.post("/register", async (req, res, next) => {
     });
     // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
     // 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
-    console.log(1);
     return res.status(201).json(newUser);
-    console.log(1);
   } catch (error) {
     next(error);
   }
@@ -185,7 +183,10 @@ userRouter.get("/logincheck", loginRequired, (req, res) => {
 userRouter.get("/logout", async function (req, res, next) {
   //쿠키에 있는 jwt 토큰이 들어 있는 쿠키를 비워줌
   try {
-    res.status(200).clearCookie("jwttoken");
+    return res
+      .status(200)
+      .clearCookie("jwttoken")
+      .json({ message: "로그아웃에 성공했습니다!", status: 200 });
   } catch (error) {
     next(error);
   }
@@ -207,15 +208,19 @@ userRouter.get("/logout", async function (req, res, next) {
 
 // get '/api/users/:userId'
 // 유저 정보 전달 api
-userRouter.get("/users/:userId", loginRequired, async function (req, res) {
-  try {
-    const userId = req.params.userId;
-    const user = await userService.getUserInfo(userId);
-    res.status(200).json(user);
-  } catch (error) {
-    next(error);
+userRouter.get(
+  "/users/:userId",
+  loginRequired,
+  async function (req, res, next) {
+    try {
+      const userId = req.params.userId;
+      const user = await userService.getUserInfo(userId);
+      res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 // patch '/api/users/"userId'
 // 사용자 비밀번호 수정

@@ -4,8 +4,8 @@ import passport from "passport";
 const getUserFromJWT = (req, res, next) => {
   if (!req.cookies.jwttoken) {
     next();
+    return;
   }
-  console.log("getuserfromjwt");
   return passport.authenticate("jwt", { session: false })(req, res, next);
 };
 
