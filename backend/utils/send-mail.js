@@ -20,7 +20,6 @@ const sendMail = (to, subject, text) =>
       subject,
       text,
     };
-
     transport.sendMail(message, (err, info) => {
       if (err) {
         reject(err);

@@ -156,28 +156,20 @@ class UserService {
   }
   // 비밀번호 초기화 로직
   // 테스트 필요함. 안해봤음.
-  async passwordReset(email) {
+  async passwordReset(userName, email) {
     const user = await userModel.findByEmail(email);
     if (!user) {
       throw new Error("해당 메일로 가입된 사용자가 없습니다.");
+    }
+    if (user.userName !== userName) {
+      throw new Error("입력하신 정보와 일치하는 사용자가 없습니다.");
     }
     if (user.oauth == true) {
       throw new Error("소셜 로그인 계정은 사용하실 수 없는 계정입니다.");
     }
     // 랜덤 패스워드 생성하기
     let password = generateRandomPassword();
-    password = await bcrypt.hash(password, 10);
-    const userId = user.userId;
-    // userId로 유저를 찾고, 비밀번호를 바꾼다.
-    await userModel.update(
-      { userId },
-      {
-        // hashPassword 로 업데이트 하기
-        password,
-        // 이 경우 비밀번호 변경을 강제하는 로직을 위해 passwordReset을 true로 설정
-        passwordReset: true,
-      }
-    );
+
     // 패스워드 발송하기
     await sendMail(
       email,
@@ -186,6 +178,15 @@ class UserService {
       // 내용
       `변경된 비밀번호는 ${password} 입니다.`
     );
+    password = await bcrypt.hash(password, 10);
+    const userId = user.userId;
+    // userId로 유저를 찾고, 비밀번호를 바꾼다.
+    const updatedUser = await userModel.update(userId, {
+      // hashPassword 로 업데이트 하기
+      password,
+      // 이 경우 비밀번호 변경을 강제하는 로직을 위해 passwordReset을 true로 설정
+      passwordReset: true,
+    });
   }
   // 회원 삭제 구현, 추후 수정예정
   async deleteUser(userId) {

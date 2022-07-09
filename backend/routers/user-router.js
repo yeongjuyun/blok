@@ -92,7 +92,6 @@ userRouter.post(
 
 // post '/api/reset-password'
 // 비밀번호 초기화 api
-// 테스트 아직 안해봤음.
 userRouter.post("/reset-password", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
@@ -101,8 +100,8 @@ userRouter.post("/reset-password", async (req, res, next) => {
       );
     }
     // 이메일로 랜덤으로 생성된 문자열을 해싱하여 이메일로 보내준다.
-    const { email } = req.body;
-    await userService.passwordReset(email);
+    const { userName, email } = req.body;
+    await userService.passwordReset(userName, email);
     res
       .status(201)
       .json({ message: "비밀번호가 초기화 되었습니다!", status: 201 });
