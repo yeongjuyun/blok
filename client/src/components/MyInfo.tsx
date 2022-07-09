@@ -23,6 +23,16 @@ const Title = styled.div`
   margin-bottom: 32px;
 `;
 
+const ContentContainer = styled.div`
+  background-color: #fff;
+  padding: 1.6rem;
+  border-radius: 10px;
+
+  .content {
+    margin-bottom: 20px;
+  }
+`;
+
 const ContentDiv = styled.div`
   display: flex;
 `;
@@ -37,10 +47,10 @@ const ContentTitle = styled.div`
 
 const Content = styled.div`
   font-size: 18px;
-  margin-bottom: 24px;
   width: 300px;
   height: 1.5rem;
   background-color: #fff;
+  border-bottom: 1px solid #e5e5e5;
 `;
 
 const ResetButton = styled.button`
@@ -91,18 +101,20 @@ export default function MyInfo() {
       <MainTitle>Account</MainTitle>
       <Container>
         <Title>My Infomation</Title>
-        <ContentDiv>
-          <ContentTitle>Name</ContentTitle>
-          <Content>{name}</Content>
-        </ContentDiv>
-        <ContentDiv>
-          <ContentTitle>Email</ContentTitle>
-          <Content>{email}</Content>
-        </ContentDiv>
-        <ContentDiv>
-          <ContentTitle>Plan</ContentTitle>
-          <Content>{plan}</Content>
-        </ContentDiv>
+        <ContentContainer>
+          <ContentDiv className="content">
+            <ContentTitle>Name</ContentTitle>
+            <Content>{name}</Content>
+          </ContentDiv>
+          <ContentDiv className="content">
+            <ContentTitle>Email</ContentTitle>
+            <Content>{email}</Content>
+          </ContentDiv>
+          <ContentDiv>
+            <ContentTitle>Plan</ContentTitle>
+            <Content>{plan}</Content>
+          </ContentDiv>
+        </ContentContainer>
       </Container>
       <Container>
         <Title>Manage Account</Title>
