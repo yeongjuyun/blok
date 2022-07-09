@@ -1,17 +1,16 @@
 import styled from "styled-components";
 import * as DashboardBox from "../components/DashboardBox";
 import Sidebar from "../components/Sidebar";
-import { MainTitle } from "../components/MyInfo";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import TemplateModal from "../components/TemplateModal";
 
 const Container = styled.div`
-  background-color: #f7f7f9;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #f7f7f9;
 `;
 
 export default function Dashboard() {
@@ -20,9 +19,8 @@ export default function Dashboard() {
   return (
     <Container>
       <Sidebar />
-      <MainTitle>Dashboard</MainTitle>
       <DashboardBox.DashboardInfo></DashboardBox.DashboardInfo>
-      <DashboardBox.templateList></DashboardBox.templateList>
+      <DashboardBox.TemplateList></DashboardBox.TemplateList>
       {modalState && <TemplateModal />}
     </Container>
   );

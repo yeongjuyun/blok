@@ -39,7 +39,7 @@ const ContentDiv = styled.div`
 `;
 
 const ContentTitle = styled.div`
-  font-size: 1.125em;
+  font-size: 1.125rem;
   font-weight: 500;
   width: 6.25em;
   text-align: center;
@@ -47,8 +47,8 @@ const ContentTitle = styled.div`
 `;
 
 const Content = styled.div`
-  font-size: 1.125em;
-  width: 18.75em;
+  font-size: 1.125rem;
+  width: 18.75rem;
   height: 1.5rem;
   background-color: #fff;
   border-bottom: 1px solid #e5e5e5;
@@ -59,7 +59,7 @@ const ResetButton = styled.button`
   border-radius: 30px;
   background-color: #ffffff;
   color: black;
-  width: 13.25em;
+  width: 13.25rem;
   height: 3rem;
   font-size: 16px;
   font-weight: 600;
@@ -72,8 +72,8 @@ const DeleteButton = styled.button`
   border-radius: 30px;
   background-color: #9747ff;
   color: #ffffff;
-  width: 13.25em;
-  height: 3em;
+  width: 13.25rem;
+  height: 3rem;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;

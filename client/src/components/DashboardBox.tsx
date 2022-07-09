@@ -1,24 +1,34 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import TemplateModal from "./TemplateModal";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { MainTitle } from "./MyInfo";
 
 const Container = styled.div`
-  width: 1000px;
+  margin-bottom: 10px;
 
-  .new {
+  .newButton {
     background-color: #9747ff;
     color: #ffffff;
     float: right;
     margin-top: 22px;
   }
+
+  @media screen and (max-width: 780px) {
+    .newButton {
+      width: 100%;
+      margin-right: 0;
+    }
+    .title {
+      margin-top: 102px;
+    }
+  }
 `;
 
 const Table = styled.table`
-  width: 1000px;
   border-bottom: 1px solid #e5e5e5;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 5rem 0;
 
   th {
     padding: 10px;
@@ -31,9 +41,13 @@ const Table = styled.table`
     text-align: center;
   }
 
-  .delete {
+  .deleteButton {
     background-color: #e0e0ed;
     color: #ffffff;
+  }
+
+  @media screen and (max-width: 780px) {
+    border-spacing: 0;
   }
 `;
 
@@ -42,56 +56,58 @@ const Button = styled.button`
   border-radius: 30px;
   background-color: #ffffff;
   color: black;
-  width: 90px;
-  height: 39px;
-  font-size: 13px;
+  width: 5.25rem;
+  height: 2.2375rem;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
-  margin-right: 20px;
-`;
-
-const Title = styled.div`
-  font-weight: 500;
-  font-size: 26px;
-  margin-bottom: 32px;
+  margin-right: 10px;
+  margin-bottom: 0.25rem;
 `;
 
 const TemplateBox = styled.div`
-  width: 950px;
-  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
-  border-radius: 30px;
 
   div {
-    width: 240px;
-    height: 170px;
+    width: 15rem;
+    height: 10.625rem;
     background-color: #d9d9d9;
     text-align: center;
     margin: 0 40px 10px 0;
+  }
+
+  @media screen and (max-width: 780px) {
+    flex-direction: column;
+
+    div {
+      width: 20rem;
+    }
   }
 `;
 
 const ContentBox = styled.div``;
 
-export function templateList() {
+export function TemplateList() {
   return (
     <Container>
-      <Title>Template</Title>
+      <MainTitle className="title">Template</MainTitle>
       <TemplateBox>
         <ContentBox>
-          <div></div>
-          <span>포트폴리오 3분 기적</span>
+          <div>
+            <span>포트폴리오 3분 기적</span>
+          </div>
         </ContentBox>
         <ContentBox>
-          <div></div>
-          <span>포트폴리오 3분 기적</span>
+          <div>
+            <span>포트폴리오 3분 기적</span>
+          </div>
         </ContentBox>
         <ContentBox>
-          <div></div>
-          <span>포트폴리오 3분 기적</span>
+          <div>
+            <span>포트폴리오 3분 기적</span>
+          </div>
         </ContentBox>
       </TemplateBox>
     </Container>
@@ -119,6 +135,7 @@ export function DashboardInfo() {
 
   return (
     <Container>
+      <MainTitle className="title">Dashboard</MainTitle>
       <Table>
         <thead>
           <tr>
@@ -137,14 +154,14 @@ export function DashboardInfo() {
               </td>
               <td>Free</td>
               <td>
-                <Button className={"edit"}>Edit</Button>
-                <Button className={"delete"}>Delete</Button>
+                <Button className={"editButton"}>Edit</Button>
+                <Button className={"deleteButton"}>Delete</Button>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      <Button className={"new"} onClick={showModalHandler}>
+      <Button className={"newButton"} onClick={showModalHandler}>
         New
       </Button>
     </Container>
