@@ -1,6 +1,5 @@
-import LoginBox from '../components/Login/Loginbox';
 import styled from 'styled-components';
-
+import FindPasswordbox from '../components/Login/FindPasswordbox';
 export const Container = styled.div`
   background-color: #f7f7f9;
   border-radius: 10px;
@@ -14,11 +13,12 @@ export const Container = styled.div`
   height: 1080px;
 `;
 
-export default Login;
-function Login() {
+function FindPassword() {
   return (
     <Container>
-      <LoginBox></LoginBox>
+      <FindPasswordbox></FindPasswordbox>
     </Container>
   );
 }
+
+export default FindPassword;

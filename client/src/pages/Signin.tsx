@@ -1,6 +1,5 @@
-import LoginBox from '../components/Login/Loginbox';
 import styled from 'styled-components';
-
+import Signinbox from '../components/Login/Signinbox';
 export const Container = styled.div`
   background-color: #f7f7f9;
   border-radius: 10px;
@@ -14,11 +13,12 @@ export const Container = styled.div`
   height: 1080px;
 `;
 
-export default Login;
-function Login() {
+function Signin() {
   return (
     <Container>
-      <LoginBox></LoginBox>
+      <Signinbox></Signinbox>
     </Container>
   );
 }
+
+export default Signin;

@@ -1,4 +1,3 @@
-import LoginBox from '../components/Login/Loginbox';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -13,12 +12,7 @@ export const Container = styled.div`
   width: 1920px;
   height: 1080px;
 `;
-
-export default Login;
-function Login() {
-  return (
-    <Container>
-      <LoginBox></LoginBox>
-    </Container>
-  );
+export default Logout;
+function Logout() {
+  return <Container>logout</Container>;
 }
