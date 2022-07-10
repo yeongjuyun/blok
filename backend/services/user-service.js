@@ -148,10 +148,7 @@ class UserService {
       toUpdate.password = newPasswordHash;
     }
     // 업데이트 진행
-    user = await this.userModel.update({
-      userId,
-      update: toUpdate,
-    });
+    user = await this.userModel.update(userId, toUpdate);
     return user;
   }
   // 비밀번호 초기화 로직
@@ -165,7 +162,7 @@ class UserService {
       throw new Error("입력하신 정보와 일치하는 사용자가 없습니다.");
     }
     if (user.oauth == true) {
-      throw new Error("소셜 로그인 계정은 사용하실 수 없는 계정입니다.");
+      throw new Error("소셜 로그인 계정은 사용하실 수 없는 기능입니다.");
     }
     // 랜덤 패스워드 생성하기
     let password = generateRandomPassword();

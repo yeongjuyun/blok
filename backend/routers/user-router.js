@@ -125,7 +125,7 @@ userRouter.delete(
         throw new Error("본인의 계정만 삭제할 수 있습니다.");
       }
       const deletedUserInfo = await userService.deleteUser(userId);
-      res.status(204).json(deletedUserInfo);
+      res.status(204).clearCookie("jwttoken").json(deletedUserInfo);
     } catch (error) {
       next(error);
     }
