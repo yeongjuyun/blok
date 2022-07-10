@@ -130,7 +130,17 @@ export function DashboardInfo() {
   }, []);
 
   const showModalHandler = () => {
-    dispatch({ type: "MODAL_ON" });
+    dispatch({ type: "TEMPLATE/MODAL_ON" });
+  };
+
+  const deleteHandler = () => {
+    dispatch({
+      type: "ALERT/MODAL_ON",
+      payload: {
+        title: "삭제",
+        msg: "정말 삭제하시겠습니까?",
+      },
+    });
   };
 
   return (
@@ -155,7 +165,9 @@ export function DashboardInfo() {
               <td>Free</td>
               <td>
                 <Button className={"editButton"}>Edit</Button>
-                <Button className={"deleteButton"}>Delete</Button>
+                <Button className={"deleteButton"} onClick={deleteHandler}>
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}

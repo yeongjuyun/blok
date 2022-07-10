@@ -13,6 +13,7 @@ const ModalContainer = styled.div`
   padding: 3rem;
   box-sizing: border-box;
   overflow: auto;
+  transition: 0.2s ease-out;
 
   .closeButton {
     position: fixed;
@@ -59,7 +60,7 @@ export default function TemplateModal() {
   const dispatch = useDispatch();
 
   const closeModalHandler = () => {
-    dispatch({ type: "MODAL_OFF" });
+    dispatch({ type: "TEMPLATE/MODAL_OFF" });
   };
   return (
     <ModalContainer>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 const MainContainer = styled.div`
   margin: 100px;
@@ -83,6 +84,7 @@ export default function MyInfo() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [plan, setPlan] = useState<string>("");
+  const dispatch = useDispatch();
 
   const getUserInfo = async () => {
     axios.get("/user").then((res): void => {
@@ -96,6 +98,26 @@ export default function MyInfo() {
   useEffect(() => {
     getUserInfo();
   }, []);
+
+  const resetHandler = () => {
+    dispatch({
+      type: "ALERT/MODAL_ON",
+      payload: {
+        title: "비밀번호 초기화",
+        msg: "정말 초기화하시겠습니까?",
+      },
+    });
+  };
+
+  const deleteHandler = () => {
+    dispatch({
+      type: "ALERT/MODAL_ON",
+      payload: {
+        title: "계정탈퇴",
+        msg: "정말 탈퇴하시겠습니까?",
+      },
+    });
+  };
 
   return (
     <MainContainer>
@@ -119,8 +141,8 @@ export default function MyInfo() {
       </Container>
       <Container>
         <Title>Manage Account</Title>
-        <ResetButton>Reset Password</ResetButton>
-        <DeleteButton>Delete Account</DeleteButton>
+        <ResetButton onClick={resetHandler}>Reset Password</ResetButton>
+        <DeleteButton onClick={deleteHandler}>Delete Account</DeleteButton>
       </Container>
     </MainContainer>
   );

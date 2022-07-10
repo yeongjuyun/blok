@@ -3,6 +3,7 @@ import * as DashboardBox from "../components/DashboardBox";
 import Sidebar from "../components/Sidebar";
 import { useSelector } from "react-redux";
 import TemplateModal from "../components/TemplateModal";
+import AlertModal from "../components/AlertModal";
 
 const Container = styled.div`
   display: flex;
@@ -14,14 +15,21 @@ const Container = styled.div`
 `;
 
 export default function Dashboard() {
-  const modalState = useSelector((state: any) => state.modalReducer.isModal);
+  const templateModalState = useSelector(
+    (state: any) => state.modalReducer.isTemplateModal
+  );
+  const alertModalState = useSelector(
+    (state: any) => state.modalReducer.isAlertModal
+  );
+  const alertData = useSelector((state: any) => state.modalReducer.alertData);
 
   return (
     <Container>
       <Sidebar />
       <DashboardBox.DashboardInfo></DashboardBox.DashboardInfo>
       <DashboardBox.TemplateList></DashboardBox.TemplateList>
-      {modalState && <TemplateModal />}
+      {templateModalState && <TemplateModal />}
+      {alertModalState && <AlertModal alertData={alertData} />}
     </Container>
   );
 }
