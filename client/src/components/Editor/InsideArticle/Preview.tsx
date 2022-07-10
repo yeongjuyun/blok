@@ -10,8 +10,5 @@ const Container = styled.div`
 
 export default Preview;
 function Preview() {
-  return (
-    <Container>
-    </Container>
-  );
+  return <Container></Container>;
 }

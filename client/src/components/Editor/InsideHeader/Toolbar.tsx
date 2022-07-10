@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const unclicked = "#999999";
-const clicked = '#000000';
+const clicked = "#000000";
 
 const Container = styled.div`
   width: 500px;
@@ -29,7 +29,7 @@ export default Toolbar;
 function Toolbar() {
   const dispatch = useDispatch();
   const now = useSelector((state: any) => state.toolReducer);
-  const tools = ['Block', 'Appearance', 'Setting'];
+  const tools = ["Block", "Appearance", "Setting"];
 
   useEffect(() => {
     for (let i = 0; i < tools.length; i++) {
@@ -46,9 +46,15 @@ function Toolbar() {
 
   return (
     <Container>
-      <Item id={tools[0]} onClick={() => dispatch({type: tools[0]})}>{tools[0]}</Item>
-      <Item id={tools[1]} onClick={() => dispatch({type: tools[1]})}>{tools[1]}</Item>
-      <Item id={tools[2]} onClick={() => dispatch({type: tools[2]})}>{tools[2]}</Item>
+      <Item id={tools[0]} onClick={() => dispatch({ type: tools[0] })}>
+        {tools[0]}
+      </Item>
+      <Item id={tools[1]} onClick={() => dispatch({ type: tools[1] })}>
+        {tools[1]}
+      </Item>
+      <Item id={tools[2]} onClick={() => dispatch({ type: tools[2] })}>
+        {tools[2]}
+      </Item>
     </Container>
   );
 }

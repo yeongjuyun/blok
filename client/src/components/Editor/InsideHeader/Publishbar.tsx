@@ -6,7 +6,7 @@ import Alert from "../../Alert";
 const domain = "domain/name";
 
 const Container = styled.div`
-  padding: 0 20px;
+  padding: 0 30px;
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
@@ -63,9 +63,9 @@ function PublishBar() {
   const [copy, setCopy] = useState(false);
 
   useEffect(() => {
-      copyHandler();
+    copyHandler();
   }, [copy]);
-  
+
   async function copyHandler() {
     try {
       await navigator.clipboard.writeText(domain);
@@ -82,10 +82,10 @@ function PublishBar() {
       <LeftSideContainer>
         <MyPage>My Page:</MyPage>
         <Domain href={domain}>{domain}</Domain>
-        <CopyButton onClick={() => setCopy(true)}>Copy</CopyButton>
+        <CopyButton onClick={() => setCopy(true)}>복사</CopyButton>
         {copy == true && <Alert msg="클립보드에 복사되었습니다." />}
       </LeftSideContainer>
-      <SaveButton>Save</SaveButton>
+      <SaveButton>저장하기</SaveButton>
     </Container>
   );
 }
