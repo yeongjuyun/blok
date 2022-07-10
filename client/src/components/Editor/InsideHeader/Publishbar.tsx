@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Alert from "../../Alert";
 
 // 나중에 수정
 const domain = "domain/name";
+let msg = "";
 
 const Container = styled.div`
   padding: 0 30px;
@@ -58,23 +59,19 @@ const SaveButton = styled.button`
   }
 `;
 
-export default PublishBar;
-function PublishBar() {
-  const [copy, setCopy] = useState(false);
-
-  useEffect(() => {
-    copyHandler();
-  }, [copy]);
+export default function PublishBar() {
+  const alert = useSelector((state: any) => state.alertReducer);
+  const dispatch = useDispatch();
 
   async function copyHandler() {
     try {
       await navigator.clipboard.writeText(domain);
-      setTimeout(() => {
-        setCopy(false);
-      }, 600);
+      msg = "클립보드에 복사되었습니다.";
     } catch (err) {
-      alert("잠시 후 시도해주세요.");
+      console.log(err);
+      msg = "잠시 후 시도해주세요.";
     }
+    dispatch({ type: "on" });
   }
 
   return (
@@ -82,8 +79,8 @@ function PublishBar() {
       <LeftSideContainer>
         <MyPage>My Page:</MyPage>
         <Domain href={domain}>{domain}</Domain>
-        <CopyButton onClick={() => setCopy(true)}>복사</CopyButton>
-        {copy == true && <Alert msg="클립보드에 복사되었습니다." />}
+        <CopyButton onClick={copyHandler}>복사</CopyButton>
+        {alert && <Alert msg={msg} />}
       </LeftSideContainer>
       <SaveButton>저장하기</SaveButton>
     </Container>

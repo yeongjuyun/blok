@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 const Background = styled.div`
@@ -32,21 +32,15 @@ type MyProps = {
 };
 
 export default function Alert({ msg }: MyProps) {
-  const [alert, SetAlert] = useState(true);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    setTimeout(() => {
-      SetAlert(false);
-    }, 600);
-  }, [alert]);
+  setTimeout(() => {
+    dispatch({ type: "off" });
+  }, 600);
 
   return (
-    <>
-      {alert === true ? (
-        <Background>
-          <AlertBox id="alert">{msg}</AlertBox>
-        </Background>
-      ) : null}
-    </>
+    <Background>
+      <AlertBox id="alert">{msg}</AlertBox>
+    </Background>
   );
 }
