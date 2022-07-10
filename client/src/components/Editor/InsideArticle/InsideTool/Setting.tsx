@@ -7,8 +7,7 @@ const Container = styled.div`
     align-items: flex-start;
 `;
 
-export default EditArticle;
-function EditArticle() {
+export default function Setting() {
     return <Container>
     </Container>
 }

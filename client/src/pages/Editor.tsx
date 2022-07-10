@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
-import Header from "../components/Editor-new/Header";
-import Article from "../components/Editor-new/Article";
+import Header from "../components/Editor/Header";
+import Article from "../components/Editor/Article";
 
 const Container = styled.div`
   background-color: #f7f7f9;

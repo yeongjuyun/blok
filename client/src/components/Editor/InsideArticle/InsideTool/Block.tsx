@@ -23,8 +23,7 @@ const NewBlockButton = styled.button`
     }
 `;
 
-export default EditArticle;
-function EditArticle() {
+export default function Block() {
     return <Container>
             <NewBlockButton>Add New Block</NewBlockButton>
     </Container>

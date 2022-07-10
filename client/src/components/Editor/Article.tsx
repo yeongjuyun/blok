@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Setting from "./InsideArticle/Tool";
+import ToolArticle from "./InsideArticle/ToolArticle";
 import Preview from "./InsideArticle/Preview";
 
 const Container = styled.div`
@@ -14,7 +14,7 @@ export default Article;
 function Article() {
   return (
     <Container>
-      <Setting />
+      <ToolArticle />
       <Preview />
     </Container>
   );
