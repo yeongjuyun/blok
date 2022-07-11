@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
-import Header from "../components/Editor/Header";
-import Article from "../components/Editor/Article";
+import Sidetab from "../components/Editor/Sidetab";
+import EditorSection from "../components/Editor/EditorSection";
 
 const Container = styled.div`
+  width: 100vw;
+  height: 100vh;
   background-color: #f7f7f9;
   display: flex;
-  flex-wrap: wrap;
 `;
 
 export default Editor;
@@ -14,8 +15,8 @@ function Editor() {
   return (
     <Container>
       <Sidebar />
-      <Header />
-      <Article />
+      <Sidetab />
+      <EditorSection />
     </Container>
   );
 }

@@ -6,16 +6,23 @@ const unclicked = "#999999";
 const clicked = "#000000";
 
 const Container = styled.div`
-  width: 500px;
-  margin-left: 74px;
-  border-right: 1px solid #d1d1d1;
-  flex-shrink: 0;
+  width: 560px;
+  height: 60px;
+  background-color: white;
+  position: fixed;
+  top: 0px;
   display: flex;
   align-items: center;
 `;
 
-const Item = styled.div`
-  width: 33.3%;
+export default function SidetabHeader() {
+  const dispatch = useDispatch();
+  const now = useSelector((state: any) => state.toolReducer);
+  const tools = ["Block", "Appearance", "Setting"];
+  const itemWidth = 100 / tools.length;
+
+  const Item = styled.div`
+  width: ${itemWidth}%;
   text-align: center;
   font-weight: 650;
   color: ${unclicked};
@@ -24,12 +31,6 @@ const Item = styled.div`
     cursor: pointer;
   }
 `;
-
-export default Toolbar;
-function Toolbar() {
-  const dispatch = useDispatch();
-  const now = useSelector((state: any) => state.toolReducer);
-  const tools = ["Block", "Appearance", "Setting"];
 
   useEffect(() => {
     for (let i = 0; i < tools.length; i++) {

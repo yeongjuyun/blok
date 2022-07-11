@@ -1,21 +1,19 @@
 import styled from "styled-components";
-import ToolArticle from "./InsideArticle/ToolArticle";
-import Preview from "./InsideArticle/Preview";
+import EditorHeader from "./EditorSection/EditorHeader";
+import EditorPreivew from "./EditorSection/EditorPreview";
 
 const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
+  flex-grow: 1;
   background-color: #f5f5f8;
   display: flex;
-  margin-top: 60px;
 `;
 
 export default Article;
 function Article() {
   return (
     <Container>
-      <ToolArticle />
-      <Preview />
+      <EditorHeader />
+      <EditorPreivew />
     </Container>
   );
 }

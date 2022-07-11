@@ -1,19 +1,20 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import Block from "./InsideTool/Block";
-import Appearance from "./InsideTool/Appearance";
-import Setting from "./InsideTool/Setting";
+import Block from "./Block";
+import Appearance from "./Appearance";
+import Setting from "./Setting";
 
 const Container = styled.div`
-  width: 500px;
-  margin-left: 74px;
-  border-right: 1px solid #d1d1d1;
-  flex-shrink: 0;
+  width: 560px;
+  background-color: #f5f5f8;
+  position: fixed;
+  top: 80px;
+  top: 100px;
   display: flex;
   justify-content: center;
 `;
 
-export default function ToolArticle() {
+export default function SidetabHeader() {
   const now = useSelector((state: any) => state.toolReducer);
   const tools = ["Block", "Appearance", "Setting"];
 

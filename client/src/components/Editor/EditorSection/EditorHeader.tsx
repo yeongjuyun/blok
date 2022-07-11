@@ -6,16 +6,21 @@ import Alert from "../../Alert";
 const domain = "domain/name";
 let msg = "";
 
+// position: fixed;
+//   top: 0;
 const Container = styled.div`
-  padding: 0 30px;
+  padding: 0 20px;
+  height: 60px;
   flex-grow: 1;
+  position: sticky;
+  top: 0;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
 const DomainContainer = styled.div`
-  width: auto;
   display: flex;
   justify-content: center;
   align-items: center;
