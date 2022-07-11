@@ -14,7 +14,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const LeftSideContainer = styled.div`
+const DomainContainer = styled.div`
   width: auto;
   display: flex;
   justify-content: center;
@@ -76,12 +76,12 @@ export default function PublishBar() {
 
   return (
     <Container>
-      <LeftSideContainer>
+      <DomainContainer>
         <MyPage>My Page:</MyPage>
         <Domain href={domain}>{domain}</Domain>
         <CopyButton onClick={copyHandler}>복사</CopyButton>
         {alert && <Alert msg={msg} />}
-      </LeftSideContainer>
+      </DomainContainer>
       <SaveButton>저장하기</SaveButton>
     </Container>
   );

@@ -34,27 +34,32 @@ function Toolbar() {
   useEffect(() => {
     for (let i = 0; i < tools.length; i++) {
       const target = document.getElementById(tools[i]);
+
       if (target) {
-        target.style.color = unclicked;
+        if (tools[i] === now) {
+          target.style.color = clicked;
+        } else {
+          target.style.color = unclicked;
+        }
       }
-    }
-    const clickedOne = document.getElementById(now);
-    if (clickedOne) {
-      clickedOne.style.color = clicked;
     }
   }, [now]);
 
-  return (
-    <Container>
-      <Item id={tools[0]} onClick={() => dispatch({ type: tools[0] })}>
-        {tools[0]}
-      </Item>
-      <Item id={tools[1]} onClick={() => dispatch({ type: tools[1] })}>
-        {tools[1]}
-      </Item>
-      <Item id={tools[2]} onClick={() => dispatch({ type: tools[2] })}>
-        {tools[2]}
-      </Item>
-    </Container>
-  );
+  function Items() {
+    let items = [];
+    for (let i = 0; i < tools.length; i++) {
+      items.push(
+        <Item
+          key={tools[i]}
+          id={tools[i]}
+          onClick={() => dispatch({ type: tools[i] })}
+        >
+          {tools[i]}
+        </Item>
+      );
+    }
+    return items;
+  }
+
+  return <Container>{Items()}</Container>;
 }

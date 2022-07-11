@@ -9,7 +9,7 @@ export function alertReducer(state = alert, action: any) {
       state = false;
       return state;
     default:
-      state = false;
+      state = alert;
       return state;
   }
 }

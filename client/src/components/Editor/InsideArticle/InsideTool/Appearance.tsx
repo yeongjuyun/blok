@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import ColorComb from "./InsideAppearance/ColorComb";
+import Font from "./InsideAppearance/Font";
+import Theme from "./InsideAppearance/Theme";
 
 const Container = styled.div`
   padding-top: 30px;
@@ -8,5 +11,9 @@ const Container = styled.div`
 `;
 
 export default function Appearance() {
-  return <Container></Container>;
+  return <Container>
+    <ColorComb/>
+    <Font/>
+    <Theme/>
+  </Container>;
 }
