@@ -112,7 +112,7 @@ export default function MyInfo() {
 
   const resetHandler = () => {
     dispatch({
-      type: "ALERT/MODAL_ON",
+      type: "CONFIRM/MODAL_ON",
       payload: {
         title: "비밀번호 초기화",
         msg: "정말 초기화하시겠습니까?",
@@ -122,7 +122,7 @@ export default function MyInfo() {
 
   const deleteHandler = () => {
     dispatch({
-      type: "ALERT/MODAL_ON",
+      type: "CONFIRM/MODAL_ON",
       payload: {
         title: "계정탈퇴",
         msg: "정말 탈퇴하시겠습니까?",

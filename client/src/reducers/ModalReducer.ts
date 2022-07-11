@@ -1,19 +1,19 @@
 type ModalState = {
   isTemplateModal: boolean;
-  isAlertModal: boolean;
-  alertData: string;
+  isConfirmModal: boolean;
+  confirmData: string;
 };
 
 const initialState: ModalState = {
   isTemplateModal: false,
-  isAlertModal: false,
-  alertData: "",
+  isConfirmModal: false,
+  confirmData: "",
 };
 // 액션 타입 정의
 const TEMPLATE_ON = "TEMPLATE/MODAL_ON";
 const TEMPLATE_OFF = "TEMPLATE/MODAL_OFF";
-const ALERT_ON = "ALERT/MODAL_ON";
-const ALERT_OFF = "ALERT/MODAL_OFF";
+const CONFIRM_ON = "CONFIRM/MODAL_ON";
+const CONFIRM_OFF = "CONFIRM/MODAL_OFF";
 
 export const modalReducer = (state = initialState, action: any) => {
   switch (action.type) {
@@ -21,9 +21,9 @@ export const modalReducer = (state = initialState, action: any) => {
       return { ...state, isTemplateModal: true };
     case TEMPLATE_OFF:
       return { ...initialState };
-    case ALERT_ON:
-      return { ...state, isAlertModal: true, alertData: action.payload };
-    case ALERT_OFF:
+    case CONFIRM_ON:
+      return { ...state, isConfirmModal: true, confirmData: action.payload };
+    case CONFIRM_OFF:
       return { ...initialState };
     default:
       return { ...state };

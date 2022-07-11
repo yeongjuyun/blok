@@ -30,7 +30,7 @@ const ModalContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #E5E5E5;
+    border-bottom: 1px solid #e5e5e5;
   }
 
   .alertText {
@@ -77,13 +77,13 @@ const ModalContainer = styled.div`
 `;
 
 interface IMyProps {
-  alertData: any;
+  confirmData: any;
 }
 
 export default function AlertModal(props: IMyProps) {
   const dispatch = useDispatch();
   const closeModalHandler = () => {
-    dispatch({ type: "ALERT/MODAL_OFF" });
+    dispatch({ type: "CONFIRM/MODAL_OFF" });
   };
 
   const conFirmHandler = () => {
@@ -94,12 +94,12 @@ export default function AlertModal(props: IMyProps) {
     <>
       <ModalContainer>
         <div className="alertTop">
-          <div className="alertTitle">{props.alertData.title}</div>
+          <div className="alertTitle">{props.confirmData.title}</div>
           <div className="closeButton" onClick={closeModalHandler}>
             <CgClose size={23} color={"gray"} />
           </div>
         </div>
-        <div className="alertText">{props.alertData.msg}</div>
+        <div className="alertText">{props.confirmData.msg}</div>
         <div className="buttonContainer">
           <button className="cancelButton" onClick={closeModalHandler}>
             취소

@@ -3,7 +3,8 @@ import * as DashboardBox from "../components/DashboardBox";
 import Sidebar from "../components/Sidebar";
 import { useSelector } from "react-redux";
 import TemplateModal from "../components/TemplateModal";
-import AlertModal from "../components/AlertModal";
+import ConfirmModal from "../components/ConfirmModal";
+import Button from "../components/Button";
 
 const Container = styled.div`
   display: flex;
@@ -18,18 +19,23 @@ export default function Dashboard() {
   const templateModalState = useSelector(
     (state: any) => state.modalReducer.isTemplateModal
   );
-  const alertModalState = useSelector(
-    (state: any) => state.modalReducer.isAlertModal
+  const ConfirmModalState = useSelector(
+    (state: any) => state.modalReducer.isConfirmModal
   );
-  const alertData = useSelector((state: any) => state.modalReducer.alertData);
+  const confirmData = useSelector(
+    (state: any) => state.modalReducer.confirmData
+  );
 
   return (
     <Container>
       <Sidebar />
+      <Button color="pink" size="large">
+        하이
+      </Button>
       <DashboardBox.DashboardInfo></DashboardBox.DashboardInfo>
       <DashboardBox.TemplateList></DashboardBox.TemplateList>
       {templateModalState && <TemplateModal />}
-      {alertModalState && <AlertModal alertData={alertData} />}
+      {ConfirmModalState && <ConfirmModal confirmData={confirmData} />}
     </Container>
   );
 }
