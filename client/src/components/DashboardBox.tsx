@@ -3,22 +3,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { MainTitle } from "./MyInfo";
+import Button from "./Button";
+import { TemplateCard } from "./TemplateCard";
 
 const Container = styled.div`
   margin-bottom: 10px;
 
   .newButton {
-    background-color: #9747ff;
-    color: #ffffff;
     float: right;
     margin-top: 22px;
   }
 
   @media screen and (max-width: 780px) {
-    .newButton {
-      width: 100%;
-      margin-right: 0;
-    }
     .title {
       margin-top: 102px;
     }
@@ -28,7 +24,6 @@ const Container = styled.div`
 const Table = styled.table`
   border-bottom: 1px solid #e5e5e5;
   border-collapse: separate;
-  border-spacing: 5rem 0;
 
   th {
     padding: 10px;
@@ -37,78 +32,72 @@ const Table = styled.table`
   }
 
   td {
-    padding: 15px;
+    padding: 1rem 4.8rem;
     text-align: center;
-  }
-
-  .deleteButton {
-    background-color: #e0e0ed;
-    color: #ffffff;
+    transition: 0.2s ease-out;
   }
 
   @media screen and (max-width: 780px) {
-    border-spacing: 0;
-  }
-`;
-
-const Button = styled.button`
-  border: 1px solid #d9d9d9;
-  border-radius: 30px;
-  background-color: #ffffff;
-  color: black;
-  width: 5.25rem;
-  height: 2.2375rem;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  margin-right: 10px;
-  margin-bottom: 0.25rem;
-`;
-
-const TemplateBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  div {
-    width: 15rem;
-    height: 10.625rem;
-    background-color: #d9d9d9;
-    text-align: center;
-    margin: 0 40px 10px 0;
-  }
-
-  @media screen and (max-width: 780px) {
-    flex-direction: column;
-
-    div {
-      width: 20rem;
+    td {
+      padding: 1rem;
     }
   }
 `;
 
-const ContentBox = styled.div``;
+const TemplateBox = styled.div`
+  display: flex;
+  width: 783px;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 780px) {
+    flex-direction: column;
+  }
+`;
+
+const ControlButton = styled(Button)`
+  pointer-events: auto;
+  pointer: cursor;
+
+  @media screen and (max-width: 780px) {
+    margin-right: 0;
+    margin-bottom: 0.3rem;
+    justify-content: center;
+  }
+`;
+
+const AddButton = styled(Button)`
+  float: right;
+  margin-top: 22px;
+
+  @media screen and (max-width: 780px) {
+    width: 100%;
+    margin-right: 0;
+    justify-content: center;
+  }
+`;
 
 export function TemplateList() {
   return (
     <Container>
       <MainTitle className="title">Template</MainTitle>
       <TemplateBox>
-        <ContentBox>
-          <div>
-            <span>포트폴리오 3분 기적</span>
-          </div>
-        </ContentBox>
-        <ContentBox>
-          <div>
-            <span>포트폴리오 3분 기적</span>
-          </div>
-        </ContentBox>
-        <ContentBox>
-          <div>
-            <span>포트폴리오 3분 기적</span>
-          </div>
-        </ContentBox>
+        <TemplateCard
+          title="랜딩페이지"
+          description="회사 웹사이트 템플릿 입니다."
+        />
+        <TemplateCard
+          title="이력서"
+          description="이력서 템플릿 입니다."
+          color1="#2B9D67"
+          color2="#CEF0E2"
+        />
+        <TemplateCard
+          title="기업소개 웹사이트"
+          description="기업소개 템플릿 입니다."
+          color1="#F5E44C"
+          color2="#CEA9D3"
+        />
       </TemplateBox>
     </Container>
   );
@@ -146,36 +135,50 @@ export function DashboardInfo() {
   return (
     <Container>
       <MainTitle className="title">Dashboard</MainTitle>
-      <Table>
-        <thead>
-          <tr>
-            <th>Web Site</th>
-            <th>Plan</th>
-            <th>Manage</th>
-          </tr>
-        </thead>
-        <tbody>
-          {domain.map(({ doname, link }) => (
-            <tr key={doname + link}>
-              <td>
-                {doname}
-                <br />
-                <a href={link}>{link}</a>
-              </td>
-              <td>Free</td>
-              <td>
-                <Button className={"editButton"}>Edit</Button>
-                <Button className={"deleteButton"} onClick={deleteHandler}>
-                  Delete
-                </Button>
-              </td>
+      <div className="tableBox">
+        <Table>
+          <thead>
+            <tr>
+              <th>웹 사이트</th>
+              <th>플랜</th>
+              <th>관리</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-      <Button className={"newButton"} onClick={showModalHandler}>
-        New
-      </Button>
+          </thead>
+          <tbody>
+            {domain.map(({ doname, link }) => (
+              <tr key={doname + link}>
+                <td>
+                  {doname}
+                  <br />
+                  <a href={link}>{link}</a>
+                </td>
+                <td>Free</td>
+                <td>
+                  <ControlButton className={"editButton"} rounding outline>
+                    Edit
+                  </ControlButton>
+                  <ControlButton
+                    className={"deleteButton"}
+                    onClick={deleteHandler}
+                    color="gray"
+                    rounding
+                  >
+                    Delete
+                  </ControlButton>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+      <AddButton
+        className="newButton"
+        onClick={showModalHandler}
+        size="medium"
+        rounding
+      >
+        사이트 추가
+      </AddButton>
     </Container>
   );
 }
