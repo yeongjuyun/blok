@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import Signinbox from '../components/Login/Signinbox';
+import Signinfield from '../components/Login/Signinfield';
+import Logo from '../components/Logo';
+
 export const Container = styled.div`
   background-color: #f7f7f9;
   border-radius: 10px;
@@ -9,14 +11,15 @@ export const Container = styled.div`
   flex-direction: column;
 
   box-sizing: border-box;
-  width: 1920px;
-  height: 1080px;
+  width: 100%;
+  height: 100vh;
 `;
 
 function Signin() {
   return (
     <Container>
-      <Signinbox></Signinbox>
+      <Logo></Logo>
+      <Signinfield></Signinfield>
     </Container>
   );
 }

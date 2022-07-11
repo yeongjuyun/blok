@@ -9,8 +9,8 @@ export const Container = styled.div`
   flex-direction: column;
 
   box-sizing: border-box;
-  width: 1920px;
-  height: 1080px;
+  width: 100%;
+  height: 100vh;
 `;
 export default Logout;
 function Logout() {

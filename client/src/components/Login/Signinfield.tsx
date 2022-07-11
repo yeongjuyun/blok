@@ -3,6 +3,8 @@ import React, { useState, useRef } from 'react';
 // import axios from 'axios';
 import * as LoginForm from './LoginForm';
 import { useNavigate } from 'react-router-dom';
+import * as vaildation from '../../utils/validation';
+import * as imgs from '../../imgs';
 
 const Container = styled.div`
   background-color: #fff;
@@ -17,8 +19,9 @@ const Container = styled.div`
   border: 1px solid black;
 `;
 
-function Signinbox() {
+function Signinfield() {
   const nav = useNavigate();
+  const regEmail = vaildation.regEmail;
   const emailRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -28,10 +31,13 @@ function Signinbox() {
   const [btnError, setbtnError] = useState<boolean>(true);
   const [bchecked, setChecked] = useState<boolean>(false);
   const btnactive =
-    emailError === true || pswError === true || btnError === true;
+    emailError === true ||
+    pswError === true ||
+    btnError === true ||
+    bchecked !== true;
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (
-      emailRef.current!.value.length < 4 &&
+      regEmail.test(emailRef.current!.value) !== true &&
       emailRef.current!.value.length >= 1
     ) {
       setEmailError(true);
@@ -46,7 +52,7 @@ function Signinbox() {
   };
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (
-      passwordRef.current!.value.length < 4 &&
+      passwordRef.current!.value.length < 6 &&
       passwordRef.current!.value.length >= 1
     ) {
       setNameError(true);
@@ -63,7 +69,7 @@ function Signinbox() {
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
     if (
-      passwordRef.current!.value.length < 4 &&
+      passwordRef.current!.value.length < 6 &&
       passwordRef.current!.value.length >= 1
     ) {
       setPswError(true);
@@ -176,6 +182,12 @@ function Signinbox() {
         가입하기
       </LoginForm.Button>
       <LoginForm.Text>또는</LoginForm.Text>
+      <LoginForm.GoogleButton>
+        <img src={imgs.googleloginicon} alt='구글'></img>구글 계정으로 가입
+      </LoginForm.GoogleButton>
+      <LoginForm.KakaoButton>
+        <img src={imgs.kakaologinicon} alt='카카오'></img> 카카오 계정으로 가입
+      </LoginForm.KakaoButton>
       <LoginForm.Graytext>
         이미 가입하셨나요?
         <LoginForm.Atag onClick={toLoginClick}>로그인하기</LoginForm.Atag>
@@ -184,4 +196,4 @@ function Signinbox() {
   );
 }
 
-export default Signinbox;
+export default Signinfield;

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   background-color: #fff;
@@ -98,7 +98,7 @@ export const Button = styled.button`
   align-items: center;
   text-align: center;
   display: inline-block;
-  margin: 23px 0;
+  margin: 20px 0;
   transition: all 0.5s;
   :disabled {
     opacity: 0.4;
@@ -106,6 +106,83 @@ export const Button = styled.button`
       background: #bababa;
       color: #fff;
     }
+  }
+
+  :hover {
+    background: #fff;
+    color: #bababa;
+  }
+`;
+
+export const KakaoButton = styled.button`
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  color: black;
+  position: relative;
+  height: 50px;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  display: inline-block;
+  margin: 14px 0;
+  transition: all 0.5s;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  :disabled {
+    opacity: 0.4;
+    :hover {
+      background: #bababa;
+      color: #fff;
+    }
+  }
+  & img {
+    top: 12px;
+    position: absolute;
+    left: 11px;
+    width: 30px;
+  }
+
+  :hover {
+    background: #fff;
+    color: #bababa;
+  }
+`;
+
+export const GoogleButton = styled.button`
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  color: black;
+  height: 50px;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  display: inline-block;
+  margin: 14px 0;
+  transition: all 0.5s;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  :disabled {
+    opacity: 0.4;
+    :hover {
+      background: #bababa;
+      color: #fff;
+    }
+  }
+  & img {
+    top: 11px;
+    position: absolute;
+    left: 11px;
+    width: 30px;
   }
 
   :hover {
@@ -141,6 +218,7 @@ export const Text = styled.p`
   font-size: 14px;
   line-height: 17px;
   color: #000000;
+  margin: 10px 0;
 `;
 
 export const ErrorSpan = styled.span`

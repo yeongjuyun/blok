@@ -17,7 +17,7 @@ const Container = styled.div`
   border: 1px solid black;
 `;
 
-function ChangePasswordbox() {
+function ChangePasswordfield() {
   const nav = useNavigate();
   const currentpswRef = useRef<HTMLInputElement>(null);
   const newPswRef = useRef<HTMLInputElement>(null);
@@ -110,6 +110,7 @@ function ChangePasswordbox() {
   ) => {
     nav('/login');
   };
+
   // useEffect(() => {
   //   const data = localStorage.set('login');
   //   console.log(
@@ -192,4 +193,4 @@ function ChangePasswordbox() {
   );
 }
 
-export default ChangePasswordbox;
+export default ChangePasswordfield;
