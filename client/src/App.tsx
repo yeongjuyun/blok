@@ -8,7 +8,8 @@ function App() {
         theme={{
           palette: {
             black: "#282828",
-            gray: "#B7B7B7",
+            gray: "#949494",
+            white: "#FFFFFF",
           },
         }}
       >

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import Button from "./Button";
 
 const MainContainer = styled.div`
   margin: 100px;
@@ -19,7 +20,7 @@ export const MainTitle = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.5rem;
   margin-bottom: 32px;
 `;
@@ -36,12 +37,12 @@ const ContentContainer = styled.div`
 
 const ContentDiv = styled.div`
   display: flex;
-  width: 16rem;
+  width: 100%;
 `;
 
 const ContentTitle = styled.div`
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: 00;
   width: 6.25em;
   text-align: center;
   margin-right: 43px;
@@ -49,45 +50,26 @@ const ContentTitle = styled.div`
 
 const Content = styled.div`
   font-size: 1.125rem;
-  width: 18.75rem;
+  width: 100%;
   height: 1.5rem;
-  background-color: #fff;
+  color: #111111;
   border-bottom: 1px solid #e5e5e5;
 `;
 
-const ResetButton = styled.button`
-  border: 1px solid #d9d9d9;
-  border-radius: 30px;
-  background-color: #ffffff;
-  color: black;
-  width: 13.25rem;
-  height: 3rem;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  margin: 0 20px 0 0;
-
-  @media screen and (max-width: 780px) {
-    background-color: #ffffff;
-    width: 100%;
-    margin: 0 0 10px 0;
+const ControlButton = styled(Button)`
+  padding: 0 3.2rem;
+  & + & {
+    margin-left: 1rem;
   }
-`;
-
-const DeleteButton = styled.button`
-  border: 1px solid #d9d9d9;
-  border-radius: 30px;
-  background-color: #9747ff;
-  color: #ffffff;
-  width: 13.25rem;
-  height: 3rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
 
   @media screen and (max-width: 780px) {
-    background-color: #9747ff;
     width: 100%;
+    margin-bottom: 10px;
+    justify-content: center;
+
+    & + & {
+      margin-left: 0;
+    }
   }
 `;
 
@@ -134,26 +116,30 @@ export default function MyInfo() {
     <MainContainer>
       <MainTitle>Account</MainTitle>
       <Container>
-        <Title>My Infomation</Title>
+        <Title>내 정보</Title>
         <ContentContainer>
           <ContentDiv className="content">
-            <ContentTitle>Name</ContentTitle>
+            <ContentTitle>이름</ContentTitle>
             <Content>{name}</Content>
           </ContentDiv>
           <ContentDiv className="content">
-            <ContentTitle>Email</ContentTitle>
+            <ContentTitle>이메일</ContentTitle>
             <Content>{email}</Content>
           </ContentDiv>
           <ContentDiv>
-            <ContentTitle>Plan</ContentTitle>
+            <ContentTitle>플랜</ContentTitle>
             <Content>{plan}</Content>
           </ContentDiv>
         </ContentContainer>
       </Container>
       <Container>
-        <Title>Manage Account</Title>
-        <ResetButton onClick={resetHandler}>Reset Password</ResetButton>
-        <DeleteButton onClick={deleteHandler}>Delete Account</DeleteButton>
+        <Title>계정 관리</Title>
+        <ControlButton onClick={resetHandler} size="large" outline rounding>
+          Reset Password
+        </ControlButton>
+        <ControlButton onClick={deleteHandler} size="large" rounding>
+          Delete Account
+        </ControlButton>
       </Container>
     </MainContainer>
   );

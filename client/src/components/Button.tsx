@@ -10,8 +10,11 @@ interface IProps {
   rounding: boolean;
   outline: boolean;
   onClick: () => void;
+  className: string;
 }
 
+// // color: ${(props: IProps) =>
+//   props.color === "white" ? "red" : "white"}
 const colorStyles = css`
   ${(props: IProps) => {
     const selected = props.theme.palette[props.color];
@@ -26,9 +29,9 @@ const colorStyles = css`
       ${(props: IProps) =>
         props.outline &&
         css`
-          color: black;
-          background: white;
-          border: 1px solid #d9d9d9;
+          color: ${selected};
+          background: none;
+          border: 1px solid ${selected};
           &:hover {
             background: ${selected};
             color: white;
@@ -51,14 +54,15 @@ const sizeStyles = css`
     props.size === "medium" &&
     css`
       height: 2.25rem;
-      font-size: 1rem;
+      font-size: 0.8rem;
     `}
 
   ${(props: IProps) =>
     props.size === "small" &&
     css`
       height: 1.75rem;
-      font-size: 0.875rem;
+      font-weight: 600;
+      font-size: 0.7rem;
     `}
 `;
 
@@ -68,7 +72,7 @@ const fullWidthStyle = css`
     css`
       width: 100%;
       justify-content: center;
-      &:not(:first-child) {
+      & + & {
         margin-left: 0;
         margin-top: 1rem;
       }
@@ -103,14 +107,14 @@ const StyledButton = styled.button`
 
   /* 둥근 스타일 */
   ${borderStyle}
-
-  /* 기타 */
-  &:not(:first-child) {
-    margin-left: 1rem;
-  }
-
+  
   /* fullWidth */
   ${fullWidthStyle}
+
+  /* 기타 */
+  & + & {
+    margin-left: 0.5rem;
+  }
 `;
 
 type ButtonProps = {
@@ -121,6 +125,7 @@ type ButtonProps = {
   rounding: boolean;
   outline: boolean;
   onClick: () => void;
+  className: string;
 };
 
 Button.defaultProps = {
@@ -132,6 +137,7 @@ Button.defaultProps = {
   onClick: () => {
     console.log("click");
   },
+  className: "",
 };
 
 export default function Button({
