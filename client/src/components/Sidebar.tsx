@@ -22,6 +22,11 @@ const Nav = styled.nav`
   left: 0;
   display: flex;
 
+  .navbarLogo {
+    display: block;
+    margin: 0px auto;
+  }
+
   @media screen and (max-width: 780px) {
     width: 100vw;
     height: 52px;
@@ -29,6 +34,11 @@ const Nav = styled.nav`
     align-items: center;
     box-sizing: border-box;
     padding: 0 10px;
+
+    .navbarLogo {
+      display: block;
+      margin: 0;
+    }
   }
 `;
 
@@ -135,8 +145,8 @@ export default function Sidebar() {
 
   return (
     <Nav>
-      <Link to="/" className="navbar-logo">
-        <img src={logoImg} alt="logo" width={48}></img>
+      <Link to="/" className="navbarLogo">
+        <img src={logoImg} alt="logo" width={48} height={48} />
       </Link>
       <Hamburger onClick={showMenuHandler}>
         {isMobile ? <CgClose size={32} /> : <GrMenu size={32} />}

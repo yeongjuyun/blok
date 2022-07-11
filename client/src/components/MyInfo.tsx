@@ -65,7 +65,13 @@ const ResetButton = styled.button`
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  margin-right: 20px;
+  margin: 0 20px 0 0;
+
+  @media screen and (max-width: 780px) {
+    background-color: #ffffff;
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
 `;
 
 const DeleteButton = styled.button`
@@ -78,6 +84,11 @@ const DeleteButton = styled.button`
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+
+  @media screen and (max-width: 780px) {
+    background-color: #9747ff;
+    width: 100%;
+  }
 `;
 
 export default function MyInfo() {
