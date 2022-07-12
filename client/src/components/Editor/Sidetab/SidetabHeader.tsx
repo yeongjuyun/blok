@@ -22,6 +22,10 @@ export default function SidetabHeader() {
   const toolNameList = ["블록", "속성", "설정"];
   const itemWidth = 100 / toolList.length;
 
+  if (!now) {
+    dispatch({ type: toolList[0] });
+  }
+
   const Item = styled.div`
   width: ${itemWidth}%;
   text-align: center;

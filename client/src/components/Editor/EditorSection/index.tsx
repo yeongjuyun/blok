@@ -3,6 +3,7 @@ import EditorHeader from './EditorHeader';
 import EditorPreivew from './EditorPreview';
 
 const Container = styled.div`
+    min-width: 345px;
     flex-grow: 1;
     background-color: #f5f5f8;
     display: flex;
