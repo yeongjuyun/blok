@@ -21,9 +21,9 @@ const colorSet = {
 export default function Appearance() {
   return (
     <>
-      <Container><ColorSetExample colorSet={colorSet}/></Container>
+      {/* <Container><ColorSetExample colorSet={colorSet}/></Container>
       <Container></Container>
-      <Container></Container>
+      <Container></Container> */}
     </>
   );
 }

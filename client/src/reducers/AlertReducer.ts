@@ -1,15 +1,12 @@
 export function alertReducer(state = false, action: any) {
   switch (action.type) {
     case "alertOn":
-      state = true;
-      return state;
+      return state = true;
       
     case "alertOff":
-      state = false;
-      return state;
+      return state = false;
       
     default:
-      state = false;
       return state;
   }
 }
