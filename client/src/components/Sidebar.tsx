@@ -21,6 +21,7 @@ const Nav = styled.nav`
   top: 0;
   left: 0;
   display: flex;
+  z-index: 2;
 
   .navbarLogo {
     display: block;
@@ -145,9 +146,11 @@ export default function Sidebar() {
 
   return (
     <Nav>
-      <Link to="/" className="navbarLogo">
-        <img src={logoImg} alt="logo" width={48} height={48} />
-      </Link>
+      <div className="navbarLogo">
+        <Link to="/">
+          <img src={logoImg} alt="logo" width={48} height={48} />
+        </Link>
+      </div>
       <Hamburger onClick={showMenuHandler}>
         {isMobile ? <CgClose size={32} /> : <GrMenu size={32} />}
       </Hamburger>

@@ -46,9 +46,11 @@ const Table = styled.table`
 
 const TemplateBox = styled.div`
   display: flex;
-  width: 783px;
+  // width: 783px; width 지정하면 화면 깨짐
   justify-content: center;
   align-items: center;
+  z-index: 5;
+  over-flow: hidden;
 
   @media screen and (max-width: 780px) {
     flex-direction: column;
@@ -78,26 +80,36 @@ const AddButton = styled(Button)`
 `;
 
 export function TemplateList() {
+  const [templateData, setTemplateData] = useState<any[]>([]);
+
+  const getTemplate = async () => {
+    axios.get("/template").then((res): void => {
+      const data = res.data.template;
+      setTemplateData(data);
+      console.log(templateData);
+      console.log(data[0].title);
+    });
+  };
+
+  useEffect(() => {
+    getTemplate();
+  }, []);
+
   return (
     <Container>
       <MainTitle className="title">Template</MainTitle>
       <TemplateBox>
-        <TemplateCard
-          title="랜딩페이지"
-          description="회사 웹사이트 템플릿 입니다."
-        />
-        <TemplateCard
-          title="이력서"
-          description="이력서 템플릿 입니다."
-          color1="#2B9D67"
-          color2="#CEF0E2"
-        />
-        <TemplateCard
-          title="기업소개 웹사이트"
-          description="기업소개 템플릿 입니다."
-          color1="#F5E44C"
-          color2="#CEA9D3"
-        />
+        {templateData?.map((e) => (
+          <>
+            <TemplateCard
+              key={e.title}
+              title={e.title}
+              description={e.description}
+              color1={e.color1}
+              color2={e.color2}
+            />
+          </>
+        ))}
       </TemplateBox>
     </Container>
   );
