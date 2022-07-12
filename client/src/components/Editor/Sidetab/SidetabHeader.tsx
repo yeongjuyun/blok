@@ -17,7 +17,7 @@ const Container = styled.div`
 
 export default function SidetabHeader() {
   const dispatch = useDispatch();
-  const now = useSelector((state: any) => state.toolReducer);
+  const now = useSelector((state: any) => state.sideTabReducer);
   const toolList = ["Block", "Appearance", "Setting"];
   const toolNameList = ["블록", "속성", "설정"];
   const itemWidth = 100 / toolList.length;
