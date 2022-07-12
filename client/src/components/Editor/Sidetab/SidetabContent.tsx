@@ -8,10 +8,7 @@ const Container = styled.div`
   width: 560px;
   background-color: #f5f5f8;
   position: fixed;
-  top: 80px;
   top: 100px;
-  display: flex;
-  justify-content: center;
 `;
 
 export default function SidetabHeader() {

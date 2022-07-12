@@ -7,5 +7,6 @@ const Container = styled.div`
 `;
 
 export default function Setting() {
-  return <Container></Container>;
+  return <Container>
+  </Container>;
 }
