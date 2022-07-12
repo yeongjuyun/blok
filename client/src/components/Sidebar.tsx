@@ -29,7 +29,7 @@ const Nav = styled.nav`
   }
 
   @media screen and (max-width: 780px) {
-    width: 100vw;
+    width: 100%;
     height: 52px;
     justify-content: space-between;
     align-items: center;

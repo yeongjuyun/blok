@@ -9,21 +9,21 @@ import { TemplateCard } from "./TemplateCard";
 const Container = styled.div`
   margin-bottom: 10px;
 
-  .newButton {
-    float: right;
-    margin-top: 22px;
-  }
-
   @media screen and (max-width: 780px) {
     .title {
       margin-top: 102px;
     }
+  }
+
+  @media screen and (max-width: 1120px) {
+    width: 100%;
   }
 `;
 
 const Table = styled.table`
   border-bottom: 1px solid #e5e5e5;
   border-collapse: separate;
+  width: 1120px;
 
   th {
     padding: 10px;
@@ -42,11 +42,14 @@ const Table = styled.table`
       padding: 1rem;
     }
   }
+  @media screen and (max-width: 1120px) {
+    width: 100%;
+  }
 `;
 
 const TemplateBox = styled.div`
   display: flex;
-  // width: 783px; width 지정하면 화면 깨짐
+  width: 1120px;
   justify-content: center;
   align-items: center;
   z-index: 5;
@@ -55,9 +58,13 @@ const TemplateBox = styled.div`
   @media screen and (max-width: 780px) {
     flex-direction: column;
   }
+
+  @media screen and (max-width: 1120px) {
+    width: 100%;
+  }
 `;
 
-const ControlButton = styled(Button)`
+export const ControlButton = styled(Button)`
   pointer-events: auto;
   pointer: cursor;
 
@@ -166,7 +173,11 @@ export function DashboardInfo() {
                 </td>
                 <td>Free</td>
                 <td>
-                  <ControlButton className={"editButton"} rounding outline>
+                  <ControlButton
+                    className={"editButton"}
+                    rounding
+                    color="white"
+                  >
                     Edit
                   </ControlButton>
                   <ControlButton
@@ -182,15 +193,15 @@ export function DashboardInfo() {
             ))}
           </tbody>
         </Table>
+        <AddButton
+          className="addButton"
+          onClick={showModalHandler}
+          size="medium"
+          rounding
+        >
+          사이트 추가
+        </AddButton>
       </div>
-      <AddButton
-        className="newButton"
-        onClick={showModalHandler}
-        size="medium"
-        rounding
-      >
-        사이트 추가
-      </AddButton>
     </Container>
   );
 }
