@@ -15,12 +15,6 @@ userRouter.get("/", (req, res) => {
   res.send("User Router");
 });
 
-// 삭제 예정
-userRouter.get("/all", async (req, res) => {
-  const result = await User.find({}).exec();
-  return res.json(result);
-});
-
 // 이부분 리팩토링이 필요합니다.(호연)
 userRouter.post("/adduser", upload.single("file"), async (req, res) => {
   // S3 이미지 처리 process

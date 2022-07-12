@@ -49,7 +49,7 @@ const UserSchema = new Schema(
     },
   },
   {
-    collection: "team12user",
+    collection: "users",
     timestamps: true,
   }
 );
