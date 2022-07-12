@@ -13,8 +13,7 @@ interface IProps {
   className: string;
 }
 
-// // color: ${(props: IProps) =>
-//   props.color === "white" ? "red" : "white"}
+// color: ${(props: IProps) => (props.color === "white" ? "red" : "white")}
 const colorStyles = css`
   ${(props: IProps) => {
     const selected = props.theme.palette[props.color];
@@ -46,7 +45,7 @@ const sizeStyles = css`
     props.size === "large" &&
     css`
       height: 3rem;
-      font-weight: 600;
+
       font-size: 1rem;
     `}
 
@@ -61,7 +60,6 @@ const sizeStyles = css`
     props.size === "small" &&
     css`
       height: 1.75rem;
-      font-weight: 600;
       font-size: 0.7rem;
     `}
 `;
@@ -95,7 +93,8 @@ const StyledButton = styled.button`
   outline: none;
   border: none;
   border-radius: 5px;
-  font-weight: 500;
+  font-weight: bold;
+
   cursor: pointer;
   padding: 0 1rem;
 

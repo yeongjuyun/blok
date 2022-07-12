@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { CgClose } from "react-icons/cg";
 import { useDispatch } from "react-redux";
+import Button from "./Button";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -36,7 +37,7 @@ const ModalContainer = styled.div`
   .confirmText {
     display: flex;
     color: black;
-    margin: 1rem 0 2rem;
+    margin: 1rem 0 1.2rem 0;
     text-align: center;
     line-height: 2rem;
     font-size: 1.1rem;
@@ -46,33 +47,6 @@ const ModalContainer = styled.div`
     display: flex;
     margin-top: auto;
     justify-content: flex-end;
-  }
-
-  .confirmButton,
-  .cancelButton {
-    display: inline-flex;
-    background-color: #9747ff;
-    color: white;
-    padding: 0.7rem 1.4rem;
-    border: none;
-    border-radius: 0.3rem;
-    font-size: 1rem;
-  }
-
-  .cancelButton {
-    background-color: #f0f1f3;
-    color: black;
-    margin-right: 0.5rem;
-  }
-
-  .confirmButton:hover {
-    background-color: #a561ff;
-    cursor: pointer;
-  }
-
-  .cancelButton:hover {
-    background-color: #e3e4e6;
-    cursor: pointer;
   }
 `;
 
@@ -101,12 +75,12 @@ export default function ConfirmModal(props: IMyProps) {
         </div>
         <div className="confirmText">{props.confirmData.msg}</div>
         <div className="buttonContainer">
-          <button className="cancelButton" onClick={closeModalHandler}>
+          <Button size="medium" color="gray" onClick={closeModalHandler}>
             취소
-          </button>
-          <button className="confirmButton" onClick={conFirmHandler}>
+          </Button>
+          <Button size="medium" onClick={conFirmHandler}>
             확인
-          </button>
+          </Button>
         </div>
       </ModalContainer>
       <ModalBackground />
