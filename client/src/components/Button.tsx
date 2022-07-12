@@ -13,11 +13,13 @@ interface IProps {
   className: string;
 }
 
-// color: ${(props: IProps) => (props.color === "white" ? "red" : "white")}
 const colorStyles = css`
   ${(props: IProps) => {
     const selected = props.theme.palette[props.color];
+    const bgcolor = props.color;
     return css`
+      color: ${bgcolor === "white" ? "black" : "white"};
+      border: ${bgcolor === "white" ? "1px solid #D9D9D9" : "1px solid white"};
       background-color: ${selected};
       &:hover {
         background: ${lighten(0.1, selected)};
@@ -25,6 +27,7 @@ const colorStyles = css`
       &:active {
         background: ${darken(0.1, selected)};
       }
+
       ${(props: IProps) =>
         props.outline &&
         css`
@@ -187,6 +190,9 @@ export function ButtonContainer() {
         <Button color="gray" size="small">
           Button
         </Button>
+        <Button color="white" size="small">
+          Button
+        </Button>
       </div>
       <div className="buttonGroup">
         <Button color="black" size="small" rounding outline>
@@ -196,6 +202,9 @@ export function ButtonContainer() {
           Button
         </Button>
         <Button color="gray" size="small" rounding>
+          Button
+        </Button>
+        <Button color="white" size="small" rounding>
           Button
         </Button>
       </div>
@@ -209,6 +218,9 @@ export function ButtonContainer() {
         <Button color="gray" size="medium" rounding>
           Button
         </Button>
+        <Button color="white" size="medium" rounding>
+          Button
+        </Button>
       </div>
       <div className="buttonGroup">
         <Button color="black" size="medium" outline>
@@ -218,6 +230,9 @@ export function ButtonContainer() {
           Button
         </Button>
         <Button color="gray" size="medium">
+          Button
+        </Button>
+        <Button color="white" size="medium">
           Button
         </Button>
       </div>
@@ -231,6 +246,9 @@ export function ButtonContainer() {
         <Button color="gray" size="large" rounding>
           Button
         </Button>
+        <Button color="white" size="large" rounding>
+          Button
+        </Button>
       </div>
       <div className="buttonGroup">
         <Button color="black" size="large" outline>
@@ -240,6 +258,9 @@ export function ButtonContainer() {
           Button
         </Button>
         <Button color="gray" size="large">
+          Button
+        </Button>
+        <Button color="white" size="large">
           Button
         </Button>
       </div>

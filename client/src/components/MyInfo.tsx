@@ -134,7 +134,12 @@ export default function MyInfo() {
       </Container>
       <Container>
         <Title>계정 관리</Title>
-        <ControlButton onClick={resetHandler} size="large" outline rounding>
+        <ControlButton
+          onClick={resetHandler}
+          size="large"
+          color="white"
+          rounding
+        >
           Reset Password
         </ControlButton>
         <ControlButton onClick={deleteHandler} size="large" rounding>
