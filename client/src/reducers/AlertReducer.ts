@@ -1,15 +1,15 @@
-const alert = false;
-
-export function alertReducer(state = alert, action: any) {
+export function alertReducer(state = false, action: any) {
   switch (action.type) {
-    case "on":
+    case "alertOn":
       state = true;
       return state;
-    case "off":
+      
+    case "alertOff":
       state = false;
       return state;
+      
     default:
-      state = alert;
+      state = false;
       return state;
   }
 }

@@ -35,7 +35,7 @@ export default function Alert({ msg }: MyProps) {
   const dispatch = useDispatch();
 
   setTimeout(() => {
-    dispatch({ type: "off" });
+    dispatch({ type: "alertOff" });
   }, 600);
 
   return (

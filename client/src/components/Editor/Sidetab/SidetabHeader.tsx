@@ -18,8 +18,9 @@ const Container = styled.div`
 export default function SidetabHeader() {
   const dispatch = useDispatch();
   const now = useSelector((state: any) => state.toolReducer);
-  const tools = ["Block", "Appearance", "Setting"];
-  const itemWidth = 100 / tools.length;
+  const toolList = ["Block", "Appearance", "Setting"];
+  const toolNameList = ["블록", "속성", "설정"];
+  const itemWidth = 100 / toolList.length;
 
   const Item = styled.div`
   width: ${itemWidth}%;
@@ -33,11 +34,11 @@ export default function SidetabHeader() {
 `;
 
   useEffect(() => {
-    for (let i = 0; i < tools.length; i++) {
-      const target = document.getElementById(tools[i]);
+    for (let i = 0; i < toolList.length; i++) {
+      const target = document.getElementById(toolList[i]);
 
       if (target) {
-        if (tools[i] === now) {
+        if (toolList[i] === now) {
           target.style.color = clicked;
         } else {
           target.style.color = unclicked;
@@ -48,14 +49,14 @@ export default function SidetabHeader() {
 
   function Items() {
     let items = [];
-    for (let i = 0; i < tools.length; i++) {
+    for (let i = 0; i < toolList.length; i++) {
       items.push(
         <Item
-          key={tools[i]}
-          id={tools[i]}
-          onClick={() => dispatch({ type: tools[i] })}
+          key={toolList[i]}
+          id={toolList[i]}
+          onClick={() => dispatch({ type: toolList[i] })}
         >
-          {tools[i]}
+          {toolNameList[i]}
         </Item>
       );
     }

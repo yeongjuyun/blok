@@ -6,8 +6,6 @@ import Alert from "../../Alert";
 const domain = "domain/name";
 let msg = "";
 
-// position: fixed;
-//   top: 0;
 const Container = styled.div`
   padding: 0 20px;
   height: 60px;
@@ -76,18 +74,18 @@ export default function PublishBar() {
       console.log(err);
       msg = "잠시 후 시도해주세요.";
     }
-    dispatch({ type: "on" });
+    dispatch({ type: "alertOn" });
   }
 
   return (
     <Container>
       <DomainContainer>
-        <MyPage>My Page:</MyPage>
+        <MyPage>마이페이지:</MyPage>
         <Domain href={domain}>{domain}</Domain>
         <CopyButton onClick={copyHandler}>복사</CopyButton>
         {alert && <Alert msg={msg} />}
       </DomainContainer>
-      <SaveButton>저장하기</SaveButton>
+      <SaveButton>저장</SaveButton>
     </Container>
   );
 }
