@@ -8,6 +8,10 @@ export class SiteModel {
         const sites = await Site.find({});
         return sites;
     }
+    async create(siteInfo) {
+        const createdNewSite = await Site.create(siteInfo);
+        return createdNewSite;
+      }
 }
 
 const siteModel = new SiteModel();
