@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 export default function SidetabHeader() {
-  const now = useSelector((state: any) => state.toolReducer);
+  const now = useSelector((state: any) => state.sidetabReducer);
   const tools = ["Block", "Appearance", "Setting"];
 
   return (

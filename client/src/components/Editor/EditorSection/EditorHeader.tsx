@@ -29,7 +29,7 @@ const MyPage = styled.div`
   margin-right: 5px;
 `;
 
-const Domain = styled.a`
+const Domain = styled.div`
   color: black;
   text-decoration: none;
 `;
@@ -37,11 +37,11 @@ const Domain = styled.a`
 const CopyButton = styled.button`
   background-color: white;
   border: 1px solid #d9d9d9;
-  padding: 5px 7px;
+  padding: 5px 10px;
   border-radius: 40px / 40px;
   margin-left: 10px;
   font-weight: 600;
-
+  
   :hover {
     cursor: pointer;
   }
@@ -50,12 +50,12 @@ const CopyButton = styled.button`
 const SaveButton = styled.button`
   background-color: black;
   border: 1px solid black;
-  padding: 5px 10px;
+  padding: 5px 12px;
   border-radius: 40px / 40px;
 
   font-weight: 600;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
 
   :hover {
     cursor: pointer;
@@ -81,7 +81,7 @@ export default function PublishBar() {
     <Container>
       <DomainContainer>
         <MyPage>마이페이지:</MyPage>
-        <Domain href={domain}>{domain}</Domain>
+        <Domain>{domain}</Domain>
         <CopyButton onClick={copyHandler}>복사</CopyButton>
         {alert && <Alert msg={msg} />}
       </DomainContainer>
