@@ -6,11 +6,11 @@ const SiteSchema = new Schema(
             type: String,
             required: false,
         },
-        siteUrl: {
+        domain: [{
             type: Schema.Types.ObjectId,
             ref: "users",
-            required: true,
-        },
+            required: false,
+        }],
         siteThema: {
             type: String,
             required: false,
@@ -27,6 +27,10 @@ const SiteSchema = new Schema(
                 surfaceColor: String,
             })
         },
+        siteData:{
+            type: Object,
+            required: false,
+        }
     }
 )
 
