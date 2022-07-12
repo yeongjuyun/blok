@@ -2,6 +2,7 @@ import { userModel } from "../db";
 import { generateRandomPassword, sendMail } from "../utils";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
+import { BadRequestError, ForbiddenError } from "../errors";
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ class UserService {
     const { userName, email, password } = userInfo;
     const user = await this.userModel.findByEmail(email);
     if (user) {
-      throw new Error(
+      throw new BadRequestError(
         "이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요."
       );
     }
@@ -34,7 +35,7 @@ class UserService {
     // 이미 가입된 계정인 경우(oauth가 아닌) 에러 throw
     // 카카오 oauth가 이메일이 아니기 때문에 일단 이렇게 구현, 카카오 oauth가 email일 경우, 문제 있음.
     if (user && user.oauth == false) {
-      throw new Error("이미 계정으로 가입된 이메일입니다.");
+      throw new BadRequestError("이미 계정으로 가입된 이메일입니다.");
     }
     if (user) {
       return user;
@@ -61,7 +62,7 @@ class UserService {
   async getUserInfo(userId) {
     const user = await this.userModel.findByShortId(userId);
     if (!user) {
-      throw new Error("존재하지 않는 유저입니다.");
+      throw new BadRequestError("존재하지 않는 유저입니다.");
     }
     return user;
   }
@@ -72,7 +73,9 @@ class UserService {
     // shortId 사용
     let user = await this.userModel.findByShortId(userId);
     if (!user) {
-      throw new Error("가입 내역이 없습니다. 다시 한 번 확인해 주세요.");
+      throw new BadRequestError(
+        "가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      );
     }
     // 비밀번호 일치 여부 확인
     const correctPasswordHash = user.password;
@@ -81,7 +84,7 @@ class UserService {
       correctPasswordHash
     );
     if (!isPasswordCorrect) {
-      throw new Error(
+      throw new BadRequestError(
         "현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요."
       );
     }
@@ -98,13 +101,15 @@ class UserService {
   async passwordReset(userName, email) {
     const user = await userModel.findByEmail(email);
     if (!user) {
-      throw new Error("해당 메일로 가입된 사용자가 없습니다.");
+      throw new BadRequestError("해당 메일로 가입된 사용자가 없습니다.");
     }
     if (user.userName !== userName) {
-      throw new Error("입력하신 정보와 일치하는 사용자가 없습니다.");
+      throw new BadRequestError("입력하신 정보와 일치하는 사용자가 없습니다.");
     }
-    if (user.oauth == true) {
-      throw new Error("소셜 로그인 계정은 사용하실 수 없는 기능입니다.");
+    if (user.oauth === true) {
+      throw new ForbiddenError(
+        "소셜 로그인 계정은 사용하실 수 없는 기능입니다."
+      );
     }
     let password = generateRandomPassword();
 

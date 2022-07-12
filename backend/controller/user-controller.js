@@ -6,11 +6,12 @@ import {
   userJWTObjectMaker,
   asyncHandler,
 } from "../utils";
+import { BadRequestError, ForbiddenError } from "../errors";
 
 const userController = {
   register: asyncHandler(async (req, res, next) => {
     if (is.emptyObject(req.body)) {
-      throw new Error(
+      throw new BadRequestError(
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
@@ -25,7 +26,7 @@ const userController = {
 
   login: asyncHandler(async (req, res, next) => {
     if (is.emptyObject(req.body)) {
-      throw new Error(
+      throw new BadRequestError(
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
@@ -39,7 +40,7 @@ const userController = {
 
   resetPassword: asyncHandler(async (req, res, next) => {
     if (is.emptyObject(req.body)) {
-      throw new Error(
+      throw new BadRequestError(
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
@@ -53,7 +54,7 @@ const userController = {
   userDelete: asyncHandler(async (req, res, next) => {
     const userId = req.params.userId;
     if (req.user.userId !== userId) {
-      throw new Error("본인의 계정만 삭제할 수 있습니다.");
+      throw new ForbiddenError("본인의 계정만 삭제할 수 있습니다.");
     }
     const deletedUserInfo = await userService.deleteUser(userId);
     res.status(204).clearCookie(JWT_COOKIE_KEY).json(deletedUserInfo);
@@ -88,7 +89,7 @@ const userController = {
 
   editPassword: asyncHandler(async (req, res, next) => {
     if (is.emptyObject(req.body)) {
-      throw new Error(
+      throw new BadRequestError(
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
@@ -97,11 +98,13 @@ const userController = {
     const currentPassword = req.body.currentPassword;
 
     if (req.user.userId !== userId) {
-      throw new Error("본인의 정보만 수정할 수 있습니다!");
+      throw new ForbiddenError("본인의 정보만 수정할 수 있습니다!");
     }
 
     if (!currentPassword) {
-      throw new Error("정보를 변경하려면, 현재의 비밀번호가 필요합니다.");
+      throw new BadRequestError(
+        "정보를 변경하려면, 현재의 비밀번호가 필요합니다."
+      );
     }
     const userInfoRequired = { userId, currentPassword };
     const toUpdate = {
