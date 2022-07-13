@@ -66,6 +66,23 @@ app.get("/template", function (req, res) {
   });
 });
 
+app.get("/site/2", function (req, res) {
+  res.send({
+    sites: [{
+      name: "First Site",
+      domain: "firstSite.block.com",
+      theme: "Minimal",
+      font: "Roboto",
+      colorSet: {
+        primary: "#482924",
+        secondary: "#123456",
+        background: "#123456",
+        surface: "#123456"
+      }
+  }]
+  });
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
 });

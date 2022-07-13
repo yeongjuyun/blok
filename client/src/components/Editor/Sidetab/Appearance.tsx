@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ColorSetExample from "../../ColorSetExample";
 
@@ -11,19 +13,32 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const colorSet = {
-  "primary": "#5754DE",
-  "secondary": "#ABA9FF",
-  "background": "#FFFFFF",
-  "surface": "#E2E2E2"
-}
-
 export default function Appearance() {
+  const [colorSet, setColorSet] = useState('');
+  const [font, setFont] = useState('');
+
+  const FontExample = styled.div`
+    font-family: ${font};
+    font-size: 30px;
+  `;
+
+  const getStyleInfo = async () => {
+    axios.get("/site/2").then((res): void => {
+      const data = res.data.sites[0];
+      setColorSet(data.colorSet);
+      setFont(data.font);
+    });
+  };
+
+  useEffect(() => {
+    getStyleInfo();
+  }, []);
+
   return (
     <>
-      {/* <Container><ColorSetExample colorSet={colorSet}/></Container>
+      <Container><ColorSetExample colorSet={colorSet} /></Container>
+      <Container><FontExample>{font}</FontExample></Container>
       <Container></Container>
-      <Container></Container> */}
     </>
   );
 }

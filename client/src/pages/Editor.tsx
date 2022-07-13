@@ -19,7 +19,7 @@ export default function Editor() {
 
     const confirmData = useSelector(
         (state: any) => state.modalReducer.confirmData
-      );
+    );
 
     return (
         <Container>

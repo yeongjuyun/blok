@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Button from "../../Button";
 
@@ -14,18 +14,18 @@ const Container = styled.div`
 
 export default function Setting() {
   const dispatch = useDispatch();
-  const [domain, setDomain] = useState([]);
-  const now = useSelector((state: any) => state.modalReducer);
+  const [domain, setDomain] = useState('');
 
-  const getUserInfo = async () => {
-    axios.get("/user").then((res): void => {
-      const data = res.data.domain;
-      setDomain(data);
+  const getDomainInfo = async () => {
+    axios.get("/site/2").then((res): void => {
+      const domain = res.data.sites[0].domain;
+      setDomain(domain);
+      console.log(domain);
     });
   };
 
   useEffect(() => {
-    getUserInfo();
+    getDomainInfo();
   }, []);
 
   const deleteHandler = () => {
@@ -33,7 +33,7 @@ export default function Setting() {
       type: "CONFIRM/MODAL_ON",
       payload: {
         title: "삭제",
-        msg: "정말 삭제하시겠습니까?",
+        msg: `${domain} 페이지를 정말 삭제하시겠습니까?`,
       },
     });
 
