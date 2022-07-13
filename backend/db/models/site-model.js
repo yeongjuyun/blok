@@ -12,20 +12,20 @@ export class SiteModel {
         const sites = await Site.find({});
         return sites;
     }
-    async findByShortId(siteId) {
-        const site = await Site.findOne({ _id: siteId });
+    async findBySiteName(siteId) {
+        const site = await Site.findOne({ siteName: siteId });
         return site;
     }
-    async update(userId, update) {
-        const filter = { userId };
+    async update(siteId, update) {
+        const filter = { siteName: siteId };
         const option = { returnOriginal: false };
-        const updatedUser = await User.findOneAndUpdate(filter, update, option);
-        return updatedUser;
+        const updatedSite = await Site.findOneAndUpdate(filter, update, option);
+        return updatedSite;
     }
-    async delete(userId) {
-        const filter = { userId };
-        const deletedUser = await User.findOneAndDelete(filter);
-        return deletedUser;
+    async delete(siteId) {
+        const filter = { siteName: siteId };
+        const deletedSite = await Site.findOneAndDelete(filter);
+        return deletedSite;
     }
 }
 
