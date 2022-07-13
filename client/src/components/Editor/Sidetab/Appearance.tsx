@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ColorSetExample from "../../ColorSetExample";
+import { CustomSelect, Label, Required } from "../../Input";
 
 const Container = styled.div`
   width: 400px;
@@ -9,8 +10,6 @@ const Container = styled.div`
   background-color: white;
   margin: 0 auto 40px auto;
   border-radius: 5px;
-  display: flex;
-  justify-content: center;
 `;
 
 export default function Appearance() {
@@ -37,7 +36,14 @@ export default function Appearance() {
   return (
     <>
       <Container><ColorSetExample colorSet={colorSet} /></Container>
-      <Container><FontExample>{font}</FontExample></Container>
+      <Container>
+      <Label required={true}>
+        폰트
+        <Required>*</Required>
+        </Label>
+        <FontExample>{font}</FontExample>
+        <CustomSelect/>
+      </Container>
       <Container></Container>
     </>
   );
