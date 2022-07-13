@@ -20,7 +20,6 @@ export default function Setting() {
     axios.get("/site/2").then((res): void => {
       const domain = res.data.sites[0].domain;
       setDomain(domain);
-      console.log(domain);
     });
   };
 

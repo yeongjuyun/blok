@@ -27,11 +27,11 @@ const AlertBox = styled.div`
   font-weight: 550;
 `;
 
-type MyProps = {
-  msg: string;
-};
+interface IMyProps {
+  alertData: any;
+}
 
-export default function Alert({ msg }: MyProps) {
+export default function Alert(props: IMyProps) {
   const dispatch = useDispatch();
 
   setTimeout(() => {
@@ -40,7 +40,7 @@ export default function Alert({ msg }: MyProps) {
 
   return (
     <Background>
-      <AlertBox id="alert">{msg}</AlertBox>
+      <AlertBox id="alert">{props.alertData}</AlertBox>
     </Background>
   );
 }

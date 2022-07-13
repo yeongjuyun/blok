@@ -3,7 +3,9 @@ import Sidebar from '../components/Sidebar';
 import Sidetab from '../components/Editor/Sidetab';
 import EditorSection from '../components/Editor/EditorSection';
 import { useSelector } from 'react-redux';
+import AlertModal from '../components/AlertModal';
 import ConfirmModal from '../components/ConfirmModal';
+
 
 const Container = styled.div`
     width: 100vw;
@@ -13,6 +15,14 @@ const Container = styled.div`
 `;
 
 export default function Editor() {
+    const AlertModalState = useSelector(
+        (state: any) => state.alertReducer.state
+    );
+
+    const alertData = useSelector(
+        (state: any) => state.alertReducer.alertData
+    );
+
     const ConfirmModalState = useSelector(
         (state: any) => state.modalReducer.isConfirmModal
     );
@@ -26,6 +36,7 @@ export default function Editor() {
             <Sidebar />
             <Sidetab />
             <EditorSection />
+            {AlertModalState && <AlertModal alertData={alertData} />}
             {ConfirmModalState && <ConfirmModal confirmData={confirmData} />}
         </Container>
     );
