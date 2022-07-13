@@ -34,10 +34,6 @@ passportStrategies();
 // body parser 부분
 app.use(express.json());
 
-app.listen(PORT, function () {
-  console.log(`listening on http://localhost:${PORT}`);
-});
-
 // 테스팅용 라우터, 제거예정
 app.get("/", function (req, res) {
   res.send("<h1>welcome page</h1>");
@@ -51,6 +47,10 @@ app.use(passport.initialize());
 // /api/login 으로 요청을 해야 하게 됨. 백엔드용 라우팅을 구분하기 위함임.
 app.use("/api/user", userRouter);
 app.use("/api/admin", adminRouter);
+
+app.listen(PORT, function () {
+  console.log(`listening on http://localhost:${PORT}`);
+});
 
 // errorHandler
 app.use(errorHandler);
