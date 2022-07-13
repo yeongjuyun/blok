@@ -1,11 +1,7 @@
 import { useState, useMemo } from 'react';
 import styled from 'styled-components';
-import {
-  TextInput,
-  SelectBox,
-  CustomSelect,
-  ImageUploadModal,
-} from '../components/Input';
+import { TextInput, SelectBox, CustomSelect } from '../components/Input';
+import { Card } from '../components/Card/Card';
 
 const Container = styled.div`
   padding-top: 50px;
@@ -13,15 +9,12 @@ const Container = styled.div`
   border-radius: 10px;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   flex-direction: column;
-
+  font-family: 'Inter';
   box-sizing: border-box;
   width: 100%;
   height: 100vh;
-  @media screen and (max-width: 1120px) {
-    justify-content: flex-start;
-  }
 `;
 
 function Test() {
@@ -56,33 +49,61 @@ function Test() {
   );
   return (
     <Container>
-      <TextInput
-        title='TextInput'
-        required={true}
-        onChange={setInput}
-      ></TextInput>
-      <TextInput
-        title='TextInput'
-        required={false}
-        onChange={setInput}
-        guideline='여기에 가이드라인을 적으세요'
-      ></TextInput>
-      <TextInput onChange={setInput}></TextInput>
       <div></div>
-      <SelectBox styles={customStyles} options={options} />
-      <CustomSelect
-        title='드롭다운'
-        required={true}
-        guideline='드롭다운 입니다. 위에서 선택지를 선택해주세요.'
-        placeholder='원하는 선택지를 선택해주세요'
-        options={options}
-        onChange={(e: any) => {
-          setSelectInput(e.value);
-        }}
-      />
 
       <div>입력값 : {input}</div>
       <div>선택값 : {selectinput}</div>
+
+      <Card title='Navbar'>
+        <CustomSelect
+          title='스타일'
+          required={true}
+          guideline='스타일를 선택해주세요.'
+          placeholder='원하는 선택지를 선택해주세요'
+          options={options}
+          onChange={(e: any) => {
+            setSelectInput(e.value);
+          }}
+        />
+        <TextInput
+          title='TextInput'
+          required={false}
+          onChange={setInput}
+          guideline='여기에 가이드라인을 적으세요'
+        ></TextInput>
+
+        <TextInput
+          title='로고 텍스트'
+          required={true}
+          onChange={setInput}
+          guideline='로고이미지가 없을시 입력될 로고 텍스트를 입력하세요.'
+        ></TextInput>
+      </Card>
+      <Card title='Footer'>
+        <CustomSelect
+          title='스타일'
+          required={true}
+          guideline='스타일를 선택해주세요.'
+          placeholder='원하는 선택지를 선택해주세요'
+          options={options}
+          onChange={(e: any) => {
+            setSelectInput(e.value);
+          }}
+        />
+        <TextInput
+          title='TextInput'
+          required={false}
+          onChange={setInput}
+          guideline='여기에 가이드라인을 적으세요'
+        ></TextInput>
+
+        <TextInput
+          title='로고 텍스트'
+          required={true}
+          onChange={setInput}
+          guideline='로고이미지가 없을시 입력될 로고 텍스트를 입력하세요.'
+        ></TextInput>
+      </Card>
     </Container>
   );
 }

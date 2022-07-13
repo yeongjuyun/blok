@@ -4,6 +4,11 @@ import ReactSelect, { GroupBase, OptionsOrGroups } from 'react-select';
 import Dropzone from './Dropzone';
 import ImageCrop from './ImageCrop';
 
+export const Width100 = styled.div`
+  width: 100%;
+  margin-top: 28px;
+`;
+
 const DisplayNone = styled.div`
   display: none;
 `;
@@ -49,6 +54,7 @@ export const Guideline = styled.div`
   font-size: 14px;
   line-height: 16px;
   margin-top: 16px;
+  margin-left: 1px;
 `;
 
 export function TextInput(props: Inputprops) {
@@ -80,9 +86,6 @@ export function TextInput(props: Inputprops) {
     </Width100>
   );
 }
-export const Width100 = styled.div`
-  width: 100%;
-`;
 
 export const SelectBox = styled(ReactSelect)`
   width: 100%;
@@ -97,6 +100,7 @@ export const CustomSelect = (props: any) => {
         color: state.data.color,
         opacity: 0.8,
         padding: 20,
+        height: 52,
       }),
       control: (provided: any) => ({
         ...provided,
