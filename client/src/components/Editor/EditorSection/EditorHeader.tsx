@@ -89,7 +89,7 @@ export default function PublishBar() {
   return (
     <Container>
       <DomainContainer>
-        <MyPage>마이페이지:</MyPage>
+        <MyPage>MyPage:</MyPage>
         <Domain>{domain}</Domain>
         <CopyButton onClick={copyHandler}>복사</CopyButton>
       </DomainContainer>

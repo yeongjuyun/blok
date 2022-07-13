@@ -19,7 +19,7 @@ export default function Appearance() {
 
   const FontExample = styled.div`
     font-family: ${font};
-    font-size: 30px;
+    font-size: 40px;
   `;
 
   const getStyleInfo = async () => {

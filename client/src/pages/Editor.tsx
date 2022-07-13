@@ -5,7 +5,7 @@ import EditorSection from '../components/Editor/EditorSection';
 import { useSelector } from 'react-redux';
 import AlertModal from '../components/AlertModal';
 import ConfirmModal from '../components/ConfirmModal';
-
+import '../components/Editor/font.css'
 
 const Container = styled.div`
     width: 100vw;
