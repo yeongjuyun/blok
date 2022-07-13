@@ -66,6 +66,111 @@ app.get("/template", function (req, res) {
   });
 });
 
+const userData = {
+  data: [
+    {
+      id: 1,
+      template: "랜딩페이지",
+      domain: "www.google.com",
+      plan: "free",
+      startDate: "20220202",
+      name: "앨리스",
+    },
+    {
+      id: 2,
+      template: "랜딩페이지",
+      domain: "www.google.com",
+      plan: "free",
+      startDate: "20220202",
+      name: "윤영주",
+    },
+    {
+      id: 3,
+      template: "기업소개",
+      domain: "www.naver.com",
+      plan: "free",
+      startDate: "20220202",
+      name: "앨리샤",
+    },
+    {
+      id: 4,
+      template: "이력서",
+      domain: "www.naver.com",
+      plan: "free",
+      startDate: "20220202",
+      name: "윤영미",
+    },
+    {
+      id: 5,
+      template: "기업소개",
+      domain: "www.naver.com",
+      plan: "free",
+      startDate: "20220202",
+      name: "윤영수",
+    },
+    {
+      id: 6,
+      template: "이력서",
+      domain: "www.naver.com",
+      plan: "free",
+      startDate: "20220202",
+      name: "이아영",
+    },
+    {
+      id: 7,
+      template: "기업소개",
+      domain: "www.naver.com",
+      plan: "free",
+      startDate: "20220202",
+      name: "이아영",
+    },
+    {
+      id: 8,
+      template: "메롱",
+      domain: "www.naver.com",
+      plan: "free",
+      startDate: "20220202",
+      name: "윤영수",
+    },
+    {
+      id: 9,
+      template: "이력서",
+      domain: "www.naver.com",
+      plan: "free",
+      startDate: "20220202",
+      name: "김민수",
+    },
+    {
+      id: 10,
+      template: "메롱",
+      domain: "www.google.com",
+      plan: "free",
+      startDate: "20220202",
+      name: "윤영주",
+    },
+    {
+      id: 11,
+      template: "이력서",
+      domain: "www.block.com",
+      plan: "free",
+      startDate: "20220202",
+      name: "윤영수",
+    },
+  ],
+};
+
+app.get("/users", function (req, res) {
+  const { q } = req.query;
+
+  const keys = ["name", "template", "domain", "plan", "startDate"];
+
+  const search = (data) => {
+    return data.filter((item) => keys.some((key) => item[key].includes(q)));
+  };
+
+  res.send(search(userData.data).splice(0, 8));
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
 });
