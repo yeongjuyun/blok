@@ -10,7 +10,7 @@ function drawCircle(len: number, background: string, index: number) {
   const Circle = styled.div`
     width: 60px;
     height: 60px;
-    border: 6px solid #3f3f3f;
+    border: ${background === '#000000' ? '6px solid #000000' : '6px solid #3f3f3f'};
     border-radius: 50%;
     margin-right: -25px;
     background-color: ${background};
@@ -23,13 +23,15 @@ function drawCircle(len: number, background: string, index: number) {
 export default function ColorSetExample(props: any) {
   const colorList = [];
   const circleList = [];
-  console.log(props.center);
+  const data = props.colorSet.value ? props.colorSet.value : props.colorSet;
 
-  for (let color in props.colorSet) {
-    if (props.colorSet.hasOwnProperty(color)) {
-      colorList.push(props.colorSet[color]);
+  for (let color in data) {
+    if (data.hasOwnProperty(color)) {
+      colorList.push(data[color]);
     }
   }
+
+  console.log(colorList)
 
   for (let i = 0; i < colorList.length; i++) {
     circleList.push(drawCircle(colorList.length, colorList[i], i));

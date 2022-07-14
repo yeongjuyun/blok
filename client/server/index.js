@@ -74,12 +74,12 @@ app.get("/site/2", function (req, res) {
       theme: "Minimal",
       font: "Roboto",
       colorSet: {
-        primary: "#482924",
-        secondary: "#123456",
-        background: "#123456",
-        surface: "#123456"
+        primary: "#5754DE",
+        secondary: "#ABA9FF",
+        background: "#FFFFFF",
+        surface: "#E2E2E2",
       }
-  }]
+    }]
   });
 });
 

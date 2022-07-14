@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Button from "../../Button";
+import { TextInput } from "../../Input";
 
-const Container = styled.div`
+const ButtonContainer = styled.div`
   margin: 0 auto;
   width: 80%;
   display: flex;
@@ -12,9 +13,17 @@ const Container = styled.div`
   align-items: flex-start;
 `;
 
+const Container = styled.div`
+  width: 400px;
+  padding: 20px;
+  background-color: white;
+  margin: 0 auto 40px auto;
+  border-radius: 5px;
+`;
+
 export default function Setting() {
   const dispatch = useDispatch();
-  const [domain, setDomain] = useState('');
+  const [domain, setDomain] = useState("");
 
   const getDomainInfo = async () => {
     axios.get("/site/2").then((res): void => {
@@ -40,13 +49,29 @@ export default function Setting() {
     // 페이지 삭제 요청
     // alert 삭제되었습니다.
   };
-
+  
   return (
-    <Container>
-      {/* 도메인 섹션 (Card, Input 컴포넌트 재사용) */}
-      <Button onClick={deleteHandler} color="black" size="large" rounding fullWidth>
-        페이지 삭제
-      </Button>
-    </Container>
+    <>
+      <Container>
+        <TextInput
+          title='도메인'
+          required={true}
+          placeholder={domain}
+          guideline="도메인을 입력하세요."
+          onChange={setDomain}
+        />
+      </Container>
+      <ButtonContainer>
+        <Button
+          onClick={deleteHandler}
+          color="black"
+          size="large"
+          rounding
+          fullWidth
+        >
+          페이지 삭제
+        </Button>
+      </ButtonContainer>
+    </>
   );
 }

@@ -1,5 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Nanum+Gothic&family=Nanum+Myeongjo&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Roboto&family=Song+Myung&display=swap");
 
 .font {
-    font-family: 'Roboto', sans-serif;
+  font-family: "East Sea Dokdo", cursive;
+  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Nanum Myeongjo", serif;
+  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Noto Serif KR", serif;
+  font-family: "Roboto", sans-serif;
+  font-family: "Song Myung", serif;
 }
