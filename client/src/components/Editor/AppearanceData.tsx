@@ -64,12 +64,12 @@ export default function AppearanceData() {
       value: "Noto Serif KR",
     },
     {
-      label: "Noto Serif KR",
-      value: "Noto Serif KR",
-    },
-    {
       label: "Song Myung",
       value: "Song Myung",
+    },
+    {
+      label: "Elice Digital Baeum",
+      value: "Elice Digital Baeum",
     },
   ];
 

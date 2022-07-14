@@ -26,6 +26,7 @@ function FontExample(props: any) {
     font-family: ${data};
     font-size: 40px;
     font-weight: bold;
+    text-align: center;
   `;
   return <FontExample>{data}</FontExample>;
 }
