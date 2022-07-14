@@ -9,8 +9,7 @@ const UserSchema = new Schema(
     // domain schema로 변경 예정
     domain: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "sites",
+        type: String,
         required: false,
       },
     ],
