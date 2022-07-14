@@ -8,7 +8,6 @@ export class UserModel {
     const user = await User.findOne({ email });
     return user;
   }
-  // objected Id find method
   async findById(_id) {
     const user = await User.findOne({ _id: _id });
     return user;
@@ -19,6 +18,17 @@ export class UserModel {
   }
   async findAll() {
     const users = await User.find({});
+    return users;
+  }
+  async countTotalUsers() {
+    const totalCount = await User.countDocuments({});
+    return totalCount;
+  }
+  async pagenation(page, perPage) {
+    const users = await User.find({})
+      .sort({ createdAt: -1 })
+      .skip(perPage * (page - 1))
+      .limit(perPage);
     return users;
   }
   async update(_id, update) {

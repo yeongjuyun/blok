@@ -4,7 +4,7 @@ import { upload } from "../middlewares";
 
 const adminRouter = Router();
 
-adminRouter.get("/userlist", adminController.getUsersInfo);
+adminRouter.get("/userlist", adminController.getUsersInfoByPagenation);
 
 adminRouter.patch(
   "/edit-userInfo/:_id",

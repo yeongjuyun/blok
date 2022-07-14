@@ -6,9 +6,12 @@ class AdminService {
   constructor(userModel) {
     this.userModel = userModel;
   }
-  async getUsersInfo() {
-    const users = await this.userModel.findAll();
-    return users;
+  async getUsersInfoByPagenation(page, perPage) {
+    const [totalCount, users] = await Promise.all([
+      this.userModel.countTotalUsers(),
+      this.userModel.pagenation(page, perPage),
+    ]);
+    return [totalCount, users];
   }
   async editUserInfo(_id, toUpdate) {
     const user = await this.userModel.findById(_id);
