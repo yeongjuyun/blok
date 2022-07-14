@@ -103,6 +103,9 @@ class UserService {
   // 회원 삭제 구현, 추후 수정예정
   async deleteUser(_id) {
     const user = await this.userModel.delete(_id);
+    if (!user) {
+      throw new BadRequestError("존재하지 않는 유저입니다!");
+    }
     return user;
   }
 }

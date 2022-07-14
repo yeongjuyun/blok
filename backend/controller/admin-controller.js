@@ -22,9 +22,9 @@ const adminController = {
   }),
 
   deleteUser: asyncHandler(async (req, res, next) => {
-    const _id = req.body._id;
-    await userService.deleteUser(_id);
-    res.status(204);
+    const _id = req.params._id;
+    const deletedUser = await userService.deleteUser(_id);
+    res.status(204).json(deletedUser);
   }),
 };
 
