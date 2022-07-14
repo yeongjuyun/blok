@@ -37,9 +37,10 @@ export default function SettingBlock() {
                 placeholder="©2022 Block Inc. All rights reserved"
             ></TextInput>
             <TextInput
-                title="Block Inc."
+                title="오른쪽 텍스트"
                 required={false}
                 onChange={setInput}
+                placeholder="Block Inc."
                 guideline="푸터 오른쪽에 들어갈 문구를 입력하세요."
             ></TextInput>
         </Card>
