@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
-import { MainTitle } from "../components/MyInfo";
 import UserTable from "../components/UserTable";
 
 const Container = styled.div`
@@ -15,7 +14,6 @@ const Container = styled.div`
 export default function Admin() {
   return (
     <Container>
-      <MainTitle>Site Management</MainTitle>
       <UserTable />
       <Sidebar />
     </Container>

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "./Button";
+import { MainTitle } from "../components/MyInfo";
 
 const Container = styled.div`
   .controlBox {
@@ -27,6 +28,16 @@ const Container = styled.div`
     .pageText {
       padding: 0 1rem;
     }
+  }
+
+  @media screen and (max-width: 780px) {
+    .title {
+      margin-top: 102px;
+    }
+  }
+
+  @media screen and (max-width: 1120px) {
+    width: 100%;
   }
 `;
 
@@ -134,12 +145,14 @@ export default function UserTable() {
   };
 
   const handleDelete = (id: any) => {
-    console.log('delete site : ',id)
+    console.log("delete site : ", id);
     setData(data.filter((item) => item.id !== id));
   };
 
   return (
     <Container>
+      <MainTitle className="title">Site Management</MainTitle>
+
       <div className="controlBox">
         <div>
           <select
