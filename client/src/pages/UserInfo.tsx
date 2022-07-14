@@ -11,8 +11,7 @@ export const Container = styled.div`
   background-color: #f7f7f9;
 `;
 
-export default Login;
-function Login() {
+export default function UserInfo() {
   return (
     <Container>
       <Sidebar />
