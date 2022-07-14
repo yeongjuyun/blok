@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import Sidebar from "../components/Sidebar";
-import Sidetab from "../components/Editor/Sidetab";
-import EditorSection from "../components/Editor/EditorSection";
-import { useSelector } from "react-redux";
-import AlertModal from "../components/AlertModal";
-import ConfirmModal from "../components/ConfirmModal";
-import "../components/Editor/Font.css";
-import Button from "../components/Button";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import Sidebar from '../components/Sidebar';
+import Sidetab from '../components/Editor/Sidetab';
+import EditorSection from '../components/Editor/EditorSection';
+import { useSelector } from 'react-redux';
+import AlertModal from '../components/AlertModal';
+import ConfirmModal from '../components/ConfirmModal';
+import '../components/Editor/font.css';
+import Button from '../components/Button';
+import { Link } from 'react-router-dom';
 
 const DesktopContainer = styled.div`
   width: 100vw;
@@ -30,7 +30,7 @@ const MobileContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: "Elice Digital Baeum", sans-serif;
+    font-family: 'Elice Digital Baeum', sans-serif;
     font-size: 30px;
   }
 `;
@@ -65,7 +65,7 @@ export default function Editor() {
           빠른 시일 내에 <b>업데이트</b> 하도록 하겠습니다.
         </div>
         <br />
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: 'none' }}>
           <Button color="white" size="large">
             Home
           </Button>
