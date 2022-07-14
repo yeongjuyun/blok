@@ -1,16 +1,10 @@
 import React from 'react';
-import TestCard from '../../TestCard';
+import { Card } from '../../../Card/Card';
 
 export default function SettingBlock() {
     return (
-        <TestCard
-            title="title"
-            icon="icon"
-            movableIcon="move"
-            trashCan="trashIcon"
-            dropdown="dropdown"
-        >
+        <Card title="Navbar">
             <div>hi</div>
-        </TestCard>
+        </Card>
     );
 }
