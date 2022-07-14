@@ -10,7 +10,6 @@ import Editor from './pages/Editor';
 import FindPassword from './pages/FindPassword';
 import Signin from './pages/Signin';
 import Test from './pages/Test';
-import EditorTest from './pages/EditorTest';
 
 export function AppRouter() {
   return (
@@ -26,7 +25,6 @@ export function AppRouter() {
         <Route path="/findpassword" element={<FindPassword />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/test" element={<Test />} />
-        <Route path="/editorTest" element={<EditorTest />} />
       </Routes>
     </Router>
   );

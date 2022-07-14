@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import Navbar from '../components/SettingBox/Navbar';
-import Hero from '../components/SettingBox/Hero';
-import Feature from '../components/SettingBox/Feature';
-import Footer from '../components/SettingBox/Footer';
+import Navbar from '../components/Blocks/Simple/Nav/SettingBlock';
+import Hero from '../components/Blocks/Simple/Hero/SettingBlock';
+import Feature from '../components/Blocks/Simple/Feature/SettingBlock';
+import Footer from '../components/Blocks/Simple/Footer/SettingBlock';
 
 const Container = styled.div`
   padding-top: 50px;
