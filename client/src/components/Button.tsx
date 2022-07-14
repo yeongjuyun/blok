@@ -77,7 +77,7 @@ const fullWidthStyle = css`
       justify-content: center;
       & + & {
         margin-left: 0;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
       }
     `}
 `;

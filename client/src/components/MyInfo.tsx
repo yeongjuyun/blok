@@ -19,34 +19,29 @@ export const MainTitle = styled.div`
   margin-bottom: 70px;
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   font-weight: 500;
   font-size: 1.5rem;
   margin-bottom: 32px;
 `;
 
-const ContentContainer = styled.div`
-  .content {
-    margin-bottom: 20px;
-  }
-`;
-
-const ContentDiv = styled.div`
+export const ContentDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 `;
 
-const ContentTitle = styled.div`
-  font-size: 1.125rem;
+export const ContentTitle = styled.div`
+  font-size: 18px;
   text-align: center;
   margin-right: 28px;
   flex: 1;
 `;
 
-const Content = styled.div`
-  font-size: 1.125rem;
+export const Content = styled.div`
+  font-size: 18px;
   width: 100%;
   height: 42px;
   line-height: 44px;
@@ -116,23 +111,21 @@ export default function MyInfo() {
 
   return (
     <MainContainer>
-      <MainTitle>Account</MainTitle>
+      <MainTitle className="title">Account</MainTitle>
       <Container>
         <Title>내 정보</Title>
-        <ContentContainer>
-          <ContentDiv className="content">
-            <ContentTitle>이름</ContentTitle>
-            <Content>{name}</Content>
-          </ContentDiv>
-          <ContentDiv className="content">
-            <ContentTitle>이메일</ContentTitle>
-            <Content>{email}</Content>
-          </ContentDiv>
-          <ContentDiv>
-            <ContentTitle>플랜</ContentTitle>
-            <Content>{plan}</Content>
-          </ContentDiv>
-        </ContentContainer>
+        <ContentDiv className="content">
+          <ContentTitle>이름</ContentTitle>
+          <Content>{name}</Content>
+        </ContentDiv>
+        <ContentDiv className="content">
+          <ContentTitle>이메일</ContentTitle>
+          <Content>{email}</Content>
+        </ContentDiv>
+        <ContentDiv>
+          <ContentTitle>플랜</ContentTitle>
+          <Content>{plan}</Content>
+        </ContentDiv>
       </Container>
       <Container>
         <Title>계정 관리</Title>
