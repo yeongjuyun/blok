@@ -8,6 +8,7 @@ export class UserModel {
     const user = await User.findOne({ email });
     return user;
   }
+  // objected Id find method
   async findById(_id) {
     const user = await User.findOne({ _id: _id });
     return user;

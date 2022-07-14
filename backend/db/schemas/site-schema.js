@@ -1,18 +1,15 @@
 import { Schema } from "mongoose";
-import { shortId } from "./types/short-id";
 
 const SiteSchema = new Schema({
-  siteId: shortId,
-
   siteName: {
     type: String,
-    required: false,
+    required: true,
   },
   domain: [
     {
       type: Schema.Types.ObjectId,
       ref: "users",
-      required: false,
+      required: true,
     },
   ],
   siteTemplete: {
