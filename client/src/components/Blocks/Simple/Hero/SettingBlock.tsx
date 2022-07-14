@@ -18,7 +18,7 @@ export default function SettingBlock() {
     const [input, setInput] = useState('');
     const [selectinput, setSelectInput] = useState('');
     return (
-        <Card title="Feature">
+        <Card title="Hero">
             <TextInput
                 title="메뉴명"
                 required={true}
@@ -35,6 +35,12 @@ export default function SettingBlock() {
                     setSelectInput(e.value);
                 }}
             />
+            <TextInput
+                title="캡션"
+                required={false}
+                onChange={setInput}
+                guideline="캡션에 표시될 내용을 입력하세요"
+            ></TextInput>
             <TextInput
                 title="헤드라인"
                 required={false}
