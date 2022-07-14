@@ -19,7 +19,6 @@ export default function SidetabHeader() {
   const dispatch = useDispatch();
   const now = useSelector((state: any) => state.sidetabReducer);
   const toolList = ["Block", "Appearance", "Setting"];
-  const toolNameList = ["블록", "속성", "설정"];
   const itemWidth = 100 / toolList.length;
 
   if (!now) {
@@ -60,7 +59,7 @@ export default function SidetabHeader() {
           id={toolList[i]}
           onClick={() => dispatch({ type: toolList[i] })}
         >
-          {toolNameList[i]}
+          {toolList[i]}
         </Item>
       );
     }
