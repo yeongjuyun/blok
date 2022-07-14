@@ -26,7 +26,7 @@ const kakao = new Strategy(
       const user = await userService.findOrCreateUser(newUser);
       // user 정보 전달, jwt 생성을 위함.
       done(null, {
-        userId: user.userId,
+        _id: user._id,
         email: user.email,
         userName: user.userName,
         role: user.role,

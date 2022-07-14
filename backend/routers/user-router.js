@@ -28,10 +28,10 @@ userRouter.post(
 // 비밀번호 초기화 api
 userRouter.post("/reset-password", userController.resetPassword);
 
-// delete '/api/user/:userId'
+// delete '/api/user/:_id'
 // 회원탈퇴, 도메인 삭제는 그때가서 생각.
 // 문제 생길 확률이 높음 cascade 관련해서 이후에 다시 구현 예정, 로그인 필요
-userRouter.delete("/:userId", loginRequired, userController.userDelete);
+userRouter.delete("/:_id", loginRequired, userController.userDelete);
 
 // get '/api/user/auth/google'
 // google strategy 인증 부분
@@ -61,7 +61,7 @@ userRouter.get(
 );
 
 // get '/api/logincheck'
-// userId, email, role, userName 전달하는 함수, 이 값이 존재한다면 로그인 상태임을 확인할 수 있음.
+// _id, email, role, userName 전달하는 함수, 이 값이 존재한다면 로그인 상태임을 확인할 수 있음.
 // jwttoken을 통해(쿠키로 전달되기 때문에 클라이언트에선 변수 없이 호출)
 userRouter.get("/logincheck", loginRequired, userController.logincheck);
 
@@ -69,23 +69,23 @@ userRouter.get("/logincheck", loginRequired, userController.logincheck);
 // logout api
 userRouter.get("/logout", loginRequired, userController.logout);
 
-// get '/api/user/:userId'
+// get '/api/user/:_id'
 // 유저 정보 전달 api
-userRouter.get("/:userId", loginRequired, userController.getUserInfo);
+userRouter.get("/:_id", loginRequired, userController.getUserInfo);
 
-// patch '/api/user/change-profileImage/:userId'
+// patch '/api/user/change-profileImage/:_id'
 userRouter.patch(
-  "/change-profileImage/:userId",
+  "/change-profileImage/:_id",
   loginRequired,
   upload.single("profileImage"),
   userController.changeProfileImage
 );
 
-// patch '/api/user/change-password/:userId'
+// patch '/api/user/change-password/:_id'
 // 사용자 비밀번호 변경
-// shortId로 접근, oauth 계정 사용 불가, login 필수.
+// oauth 계정 사용 불가, login 필수.
 userRouter.patch(
-  "/change-password/:userId",
+  "/change-password/:_id",
   loginRequired,
   oauthBlocker,
   userController.changePassword

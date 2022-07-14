@@ -22,10 +22,10 @@ const google = new Strategy(
     };
     try {
       // 유저를 찾으면 로그인 시켜주고, 아니면 회원가입
-      const user = await userService.findOrCreateUser(newUser);
+      const user = await userService.findOrCreateUser(newUser, "google");
       // 정보를 전달하여 jwt토큰으로 만들어줌
       done(null, {
-        userId: user.userId,
+        _id: user._id,
         email: user.email,
         userName: user.userName,
         role: user.role,
