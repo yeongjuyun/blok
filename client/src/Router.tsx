@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
 import About from "./components/About";
 import NotFound from "./components/NotFound";
+import UserInfo from "./pages/UserInfo";
 
 export function AppRouter() {
   return (
@@ -16,6 +17,7 @@ export function AppRouter() {
         <Route path="/account" element={<Account />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/user/:userId" element={<UserInfo />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
