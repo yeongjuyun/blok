@@ -91,7 +91,6 @@ export default function Appearance() {
           테마
           <Required>*</Required>
         </Label>
-        <br />
         <CustomSelect
           value={themeList.filter((item: any) => item.value === theme)[0]}
           onChange={setTheme}

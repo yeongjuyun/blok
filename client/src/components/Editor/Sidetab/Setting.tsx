@@ -53,12 +53,9 @@ export default function Setting() {
   return (
     <>
       <Container>
-        <Label required={true}>
-          도메인
-          <Required>*</Required>
-        </Label>
-        <br />
         <TextInput
+          title="도메인"
+          required={true}
           value={domain}
           guideline="도메인을 변경할 수 있습니다."
           onChange={setDomain}
