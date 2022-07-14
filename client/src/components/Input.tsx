@@ -1,10 +1,8 @@
-import styled, { css } from 'styled-components';
-import React, { useMemo, useState } from 'react';
-import ReactSelect, { GroupBase, OptionsOrGroups } from 'react-select';
-import Dropzone from './Dropzone';
-import ImageCrop from './ImageCrop';
+import styled from 'styled-components';
+import React, { useMemo, useRef, useState } from 'react';
+import ReactSelect from 'react-select';
 
-export const Width100 = styled.div`
+const Width100 = styled.div`
   width: 100%;
   margin-top: 28px;
 `;
@@ -13,7 +11,7 @@ const DisplayNone = styled.div`
   display: none;
 `;
 
-export const Label = styled.div<{ required?: boolean }>`
+const Label = styled.div<{ required?: boolean }>`
   font-weight: 600;
   font-size: 16px;
   line-height: 16px;
@@ -22,18 +20,41 @@ export const Label = styled.div<{ required?: boolean }>`
     display: ${(props) => (props.required === true ? 'static' : 'none')};
   }
 `;
-export const Required = styled.span`
+const Required = styled.span`
   color: red;
   margin-left: 2px;
 `;
 
+const InputImg = styled.input`
+  font-size: 16px;
+  line-height: 19px;
+  width: 100%;
+  height: 48px;
+  border: 1px solid #ececec;
+  box-sizing: border-box;
+  padding: 12px 19px;
+  border-radius: 5px;
+`;
+
+const PreviewImg = styled.img`
+  width: 100px;
+`;
+
+interface ImgInputprops {
+  title?: string;
+  required?: boolean;
+  placeholder?: string;
+  guideline?: string;
+}
 interface Inputprops {
   title?: string;
   required?: boolean;
   placeholder?: string;
   onChange: Function;
   guideline?: string;
+  ref?: React.RefObject<HTMLInputElement>;
 }
+
 export const Input = styled.input`
   font-size: 16px;
   line-height: 19px;
@@ -77,6 +98,7 @@ export function TextInput(props: Inputprops) {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           props.onChange(e.target.value);
         }}
+        ref={props.ref}
       />
       {props.guideline ? (
         <Guideline>{props.guideline}</Guideline>
@@ -141,35 +163,40 @@ export const CustomSelect = (props: any) => {
   );
 };
 
-const Container = styled.div`
-  width: 600px;
-  padding: 3rem;
-  background-color: #fff;
-  z-index: 11;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  border-radius: 16px;
-`;
-
-interface IImageUploadModalProps {
-  closeModal: () => void;
-}
-
-export function ImageUploadModal({ closeModal }: IImageUploadModalProps) {
-  const [image, setImage] = useState('');
-
-  const onChangeImage = (uploadedImage: File) => {
-    setImage(URL.createObjectURL(uploadedImage));
+export const ImgInput = (props: ImgInputprops) => {
+  // const [ImgLoading, setImgLoading] = useState<boolean>(false);
+  const ImgRef = useRef<HTMLInputElement>(null);
+  const [Img, setImg] = useState<any>(null);
+  const onImgChange = async (event: any) => {
+    // setImgLoading(true);
+    setImg(URL.createObjectURL(event.target.files[0]));
+    // const response = axios.post(URL.createObjectURL(event.target.files[0]))
+    // setImgLoading(false);
   };
-
   return (
-    <Container>
-      {image ? (
-        <ImageCrop image={image} closeModal={closeModal} />
+    <Width100>
+      {props.title ? (
+        <Label required={props.required}>
+          {props.title}
+          <Required>*</Required>
+        </Label>
       ) : (
-        <Dropzone onChangeImage={onChangeImage} />
+        <DisplayNone />
       )}
-    </Container>
+      <InputImg
+        ref={ImgRef}
+        type='file'
+        className='imgInput'
+        accept='image/*'
+        name='file'
+        onChange={onImgChange}
+      />
+      {props.guideline ? (
+        <Guideline>{props.guideline}</Guideline>
+      ) : (
+        <DisplayNone />
+      )}
+      {Img !== null ? <PreviewImg src={Img} /> : <DisplayNone />}
+    </Width100>
   );
-}
+};
