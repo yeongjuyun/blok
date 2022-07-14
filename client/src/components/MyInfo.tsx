@@ -9,7 +9,7 @@ const MainContainer = styled.div`
 `;
 
 const Container = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 70px;
 `;
 
 export const MainTitle = styled.div`
@@ -26,34 +26,37 @@ const Title = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  background-color: #fff;
-  padding: 1.6rem;
-  border-radius: 10px;
-
   .content {
     margin-bottom: 20px;
   }
 `;
 
 const ContentDiv = styled.div`
-  display: flex;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ContentTitle = styled.div`
   font-size: 1.125rem;
-  font-weight: 00;
-  width: 6.25em;
   text-align: center;
-  margin-right: 43px;
+  margin-right: 28px;
+  flex: 1;
 `;
 
 const Content = styled.div`
   font-size: 1.125rem;
   width: 100%;
-  height: 1.5rem;
+  height: 42px;
+  line-height: 44px;
+  border: 1px solid #ececec;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding-left: 18px;
+  flex: 5;
   color: #111111;
-  border-bottom: 1px solid #e5e5e5;
+  background-color: #fff;
 `;
 
 const ControlButton = styled(Button)`
@@ -80,12 +83,11 @@ export default function MyInfo() {
   const dispatch = useDispatch();
 
   const getUserInfo = async () => {
-    axios.get("/user").then((res): void => {
-      const user = res.data;
-      setName(user.name);
-      setEmail(user.email);
-      setPlan(user.plan);
-    });
+    const res = await axios.get("/user/1");
+    const user = res.data[0];
+    setName(user.name);
+    setEmail(user.email);
+    setPlan(user.plan);
   };
 
   useEffect(() => {
