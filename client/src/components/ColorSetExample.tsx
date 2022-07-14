@@ -31,8 +31,6 @@ export default function ColorSetExample(props: any) {
     }
   }
 
-  console.log(colorList)
-
   for (let i = 0; i < colorList.length; i++) {
     circleList.push(drawCircle(colorList.length, colorList[i], i));
   }

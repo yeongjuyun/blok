@@ -27,14 +27,14 @@ function FontExample(props: any) {
     font-size: 40px;
     font-weight: bold;
   `;
-  return <FontExample>{data}</FontExample>
+  return <FontExample>{data}</FontExample>;
 }
 
 export default function Appearance() {
   const fontList = AppearanceData().fontData;
   const colorSetList = AppearanceData().colorSetData;
-  const [colorSet, setColorSet] = useState("");
-  const [font, setFont] = useState("");
+  const [colorSet, setColorSet] = useState<any>([]);
+  const [font, setFont] = useState<any>([]);
 
   const getStyleInfo = async () => {
     axios.get("/site/2").then((res): void => {
@@ -48,6 +48,12 @@ export default function Appearance() {
     getStyleInfo();
   }, []);
 
+  colorSetList.map((item: any) => item === colorSet);
+  console.log(
+    colorSetList.filter(
+      (item: any) => item.value.primary === colorSet.primary
+    )[0]
+  );
   return (
     <>
       <Container>
@@ -58,7 +64,15 @@ export default function Appearance() {
         <InnerContainer>
           <ColorSetExample colorSet={colorSet} />
         </InnerContainer>
-        <CustomSelect onChange={setColorSet} options={colorSetList} />
+        <CustomSelect
+          value={
+            colorSetList.filter(
+              (item: any) => item.value.primary === colorSet.primary
+            )[0]
+          }
+          onChange={setColorSet}
+          options={colorSetList}
+        />
       </Container>
       <Container>
         <Label required={true}>
@@ -68,7 +82,13 @@ export default function Appearance() {
         <InnerContainer>
           <FontExample font={font} />
         </InnerContainer>
-        <CustomSelect onChange={setFont} options={fontList} />
+        <CustomSelect
+          value={fontList.filter(
+            (item: any) => item.value === font
+          )[0]}
+          onChange={setFont}
+          options={fontList}
+        />
       </Container>
     </>
   );

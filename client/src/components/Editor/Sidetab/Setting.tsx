@@ -56,7 +56,7 @@ export default function Setting() {
         <TextInput
           title='도메인'
           required={true}
-          placeholder={domain}
+          value={domain}
           guideline="도메인을 입력하세요."
           onChange={setDomain}
         />

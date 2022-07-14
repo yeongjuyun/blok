@@ -74,10 +74,10 @@ app.get("/site/2", function (req, res) {
       theme: "Minimal",
       font: "Roboto",
       colorSet: {
-        primary: "#5754DE",
-        secondary: "#ABA9FF",
-        background: "#FFFFFF",
-        surface: "#E2E2E2",
+        "primary": "#5754DE",
+        "secondary": "#ABA9FF",
+        "background": "#FFFFFF",
+        "surface": "#E2E2E2",
       }
     }]
   });

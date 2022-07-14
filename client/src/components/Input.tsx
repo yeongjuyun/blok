@@ -28,6 +28,7 @@ interface Inputprops {
   placeholder?: string;
   onChange: Function;
   guideline?: string;
+  value?: string;
 }
 export const Input = styled.input`
   font-size: 16px;
@@ -68,6 +69,7 @@ export function TextInput(props: Inputprops) {
             ? props.placeholder
             : '안에 들어갈 내용을 입력하세요'
         }
+        value={props.value && props.value}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           props.onChange(e.target.value);
         }}
@@ -124,6 +126,7 @@ export const CustomSelect = (props: any) => {
       )}
       <SelectBox
         placeholder={props.placeholder}
+        value={props.value}
         styles={customStyles}
         options={props.options}
         onChange={props.onChange}
