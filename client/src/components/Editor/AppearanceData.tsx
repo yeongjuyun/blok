@@ -73,5 +73,20 @@ export default function AppearanceData() {
     },
   ];
 
-  return { colorSetData, fontData };
+  const themeData = [
+    {
+      label: "Minimal",
+      value: "Minimal",
+    },
+    {
+      label: "Simple",
+      value: "Simple",
+    },
+    {
+      label: "Resume",
+      value: "Resume",
+    },
+  ];
+
+  return { colorSetData, fontData, themeData };
 }

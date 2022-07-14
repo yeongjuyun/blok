@@ -13,7 +13,7 @@ const Container = styled.div`
   border-radius: 5px;
 `;
 
-const InnerContainer = styled.div`
+const ExampleContainer = styled.div`
   padding: 50px 0;
   display: flex;
   justify-content: center;
@@ -33,14 +33,17 @@ function FontExample(props: any) {
 export default function Appearance() {
   const fontList = AppearanceData().fontData;
   const colorSetList = AppearanceData().colorSetData;
+  const themeList = AppearanceData().themeData;
   const [colorSet, setColorSet] = useState<any>([]);
   const [font, setFont] = useState<any>([]);
+  const [theme, setTheme] = useState<any>([]);
 
   const getStyleInfo = async () => {
     axios.get("/site/2").then((res): void => {
       const data = res.data.sites[0];
       setColorSet(data.colorSet);
       setFont(data.font);
+      setTheme(data.theme);
     });
   };
 
@@ -48,12 +51,6 @@ export default function Appearance() {
     getStyleInfo();
   }, []);
 
-  colorSetList.map((item: any) => item === colorSet);
-  console.log(
-    colorSetList.filter(
-      (item: any) => item.value.primary === colorSet.primary
-    )[0]
-  );
   return (
     <>
       <Container>
@@ -61,9 +58,9 @@ export default function Appearance() {
           색상조합
           <Required>*</Required>
         </Label>
-        <InnerContainer>
+        <ExampleContainer>
           <ColorSetExample colorSet={colorSet} />
-        </InnerContainer>
+        </ExampleContainer>
         <CustomSelect
           value={
             colorSetList.filter(
@@ -79,15 +76,25 @@ export default function Appearance() {
           폰트
           <Required>*</Required>
         </Label>
-        <InnerContainer>
+        <ExampleContainer>
           <FontExample font={font} />
-        </InnerContainer>
+        </ExampleContainer>
         <CustomSelect
-          value={fontList.filter(
-            (item: any) => item.value === font
-          )[0]}
+          value={fontList.filter((item: any) => item.value === font)[0]}
           onChange={setFont}
           options={fontList}
+        />
+      </Container>
+      <Container>
+        <Label required={true}>
+          테마
+          <Required>*</Required>
+        </Label>
+        <br />
+        <CustomSelect
+          value={themeList.filter((item: any) => item.value === theme)[0]}
+          onChange={setTheme}
+          options={themeList}
         />
       </Container>
     </>

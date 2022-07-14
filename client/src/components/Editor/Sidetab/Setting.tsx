@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Button from "../../Button";
-import { TextInput } from "../../Input";
+import { Label, Required, TextInput } from "../../Input";
 
 const ButtonContainer = styled.div`
   margin: 0 auto;
@@ -49,17 +49,20 @@ export default function Setting() {
     // 페이지 삭제 요청
     // alert 삭제되었습니다.
   };
-  
+
   return (
     <>
       <Container>
+        <Label required={true}>
+          도메인
+          <Required>*</Required>
+        </Label>
+        <br />
         <TextInput
-          title='도메인'
-          required={true}
           value={domain}
-          guideline="도메인을 입력하세요."
+          guideline="도메인을 변경할 수 있습니다."
           onChange={setDomain}
-        />
+        ></TextInput>
       </Container>
       <ButtonContainer>
         <Button
