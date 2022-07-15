@@ -2,12 +2,15 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logoImg from "./../imgs/logo.png";
-import { FaUserAlt } from "react-icons/fa";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { BiLogOut } from "react-icons/bi";
-import { CgClose } from "react-icons/cg";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // import icon
+import { CgClose } from "react-icons/cg";
+import { BiLogOut } from "react-icons/bi";
+import { FaUserAlt } from "react-icons/fa";
 import { GrMenu } from "react-icons/gr";
 import { FaRegUserCircle } from "react-icons/fa";
 
@@ -110,9 +113,18 @@ interface IMyProps {
 }
 
 const Menu = (props: IMyProps) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const closeMenuHandler = () => {
     props.setIsMobile(!props.isMobile);
   };
+
+  const logoutHandler = async () => {
+    await axios.get("/api/user/logout");
+    dispatch({ type: "alertOn", payload: "로그아웃 처리 되었습니다." });
+    navigate("/login");
+  };
+
   return (
     <MenuContainer onMouseLeave={closeMenuHandler}>
       <Link to="/account" style={{ textDecoration: "none" }}>
@@ -127,7 +139,7 @@ const Menu = (props: IMyProps) => {
           <span>Dashboard</span>
         </List>
       </Link>
-      <Link to="/" style={{ textDecoration: "none" }}>
+      <Link to="/" onClick={logoutHandler} style={{ textDecoration: "none" }}>
         <List>
           <BiLogOut color="black" />
           <span>Logout</span>

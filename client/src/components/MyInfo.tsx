@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "./Button";
+import { RootState } from "../reducers";
+import { useNavigate } from "react-router-dom";
 
 const MainContainer = styled.div`
   margin: 100px;
@@ -72,15 +74,24 @@ const ControlButton = styled(Button)`
 `;
 
 export default function MyInfo() {
+  const [userId, setUserId] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [plan, setPlan] = useState<string>("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const confirmState = useSelector(
+    (state: RootState) => state.modalReducer.confirmState
+  );
+  const confirmAction = useSelector(
+    (state: RootState) => state.modalReducer.confirmData
+  );
 
   const getUserInfo = async () => {
-    const res = await axios.get("/user/1");
-    const user = res.data[0];
-    setName(user.name);
+    const res = await axios.get("/api/user/logincheck");
+    const user = res.data;
+    setUserId(user.userId);
+    setName(user.userName);
     setEmail(user.email);
     setPlan(user.plan);
   };
@@ -89,12 +100,13 @@ export default function MyInfo() {
     getUserInfo();
   }, []);
 
-  const resetHandler = () => {
+  const resethandler = () => {
     dispatch({
       type: "CONFIRM/MODAL_ON",
       payload: {
         title: "비밀번호 초기화",
         msg: "정말 초기화하시겠습니까?",
+        action: "reset",
       },
     });
   };
@@ -105,9 +117,44 @@ export default function MyInfo() {
       payload: {
         title: "계정탈퇴",
         msg: "정말 탈퇴하시겠습니까?",
+        action: "delete",
       },
     });
   };
+
+  const resetPassword = async () => {
+    try {
+      await axios.post("/api/user/reset-password", { name, email });
+      dispatch({ type: "CONFIRM/MODAL_OFF" });
+      dispatch({ type: "alertOn", payload: "성공적으로 메일을 보냈습니다." });
+      navigate("/ChangePassword");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      await axios.delete(`/api/user/${userId}`);
+      dispatch({ type: "CONFIRM/MODAL_OFF" });
+      dispatch({ type: "alertOn", payload: "회원탈퇴 처리 되었습니다." });
+      navigate("/login");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  if (confirmState) {
+    if (confirmAction.action === "reset") {
+      console.log("리샛");
+      resetPassword();
+    }
+
+    if (confirmAction.action === "delete") {
+      console.log("삭제");
+      deleteUser();
+    }
+  }
 
   return (
     <MainContainer>
@@ -130,7 +177,7 @@ export default function MyInfo() {
       <Container>
         <Title>계정 관리</Title>
         <ControlButton
-          onClick={resetHandler}
+          onClick={resethandler}
           size="large"
           color="white"
           rounding

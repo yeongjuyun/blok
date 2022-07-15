@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { CgClose } from "react-icons/cg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "./Button";
 
 const ModalBackground = styled.div`
@@ -56,12 +56,13 @@ interface IMyProps {
 
 export default function ConfirmModal(props: IMyProps) {
   const dispatch = useDispatch();
+
   const closeModalHandler = () => {
     dispatch({ type: "CONFIRM/MODAL_OFF" });
   };
 
   const conFirmHandler = () => {
-    console.log("confirm!!!");
+    dispatch({ type: "CONFIRM/CONFIRM_YES" });
   };
 
   return (
