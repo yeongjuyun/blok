@@ -49,14 +49,13 @@ const initialStateSample: SiteState = {
   blocks: [
     {
       id: 1,
-      type: 'Hero',
-      navTitle: null,
       template: {
         theme: 'Simple',
         blockType: 'Hero',
         layout: null,
       },
       data: {
+        navTitle: null,
         style: {
           value: '',
         },
@@ -75,14 +74,13 @@ const initialStateSample: SiteState = {
     },
     {
       id: 2,
-      type: 'Feature',
-      navTitle: '홈',
       template: {
         theme: 'Simple',
         blockType: 'Feature',
         layout: null,
       },
       data: {
+        navTitle: '홈',
         style: {
           value: '',
         },
@@ -108,40 +106,13 @@ const initialStateSample: SiteState = {
     },
     {
       id: 3,
-      type: 'Feature',
-      navTitle: '기능 소개',
       template: {
         theme: 'Simple',
         blockType: 'Footer',
         layout: 'Right',
       },
       data: {
-        style: { value: '' },
-        image: {
-          src: 'www.image.com/source/12312',
-          alt: 'image',
-        },
-        caption: {
-          value: '빠른 시작 ',
-        },
-        header: {
-          value: '다양한 템플릿으로 웹사이트를 만들어보세요.',
-        },
-        body: {
-          value: '블록은 랜딩페이지부터 이력서까지 다양한 템플릿을 제공합니다.',
-        },
-      },
-    },
-    {
-      id: 4,
-      type: 'Feature',
-      navTitle: '기능 소개',
-      template: {
-        theme: 'Simple',
-        blockType: 'Footer',
-        layout: 'Right',
-      },
-      data: {
+        navTitle: '기능 소개',
         style: { value: '' },
         image: {
           src: 'www.image.com/source/12312',

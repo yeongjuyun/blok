@@ -1,12 +1,14 @@
 //By BlockType
 
 export interface NavData {
+  navTitle?: null;
   style: StyleData;
   logoImage?: ImageData;
   logoText?: TextData;
   button?: ButtonData;
 }
 export interface HeroData {
+  navTitle: string;
   style: StyleData;
   image?: ImageData;
   caption?: TextData;
@@ -15,6 +17,7 @@ export interface HeroData {
   button?: ButtonData;
 }
 export interface FeatureData {
+  navTitle: string;
   style: StyleData;
   image?: ImageData;
   caption?: TextData;
@@ -27,8 +30,6 @@ export interface FeatureData {
 
 export interface Block {
   id: number;
-  type: string;
-  navTitle: string | null;
   template: {
     theme: string;
     blockType: string;
@@ -37,6 +38,7 @@ export interface Block {
   data: BlockData;
 }
 export interface BlockData {
+  navTitle: string | null;
   style: StyleData;
   logoImage?: ImageData;
   logoText?: TextData;
