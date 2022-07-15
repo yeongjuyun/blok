@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import * as LoginForm from './LoginForm';
 import { useNavigate } from 'react-router-dom';
@@ -76,26 +76,31 @@ function Loginfield() {
       email: emailRef.current!.value,
       password: passwordRef.current!.value,
     };
-    const logindata = JSON.stringify(data);
-    localStorage.setItem('login', logindata);
-    try {
-      const res = await axios.post('/api/login/', data);
-      console.log(res);
-      nav('/main');
-    } catch (e) {
-      console.log(e);
-    }
-    // 문제없으면 이동
-    // nav('/signin');
-    // try {
-    //   Api.get('url:${data}')
 
-    // } catch(e){
-    //   console.log(e)
-    //   모달창 띄우기
-    // }
+    try {
+      const res = await axios.post('/api/auth/login', data);
+      const resdata = res.data;
+      console.log(res);
+      if (resdata.passwordReset) {
+        nav('/changepassword');
+      }
+      nav('/main');
+    } catch (e: any) {
+      alert(e.response.data.reason);
+    }
   };
 
+  const googleClick = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    alert('곧 구현될 예정입니다.');
+    // try {
+    //   const res = await axios.get('/api/user/google');
+    //   nav('/main')
+    // } catch (e) {
+    //   console.log(e);
+    // }
+  };
   const toSigninClick = (
     e: React.MouseEvent<HTMLHyperlinkElementUtils, MouseEvent>
   ) => {
@@ -106,22 +111,29 @@ function Loginfield() {
   ) => {
     nav('/findpassword');
   };
-  // useEffect(() => {
-  //   const data = localStorage.set('login');
-  //   console.log(
-  //     `${data ? '로그인정보 이미 있습니다.' : '로그인 정보가 없습니다.'}`
-  //   );
-  // }, []);
-  // useEffect(() => {
-  //   axios.get('/123').then((res): void => console.log(res));
-  // }, []);
+
+  useEffect(() => {
+    return () => {
+      async function loginCheck() {
+        const res = await axios.get('/api/user/logincheck');
+        if (res.data) {
+          if (res.data.passwordReset) {
+            nav('/changepassword');
+          }
+          console.log('이미 로그인 되어있습니다.');
+          nav('/main');
+        }
+      }
+      loginCheck();
+    };
+  });
   return (
     <Container>
       <LoginForm.Title>로그인</LoginForm.Title>
       <LoginForm.InputDiv>
         <LoginForm.InputTitle error={emailError}>이메일</LoginForm.InputTitle>
         <LoginForm.ErrorSpan>
-          {emailError && '유효하지 않은 이메일 주소입니다.'}{' '}
+          {emailError && '유효하지 않은 이메일 주소입니다.'}
         </LoginForm.ErrorSpan>
       </LoginForm.InputDiv>
       <LoginForm.Input
@@ -144,19 +156,19 @@ function Loginfield() {
         placeholder='비밀번호는 6자리 이상이여야합니다.'
         error={pswError}
       />
+
       <LoginForm.FindPasswordtag onClick={tofindPswClick}>
         비밀번호 찾기
       </LoginForm.FindPasswordtag>
+
       <LoginForm.Button onClick={handleClick} disabled={btnactive}>
         로그인 버튼
       </LoginForm.Button>
       <LoginForm.Text>또는</LoginForm.Text>
-      <LoginForm.GoogleButton>
+      <LoginForm.GoogleButton onClick={googleClick}>
         <img src={imgs.googleloginicon} alt='구글'></img>구글 로그인
       </LoginForm.GoogleButton>
-      <LoginForm.KakaoButton>
-        <img src={imgs.kakaologinicon} alt='카카오'></img> 카카오 로그인
-      </LoginForm.KakaoButton>
+
       <LoginForm.Graytext>
         처음이신가요?
         <LoginForm.Atag onClick={toSigninClick}>가입하기</LoginForm.Atag>

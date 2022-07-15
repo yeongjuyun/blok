@@ -1,13 +1,12 @@
-import styled from 'styled-components';
-import Sidebar from '../components/Sidebar';
-import Sidetab from '../components/Editor/Sidetab';
-import EditorSection from '../components/Editor/EditorSection';
-import { useSelector } from 'react-redux';
-import AlertModal from '../components/AlertModal';
-import ConfirmModal from '../components/ConfirmModal';
-import '../components/Editor/font.css';
-import Button from '../components/Button';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import Sidebar from "../components/Sidebar";
+import Sidetab from "../components/Editor/Sidetab";
+import EditorSection from "../components/Editor/EditorSection";
+import { useSelector } from "react-redux";
+import AlertModal from "../components/AlertModal";
+import ConfirmModal from "../components/ConfirmModal";
+import Button from "../components/Button";
+import { Link } from "react-router-dom";
 
 const DesktopContainer = styled.div`
   width: 100vw;
