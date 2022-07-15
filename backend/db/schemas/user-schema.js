@@ -2,11 +2,10 @@ import { Schema } from "mongoose";
 
 const UserSchema = new Schema(
   {
-    domain: [
+    userDomain: [
       {
         type: Schema.Types.ObjectId,
-        ref: "sites",
-        required: false,
+        ref: "domain",
       },
     ],
     userName: {
@@ -32,14 +31,14 @@ const UserSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["admin-user", "basic-user"],
-      default: "basic-user",
+      enum: ["admin", "basic"],
+      default: "basic",
     },
     plan: {
       type: String,
       default: "free",
       // 추가 예정
-      enum: ["free"],
+      enum: ["free", "paid"],
     },
     // true일 때 비밀번호 재설정 페이지 렌더링
     passwordReset: {
