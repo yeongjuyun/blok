@@ -71,9 +71,15 @@ export default function Appearance() {
     getStyleInfo();
   }, []);
 
-  useEffect(() => {
-    console.log(font)
-  }, [font]);
+  const changeThemeHandler = (e: any) => {
+    if (
+      window.confirm(
+        "테마에 해당 블록타입이 없을시 블록이 삭제될 수 있습니다. 테마를 변경하시겠습니까?"
+      )
+    ) {
+      setTheme(e.value);
+    }
+  };
 
   return (
     <>
@@ -91,7 +97,7 @@ export default function Appearance() {
               (item: any) => item.value.primary === colorSet.primary
             )[0]
           }
-          onChange={setColorSet}
+          onChange={(e: any) => setColorSet(e.value)}
           options={colorSetList}
         />
       </Container>
@@ -105,7 +111,7 @@ export default function Appearance() {
         </ExampleContainer>
         <CustomSelect
           value={fontList.filter((item: any) => item.value === font)[0]}
-          onChange={setFont}
+          onChange={(e: any) => setFont(e.value)}
           options={fontList}
         />
       </Container>
@@ -116,7 +122,7 @@ export default function Appearance() {
         </Label>
         <CustomSelect
           value={themeList.filter((item: any) => item.value === theme)[0]}
-          onChange={setTheme}
+          onChange={changeThemeHandler}
           options={themeList}
         />
       </Container>
