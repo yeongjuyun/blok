@@ -11,3 +11,5 @@ const DomainSchema = new Schema({
     required: true,
   },
 });
+
+export { DomainSchema };
