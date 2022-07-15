@@ -61,7 +61,8 @@ const SaveButton = styled.button`
 
 export default function PublishBar() {
   const dispatch = useDispatch();
-  const [domain, setDomain] = useState("");
+  const [domain, setDomain] = useState<any>([]);
+  let msg = "";
 
   async function getDomainInfo() {
     try {
@@ -76,18 +77,21 @@ export default function PublishBar() {
   async function saveHandler() {
     const data = "";
     try {
-      const res = await axios.put("/site/2", data);
-      console.log(res);
-    } catch (e) {
-      console.log(e);
+      await axios.put("/site/2", data);
+      msg = "페이지가 저장되었습니다.";
+      dispatch({
+        type: "alertOn",
+        payload: { msg: msg, link: domain, time: 2000 },
+      });
+    } catch (err) {
+      msg = "잠시 후 시도해주세요.";
+      dispatch({ type: "alertOn", payload: { msg: "잠시 후 시도해주세요." } });
     }
   }
 
   useEffect(() => {
     getDomainInfo();
   }, []);
-
-  let msg = "";
 
   async function copyHandler() {
     try {
@@ -97,7 +101,7 @@ export default function PublishBar() {
       console.log(err);
       msg = "잠시 후 시도해주세요.";
     }
-    dispatch({ type: "alertOn", payload: msg });
+    dispatch({ type: "alertOn", payload: { msg: msg } });
   }
 
   return (
