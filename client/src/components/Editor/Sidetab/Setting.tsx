@@ -15,7 +15,7 @@ const ButtonContainer = styled.div`
 
 const Container = styled.div`
   width: 400px;
-  padding: 20px;
+  padding: 0.01px 20px 20px 20px;
   background-color: white;
   margin: 0 auto 40px auto;
   border-radius: 5px;

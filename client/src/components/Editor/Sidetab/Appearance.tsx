@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ColorSetExample from "../../ColorSetExample";
-import { CustomSelect, Label, Required } from "../../Input";
+import { CustomSelect } from "../../Input";
 import AppearanceData from "../AppearanceData";
 
 const Container = styled.div`
@@ -17,6 +17,21 @@ const ExampleContainer = styled.div`
   padding: 50px 0;
   display: flex;
   justify-content: center;
+`;
+
+const Label = styled.div<{ required?: boolean }>`
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  margin-bottom: 12px;
+  span {
+    display: ${(props) => (props.required === true ? "static" : "none")};
+  }
+`;
+
+const Required = styled.span`
+  color: red;
+  margin-left: 2px;
 `;
 
 function FontExample(props: any) {
