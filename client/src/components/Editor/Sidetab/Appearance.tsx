@@ -54,32 +54,31 @@ export default function Appearance() {
   const [font, setFont] = useState<any>([]);
   const [theme, setTheme] = useState<any>([]);
 
-  const getStyleInfo = async () => {
+  async function getStyleInfo() {
     try {
-      axios.get("/site/2").then((res): void => {
-        const data = res.data.sites[0];
-        setColorSet(data.colorSet);
-        setFont(data.font);
-        setTheme(data.theme);
-      });
+      const res = await axios.get("/site/2");
+      const data = res.data.sites[0];
+      setColorSet(data.colorSet);
+      setFont(data.font);
+      setTheme(data.theme);
     } catch (e) {
       console.log(e);
     }
-  };
+  }
 
   useEffect(() => {
     getStyleInfo();
   }, []);
 
-  const changeThemeHandler = (e: any) => {
+  function changeThemeHandler(e: any) {
     if (
       window.confirm(
-        "테마에 해당 블록타입이 없을시 블록이 삭제될 수 있습니다. 테마를 변경하시겠습니까?"
+        "테마에 해당 블록타입이 없을시 블록이 삭제될 수 있습니다.\n테마를 변경하시겠습니까?"
       )
     ) {
       setTheme(e.value);
     }
-  };
+  }
 
   return (
     <>

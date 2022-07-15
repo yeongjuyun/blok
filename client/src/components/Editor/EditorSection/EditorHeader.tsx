@@ -63,22 +63,32 @@ export default function PublishBar() {
   const dispatch = useDispatch();
   const [domain, setDomain] = useState("");
 
-  const getDomainInfo = async () => {
+  async function getDomainInfo() {
     try {
-      axios.get("/site/2").then((res): void => {
-        const domain = res.data.sites[0].domain;
-        setDomain(domain);
-      });
+      const res = await axios.get("/site/2");
+      const domain = res.data.sites[0].domain;
+      setDomain(domain);
     } catch (e) {
       console.log(e);
     }
-  };
+  }
+
+  async function saveHandler() {
+    const data = "";
+    try {
+      const res = await axios.put("/site/2", data);
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   useEffect(() => {
     getDomainInfo();
   }, []);
 
   let msg = "";
+
   async function copyHandler() {
     try {
       await navigator.clipboard.writeText(domain);
@@ -97,7 +107,7 @@ export default function PublishBar() {
         <Domain>{domain}</Domain>
         <CopyButton onClick={copyHandler}>복사</CopyButton>
       </DomainContainer>
-      <SaveButton>저장</SaveButton>
+      <SaveButton onClick={saveHandler}>저장</SaveButton>
     </Container>
   );
 }
