@@ -32,8 +32,8 @@ const UserSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["admin-user", "basic-user"],
-      default: "basic-user",
+      enum: ["admin", "basic"],
+      default: "basic",
     },
     plan: {
       type: String,
