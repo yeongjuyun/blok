@@ -25,6 +25,12 @@ export interface FeatureData {
   body?: TextData;
   button?: ButtonData;
 }
+export interface FooterData {
+  navTitle: string;
+  style: StyleData;
+  leftText?: TextData;
+  rightText?: TextData;
+}
 
 //Block Interface
 
@@ -47,6 +53,8 @@ export interface BlockData {
   header?: TextData;
   body?: TextData;
   button?: ButtonData;
+  rightText?: TextData;
+  leftText?: TextData;
 }
 export interface StyleData {
   value: string;
