@@ -38,7 +38,7 @@ const CopyButton = styled.button`
   border-radius: 40px / 40px;
   margin-left: 10px;
   font-weight: 600;
-  
+
   :hover {
     cursor: pointer;
   }
@@ -61,13 +61,17 @@ const SaveButton = styled.button`
 
 export default function PublishBar() {
   const dispatch = useDispatch();
-  const [domain, setDomain] = useState('');
+  const [domain, setDomain] = useState("");
 
   const getDomainInfo = async () => {
-    axios.get("/site/2").then((res): void => {
-      const domain = res.data.sites[0].domain;
-      setDomain(domain);
-    });
+    try {
+      axios.get("/site/2").then((res): void => {
+        const domain = res.data.sites[0].domain;
+        setDomain(domain);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {

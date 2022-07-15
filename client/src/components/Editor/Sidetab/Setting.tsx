@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Button from "../../Button";
-import { Label, Required, TextInput } from "../../Input";
+import { TextInput } from "../../Input";
 
 const ButtonContainer = styled.div`
   margin: 0 auto;
@@ -26,10 +26,14 @@ export default function Setting() {
   const [domain, setDomain] = useState("");
 
   const getDomainInfo = async () => {
-    axios.get("/site/2").then((res): void => {
-      const domain = res.data.sites[0].domain;
-      setDomain(domain);
-    });
+    try {
+      axios.get("/site/2").then((res): void => {
+        const domain = res.data.sites[0].domain;
+        setDomain(domain);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -45,8 +49,7 @@ export default function Setting() {
       },
     });
 
-    // try-catch
-    // 페이지 삭제 요청
+    // try-catch 페이지 삭제 요청
     // alert 삭제되었습니다.
   };
 

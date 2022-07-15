@@ -40,12 +40,16 @@ export default function Appearance() {
   const [theme, setTheme] = useState<any>([]);
 
   const getStyleInfo = async () => {
-    axios.get("/site/2").then((res): void => {
-      const data = res.data.sites[0];
-      setColorSet(data.colorSet);
-      setFont(data.font);
-      setTheme(data.theme);
-    });
+    try {
+      axios.get("/site/2").then((res): void => {
+        const data = res.data.sites[0];
+        setColorSet(data.colorSet);
+        setFont(data.font);
+        setTheme(data.theme);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {

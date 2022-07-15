@@ -5,7 +5,6 @@ import EditorSection from "../components/Editor/EditorSection";
 import { useSelector } from "react-redux";
 import AlertModal from "../components/AlertModal";
 import ConfirmModal from "../components/ConfirmModal";
-import "../components/Editor/Font.css";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
 
