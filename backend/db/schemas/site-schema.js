@@ -8,7 +8,16 @@ const SiteSchema = new Schema(
     },
     siteDomain: {
       type: Schema.Types.ObjectId,
-      ref: "users",
+      ref: "domain",
+      required: true,
+    },
+    siteOwner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+    siteUrl: {
+      type: String,
       required: true,
     },
     siteTheme: {
