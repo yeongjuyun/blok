@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { TextInput, CustomSelect, ImgInput } from '../../../Input';
 import { Card } from '../../../Card/Card';
+import styled from 'styled-components';
 
 function Navbar() {
   const [input, setInput] = useState('');

@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { TextInput, CustomSelect } from '../../../Input';
 import { Card } from '../../../Card/Card';
+import { HeroData } from '../../blockValidator';
 
-function Hero() {
+interface Hero {
+  data: HeroData;
+}
+
+function Hero({ data }: Hero) {
   const [input, setInput] = useState('');
   const [selectinput, setSelectInput] = useState('');
   const options = [
@@ -10,6 +15,7 @@ function Hero() {
     { value: '스타일2', label: '스타일2' },
     { value: '스타일3', label: '스타일3' },
   ];
+  console.log(data);
 
   return (
     <>
