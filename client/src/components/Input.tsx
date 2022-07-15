@@ -99,14 +99,8 @@ export function TextInput(props: Inputprops) {
             ? props.placeholder
             : '안에 들어갈 내용을 입력하세요'
         }
-<<<<<<< HEAD
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          props.onChange(e.target.value);
-        }}
-=======
         value={props.value && props.value}
         onChange={props.onChange}
->>>>>>> 3cd92281f3d98ec7603932455e09d4e730370673
         ref={props.ref}
       />
       {props.guideline ? (
@@ -194,10 +188,10 @@ export const ImgInput = (props: ImgInputprops) => {
       )}
       <InputImg
         ref={ImgRef}
-        type="file"
-        className="imgInput"
-        accept="image/*"
-        name="file"
+        type='file'
+        className='imgInput'
+        accept='image/*'
+        name='file'
         onChange={onImgChange}
       />
       {props.guideline ? (
