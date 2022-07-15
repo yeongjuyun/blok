@@ -90,7 +90,7 @@ export default function MyInfo() {
   const getUserInfo = async () => {
     const res = await axios.get("/api/user/logincheck");
     const user = res.data;
-    setUserId(user.userId);
+    setUserId(user._id);
     setName(user.userName);
     setEmail(user.email);
     setPlan(user.plan);
@@ -124,7 +124,9 @@ export default function MyInfo() {
 
   const resetPassword = async () => {
     try {
-      await axios.post("/api/user/reset-password", { name, email });
+      const data = { userName: name, email: email };
+      console.log(data);
+      await axios.post("/api/user/reset-password", data);
       dispatch({ type: "CONFIRM/MODAL_OFF" });
       dispatch({ type: "alertOn", payload: "성공적으로 메일을 보냈습니다." });
       navigate("/ChangePassword");
