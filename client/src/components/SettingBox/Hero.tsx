@@ -17,7 +17,9 @@ function Hero() {
         <TextInput
           title='메뉴명'
           required={true}
-          onChange={setInput}
+          onChange={(e: any) => {
+            setSelectInput(e.value);
+          }}
           guideline='네비게이션 바에 입력될 메뉴명을 입력하세요.'
         ></TextInput>
         <CustomSelect
@@ -33,37 +35,31 @@ function Hero() {
         <TextInput
           title='캡션'
           required={false}
-          onChange={setInput}
           guideline='캡션에 표시될 내용을 입력하세요.'
         ></TextInput>
         <TextInput
           title='헤드라인'
           required={false}
-          onChange={setInput}
           guideline='캡션에 표시될 내용을 입력하세요.'
         ></TextInput>
         <TextInput
           title='헤드라인 강조 테스트'
           required={false}
-          onChange={setInput}
           guideline='헤드라인 내용 중에서 강조할 텍스트를 입력하세요'
         ></TextInput>
         <TextInput
           title='설명'
           required={false}
-          onChange={setInput}
           guideline='설명에 표시될 내용을 입력하세요'
         ></TextInput>
         <TextInput
           title='버튼 텍스트'
           required={false}
-          onChange={setInput}
           guideline='비워둘 경우 버튼이 나타나지 않습니다.'
         ></TextInput>
         <TextInput
           title='버튼 URL'
           required={false}
-          onChange={setInput}
           guideline='버튼 클릭시 이동될 url을 입력하세요'
         ></TextInput>
       </Card>

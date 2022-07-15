@@ -3,7 +3,6 @@ import { TextInput, CustomSelect } from '../Input';
 import { Card } from '../Card/Card';
 
 function Footer() {
-  const [input, setInput] = useState('');
   const [selectinput, setSelectInput] = useState('');
   const options = [
     { value: '스타일1', label: '스타일1' },
@@ -27,15 +26,12 @@ function Footer() {
         <TextInput
           title='왼쪽 텍스트'
           required={false}
-          onChange={setInput}
           placeholder='©2022 Block Inc. All rights reserved'
           guideline='푸터 왼쪽에 들어갈 문구를 입력하세요'
         ></TextInput>
-
         <TextInput
           title='오른쪽 텍스트'
           required={true}
-          onChange={setInput}
           placeholder='블록'
           guideline='푸터 오른쪽에 들어갈 문구를 입력하세요.'
         ></TextInput>

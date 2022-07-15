@@ -50,7 +50,7 @@ interface Inputprops {
   title?: string;
   required?: boolean;
   placeholder?: string;
-  onChange: Function;
+  onChange?: any;
   guideline?: string;
   ref?: React.RefObject<HTMLInputElement>;
 }
@@ -95,9 +95,7 @@ export function TextInput(props: Inputprops) {
             ? props.placeholder
             : '안에 들어갈 내용을 입력하세요'
         }
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          props.onChange(e.target.value);
-        }}
+        onChange={props.onChange}
         ref={props.ref}
       />
       {props.guideline ? (
