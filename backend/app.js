@@ -41,6 +41,9 @@ app.use((req, res, next) => {
   res.ok = (statusCode, json = {}) => {
     return res.status(statusCode).json(json);
   };
+  // res.message = (statusCode, message) => {
+  //   return res.status(statusCode).json({message})
+  // };
   next();
 });
 
@@ -52,8 +55,8 @@ app.listen(PORT, function () {
   console.log(`listening on http://localhost:${PORT}`);
 });
 
-app.use("*", (err, req, res, next) => {
-  res.status(404).json({ message: "404 Not Found", status: "404" });
+app.use("*", (req, res) => {
+  res.status(404).json({ message: "404 Not Found" });
 });
 app.use(errorHandler);
 
