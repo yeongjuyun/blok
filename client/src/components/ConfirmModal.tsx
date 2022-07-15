@@ -47,6 +47,7 @@ const ModalContainer = styled.div`
     display: flex;
     margin-top: auto;
     justify-content: flex-end;
+    align-items: flex-end;
   }
 `;
 
