@@ -16,7 +16,7 @@ const SiteSchema = new Schema(
       ref: "user",
       required: true,
     },
-    siteUrl: {
+    siteURL: {
       type: String,
       required: true,
     },
