@@ -23,13 +23,13 @@ const Container = styled.div`
 
 export default function Setting() {
   const dispatch = useDispatch();
-  const [domain, setDomain] = useState("");
+  const [domain, setDomain] = useState<any>([]);
 
   const getDomainInfo = async () => {
     try {
       axios.get("/site/2").then((res): void => {
-        const domain = res.data.sites[0].domain;
-        setDomain(domain);
+        const data = res.data.sites[0];
+        setDomain(data.domain);
       });
     } catch (e) {
       console.log(e);
@@ -48,7 +48,7 @@ export default function Setting() {
         msg: `${domain} 페이지를 정말 삭제하시겠습니까?`,
       },
     });
-
+    
     // try-catch 페이지 삭제 요청
     // alert 삭제되었습니다.
   };
@@ -61,7 +61,7 @@ export default function Setting() {
           required={true}
           value={domain}
           guideline="도메인을 변경할 수 있습니다."
-          onChange={setDomain}
+          onChange={(e:any) => setDomain(e.target.value)}
         ></TextInput>
       </Container>
       <ButtonContainer>

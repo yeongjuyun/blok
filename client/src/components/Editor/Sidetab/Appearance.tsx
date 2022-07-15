@@ -71,6 +71,10 @@ export default function Appearance() {
     getStyleInfo();
   }, []);
 
+  useEffect(() => {
+    console.log(font)
+  }, [font]);
+
   return (
     <>
       <Container>
