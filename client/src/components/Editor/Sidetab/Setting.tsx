@@ -45,7 +45,7 @@ export default function Setting() {
       type: 'CONFIRM/MODAL_ON',
       payload: {
         title: '삭제',
-        msg: `${domain} 페이지를 정말 삭제하시겠습니까?`,
+        msg: `${domain} 사이트를 정말 삭제하시겠습니까?`,
       },
     });
 
@@ -72,7 +72,7 @@ export default function Setting() {
           rounding
           fullWidth
         >
-          페이지 삭제
+          사이트 삭제
         </Button>
       </ButtonContainer>
     </>
