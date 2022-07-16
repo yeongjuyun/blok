@@ -45,7 +45,6 @@ app.listen(PORT, function () {
   console.log(`listening on http://localhost:${PORT}`);
 });
 
-// errorHandler
 app.use(errorHandler);
 
 export { app };
