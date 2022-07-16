@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
-import UserTable from "../components/Dashboard/SiteTable";
+import SiteTable from "../components/Dashboard/SiteTable";
 
 const Container = styled.div`
   background-color: #f7f7f9;
@@ -14,7 +14,7 @@ const Container = styled.div`
 export default function ManageSite() {
   return (
     <Container>
-      <UserTable />
+      <SiteTable />
       <Sidebar />
     </Container>
   );

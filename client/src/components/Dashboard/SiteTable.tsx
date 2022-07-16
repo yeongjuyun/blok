@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ControlButton } from "./DashboardBox";
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "../Button";
@@ -98,7 +99,8 @@ const Table = styled.table`
   }
 `;
 
-export default function UserTable() {
+export default function SiteTable() {
+  const dispatch = useDispatch();
   const [query, setQuery] = useState("");
   const [text, setText] = useState("");
   const [data, setData] = useState<any[]>([]);
@@ -125,12 +127,20 @@ export default function UserTable() {
   }
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const res = await axios.get(`/sites?q=${query}`);
+    const getSites = async () => {
+      const res = await axios.get(`/api/site`);
       setData(res.data);
     };
-    fetchUsers();
-  }, [query]);
+    getSites();
+  }, [data]);
+
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     const res = await axios.get(`/sites?q=${query}`);
+  //     setData(res.data);
+  //   };
+  //   fetchUsers();
+  // }, [query]);
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
@@ -144,9 +154,10 @@ export default function UserTable() {
     setPage(0);
   };
 
-  const handleDelete = (id: any) => {
-    console.log("delete site : ", id);
-    setData(data.filter((item) => item.id !== id));
+  const handleDelete = async (_id: string) => {
+    console.log("delete site : ", _id);
+    await axios.delete(`/api/site/delete/${_id}`);
+    dispatch({ type: "alertOn", payload: "사이트가 삭제되었습니다." });
   };
 
   return (
@@ -163,8 +174,6 @@ export default function UserTable() {
             <option value="">모든 카테고리</option>
             <option value="siteName">사이트명</option>
             <option value="domain">도메인</option>
-            <option value="template">템플릿</option>
-            <option value="startDate">개설일</option>
             <option value="name">소유자</option>
           </select>
         </div>
@@ -191,7 +200,6 @@ export default function UserTable() {
               <th>목록</th>
               <th>사이트명</th>
               <th>도메인</th>
-              <th>템플릿</th>
               <th>개설일</th>
               <th>소유자</th>
               <th></th>
@@ -200,32 +208,19 @@ export default function UserTable() {
           <tbody>
             {data.length > 0 ? (
               data
-                .filter((item) => keys.some((key) => item[key].includes(query)))
+                // .filter((item) => keys.some((key) => item[key].includes(query)))
                 .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                 .map((e, idx) => (
-                  <tr key={e.id}>
+                  <tr key={e._id}>
                     <td>{page * rowsPerPage + idx + 1}</td>
-                    <td>{e.siteName}</td>
+                    <td>{e.name}</td>
                     <td>{e.domain}</td>
-                    <td>{e.template}</td>
-                    <td>{e.startDate}</td>
+                    <td>{e.createdAt.slice(0, 10)}</td>
                     <td>{e.name}</td>
                     <td>
-                      <Link
-                        to={"/user/" + e.userId}
-                        style={{ textDecoration: "none" }}
-                      >
-                        <ControlButton
-                          className={"editButton"}
-                          rounding
-                          color="white"
-                        >
-                          Manage
-                        </ControlButton>
-                      </Link>
                       <ControlButton
                         className={"deleteButton"}
-                        onClick={() => handleDelete(e.id)}
+                        onClick={() => handleDelete(e._id)}
                         color="gray"
                         rounding
                       >
