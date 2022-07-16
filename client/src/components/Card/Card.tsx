@@ -16,7 +16,7 @@ export const CardHeader = styled.div<{ dropClicked: boolean }>`
 `;
 
 const CardContainer = styled.div`
-  width: 440px;
+  width: 100%;
 `;
 
 const CardBoby = styled.div`

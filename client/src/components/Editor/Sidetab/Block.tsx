@@ -10,14 +10,13 @@ import type { RootState } from '../../../reducers/store';
 
 const Container = styled.div`
   margin: 0 auto;
-  width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
 `;
-const SettingBlock = styled.div`
-  margin: 4px 0;
+const SettingBlockList = styled.div`
+  width: 100%;
 `;
 
 export default function Block() {
@@ -49,7 +48,7 @@ export default function Block() {
       <Button color='black' size='large' rounding fullWidth>
         블록 추가하기
       </Button>
-      <div>{settingBlocks}</div>
+      <SettingBlockList>{settingBlocks}</SettingBlockList>
     </Container>
   );
 }
