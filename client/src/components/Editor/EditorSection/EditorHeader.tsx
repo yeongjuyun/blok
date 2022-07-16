@@ -1,7 +1,7 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 0 20px;
@@ -61,47 +61,33 @@ const SaveButton = styled.button`
 
 export default function PublishBar() {
   const dispatch = useDispatch();
-  const [domain, setDomain] = useState<any>([]);
-  let msg = "";
+  const [domain, setDomain] = useState('');
 
-  async function getDomainInfo() {
+  const getDomainInfo = async () => {
     try {
-      const res = await axios.get("/site/2");
-      const domain = res.data.sites[0].domain;
-      setDomain(domain);
+      axios.get('/site/2').then((res): void => {
+        const domain = res.data.sites[0].domain;
+        setDomain(domain);
+      });
     } catch (e) {
       console.log(e);
     }
-  }
-
-  async function saveHandler() {
-    const data = "";
-    try {
-      await axios.put("/site/2", data);
-      msg = "페이지가 저장되었습니다.";
-      dispatch({
-        type: "alertOn",
-        payload: { msg: msg, link: domain, time: 2000 },
-      });
-    } catch (err) {
-      msg = "잠시 후 시도해주세요.";
-      dispatch({ type: "alertOn", payload: { msg: "잠시 후 시도해주세요." } });
-    }
-  }
+  };
 
   useEffect(() => {
     getDomainInfo();
   }, []);
 
+  let msg = '';
   async function copyHandler() {
     try {
       await navigator.clipboard.writeText(domain);
-      msg = "클립보드에 복사되었습니다.";
+      msg = '클립보드에 복사되었습니다.';
     } catch (err) {
       console.log(err);
-      msg = "잠시 후 시도해주세요.";
+      msg = '잠시 후 시도해주세요.';
     }
-    dispatch({ type: "alertOn", payload: { msg: msg } });
+    dispatch({ type: 'alertOn', payload: msg });
   }
 
   return (
@@ -111,7 +97,7 @@ export default function PublishBar() {
         <Domain>{domain}</Domain>
         <CopyButton onClick={copyHandler}>복사</CopyButton>
       </DomainContainer>
-      <SaveButton onClick={saveHandler}>저장</SaveButton>
+      <SaveButton>저장</SaveButton>
     </Container>
   );
 }
