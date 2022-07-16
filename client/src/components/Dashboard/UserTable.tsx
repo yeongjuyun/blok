@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "../Button";
 import { MainTitle } from "./MyInfo";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div`
   .controlBox {
@@ -99,6 +100,7 @@ const Table = styled.table`
 `;
 
 export default function UserTable() {
+  const dispatch = useDispatch();
   const [query, setQuery] = useState("");
   const [text, setText] = useState("");
   const [data, setData] = useState<any[]>([]);
@@ -142,6 +144,7 @@ export default function UserTable() {
   const handleDelete = async (_id: string) => {
     console.log("delete user : ", _id);
     await axios.delete(`/api/admin/user/${_id}`);
+    dispatch({ type: "alertOn", payload: "회원정보가 삭제되었습니다." });
   };
 
   const handleReset = () => {
