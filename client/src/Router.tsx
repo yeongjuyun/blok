@@ -10,7 +10,6 @@ import About from "./components/About";
 import NotFound from "./components/NotFound";
 import FindPassword from "./pages/FindPassword";
 import Signin from "./pages/Signin";
-import Test from "./pages/Test";
 import Editor from "./pages/Editor";
 import ChangePassword from "./pages/ChangePassword";
 import Main from "./pages/Main";
@@ -30,7 +29,6 @@ export function AppRouter() {
         <Route path="/main" element={<Main />} />
         <Route path="/findpassword" element={<FindPassword />} />
         <Route path="/signin" element={<Signin />} />
-        <Route path="/test" element={<Test />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/editor" element={<Editor />} />
       </Routes>
