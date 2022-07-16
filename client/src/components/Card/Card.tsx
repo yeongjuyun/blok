@@ -47,12 +47,12 @@ const TitleBox = styled.div`
   font-weight: 600;
   font-size: 18px;
   display: flex;
-  margin-left: 16px;
+  margin-left: 20px;
 `;
 
 const Title = styled.span`
   margin: auto 0;
-  margin-left: 17px;
+  margin-left: 16px;
   padding-top: 2px;
 `;
 
@@ -68,8 +68,10 @@ const Trash = styled.img`
   padding: 10px;
   right: 64px;
   top: 9px;
+  transition: opacity 0.3s;
   &:hover {
     cursor: pointer;
+    opacity: 0.6;
   }
 `;
 const Down = styled.img<{ dropClicked: boolean }>`
@@ -79,7 +81,7 @@ const Down = styled.img<{ dropClicked: boolean }>`
   padding: 10px;
   right: 22px;
   top: 9px;
-  transition: 0.4s transform;
+  transition: transform 0.4s;
   &:hover {
     cursor: pointer;
   }

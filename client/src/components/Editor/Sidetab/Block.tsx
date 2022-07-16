@@ -1,12 +1,9 @@
 import React, { Suspense } from 'react';
 import styled from 'styled-components';
 import Button from '../../Button';
-//import Navbar from '../../Blocks/Simple/Nav/SettingBlock';
-import Hero from '../../Blocks/Simple/Hero/SettingBlock';
-import Feature from '../../Blocks/Simple/Feature/SettingBlock';
-import Footer from '../../Blocks/Simple/Footer/SettingBlock';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../reducers/store';
+import CardLoading from '../../Card/CardLoading';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -37,7 +34,7 @@ export default function Block() {
     );
     console.log(SettingBlock);
     return (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CardLoading />}>
         <SettingBlock data={data}></SettingBlock>
       </Suspense>
     );
@@ -49,6 +46,7 @@ export default function Block() {
         블록 추가하기
       </Button>
       <SettingBlockList>{settingBlocks}</SettingBlockList>
+      <CardLoading />
     </Container>
   );
 }
