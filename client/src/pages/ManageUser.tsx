@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
-import UserTable from "../components/Dashboard/SiteTable";
+import UserTable from "../components/Dashboard/UserTable";
 
 const Container = styled.div`
   background-color: #f7f7f9;

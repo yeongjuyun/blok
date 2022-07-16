@@ -1,21 +1,13 @@
 import styled from "styled-components";
 import Button from "../Button";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { ContentTitle, Content, ContentDiv, Title } from "./MyInfo";
 import { MainTitle } from "./MyInfo";
-import logoImg from "../../imgs/logo.png";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div`
   margin-bottom: 10px;
-
-  @media screen and (max-width: 1120px) {
-    width: 100%;
-    .title {
-      margin-top: 65px;
-    }
-  }
 
   @media screen and (max-width: 780px) {
     .title {
@@ -26,73 +18,7 @@ const Container = styled.div`
 
 const UserContainer = styled.div`
   display: flex;
-
   align-items: center;
-  margin-top: 20px;
-  width: 1020px;
-
-  @media screen and (max-width: 1120px) {
-    flex-direction: column;
-    width: 100%;
-  }
-`;
-
-const UserShow = styled.div`
-  width: 500px;
-  height: 600px;
-  padding: 60px;
-  box-sizing: border-box;
-  border: 1px solid black;
-  margin-right: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  font-size: 16px;
-
-  .item {
-    height: 58px;
-  }
-
-  @media screen and (max-width: 1120px) {
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-
-  @media screen and (max-width: 500px) {
-    width: 90%;
-    height: 100%;
-    padding: 20px;
-  }
-`;
-
-const Profile = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius: 100px;
-  border: 1px solid black;
-  overflow: hidden;
-  margin: 0 auto;
-
-  .imageThumbnail {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
-const CustomContentTitle = styled(ContentTitle)`
-  font-size: 16px;
-
-  @media screen and (max-width: 500px) {
-    font-size: 14px;
-  }
-`;
-
-const CustomContent = styled(Content)`
-  font-size: 16px;
-
-  @media screen and (max-width: 500px) {
-    font-size: 14px;
-  }
 `;
 
 const UserUpdate = styled.div`
@@ -113,11 +39,8 @@ const UserUpdate = styled.div`
     margin-top: 20px;
   }
 
-  @media screen and (max-width: 500px) {
-    width: 90%;
-    height: 100%;
-
-    padding: 20px;
+  @media screen and (max-width: 580px) {
+    width: 100%;
   }
 `;
 
@@ -161,166 +84,193 @@ const EmailDiv = styled.div`
   text-align: center;
   margin: 10px 0 32px 0;
 `;
+interface IUser {
+  createdAt: string;
+  email: string;
+  oauth: string;
+  password: string;
+  passwordReset: boolean;
+  plan: string;
+  profileImage: string;
+  role: string;
+  sites: [];
+  updatedAt: string;
+  userName: string;
+  __v: number;
+  _id: string;
+}
 
 export default function User() {
   const { userId } = useParams();
-  const [data, setData] = useState<any[]>([]);
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [propfileImage, setProfileImage] = useState("");
+  const dispatch = useDispatch();
+
+  const [profileImage, setProfileImage] = useState("");
   const [role, setRole] = useState("");
   const [plan, setPlan] = useState("");
 
-  const getUserInfo = async () => {
-    const res = await axios.get(`/user/${userId}`);
-    await setData(res.data);
+  const password = useRef<HTMLInputElement>(null);
+  const userName = useRef<HTMLInputElement>(null);
+  const [userNameError, setUserNameError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
+
+  const [data, setData] = useState<IUser>({
+    createdAt: "",
+    email: "",
+    oauth: "",
+    password: "",
+    passwordReset: false,
+    plan: "",
+    profileImage: "",
+    role: "",
+    sites: [],
+    updatedAt: "",
+    userName: "",
+    __v: 0,
+    _id: "",
+  });
+
+  const userNameHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (
+      userName.current!.value.length < 2 &&
+      userName.current!.value.length >= 1
+    ) {
+      setUserNameError(true);
+    } else {
+      setUserNameError(false);
+    }
+  };
+
+  const passwordHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (
+      password.current!.value.length < 6 &&
+      password.current!.value.length >= 1
+    ) {
+      setPasswordError(true);
+    } else {
+      setPasswordError(false);
+    }
   };
 
   useEffect(() => {
+    const getUserInfo = async () => {
+      const res = await axios.get(`/api/admin/user/${userId}`);
+      await setData(res.data);
+      await setProfileImage(data.profileImage);
+      await setRole(data.role);
+      await setPlan(data.plan);
+    };
     getUserInfo();
-  }, []);
+  }, [
+    userId,
+    data.userName,
+    data.password,
+    data.profileImage,
+    data.role,
+    data.plan,
+  ]);
+
+  const prev = {
+    userName,
+    password,
+    profileImage,
+    role,
+    plan,
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     const userToPatch = {
+      ...prev,
+      userName: userName.current!.value,
+      password: password.current!.value,
+      profileImage: profileImage,
       plan: plan,
-      name: name,
-      password: password,
-      profileImage: propfileImage,
       role: role,
     };
 
     console.log("patchData", userToPatch);
 
     await axios
-      .patch(`/user/${userId}`, userToPatch)
+      .patch(`/api/admin/user/${userId}`, userToPatch)
       .catch((error) => console.log("Error: ", error));
+
+    dispatch({ type: "alertOn", payload: "회원정보 수정 되었습니다." });
+    password.current!.value = "";
   };
 
   return (
     <Container>
       <MainTitle className="title">User Infomation</MainTitle>
       <UserContainer>
-        <UserShow>
-          <Title>회원정보</Title>
-          <div className="userUpdateItem">
-            {data.map((e) => (
-              <div key={e.id}>
-                <ContentDiv>
-                  <Profile className="contnet">
-                    <img
-                      className="imageThumbnail"
-                      src={logoImg}
-                      alt={e.profileImage}
-                    ></img>
-                  </Profile>
-                </ContentDiv>
-                <ContentDiv>
-                  <CustomContentTitle>이름</CustomContentTitle>
-                  <CustomContent>{e.name}</CustomContent>
-                </ContentDiv>
-                <ContentDiv>
-                  <CustomContentTitle>도메인</CustomContentTitle>
-                  <CustomContent>
-                    {e.domain.map((domain: any, idx: any) => (
-                      <span key={idx}>
-                        <a href={domain.link}>
-                          {idx + 1}.{domain.domainName}{" "}
-                        </a>
-                      </span>
-                    ))}
-                  </CustomContent>
-                </ContentDiv>
-
-                <ContentDiv>
-                  <CustomContentTitle className="contnetTitle">
-                    템플릿
-                  </CustomContentTitle>
-                  <CustomContent className="contnet">
-                    {e.template}
-                  </CustomContent>
-                </ContentDiv>
-              </div>
-            ))}
-          </div>
-        </UserShow>
-
         <UserUpdate>
           <div className="editTitle">회원정보 수정</div>
-          {data
-            .filter((user) => user.id === Number(userId))
-            .map((e: any) => (
-              <div key={e.id}>
-                <div>
-                  <EmailDiv>{e.email}</EmailDiv>
-                </div>
-                <form
-                  className="userUpdateForm"
-                  onSubmit={handleSubmit}
-                  key={e.id}
-                >
-                  <div className="userUpdateItem">
-                    <InputDiv>
-                      <InputTitle htmlFor="">이름</InputTitle>
-                      <Input
-                        type="text"
-                        placeholder="elice"
-                        defaultValue={e.name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </InputDiv>
-                    <InputDiv>
-                      <InputTitle htmlFor="">비밀번호</InputTitle>
-                      <Input
-                        type="text"
-                        placeholder="elice"
-                        defaultValue=" "
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </InputDiv>
-                    <InputDiv>
-                      <InputTitle htmlFor="">프로필</InputTitle>
-                      <Input
-                        type="text"
-                        placeholder="elice"
-                        defaultValue={e.profileImage}
-                        onChange={(e) => setProfileImage(e.target.value)}
-                      />
-                    </InputDiv>
-                    <InputDiv>
-                      <InputTitle htmlFor="">분류</InputTitle>
-                      <Input
-                        type="text"
-                        placeholder="elice"
-                        defaultValue={e.role}
-                        onChange={(e) => setRole(e.target.value)}
-                      />
-                    </InputDiv>
-                    <InputDiv>
-                      <InputTitle htmlFor="">플랜</InputTitle>
-                      <Input
-                        type="text"
-                        placeholder="elice"
-                        defaultValue={e.plan}
-                        onChange={(e) => setPlan(e.target.value)}
-                      />
-                    </InputDiv>
-                    <Button
-                      className="updateButton"
-                      type="submit"
-                      size="large"
-                      fullWidth
-                    >
-                      Update
-                    </Button>
-                    <Button color="black" outline size="large" fullWidth>
-                      Delete
-                    </Button>
-                  </div>
-                </form>
-              </div>
-            ))}
+
+          <div>
+            <EmailDiv>{data.email}</EmailDiv>
+          </div>
+          <form className="userUpdateForm" onSubmit={handleSubmit}>
+            <div className="userUpdateItem">
+              <InputDiv>
+                <InputTitle htmlFor="">이름</InputTitle>
+                <Input
+                  type="text"
+                  placeholder="elice"
+                  ref={userName}
+                  defaultValue={data.userName}
+                  onChange={userNameHandler}
+                />
+                {userNameError && "2글자 이상 입력해주세요"}
+              </InputDiv>
+              <InputDiv>
+                <InputTitle htmlFor="">비밀번호</InputTitle>
+                <Input
+                  type="text"
+                  placeholder=""
+                  defaultValue=" "
+                  ref={password}
+                  onChange={passwordHandler}
+                />
+                {passwordError && "비밀번호는 6자리 이상이여야 합니다."}
+              </InputDiv>
+              <InputDiv>
+                <InputTitle htmlFor="">프로필</InputTitle>
+                <Input
+                  type="text"
+                  placeholder="elice"
+                  defaultValue={data.profileImage}
+                  onChange={(e) => setProfileImage(e.target.value)}
+                />
+              </InputDiv>
+              <InputDiv>
+                <InputTitle htmlFor="">분류</InputTitle>
+                <Input
+                  type="text"
+                  placeholder="elice"
+                  defaultValue={data.role}
+                  onChange={(e) => setRole(e.target.value)}
+                />
+              </InputDiv>
+              <InputDiv>
+                <InputTitle htmlFor="">플랜</InputTitle>
+                <Input
+                  type="text"
+                  placeholder="elice"
+                  defaultValue={data.plan}
+                  onChange={(e) => setPlan(e.target.value)}
+                />
+              </InputDiv>
+              <Button
+                className="updateButton"
+                type="submit"
+                size="large"
+                fullWidth
+                disabled={userNameError || passwordError}
+              >
+                Update
+              </Button>
+            </div>
+          </form>
         </UserUpdate>
       </UserContainer>
     </Container>
