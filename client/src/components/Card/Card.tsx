@@ -26,6 +26,7 @@ const CardContainer = styled.div`
 const CardBoby = styled.div<{ dropClicked: boolean }>`
   background: #ffffff;
   border: 1px solid #efefef;
+  border-top: none;
   padding: 24px;
   box-sizing: border-box;
   border-radius: 0 0 12px 12px;

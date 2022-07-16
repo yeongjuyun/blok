@@ -12,8 +12,13 @@ const Container = styled.div`
   justify-content: center;
   align-items: flex-start;
 `;
+
 const SettingBlockList = styled.div`
   width: 100%;
+  margin-top: 16px;
+`;
+const SettingBlockContainer = styled.div`
+  margin: 8px 0;
 `;
 
 export default function Block() {
@@ -32,11 +37,12 @@ export default function Block() {
           }SettingBlock`
         )
     );
-    console.log(SettingBlock);
     return (
-      <Suspense fallback={<CardLoading />}>
-        <SettingBlock data={data}></SettingBlock>
-      </Suspense>
+      <SettingBlockContainer>
+        <Suspense fallback={<CardLoading />}>
+          <SettingBlock data={data}></SettingBlock>
+        </Suspense>
+      </SettingBlockContainer>
     );
   });
 
