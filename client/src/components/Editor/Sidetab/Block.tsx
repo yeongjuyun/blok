@@ -46,7 +46,6 @@ export default function Block() {
         블록 추가하기
       </Button>
       <SettingBlockList>{settingBlocks}</SettingBlockList>
-      <CardLoading />
     </Container>
   );
 }
