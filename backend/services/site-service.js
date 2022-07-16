@@ -73,11 +73,12 @@ class SiteService {
   }
 
   // 사이트 삭제 구현
-  async deleteSite(siteIdentifier) {
-    const site = await this.siteModel.delete(siteIdentifier);
+  async deleteSiteById(siteIdentifier) {
+    const site = await this.siteModel.deleteById(siteIdentifier);
     if (!site) {
       throw new ForbiddenError("삭제할 사이트가 없습니다.");
     }
+
     return site;
   }
 }

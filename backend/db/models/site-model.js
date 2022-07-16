@@ -38,8 +38,13 @@ export class SiteModel {
 
     return updatedSite;
   }
-  async delete(id) {
+  async deleteById(id) {
     const filter = { no: id };
+    const deletedSite = await Site.findOneAndDelete(filter);
+    return deletedSite;
+  }
+  async deleteByObjectId(id) {
+    const filter = { _id: id };
     const deletedSite = await Site.findOneAndDelete(filter);
     return deletedSite;
   }

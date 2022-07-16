@@ -47,9 +47,9 @@ const siteController = {
     );
     res.status(200).json(updatedSiteInfo);
   }),
-  deleteSite: asyncHandler(async (req, res) => {
+  deleteSiteById: asyncHandler(async (req, res) => {
     const siteIdentifier = parseInt(req.params.siteIdentifier);
-    const deletedSite = await siteService.deleteSite(siteIdentifier);
+    const deletedSite = await siteService.deleteSiteById(siteIdentifier);
     res.status(200).json(deletedSite);
   }),
 };
