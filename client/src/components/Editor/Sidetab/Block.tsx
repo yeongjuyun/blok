@@ -1,23 +1,24 @@
 import React, { Suspense } from 'react';
 import styled from 'styled-components';
 import Button from '../../Button';
-//import Navbar from '../../Blocks/Simple/Nav/SettingBlock';
-import Hero from '../../Blocks/Simple/Hero/SettingBlock';
-import Feature from '../../Blocks/Simple/Feature/SettingBlock';
-import Footer from '../../Blocks/Simple/Footer/SettingBlock';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../reducers/store';
+import CardLoading from '../../Card/CardLoading';
 
 const Container = styled.div`
   margin: 0 auto;
-  width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
 `;
-const SettingBlock = styled.div`
-  margin: 4px 0;
+
+const SettingBlockList = styled.div`
+  width: 100%;
+  margin-top: 16px;
+`;
+const SettingBlockContainer = styled.div`
+  margin: 8px 0;
 `;
 
 export default function Block() {
@@ -29,21 +30,28 @@ export default function Block() {
     const { theme, blockType, layout } = template;
 
     const SettingBlock = React.lazy(
-      () => import(`../../Blocks/${theme}/${blockType}/SettingBlock`)
+      () =>
+        import(
+          `../../Blocks/${theme}/${blockType}/${
+            layout ? layout + '/' : ''
+          }SettingBlock`
+        )
     );
     return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <SettingBlock data={data}></SettingBlock>
-      </Suspense>
+      <SettingBlockContainer>
+        <Suspense fallback={<CardLoading />}>
+          <SettingBlock data={data}></SettingBlock>
+        </Suspense>
+      </SettingBlockContainer>
     );
   });
 
   return (
     <Container>
-      <Button color="black" size="large" rounding fullWidth>
+      <Button color='black' size='large' rounding fullWidth>
         블록 추가하기
       </Button>
-      <div>{settingBlocks}</div>
+      <SettingBlockList>{settingBlocks}</SettingBlockList>
     </Container>
   );
 }

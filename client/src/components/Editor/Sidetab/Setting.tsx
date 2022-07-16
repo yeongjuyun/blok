@@ -7,14 +7,14 @@ import { TextInput } from '../../Input';
 
 const ButtonContainer = styled.div`
   margin: 0 auto;
-  width: 80%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 `;
 
 const Container = styled.div`
-  width: 400px;
+  box-sizing: border-box;
+  width: 100%;
   padding: 20px;
   background-color: white;
   margin: 0 auto 40px auto;

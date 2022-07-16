@@ -1,12 +1,13 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import ColorSetExample from "../../ColorSetExample";
-import { CustomSelect, Label, Required } from "../../Input";
-import AppearanceData from "../AppearanceData";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import ColorSetExample from '../../ColorSetExample';
+import { CustomSelect, Label, Required } from '../../Input';
+import AppearanceData from '../AppearanceData';
 
 const Container = styled.div`
-  width: 400px;
+  box-sizing: border-box;
+  width: 100%;
   padding: 20px;
   background-color: white;
   margin: 0 auto 40px auto;
@@ -41,7 +42,7 @@ export default function Appearance() {
 
   const getStyleInfo = async () => {
     try {
-      axios.get("/site/2").then((res): void => {
+      axios.get('/site/2').then((res): void => {
         const data = res.data.sites[0];
         setColorSet(data.colorSet);
         setFont(data.font);
