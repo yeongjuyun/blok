@@ -125,4 +125,33 @@ export default function templateListData() {
     },
     blocks: [],
   };
+
+  const companyProfile = {
+    name: "First Site",
+    domain: "firstSite",
+    theme: "Minimal",
+    font: "Roboto",
+    colorSet: {
+      primary: "#482924",
+      secondary: "#123456",
+      background: "#123456",
+      surface: "#123456",
+    },
+    blocks: [],
+  };
+
+  const basicWeb = {
+    name: "First Site",
+    domain: "firstSite",
+    theme: "Minimal",
+    font: "Roboto",
+    colorSet: {
+      primary: "#482924",
+      secondary: "#123456",
+      background: "#123456",
+      surface: "#123456",
+    },
+    blocks: [],
+  };
+  return { landingPage, portfolio, companyProfile, basicWeb };
 }

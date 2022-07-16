@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../Button";
 import { MainTitle } from "./MyInfo";
 import { TemplateCard } from "./TemplateCard";
 import { templateCardData } from "./TemplateData";
+import { RootState } from "../../reducers";
 
 const Container = styled.div`
   margin-bottom: 10px;
@@ -116,9 +117,14 @@ export function DashboardInfo() {
   const [domain, setDomain] = useState<any[]>([]);
   const dispatch = useDispatch();
 
+  const userData = useSelector(
+    (state: RootState) => state.loginCheckReducer.loginData
+  );
+
   const getUserInfo = async () => {
-    const res = await axios.get("/user/1");
-    await setDomain(res.data[0].domain);
+    const res = await axios.get(`/api/site/user/${userData?.userId}`);
+    console.log(333, res);
+    // await setDomain(res.data[0].domain);
   };
 
   useEffect(() => {
