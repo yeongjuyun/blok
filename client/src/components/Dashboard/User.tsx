@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "../Button";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { ContentTitle, Content, ContentDiv, Title } from "./MyInfo";
-import { MainTitle } from "../components/MyInfo";
-import logoImg from "./../imgs/logo.png";
+import { MainTitle } from "./MyInfo";
+import logoImg from "../../imgs/logo.png";
 
 const Container = styled.div`
   margin-bottom: 10px;

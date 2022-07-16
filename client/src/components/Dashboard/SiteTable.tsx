@@ -3,8 +3,8 @@ import { ControlButton } from "./DashboardBox";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Button from "./Button";
-import { MainTitle } from "../components/MyInfo";
+import Button from "../Button";
+import { MainTitle } from "./MyInfo";
 
 const Container = styled.div`
   .controlBox {

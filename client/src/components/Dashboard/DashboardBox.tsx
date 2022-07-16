@@ -2,9 +2,10 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import Button from "../Button";
 import { MainTitle } from "./MyInfo";
-import Button from "./Button";
 import { TemplateCard } from "./TemplateCard";
+import { templateCardData } from "./TemplateData";
 
 const Container = styled.div`
   margin-bottom: 10px;
@@ -25,6 +26,10 @@ const Table = styled.table`
   border-collapse: collapse;
   width: 1120px;
   min-height: 100px;
+
+  tbody {
+    height: 120px;
+  }
 
   th {
     padding: 10px;
@@ -88,24 +93,11 @@ const AddButton = styled(Button)`
 `;
 
 export function TemplateList() {
-  const [templateData, setTemplateData] = useState<any[]>([]);
-
-  const getTemplate = async () => {
-    axios.get("/template").then((res): void => {
-      const data = res.data.template;
-      setTemplateData(data);
-    });
-  };
-
-  useEffect(() => {
-    getTemplate();
-  }, []);
-
   return (
     <Container>
       <MainTitle className="title">Template</MainTitle>
       <TemplateBox>
-        {templateData?.map((e, idx) => (
+        {templateCardData?.map((e: any, idx: number) => (
           <div key={idx}>
             <TemplateCard
               title={e.title}

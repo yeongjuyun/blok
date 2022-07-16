@@ -2,9 +2,10 @@ import styled from "styled-components";
 import { CgClose } from "react-icons/cg";
 import { useDispatch } from "react-redux";
 import { TemplateCard } from "./TemplateCard";
-import Button from "./Button";
+import Button from "../Button";
 import { useState, useRef } from "react";
 import { InputDiv, Input, InputTitle } from "./User";
+import { templateCardData } from "./TemplateData";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -136,28 +137,6 @@ const ButtonPadiing = styled(Button)`
   margin: auto;
 `;
 
-const templateData = [
-  { title: "랜딩페이지", description: "회사 웹사이트 템플릿 입니다." },
-  {
-    title: "이력서",
-    description: "이력서 템플릿 입니다.",
-    color1: "#2B9D67",
-    color2: "#CEF0E2",
-  },
-  {
-    title: "기업소개 웹사이트",
-    description: "기업소개 템플릿 입니다.",
-    color1: "#F5E44C",
-    color2: "#CEA9D3",
-  },
-  {
-    title: "기본 웹사이트",
-    description: "기업소개 템플릿 입니다.",
-    color1: "#F5E44C",
-    color2: "#CEA9D3",
-  },
-];
-
 export default function TemplateModal() {
   const dispatch = useDispatch();
   const [template, setTemplate] = useState("");
@@ -239,7 +218,7 @@ export default function TemplateModal() {
         </MainTitle>
         {data.template === "" ? (
           <TemplateListContainer>
-            {templateData?.map((e) => (
+            {templateCardData?.map((e: any) => (
               <TemplateCardCustom
                 key={e.title}
                 className={e.title === template ? "selectedCard" : "card"}

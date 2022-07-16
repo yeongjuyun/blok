@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
-import UserTable from "../components/UserTable";
+import UserTable from "../components/Dashboard/SiteTable";
 
 const Container = styled.div`
   background-color: #f7f7f9;
@@ -11,7 +11,7 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
-export default function Admin() {
+export default function ManageUser() {
   return (
     <Container>
       <UserTable />
