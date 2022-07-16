@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import * as icon from '../../icons';
 import React, { useState } from 'react';
 
@@ -9,10 +9,11 @@ export const CardHeader = styled.div<{ dropClicked: boolean }>`
     props.dropClicked === true ? '12px 12px 0 0' : '12px'};
   position: relative;
   width: 100%;
-  height: 64px;
+  height: 60px;
   display: flex;
-  padding: 8px 16px;
+  padding: 0px 24px;
   box-sizing: border-box;
+  user-select: none;
 `;
 
 const CardContainer = styled.div`
@@ -31,18 +32,19 @@ const CardBoby = styled.div`
 `;
 
 const Movable = styled.img`
-  width: 12px;
-  height: 20px;
-  margin-right: 15px;
-  padding: 8px 10px 8px 4px;
+  width: 22px;
+  height: 22px;
   margin: auto 0;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const TitleBox = styled.div`
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
   display: flex;
-  margin-left: 4px;
+  margin-left: 16px;
 `;
 
 const Title = styled.span`
@@ -52,25 +54,37 @@ const Title = styled.span`
 `;
 
 const TitleIcon = styled.img`
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   margin: auto 0;
 `;
 const Trash = styled.img`
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   position: absolute;
   padding: 10px;
-  right: 70px;
-  top: 10px;
+  right: 64px;
+  top: 9px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
-const Down = styled.img`
+const Down = styled.img<{ dropClicked: boolean }>`
   width: 20px;
-  height: 12.5px;
+  height: 20px;
   position: absolute;
   padding: 10px;
   right: 22px;
-  top: 14px;
+  top: 9px;
+  transition: 0.4s transform;
+  &:hover {
+    cursor: pointer;
+  }
+  ${(props) =>
+    props.dropClicked &&
+    css`
+      transform: rotate(180deg);
+    `}
 `;
 type title = 'Footer' | 'Navbar' | 'Profile' | 'Hero' | 'Feature';
 
@@ -108,6 +122,7 @@ export const Card = (props: Cardprops) => {
         <Down
           src={icon.Down}
           alt=''
+          dropClicked={dropClicked}
           onClick={() => {
             setDropClicked((res) => {
               return !res;
