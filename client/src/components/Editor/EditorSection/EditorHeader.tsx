@@ -1,7 +1,7 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 0 20px;
@@ -61,11 +61,11 @@ const SaveButton = styled.button`
 
 export default function PublishBar() {
   const dispatch = useDispatch();
-  const [domain, setDomain] = useState("");
+  const [domain, setDomain] = useState('');
 
   const getDomainInfo = async () => {
     try {
-      axios.get("/site/2").then((res): void => {
+      axios.get('/site/2').then((res): void => {
         const domain = res.data.sites[0].domain;
         setDomain(domain);
       });
@@ -78,16 +78,16 @@ export default function PublishBar() {
     getDomainInfo();
   }, []);
 
-  let msg = "";
+  let msg = '';
   async function copyHandler() {
     try {
       await navigator.clipboard.writeText(domain);
-      msg = "클립보드에 복사되었습니다.";
+      msg = '클립보드에 복사되었습니다.';
     } catch (err) {
       console.log(err);
-      msg = "잠시 후 시도해주세요.";
+      msg = '잠시 후 시도해주세요.';
     }
-    dispatch({ type: "alertOn", payload: msg });
+    dispatch({ type: 'alertOn', payload: msg });
   }
 
   return (

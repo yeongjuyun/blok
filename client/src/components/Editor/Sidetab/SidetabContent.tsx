@@ -8,8 +8,15 @@ const Container = styled.div`
   box-sizing: border-box;
   width: 440px;
   padding: 24px 24px;
-  box-size: border-box;
   background-color: #f5f5f8;
+  position: relative;
+  top: 60px;
+  height: calc(100% - 60px);
+  overflow-y: scroll;
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: red;
+  }
 `;
 
 export default function SidetabHeader() {

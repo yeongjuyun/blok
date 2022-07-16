@@ -4,6 +4,7 @@ import SidetabContent from './SidetabContent';
 
 const Container = styled.div`
   width: 440px;
+  height: 100%;
   margin-left: 74px;
   flex-shrink: 0;
   background-color: #f5f5f8;
