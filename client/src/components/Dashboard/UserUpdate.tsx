@@ -169,19 +169,10 @@ export default function User() {
     data.plan,
   ]);
 
-  const prev = {
-    userName,
-    password,
-    profileImage,
-    role,
-    plan,
-  };
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     const userToPatch = {
-      ...prev,
       userName: userName.current!.value,
       password: password.current!.value,
       profileImage: profileImage,
