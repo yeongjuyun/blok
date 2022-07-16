@@ -13,14 +13,17 @@ export const CardHeader = styled.div<{ dropClicked: boolean }>`
   display: flex;
   padding: 0px 24px;
   box-sizing: border-box;
-  user-select: none;
+  & * {
+    user-select: none;
+    user-drag: none;
+  }
 `;
 
 const CardContainer = styled.div`
   width: 100%;
 `;
 
-const CardBoby = styled.div`
+const CardBoby = styled.div<{ dropClicked: boolean }>`
   background: #ffffff;
   border: 1px solid #efefef;
   padding: 24px;
@@ -130,7 +133,9 @@ export const Card = (props: Cardprops) => {
           }}
         />
       </CardHeader>
-      {dropClicked && <CardBoby>{props.children}</CardBoby>}
+      {dropClicked && (
+        <CardBoby dropClicked={dropClicked}>{props.children}</CardBoby>
+      )}
     </CardContainer>
   );
 };
