@@ -109,7 +109,7 @@ const initialStateSample: SiteState = {
       template: {
         theme: 'Simple',
         blockType: 'Feature',
-        layout: null,
+        layout: 'RightImg',
       },
       data: {
         navTitle: '기능1',
@@ -141,7 +141,7 @@ const initialStateSample: SiteState = {
       template: {
         theme: 'Simple',
         blockType: 'Footer',
-        layout: 'Right',
+        layout: null,
       },
       data: {
         navTitle: '',

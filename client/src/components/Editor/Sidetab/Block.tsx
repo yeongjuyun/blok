@@ -29,8 +29,14 @@ export default function Block() {
     const { theme, blockType, layout } = template;
 
     const SettingBlock = React.lazy(
-      () => import(`../../Blocks/${theme}/${blockType}/SettingBlock`)
+      () =>
+        import(
+          `../../Blocks/${theme}/${blockType}/${
+            layout ? layout + '/' : ''
+          }SettingBlock`
+        )
     );
+    console.log(SettingBlock);
     return (
       <Suspense fallback={<div>Loading...</div>}>
         <SettingBlock data={data}></SettingBlock>
@@ -40,7 +46,7 @@ export default function Block() {
 
   return (
     <Container>
-      <Button color="black" size="large" rounding fullWidth>
+      <Button color='black' size='large' rounding fullWidth>
         블록 추가하기
       </Button>
       <div>{settingBlocks}</div>
