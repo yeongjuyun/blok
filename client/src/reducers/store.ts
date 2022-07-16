@@ -1,9 +1,11 @@
+<<<<<<< client/src/reducers/store.ts
 import { configureStore } from "@reduxjs/toolkit";
 import { userAuth } from "./UserAuthReducer";
 import { sidetabReducer } from "./SideTabReducer";
 import { alertReducer } from "./AlertReducer";
 import { modalReducer } from "./ModalReducer";
 import { loginCheckReducer } from "./LoginCheckReducer";
+import siteReducer from './SiteReducer';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +14,7 @@ export const store = configureStore({
     modalReducer,
     sidetabReducer,
     alertReducer,
+    site: siteReducer,
   },
 });
 
