@@ -26,7 +26,7 @@ export default function Block() {
 
   //Set settinbBlocks dynamically.
   const settingBlocks = blocks.map((block) => {
-    const { template, data } = block;
+    const { template, data, id } = block;
     const { theme, blockType, layout } = template;
 
     const SettingBlock = React.lazy(
@@ -38,7 +38,7 @@ export default function Block() {
         )
     );
     return (
-      <SettingBlockContainer>
+      <SettingBlockContainer key={id}>
         <Suspense fallback={<CardLoading />}>
           <SettingBlock data={data}></SettingBlock>
         </Suspense>
