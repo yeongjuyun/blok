@@ -8,9 +8,8 @@ const clicked = '#000000';
 const Container = styled.div`
   width: 440px;
   height: 60px;
+  min-height: 60px;
   background-color: white;
-  position: fixed;
-  top: 0px;
   display: flex;
   align-items: center;
 `;

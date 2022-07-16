@@ -7,11 +7,9 @@ import Setting from './Setting';
 const Container = styled.div`
   box-sizing: border-box;
   width: 440px;
-  padding: 0 24px;
+  padding: 24px 24px;
   box-size: border-box;
   background-color: #f5f5f8;
-  position: fixed;
-  top: 100px;
 `;
 
 export default function SidetabHeader() {

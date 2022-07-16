@@ -9,6 +9,7 @@ const Container = styled.div`
   background-color: #f5f5f8;
   border-right: 1px solid #d1d1d1;
   display: flex;
+  flex-direction: column;
 `;
 
 export default function Sidetab() {
