@@ -1,47 +1,39 @@
 import { loginRequired, oauthBlocker } from "../middlewares";
+import { siteController } from "../controller";
 import { Router } from "express";
 import { siteService } from "../services";
 const siteRouter = Router();
 
-siteRouter.post("/addsite", async (req, res) => {
-  const { siteName, siteDomain, siteTheme, siteFont } = req.body;
-  const newSite = await siteService.addSite({
-    siteName,
-    siteDomain,
-    siteTheme,
-    siteFont,
-  });
-  return res.status(201).json(newSite);
-});
+siteRouter.post("/addsite", siteController.addsite);
 
-siteRouter.get("/:siteName", async (req, res) => {
-  const siteName = req.params.siteName;
-  const site = await siteService.getSiteInfo(siteName);
+siteRouter.get("/:siteIdentifier", async (req, res) => {
+  const siteIdentifier = req.params.siteIdentifier;
+  const site = await siteService.getSiteInfo(siteIdentifier);
   res.status(200).json(site);
 });
 
 siteRouter.get("/", async (req, res) => {
-  const userId = req.body.userId;
-  const sites = await siteService.getSites(userId);
+  const sites = await siteService.getSitesInfo();
   res.status(200).json(sites);
 });
 
-siteRouter.patch("/update/:siteName", async (req, res) => {
-  const siteName = req.params.siteName;
+siteRouter.patch("/update/:siteIdentifier", async (req, res) => {
+  const siteIdentifier = req.params.siteIdentifier;
 
-  const editSiteName = req.body.siteName;
-  // Site 이름이 존재하는지 확인하는 로직 구현 필요
-  const editSiteTheme = req.body.siteTheme;
-  const editSiteFont = req.body.siteFont;
-  const editSiteColor = req.body.siteColor;
-  const editSiteData = req.body.siteData;
+  const editName = req.body.name;
+  const editDomain = req.body.domain;
+  const editTheme = req.body.theme;
+  const editFont = req.body.font;
+  const editColor = req.body.colorset;
+  const editBlocks = req.body.blocks;
 
   const toUpdate = {
-    ...(editSiteName && { siteName: editSiteName }),
-    ...(editSiteTheme && { siteTheme: editSiteTheme }),
-    ...(editSiteFont && { siteFont: editSiteFont }),
-    ...(editSiteColor && { siteColor: editSiteColor }),
-    ...(editSiteData && { siteData: editSiteData }),
+    ...(editName && { editName }),
+    ...(editDomain && { editDomain }),
+    ...(editTheme && { editTheme }),
+    ...(editFont && { editFont }),
+    ...(editColor && { editColor }),
+    ...(editBlocks && { editBlocks }),
   };
 
   const updatedSiteInfo = await siteService.updateSite(siteName, toUpdate);
@@ -49,9 +41,9 @@ siteRouter.patch("/update/:siteName", async (req, res) => {
   res.status(200).json(updatedSiteInfo);
 });
 
-siteRouter.delete("/delete/:siteName", async (req, res, next) => {
-  const siteName = req.params.siteName;
-  const deleteSite = await siteService.deleteSite(siteName);
+siteRouter.delete("/delete/:siteIdentifier", async (req, res, next) => {
+  const siteIdentifier = req.params.siteIdentifier;
+  const deleteSite = await siteService.deleteSite(siteIdentifier);
   res.status(200).json(deleteSite);
 });
 export { siteRouter };

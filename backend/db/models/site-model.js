@@ -8,25 +8,33 @@ export class SiteModel {
     const createdNewSite = await Site.create(siteInfo);
     return createdNewSite;
   }
-  async findBySiteName(siteId) {
-    const site = await Site.findOne({ siteName: siteId });
+  async findBySiteName(siteName) {
+    const site = await Site.findOne({ name: siteName });
     return site;
   }
-  async findAllUserSites(userId) {
-    const sites = await Site.find({ siteDomain: userId })
-      .populate("siteDomain", "domain userName")
-      .exec();
+  async findBySiteDomain(siteDomain) {
+    const site = await Site.findOne({ domain: siteDomain });
+    return site;
+  }
+  async findAllSite() {
+    const sites = await Site.find({});
     return sites;
   }
-  async update({ siteName, update }) {
-    const filter = { siteName: siteName };
+  // async findAllUserSites(userId) {
+  //   const sites = await Site.find({ domain: userId })
+  //     .populate("domain", "domain userName")
+  //     .exec();
+  //   return sites;
+  // }
+  async update({ id, update }) {
+    const filter = { name: id };
     const option = { returnOriginal: false };
     const updatedSite = await Site.findOneAndUpdate(filter, update, option);
 
     return updatedSite;
   }
-  async delete(siteId) {
-    const filter = { siteName: siteId };
+  async delete(id) {
+    const filter = { name: id };
     const deletedSite = await Site.findOneAndDelete(filter);
     return deletedSite;
   }
