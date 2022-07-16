@@ -39,7 +39,7 @@ interface IMyProps {
   alertData: any;
 }
 
-export default function Alert(props: IMyProps) {
+export default function AlertModal(props: IMyProps) {
   const dispatch = useDispatch();
   const time = props.alertData.time ? props.alertData.time : 600;
 

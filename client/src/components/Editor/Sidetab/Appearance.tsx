@@ -6,7 +6,8 @@ import { CustomSelect } from "../../Input";
 import AppearanceData from "../AppearanceData";
 
 const Container = styled.div`
-  width: 400px;
+  box-sizing: border-box;
+  width: 100%;
   padding: 20px;
   background-color: white;
   margin: 0 auto 40px auto;
@@ -73,7 +74,7 @@ export default function Appearance() {
   function changeThemeHandler(e: any) {
     if (
       window.confirm(
-        "테마에 해당 블록타입이 없을시 블록이 삭제될 수 있습니다.\n테마를 변경하시겠습니까?"
+        "테마에 해당 블록타입이 없을 시 블록이 삭제될 수 있습니다.\n테마를 변경하시겠습니까?"
       )
     ) {
       setTheme(e.value);

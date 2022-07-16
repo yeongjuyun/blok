@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { TextInput, CustomSelect, ImgInput } from '../../../Input';
+import { Card } from '../../../Card/Card';
+import { FeatureData } from '../../blockValidator';
 
-import { TextInput, CustomSelect, ImgInput } from '../Input';
-import { Card } from '../Card/Card';
-
-function Feature() {
+interface Feature {
+  data: FeatureData;
+}
+function Feature({ data }: Feature) {
   const [input, setInput] = useState('');
   const [selectinput, setSelectInput] = useState('');
   const options = [
@@ -22,6 +25,7 @@ function Feature() {
             setInput(e.target.value);
           }}
           guideline='네비게이션 바에 입력될 메뉴명을 입력하세요.'
+          value={data.navTitle}
         ></TextInput>
         <CustomSelect
           title='스타일'
@@ -32,6 +36,7 @@ function Feature() {
           onChange={(e: any) => {
             setSelectInput(e.value);
           }}
+          value={data?.style?.value}
         />
         <ImgInput
           title='이미지'
@@ -41,11 +46,13 @@ function Feature() {
           title='캡션'
           required={false}
           guideline='캡션에 표시될 내용을 입력하세요.'
+          value={data.caption?.value}
         ></TextInput>
         <TextInput
           title='헤드라인'
           required={false}
-          guideline='캡션에 표시될 내용을 입력하세요.'
+          guideline='헤드라인에 표시될 내용을 입력하세요.'
+          value={data.header?.value}
         ></TextInput>
         <TextInput
           title='헤드라인 강조 테스트'
@@ -56,16 +63,19 @@ function Feature() {
           title='설명'
           required={false}
           guideline='설명에 표시될 내용을 입력하세요'
+          value={data.body?.value}
         ></TextInput>
         <TextInput
           title='버튼 텍스트'
           required={false}
           guideline='비워둘 경우 버튼이 나타나지 않습니다.'
+          value={data.button?.title}
         ></TextInput>
         <TextInput
           title='버튼 URL'
           required={false}
           guideline='버튼 클릭시 이동될 url을 입력하세요'
+          value={data.button?.url}
         ></TextInput>
       </Card>
     </>
