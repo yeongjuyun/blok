@@ -11,12 +11,16 @@ class SiteService {
     const { owner, name, domain } = siteInfo;
     const siteNameCheck = await this.siteModel.findBySiteName(name);
     const siteDomainCheck = await this.siteModel.findBySiteDomain(domain);
-    if (siteNameCheck || siteDomainCheck) {
+    if (siteNameCheck) {
       throw new BadRequestError(
-        "이 사이트의 이름/도메인은 현재 사용중입니다. 다른 사이트 이름/도메인을 입력해 주세요"
+        "이 사이트의 이름은 현재 사용중입니다. 다른 사이트 이름을 입력해 주세요"
       );
     }
-
+    if (siteDomainCheck) {
+      throw new BadRequestError(
+        "이 사이트의 도메인은 현재 사용중입니다. 다른 도메인을 입력해 주세요"
+      );
+    }
     const newSiteInfo = { owner, name, domain };
     const createdNewSite = await this.siteModel.create(newSiteInfo);
     return createdNewSite;
@@ -42,20 +46,38 @@ class SiteService {
   // }
 
   // 사이트 정보 수정
-  async updateSite(siteName, toUpdate) {
-    let site = await this.siteModel.findBySiteName(siteName);
+  async updateSite(siteIdentifier, toUpdate) {
+    let site = await this.siteModel.findBySiteId(siteIdentifier);
     if (!site) {
       throw new BadRequestError(
         "등록된 사이트가 없습니다. 다시 한 번 확인해 주세요."
       );
     }
-    site = await this.siteModel.update({ siteName, update: toUpdate });
+    let name = await this.siteModel.findBySiteName(toUpdate.name);
+    if (name && name.no !== siteIdentifier) {
+      throw new BadRequestError(
+        "이 사이트의 이름은 현재 사용중입니다. 다른 사이트 이름을 입력해 주세요"
+      );
+    }
+    let domain = await this.siteModel.findBySiteDomain(toUpdate.domain);
+    if (domain && domain.no !== siteIdentifier) {
+      throw new BadRequestError(
+        "이 사이트의 도메인은 현재 사용중입니다. 다른 도메인을 입력해 주세요"
+      );
+    }
+    site = await this.siteModel.update({
+      id: siteIdentifier,
+      update: toUpdate,
+    });
     return site;
   }
 
   // 사이트 삭제 구현
   async deleteSite(siteIdentifier) {
     const site = await this.siteModel.delete(siteIdentifier);
+    if (!site) {
+      throw new ForbiddenError("삭제할 사이트가 없습니다.");
+    }
     return site;
   }
 }

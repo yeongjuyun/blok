@@ -16,6 +16,10 @@ export class SiteModel {
     const site = await Site.findOne({ domain: siteDomain });
     return site;
   }
+  async findBySiteId(siteId) {
+    const site = await Site.findOne({ no: siteId });
+    return site;
+  }
   async findAllSite() {
     const sites = await Site.find({});
     return sites;
@@ -27,14 +31,15 @@ export class SiteModel {
   //   return sites;
   // }
   async update({ id, update }) {
-    const filter = { name: id };
+    const filter = { no: id };
     const option = { returnOriginal: false };
     const updatedSite = await Site.findOneAndUpdate(filter, update, option);
+    console.log(filter, update, updatedSite);
 
     return updatedSite;
   }
   async delete(id) {
-    const filter = { name: id };
+    const filter = { no: id };
     const deletedSite = await Site.findOneAndDelete(filter);
     return deletedSite;
   }

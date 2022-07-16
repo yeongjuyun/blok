@@ -19,6 +19,39 @@ const siteController = {
     });
     return res.status(201).json(newSite);
   }),
+  getSiteInfo: asyncHandler(async (req, res) => {
+    const siteIdentifier = req.params.siteIdentifier;
+    const site = await siteService.getSiteInfo(siteIdentifier);
+    res.status(200).json(site);
+  }),
+  updateSite: asyncHandler(async (req, res) => {
+    const siteIdentifier = parseInt(req.params.siteIdentifier);
+    const name = req.body.name;
+    const domain = req.body.domain;
+    const theme = req.body.theme;
+    const font = req.body.font;
+    const colorset = req.body.colorset;
+    const blocks = req.body.blocks;
+
+    const toUpdate = {
+      ...(name && { name }),
+      ...(domain && { domain }),
+      ...(theme && { theme }),
+      ...(font && { font }),
+      ...(colorset && { colorset }),
+      ...(blocks && { blocks }),
+    };
+    const updatedSiteInfo = await siteService.updateSite(
+      siteIdentifier,
+      toUpdate
+    );
+    res.status(200).json(updatedSiteInfo);
+  }),
+  deleteSite: asyncHandler(async (req, res) => {
+    const siteIdentifier = parseInt(req.params.siteIdentifier);
+    const deletedSite = await siteService.deleteSite(siteIdentifier);
+    res.status(200).json(deletedSite);
+  }),
 };
 
 export { siteController };
