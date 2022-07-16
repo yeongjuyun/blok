@@ -11,11 +11,15 @@ const siteController = {
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
-    const { owner, name, domain } = req.body;
+    const { owner, name, domain, theme, font, colorset, blocks } = req.body;
     const newSite = await siteService.addSite({
       owner,
       name,
       domain,
+      theme,
+      font,
+      colorset,
+      blocks,
     });
     return res.status(201).json(newSite);
   }),
@@ -23,6 +27,10 @@ const siteController = {
     const siteIdentifier = req.params.siteIdentifier;
     const site = await siteService.getSiteInfo(siteIdentifier);
     res.status(200).json(site);
+  }),
+  getSitesInfo: asyncHandler(async (req, res) => {
+    const sites = await siteService.getSitesInfo();
+    res.status(200).json(sites);
   }),
   updateSite: asyncHandler(async (req, res) => {
     const siteIdentifier = parseInt(req.params.siteIdentifier);
@@ -47,7 +55,7 @@ const siteController = {
     );
     res.status(200).json(updatedSiteInfo);
   }),
-  deleteSiteById: asyncHandler(async (req, res) => {
+  deleteSiteUsingId: asyncHandler(async (req, res) => {
     const siteIdentifier = parseInt(req.params.siteIdentifier);
     const deletedSite = await siteService.deleteSiteById(siteIdentifier);
     res.status(200).json(deletedSite);

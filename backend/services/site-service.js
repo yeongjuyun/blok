@@ -21,8 +21,7 @@ class SiteService {
         "이 사이트의 도메인은 현재 사용중입니다. 다른 도메인을 입력해 주세요"
       );
     }
-    const newSiteInfo = { owner, name, domain };
-    const createdNewSite = await this.siteModel.create(newSiteInfo);
+    const createdNewSite = await this.siteModel.create(siteInfo);
     return createdNewSite;
   }
 
@@ -39,11 +38,11 @@ class SiteService {
     const sites = await this.siteModel.findAllSite();
     return sites;
   }
-  // // 유저가 가진 사이트 목록을 받음.
-  // async getSites(userId) {
-  //   const sites = await this.siteModel.findAllUserSites(userId);
-  //   return sites;
-  // }
+  // 유저가 가진 사이트 목록을 받음.
+  async getSites(userId) {
+    const sites = await this.siteModel.findAllUserSites(userId);
+    return sites;
+  }
 
   // 사이트 정보 수정
   async updateSite(siteIdentifier, toUpdate) {

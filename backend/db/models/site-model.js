@@ -5,6 +5,7 @@ const Site = model("sites", SiteSchema);
 
 export class SiteModel {
   async create(siteInfo) {
+    const owner = siteInfo.owner;
     const createdNewSite = await Site.create(siteInfo);
     return createdNewSite;
   }
@@ -24,12 +25,12 @@ export class SiteModel {
     const sites = await Site.find({});
     return sites;
   }
-  // async findAllUserSites(userId) {
-  //   const sites = await Site.find({ domain: userId })
-  //     .populate("domain", "domain userName")
-  //     .exec();
-  //   return sites;
-  // }
+  async findAllUserSites(userId) {
+    const sites = await Site.find({ domain: userId })
+      .populate("domain", "domain userName")
+      .exec();
+    return sites;
+  }
   async update({ id, update }) {
     const filter = { no: id };
     const option = { returnOriginal: false };
@@ -40,6 +41,7 @@ export class SiteModel {
   }
   async deleteById(id) {
     const filter = { no: id };
+    const site = await Site.find({ no: id }).populate("owner");
     const deletedSite = await Site.findOneAndDelete(filter);
     return deletedSite;
   }

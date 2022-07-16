@@ -6,8 +6,10 @@ siteRouter.post("/addsite", siteController.addsite);
 
 siteRouter.get("/:siteIdentifier", siteController.getSiteInfo);
 
+siteRouter.get("/", siteController.getSitesInfo);
+
 siteRouter.patch("/update/:siteIdentifier", siteController.updateSite);
 
-siteRouter.delete("/delete/:siteIdentifier", siteController.deleteSiteById);
+siteRouter.delete("/delete/:siteIdentifier", siteController.deleteSiteUsingId);
 
 export { siteRouter };
