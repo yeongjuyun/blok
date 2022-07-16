@@ -9,7 +9,7 @@ const Container = styled.div`
   width: 440px;
   padding: 24px 24px;
   background-color: #f5f5f8;
-  position: relative;
+  position: fixed;
   top: 60px;
   height: calc(100% - 60px);
   overflow-y: scroll;
