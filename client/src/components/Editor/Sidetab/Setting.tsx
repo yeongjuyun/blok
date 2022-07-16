@@ -1,9 +1,9 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import Button from '../../Button';
-import { TextInput } from '../../Input';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
+import Button from "../../Button";
+import { TextInput } from "../../Input";
 
 const ButtonContainer = styled.div`
   margin: 0 auto;
@@ -35,9 +35,9 @@ export default function Setting() {
 
   function deleteHandler() {
     dispatch({
-      type: 'CONFIRM/MODAL_ON',
+      type: "CONFIRM/MODAL_ON",
       payload: {
-        title: '삭제',
+        title: "삭제",
         msg: `${domain} 페이지를 정말 삭제하시겠습니까?`,
       },
     });
@@ -51,7 +51,7 @@ export default function Setting() {
     <>
       <Container>
         <TextInput
-          title='도메인'
+          title="도메인"
           required={true}
           value={domain}
           guideline="도메인을 변경할 수 있습니다."
@@ -61,8 +61,8 @@ export default function Setting() {
       <ButtonContainer>
         <Button
           onClick={deleteHandler}
-          color='black'
-          size='large'
+          color="black"
+          size="large"
           rounding
           fullWidth
         >
