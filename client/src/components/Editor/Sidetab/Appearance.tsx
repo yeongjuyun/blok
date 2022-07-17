@@ -79,42 +79,9 @@ export default function Appearance() {
     getStyleInfo();
   }, []);
 
-  const changeThemeHandler = (props: string) => {
-    dispatch({
-      type: "CONFIRM/MODAL_ON",
-      payload: {
-        title: "테마 변경",
-        msg: `테마에 해당 블록타입이 없을 시 블록이 삭제될 수 있습니다. 테마를 변경하시겠습니까?`,
-        action: "changeTheme",
-        props: props,
-      },
-    });
-  };
-
-  const modalAction = useSelector(
-    (state: RootState) => state.modalReducer.confirmData
-  );
-
-  const changeTheme = () => {
-    try {
-      if (modalAction?.props === "") {
-        console.log("modolAction의 props를 불러오지 못했습니다.");
-        return;
-      }
-      setTheme(modalAction?.props);
-      dispatch({ type: "CONFIRM/MODAL_OFF" });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  if (modalAction?.action === "changeTheme") {
-    changeTheme();
-  }
-
   return (
     <>
-      <Container id="colorSet">
+      <Container>
         <Label required={true}>
           색상조합
           <Required>*</Required>
@@ -132,7 +99,7 @@ export default function Appearance() {
           options={colorSetList}
         />
       </Container>
-      <Container id="font">
+      <Container>
         <Label required={true}>
           폰트
           <Required>*</Required>
@@ -146,15 +113,16 @@ export default function Appearance() {
           options={fontList}
         />
       </Container>
-      <Container id="theme">
+      <Container>
         <Label required={true}>
           테마
           <Required>*</Required>
         </Label>
         <CustomSelect
           value={themeList.filter((item: any) => item.value === theme)[0]}
-          onChange={(e: any) => changeThemeHandler(e.value)}
+          onChange={(e: any) => setTheme(e.value)}
           options={themeList}
+          guideline={"❗️테마에 블록 타입이 없을 시 블록이 삭제될 수 있습니다."}
         />
       </Container>
     </>
