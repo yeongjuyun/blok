@@ -13,20 +13,16 @@ export class SiteModel {
 
     return createdNewSite;
   }
-  async findBySiteName(siteName) {
-    const site = await Site.findOne({ name: siteName });
-    return site;
-  }
-  async findBySiteDomain(siteDomain) {
-    const site = await Site.findOne({ domain: siteDomain });
-    return site;
-  }
   async findBySiteId(siteId) {
-    const site = await Site.findOne({ no: siteId });
+    const site = await Site.findOne({ _id: siteId });
     return site;
   }
+  // async findBySiteDomain(siteDomain) {
+  //   const site = await Site.findOne({ domain: siteDomain });
+  //   return site;
+  // }
   async findAllSite() {
-    const sites = await Site.find({});
+    const sites = await Site.find({}).populate("userId");
     return sites;
   }
   async findAllUserSites(userId) {
@@ -34,7 +30,7 @@ export class SiteModel {
     return sites;
   }
   async update({ id, update }) {
-    const filter = { no: id };
+    const filter = { _id: id };
     const option = { returnOriginal: false };
     const updatedSite = await Site.findOneAndUpdate(filter, update, option);
     console.log(filter, update, updatedSite);
@@ -42,8 +38,7 @@ export class SiteModel {
     return updatedSite;
   }
   async deleteById(id) {
-    const filter = { no: id };
-    const site = await Site.find({ no: id });
+    const filter = { _id: id };
     const deletedSite = await Site.findOneAndDelete(filter);
     return deletedSite;
   }
@@ -56,18 +51,18 @@ export class SiteModel {
     return site;
   }
 
-  async deleteByObjectId(siteId) {
+  async deleteSiteBySiteId(siteId) {
     const filter = { _id: siteId };
-    const site = await Site.find({ _id: siteId }).populate("owner");
-    const userId = JSON.stringify(site[0].owner._id).replace(/["]/g, "");
+    const site = await Site.find({ _id: siteId });
+    const userId = JSON.stringify(site[0].userId._id).replace(/["]/g, "");
     const user = await userModel.deleteSiteById(userId, siteId);
+    const deletedSite = await Site.findOneAndDelete(filter);
+    console.log(filter);
+    return deletedSite;
     // //solve 1:
     // const site = await Site.find({ _id: id });
     // const userId = JSON.stringify(site[0].owner).replace(/["]/g, "");
     // const user = await userModel.findById(userId);
-
-    const deletedSite = await Site.findOneAndDelete(filter);
-    return deletedSite;
   }
 }
 
