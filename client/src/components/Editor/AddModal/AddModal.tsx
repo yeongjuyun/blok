@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import BlockItem from './BlockItem';
 import * as icons from '../../../icons';
-import * as blockConfig from '../../Blocks/blocks.config.json';
+import * as blockConfig from '../../Blocks/block.config.json';
 
 const Background = styled.div`
   width: 100vw;
@@ -35,7 +35,19 @@ const HeaderText = styled.div`
   font-size: 24px;
   font-weight: 700;
 `;
-const CloseButton = styled.div``;
+const CloseButton = styled.button`
+  background: none;
+  border: none;
+`;
+const CloseIcon = styled.img`
+  width: 18px;
+  hegiht: 18px;
+  transition: opacity 0.3s;
+  &:hover {
+    opacity: 0.7;
+    cursor: pointer;
+  }
+`;
 const BlockItemList = styled.div`
   display: grid;
   grid-template-rows: repeat(2, 1fr);
@@ -71,12 +83,20 @@ interface ModalProps {
 export default function AddModal(props: ModalProps) {
   const dispatch = useDispatch();
   const renderBlockList = () => {};
+
+  const closeModal = () => {
+    dispatch({
+      type: 'ADD/MODAL_OFF',
+    });
+  };
   return (
     <Background>
       <ModalBox>
         <Header>
           <HeaderText>블록 선택</HeaderText>
-          <CloseButton>X</CloseButton>
+          <CloseButton onClick={closeModal}>
+            <CloseIcon src={icons.Close} />
+          </CloseButton>
         </Header>
         <BlockItemList>
           <BlockItem

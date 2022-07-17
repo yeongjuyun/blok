@@ -17,7 +17,7 @@ const TEMPLATE_OFF = 'TEMPLATE/MODAL_OFF';
 const CONFIRM_ON = 'CONFIRM/MODAL_ON';
 const CONFIRM_OFF = 'CONFIRM/MODAL_OFF';
 const ADD_ON = 'ADD/MODAL_ON';
-const ADD_OFF = 'ADD/MODAL_ON';
+const ADD_OFF = 'ADD/MODAL_OFF';
 
 export const modalReducer = (state = initialState, action: any) => {
   switch (action.type) {
