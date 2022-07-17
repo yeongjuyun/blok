@@ -3,6 +3,7 @@ type ModalState = {
   isConfirmModal: boolean;
   confirmData: string;
   isAddModal: boolean;
+  confirmState: boolean;
 };
 
 const initialState: ModalState = {
@@ -10,7 +11,9 @@ const initialState: ModalState = {
   isConfirmModal: false,
   confirmData: '',
   isAddModal: false,
+  confirmState: false,
 };
+
 // 액션 타입 정의
 const TEMPLATE_ON = 'TEMPLATE/MODAL_ON';
 const TEMPLATE_OFF = 'TEMPLATE/MODAL_OFF';
@@ -18,6 +21,8 @@ const CONFIRM_ON = 'CONFIRM/MODAL_ON';
 const CONFIRM_OFF = 'CONFIRM/MODAL_OFF';
 const ADD_ON = 'ADD/MODAL_ON';
 const ADD_OFF = 'ADD/MODAL_OFF';
+const CONFIRM_YES = 'CONFIRM/CONFIRM_YES';
+const CONFIRM_RESET = 'CONFIRM/CONFIRM_RESET';
 
 export const modalReducer = (state = initialState, action: any) => {
   switch (action.type) {
@@ -33,6 +38,10 @@ export const modalReducer = (state = initialState, action: any) => {
       return { ...state, isAddModal: true };
     case ADD_OFF:
       return { ...initialState };
+    case CONFIRM_YES:
+      return { ...state, confirmState: true };
+    case CONFIRM_RESET:
+      return { ...state, confirmState: false };
     default:
       return { ...state };
   }
