@@ -30,7 +30,7 @@ const ModalBox = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 64px 56px 0 56px;
+  padding: 56px 56px 0 56px;
   align-items: center;
 `;
 const HeaderText = styled.div`
@@ -129,7 +129,7 @@ export default function AddModal(props: ModalProps) {
     const result = validate(site, blockTemplate);
     if (!result) {
       //이미 있는 블록이면 불가 경고창 띄우기(모달에 띄우는 로직 추가)
-      alert('최대 1개까지만 추가가능한 블록입니다.');
+      alert(`최대 1개까지만 추가가능한 블록입니다.`);
     } else {
       //추가 가능한 블록이면 추가하기
       const newBlock = {
