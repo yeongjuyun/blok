@@ -58,7 +58,7 @@ export class SiteModel {
 
   async deleteByObjectId(siteId) {
     const filter = { _id: siteId };
-    const site = await Site.find({ _id: siteId }).populate("owner");
+    const site = await Site.find({ _id: siteId }).populate("userId");
     const userId = JSON.stringify(site[0].owner._id).replace(/["]/g, "");
     const user = await userModel.deleteSiteById(userId, siteId);
     // //solve 1:
