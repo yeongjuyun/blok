@@ -95,6 +95,10 @@ const AddButton = styled(Button)`
 `;
 
 export function TemplateList() {
+  const dispatch = useDispatch();
+  const showModalHandler = (template: string) => {
+    dispatch({ type: "TEMPLATE/MODAL_ON", template: template });
+  };
   return (
     <Container>
       <MainTitle className="title">Template</MainTitle>
@@ -106,6 +110,7 @@ export function TemplateList() {
               description={e.description}
               color1={e.color1}
               color2={e.color2}
+              onClick={() => showModalHandler(e.title)}
             />
           </div>
         ))}
@@ -164,13 +169,14 @@ export function DashboardInfo() {
         return;
       }
       // 사이트 삭제 API 통신 에러
-      await axios.delete(`/api/site/delete/${modalAction?.props}`);
+      // await axios.delete(`/api/site/delete/${modalAction?.props}`);
       dispatch({ type: "CONFIRM/MODAL_OFF" });
       dispatch({ type: "alertOn", payload: "사이트가 삭제되었습니다." });
     } catch (e) {
       console.log(e);
     }
   };
+
   if (modalAction?.action === "deleteSite") {
     deleteSite();
   }
