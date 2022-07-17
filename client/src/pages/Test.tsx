@@ -3,6 +3,7 @@ import Navbar from '../components/SettingBox/Navbar';
 import Hero from '../components/SettingBox/Hero';
 import Feature from '../components/SettingBox/Feature';
 import Footer from '../components/SettingBox/Footer';
+import HeroSite from '../components/Sitebox';
 
 const Container = styled.div`
   padding-top: 50px;
@@ -20,12 +21,15 @@ const Container = styled.div`
 
 function Test() {
   return (
-    <Container>
-      <Navbar></Navbar>
-      <Hero></Hero>
-      <Feature></Feature>
-      <Footer></Footer>
-    </Container>
+    // <Container>
+    //   <Navbar></Navbar>
+    //   <Hero></Hero>
+    //   <Feature></Feature>
+    //   <Footer></Footer>
+    // </Container>
+    <>
+      <HeroSite></HeroSite>
+    </>
   );
 }
 
