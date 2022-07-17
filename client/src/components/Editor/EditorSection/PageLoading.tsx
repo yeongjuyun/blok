@@ -30,7 +30,7 @@ const GradientAnimation = styled.div`
     #f5f6f8 18%,
     #edeef2 33%
   );
-  background-size: 2000px 2000px;
+  background-size: 4000px 4000px;
   height: 100%;
   position: relative;
 `;
