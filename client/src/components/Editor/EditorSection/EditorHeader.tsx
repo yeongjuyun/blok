@@ -62,7 +62,7 @@ const SaveButton = styled.button`
 export default function PublishBar() {
   const dispatch = useDispatch();
   const [domain, setDomain] = useState('');
-  let msg = "";
+  let msg = '';
 
   const getDomainInfo = async () => {
     try {
@@ -76,16 +76,16 @@ export default function PublishBar() {
   };
 
   async function saveHandler() {
-    const data = "";
+    const data = '';
     try {
-      await axios.put("/site/2", data);
-      msg = "페이지가 저장되었습니다.";
+      await axios.put('/site/2', data);
+      msg = '페이지가 저장되었습니다.';
       dispatch({
-        type: "alertOn",
+        type: 'alertOn',
         payload: { msg: msg, link: domain, time: 2000 },
       });
     } catch (err) {
-      dispatch({ type: "alertOn", payload: { msg: "잠시 후 시도해주세요." } });
+      dispatch({ type: 'alertOn', payload: { msg: '잠시 후 시도해주세요.' } });
     }
   }
 
@@ -96,12 +96,12 @@ export default function PublishBar() {
   async function copyHandler() {
     try {
       await navigator.clipboard.writeText(domain);
-      msg = "클립보드에 복사되었습니다.";
+      msg = '클립보드에 복사되었습니다.';
     } catch (err) {
       console.log(err);
-      msg = "잠시 후 시도해주세요.";
+      msg = '잠시 후 시도해주세요.';
     }
-    dispatch({ type: "alertOn", payload: { msg: msg } });
+    dispatch({ type: 'alertOn', payload: { msg: msg } });
   }
 
   return (

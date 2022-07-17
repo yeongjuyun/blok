@@ -14,10 +14,9 @@ function Navbar({ data }: Navbar) {
     { value: '스타일2', label: '스타일2' },
     { value: '스타일3', label: '스타일3' },
   ];
-  console.log(data.style.value);
   return (
     <>
-      <Card title='Navbar'>
+      <Card title='Navbar' pinned>
         <CustomSelect
           title='스타일'
           required={true}

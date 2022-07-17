@@ -16,7 +16,7 @@ function Footer({ data }: Footer) {
 
   return (
     <>
-      <Card title='Footer'>
+      <Card title='Footer' pinned>
         <CustomSelect
           title='스타일'
           required={true}

@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default function SiteBlock() {
-  return <div>NavbarBlock</div>;
+  return <div>FeatureTextBlock</div>;
 }
