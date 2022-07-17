@@ -1,12 +1,14 @@
-import styled from "styled-components";
-import Sidebar from "../components/Sidebar";
-import Sidetab from "../components/Editor/Sidetab";
-import EditorSection from "../components/Editor/EditorSection";
-import { useSelector } from "react-redux";
-import AlertModal from "../components/AlertModal";
-import ConfirmModal from "../components/ConfirmModal";
-import Button from "../components/Button";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import Sidebar from '../components/Sidebar';
+import Sidetab from '../components/Editor/Sidetab';
+import EditorSection from '../components/Editor/EditorSection';
+import { useSelector } from 'react-redux';
+import AlertModal from '../components/AlertModal';
+import ConfirmModal from '../components/ConfirmModal';
+import AddModal from '../components/Editor/AddModal/AddModal';
+import Button from '../components/Button';
+import { Link } from 'react-router-dom';
+import type { RootState } from '../reducers/store';
 
 const DesktopContainer = styled.div`
   width: 100vw;
@@ -36,15 +38,17 @@ const MobileContainer = styled.div`
 
 export default function Editor() {
   const AlertModalState = useSelector((state: any) => state.alertReducer.state);
-
   const alertData = useSelector((state: any) => state.alertReducer.alertData);
 
   const ConfirmModalState = useSelector(
     (state: any) => state.modalReducer.isConfirmModal
   );
-
   const confirmData = useSelector(
     (state: any) => state.modalReducer.confirmData
+  );
+
+  const AddModalState = useSelector(
+    (state: RootState) => state.modalReducer.isAddModal
   );
 
   return (
@@ -55,6 +59,7 @@ export default function Editor() {
         <EditorSection />
         {AlertModalState && <AlertModal alertData={alertData} />}
         {ConfirmModalState && <ConfirmModal confirmData={confirmData} />}
+        {AddModalState && <AddModal theme='Simple' />}
       </DesktopContainer>
       <MobileContainer>
         <div>
@@ -64,8 +69,8 @@ export default function Editor() {
           빠른 시일 내에 <b>업데이트</b> 하도록 하겠습니다.
         </div>
         <br />
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <Button color="white" size="large">
+        <Link to='/' style={{ textDecoration: 'none' }}>
+          <Button color='white' size='large'>
             Home
           </Button>
         </Link>
