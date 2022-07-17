@@ -9,6 +9,7 @@ import Movable from './movable.png';
 import Navbar from './navbar.png';
 import Trash from './trash.png';
 import User from './User.png';
+import Close from './x.png';
 import BlockFeature from './blockCreation/feature.png';
 import BlockFooter from './blockCreation/footer.png';
 import BlockHome from './blockCreation/home.png';
@@ -26,6 +27,7 @@ export {
   Footer,
   Hero,
   Logo,
+  Close,
   BlockNav,
   BlockHome,
   BlockFooter,
