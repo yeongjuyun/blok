@@ -5,19 +5,38 @@ export default function SiteBlock(props: any) {
     background-color: ${props.colorSet.background};
     font-family: ${props.font};
     color: ${props.colorSet.surface};
+
+    padding: 100px 40px;
+    margin: 0 auto;
+    width: 1000px;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 100px 40px;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: 1120px) {
+      width: auto;
+    }
   `;
 
-  const InnerContainer = styled.div`
+  const TextContainer = styled.div`
     vertical-align: middle;
+
+    @media screen and (max-width: 1120px) {
+      width: 400px;
+      padding: 20px;
+    }
   `;
 
   const Img = styled.img`
-    width: 20vw;
-    padding-left: 10vw;
+    width: 400px;
+    padding-right: 20px;
+
+    @media screen and (max-width: 1120px) {
+      width: 400px;
+      padding-right: 0;
+    }
   `;
 
   const Caption = styled.div`
@@ -77,14 +96,12 @@ export default function SiteBlock(props: any) {
     <>
       <Container id={props.data.navTitle}>
         {props.data.image.src && (
-          <InnerContainer>
-            <img
-              src={props.data.image.src}
-              alt={props.data.image.alt ? props.data.image.alt : ""}
-            />
-          </InnerContainer>
+          <Img
+            src={props.data.image.src}
+            alt={props.data.image.alt ? props.data.image.alt : ""}
+          />
         )}
-        <InnerContainer>
+        <TextContainer>
           {props.data.caption.value && (
             <Caption>{props.data.caption.value}</Caption>
           )}
@@ -97,7 +114,7 @@ export default function SiteBlock(props: any) {
               {props.data.button.title}
             </Button>
           )}
-        </InnerContainer>
+        </TextContainer>
       </Container>
     </>
   );
