@@ -8,7 +8,7 @@
       },
       "creationData": {
         "title": "네비게이션바",
-        "icon": "navbar",
+        "icon": "Navbar",
         "isUnique": true,
         "order": 1
       },
@@ -31,7 +31,7 @@
       },
       "creationData": {
         "title": "메인 화면",
-        "icon": "home",
+        "icon": "Home",
         "isUnique": true,
         "order": 2
       },
@@ -60,7 +60,7 @@
       },
       "creationData": {
         "title": "이미지+텍스트",
-        "icon": "feature",
+        "icon": "Feature",
         "isUnique": false
       },
       "defaultData": {
@@ -145,6 +145,28 @@
       "creationData": {
         "title": "푸터",
         "icon": "footer",
+        "isUnique": true,
+        "order": -1
+      },
+      "defaultData": {
+        "navTitle": null,
+        "leftText": {
+          "value": "노코드 웹사이트 빌더 플랫폼"
+        },
+        "rightText": {
+          "value": "여기에 블록에 입력한 제목이 들어갑니다. 여러줄도 오케이"
+        }
+      }
+    },
+    {
+      "template": {
+        "theme": "Resume",
+        "type": "Footer",
+        "layout": ""
+      },
+      "creationData": {
+        "title": "푸터",
+        "icon": "Footer",
         "isUnique": true,
         "order": -1
       },

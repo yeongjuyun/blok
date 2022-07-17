@@ -2,7 +2,8 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import BlockItem from './BlockItem';
 import * as icons from '../../../icons';
-import * as blockConfig from '../../Blocks/block.config.json';
+import * as blockIcons from '../../../icons/blockCreation';
+import blockConfig from '../../Blocks/block.config.json';
 
 const Background = styled.div`
   width: 100vw;
@@ -21,19 +22,21 @@ const Background = styled.div`
 const ModalBox = styled.div`
   background-color: white;
   width: 440px;
-  padding: 64px 56px;
   box-sizing: border-box;
   border-radius: 12px;
 `;
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 64px 56px 0 56px;
   align-items: center;
-  margin-bottom: 48px;
 `;
 const HeaderText = styled.div`
   font-size: 24px;
   font-weight: 700;
+`;
+const Content = styled.div`
+  padding: 48px 0;
 `;
 const CloseButton = styled.button`
   background: none;
@@ -50,9 +53,23 @@ const CloseIcon = styled.img`
 `;
 const BlockItemList = styled.div`
   display: grid;
+  max-height: 500px;
+  padding: 8px 40px;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+    position: relative;
+    left: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #dfdfdf;
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+  }
 `;
 const AddButton = styled.button`
   padding: 10px 48px;
@@ -75,20 +92,37 @@ interface ModalProps {
   theme: string;
 }
 
-// const getBlocksByTheme(theme: string){
-//   blockConfig.blocks.map();
-//   return
-// }
+const getBlocksByTheme = (blocks: any, theme: string): any => {
+  const arr = blockConfig.blocks.filter((block) => {
+    return block.template.theme === theme;
+  });
+  return arr;
+};
 
 export default function AddModal(props: ModalProps) {
   const dispatch = useDispatch();
-  const renderBlockList = () => {};
   const closeModal = () => {
     dispatch({
       type: 'ADD/MODAL_OFF',
     });
   };
-  console.log(blockConfig);
+  const renderBlockItem = () => {
+    const blocks = getBlocksByTheme(blockConfig.blocks, 'Simple');
+    const blockItemList = blocks.map(
+      (block: { creationData: { icon: string; title: string } }) => {
+        const { icon, title } = block.creationData;
+        return (
+          <BlockItem
+            //icon={blockIcons[icon]}
+            icon=''
+            label={title}
+            onClick={() => {}}
+          ></BlockItem>
+        );
+      }
+    );
+    return blockItemList;
+  };
   return (
     <Background>
       <ModalBox>
@@ -98,33 +132,9 @@ export default function AddModal(props: ModalProps) {
             <CloseIcon src={icons.Close} />
           </CloseButton>
         </Header>
-        <BlockItemList>
-          <BlockItem
-            icon={icons.BlockNav}
-            label='네비게이션바'
-            onClick={() => {}}
-          ></BlockItem>
-          <BlockItem
-            icon={icons.BlockFooter}
-            label='푸터'
-            onClick={() => {}}
-          ></BlockItem>
-          <BlockItem
-            icon={icons.BlockHome}
-            label='메인화면'
-            onClick={() => {}}
-          ></BlockItem>
-          <BlockItem
-            icon={icons.BlockFeature}
-            label='이미지+텍스트'
-            onClick={() => {}}
-          ></BlockItem>
-          <BlockItem
-            icon={icons.BlockFeature}
-            label='이미지+텍스트'
-            onClick={() => {}}
-          ></BlockItem>
-        </BlockItemList>
+        <Content>
+          <BlockItemList>{renderBlockItem()}</BlockItemList>
+        </Content>
       </ModalBox>
     </Background>
   );

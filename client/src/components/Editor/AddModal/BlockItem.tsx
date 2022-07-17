@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import HomeIcon from '.././../../../icons/block_home.png';
 
 const Card = styled.div`
   width: 100%;
@@ -42,9 +41,10 @@ interface BlockItemProps {
 }
 export default function BlockItem(props: BlockItemProps) {
   const { icon, label, onClick } = props;
+  console.log(icon);
   return (
     <Card onClick={onClick}>
-      <Icon src={icon} alt='block_home' />
+      <Icon src={icon} alt={label} />
       <Label>{label}</Label>
     </Card>
   );
