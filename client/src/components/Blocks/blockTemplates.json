@@ -1,16 +1,16 @@
 {
-  "blocks": [
+  "blockTemplates": [
     {
       "template": {
         "theme": "Simple",
-        "type": "Nav",
+        "blockType": "Nav",
         "layout": ""
       },
       "creationData": {
         "title": "네비게이션바",
         "icon": "Navbar",
         "isUnique": true,
-        "order": 1
+        "order": 0
       },
       "defaultData": {
         "navTitle": null,
@@ -26,14 +26,14 @@
     {
       "template": {
         "theme": "Simple",
-        "type": "Hero",
+        "blockType": "Hero",
         "layout": ""
       },
       "creationData": {
         "title": "메인 화면",
         "icon": "Home",
         "isUnique": true,
-        "order": 2
+        "order": 1
       },
       "defaultData": {
         "navTitle": "홈",
@@ -55,13 +55,14 @@
     {
       "template": {
         "theme": "Simple",
-        "type": "Feature",
+        "blockType": "Feature",
         "layout": ""
       },
       "creationData": {
         "title": "이미지+텍스트",
         "icon": "Feature",
-        "isUnique": false
+        "isUnique": false,
+        "order": null
       },
       "defaultData": {
         "navTitle": "기능 1",
@@ -83,13 +84,14 @@
     {
       "template": {
         "theme": "Simple",
-        "type": "Feature",
+        "blockType": "Feature",
         "layout": "RightImg"
       },
       "creationData": {
         "title": "이미지+텍스트",
         "icon": "feature",
-        "isUnique": false
+        "isUnique": false,
+        "order": null
       },
       "defaultData": {
         "navTitle": "기능 1",
@@ -111,13 +113,14 @@
     {
       "template": {
         "theme": "Simple",
-        "type": "Feature",
+        "blockType": "Feature",
         "layout": "Text"
       },
       "creationData": {
         "title": "텍스트",
         "icon": "text",
-        "isUnique": false
+        "isUnique": false,
+        "order": null
       },
       "defaultData": {
         "navTitle": "기능 1",
@@ -139,7 +142,7 @@
     {
       "template": {
         "theme": "Simple",
-        "type": "Footer",
+        "blockType": "Footer",
         "layout": ""
       },
       "creationData": {
@@ -161,7 +164,7 @@
     {
       "template": {
         "theme": "Resume",
-        "type": "Footer",
+        "blockType": "Footer",
         "layout": ""
       },
       "creationData": {

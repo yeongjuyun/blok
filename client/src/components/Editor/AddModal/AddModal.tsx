@@ -1,9 +1,11 @@
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import BlockItem from './BlockItem';
 import * as icons from '../../../icons';
-import * as blockIcons from '../../../icons/blockCreation';
-import blockConfig from '../../Blocks/block.config.json';
+import config from '../../Blocks/blockTemplates.json';
+import { Site, BlockTemplate } from '../../Blocks/blockValidator';
+import { RootState } from '../../../reducers';
+import { addBlock } from '../../../reducers/SiteReducer';
 
 const Background = styled.div`
   width: 100vw;
@@ -83,44 +85,86 @@ const AddButton = styled.button`
     cursor: pointer;
   }
 `;
-const Footer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 32px;
-`;
 interface ModalProps {
   theme: string;
 }
 
-const getBlocksByTheme = (blocks: any, theme: string): any => {
-  const arr = blockConfig.blocks.filter((block) => {
+const getBlockTemplatesByTheme = (
+  blockTemplates: BlockTemplate[],
+  theme: string
+): BlockTemplate[] => {
+  const arr: BlockTemplate[] = blockTemplates.filter((block) => {
     return block.template.theme === theme;
   });
   return arr;
 };
+const validate = (site: Site, blockToAdd: BlockTemplate): boolean => {
+  const isUnique = blockToAdd.creationData.isUnique;
+  const isDuplicated: boolean = isBlockExist(site, blockToAdd);
+  //1개만 있어야하는데 이미 있어서 추가 불가능
+  if (isUnique && isDuplicated) {
+    return false;
+  }
+  return true;
+};
+const isBlockExist = (site: Site, blockToCheck: BlockTemplate): boolean => {
+  let blocks = Object.values(site.blocks);
+  const index = blocks.findIndex((block) => {
+    return block.template.blockType === blockToCheck.template.blockType;
+  });
+  const result = index >= 0 ? true : false;
+  return result;
+};
 
 export default function AddModal(props: ModalProps) {
   const dispatch = useDispatch();
+  const site = useSelector((state: RootState) => state.site);
   const closeModal = () => {
     dispatch({
       type: 'ADD/MODAL_OFF',
     });
   };
+  const addBlockHandler = (blockTemplate: BlockTemplate) => {
+    //2. 블록추가
+    const result = validate(site, blockTemplate);
+    if (!result) {
+      //이미 있는 블록이면 불가 경고창 띄우기(모달에 띄우는 로직 추가)
+      alert('최대 1개까지만 추가가능한 블록입니다.');
+    } else {
+      //추가 가능한 블록이면 추가하기
+      const newBlock = {
+        id: 1,
+        template: blockTemplate?.template,
+        data: blockTemplate?.defaultData,
+      };
+      const order = blockTemplate.creationData.order;
+      //사이트 추가
+      dispatch(addBlock({ order: order, block: newBlock }));
+
+      //3.모달창 닫기
+      dispatch({
+        type: 'ADD/MODAL_OFF',
+      });
+    }
+  };
   const renderBlockItem = () => {
-    const blocks = getBlocksByTheme(blockConfig.blocks, 'Simple');
-    const blockItemList = blocks.map(
-      (block: { creationData: { icon: string; title: string } }) => {
-        const { icon, title } = block.creationData;
-        return (
-          <BlockItem
-            //icon={blockIcons[icon]}
-            icon=''
-            label={title}
-            onClick={() => {}}
-          ></BlockItem>
-        );
-      }
+    const blockTemplates = getBlockTemplatesByTheme(
+      config.blockTemplates,
+      site.theme
     );
+    const blockItemList = blockTemplates.map((blockTemplate: BlockTemplate) => {
+      const { icon, title } = blockTemplate.creationData;
+      return (
+        <BlockItem
+          //icon={blockIcons[icon]}
+          icon=''
+          label={title}
+          onClick={() => {
+            addBlockHandler(blockTemplate);
+          }}
+        ></BlockItem>
+      );
+    });
     return blockItemList;
   };
   return (

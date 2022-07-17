@@ -1,26 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { Block } from '../components/Blocks/blockValidator';
-
-//Site Interface
-export interface SiteState {
-  id: number | null;
-  name: string;
-  domain: string;
-  theme: string;
-  font: string;
-  colorSet: ColorSet;
-  blocks: Block[] | [];
-}
-interface ColorSet {
-  primary: string;
-  secondary: string;
-  background: string;
-  surface: string;
-}
+import { Site, Block } from '../components/Blocks/blockValidator';
 
 //Initial Value
-const initialState: SiteState = {
+const initialState: Site = {
   id: null,
   name: '',
   domain: '',
@@ -34,7 +17,7 @@ const initialState: SiteState = {
   },
   blocks: [],
 };
-const initialStateSample: SiteState = {
+const initialStateSample: Site = {
   id: 2,
   name: 'First Site',
   domain: 'firstSite',
@@ -162,7 +145,36 @@ export const siteSlice = createSlice({
   name: 'site',
   initialState: initialStateSample,
   reducers: {
-    addBlock: (state, action: PayloadAction<number>) => {},
+    addBlock: (
+      state,
+      action: PayloadAction<{ order: number | null; block: Block }>
+    ) => {
+      //Nav -> order:0 최상단
+      //Hero -> order:1 두번째
+      //Footer -> order:-1 마지막
+      //그 외 -> order:null Footer가 없을경우 마지막(-1), Footer가 있을경우 마지막 이전(-2)
+
+      const { order, block } = action.payload;
+      const length = state.blocks.length;
+
+      if (order === -1) {
+        //order:-1 마지막에 추가(ex. Footer)
+        state.blocks.splice(length, 0, block);
+      } else if (order !== null && order >= 0) {
+        //order:0,1,2,3..... 특정 순서에 추가(ex.Nav, Hero)
+        state.blocks.splice(order, 0, block);
+      } else if (order === null) {
+        //order:null 특정 순서가 없는 블록 추가(Footer가 없을경우 마지막(-1), Footer가 있을경우 마지막 이전(-2))
+        const isFooterExist = state.blocks.find(
+          (block) => block.template.blockType === 'Footer'
+        );
+        if (isFooterExist) {
+          state.blocks.splice(length - 1, 0, block);
+        } else {
+          state.blocks.splice(length - 2, 0, block);
+        }
+      }
+    },
   },
 });
 
