@@ -83,12 +83,12 @@ interface ModalProps {
 export default function AddModal(props: ModalProps) {
   const dispatch = useDispatch();
   const renderBlockList = () => {};
-
   const closeModal = () => {
     dispatch({
       type: 'ADD/MODAL_OFF',
     });
   };
+  console.log(blockConfig);
   return (
     <Background>
       <ModalBox>
@@ -102,37 +102,27 @@ export default function AddModal(props: ModalProps) {
           <BlockItem
             icon={icons.BlockNav}
             label='네비게이션바'
-            onClick={() => {
-              console.log('hi');
-            }}
+            onClick={() => {}}
           ></BlockItem>
           <BlockItem
             icon={icons.BlockFooter}
             label='푸터'
-            onClick={() => {
-              console.log('hi');
-            }}
+            onClick={() => {}}
           ></BlockItem>
           <BlockItem
             icon={icons.BlockHome}
             label='메인화면'
-            onClick={() => {
-              console.log('hi');
-            }}
+            onClick={() => {}}
           ></BlockItem>
           <BlockItem
             icon={icons.BlockFeature}
             label='이미지+텍스트'
-            onClick={() => {
-              console.log('hi');
-            }}
+            onClick={() => {}}
           ></BlockItem>
           <BlockItem
             icon={icons.BlockFeature}
             label='이미지+텍스트'
-            onClick={() => {
-              console.log('hi');
-            }}
+            onClick={() => {}}
           ></BlockItem>
         </BlockItemList>
       </ModalBox>

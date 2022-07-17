@@ -50,7 +50,6 @@ function Preview() {
       </SiteBlockContainer>
     );
   });
-  console.log('siteBlocks:', siteBlocks);
   return (
     <Container>
       <SiteBlockList>
