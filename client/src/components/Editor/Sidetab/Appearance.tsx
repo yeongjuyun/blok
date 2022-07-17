@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { RootState } from "../../../reducers";
 import ColorSetExample from "../../ColorSetExample";
 import { CustomSelect } from "../../Input";
 import AppearanceData from "../AppearanceData";
@@ -54,6 +56,16 @@ export default function Appearance() {
   const [colorSet, setColorSet] = useState<any>([]);
   const [font, setFont] = useState<any>([]);
   const [theme, setTheme] = useState<any>([]);
+  const [tmpTheme, setTmpTheme] = useState<any>([]);
+
+  const dispatch = useDispatch();
+  const confirmState = useSelector(
+    (state: RootState) => state.modalReducer.confirmState
+  );
+
+  const confirmAction = useSelector(
+    (state: RootState) => state.modalReducer.confirmData
+  );
 
   async function getStyleInfo() {
     try {
@@ -71,13 +83,22 @@ export default function Appearance() {
     getStyleInfo();
   }, []);
 
-  function changeThemeHandler(e: any) {
-    if (
-      window.confirm(
-        "테마에 해당 블록타입이 없을 시 블록이 삭제될 수 있습니다.\n테마를 변경하시겠습니까?"
-      )
-    ) {
-      setTheme(e.value);
+  function changeThemeHandler(value: string) {
+    dispatch({
+      type: "CONFIRM/MODAL_ON",
+      payload: {
+        title: "테마 변경",
+        msg: `테마에 해당 블록타입이 없을 시 블록이 삭제될 수 있습니다. 테마를 변경하시겠습니까?`,
+        action: "changeTheme",
+      },
+    });
+    setTmpTheme(value);
+  }
+
+  if (confirmState) {
+    if (confirmAction?.action === "changeTheme") {
+      setTheme(tmpTheme);
+      dispatch({ type: "CONFIRM/MODAL_OFF" });
     }
   }
 
@@ -122,7 +143,10 @@ export default function Appearance() {
         </Label>
         <CustomSelect
           value={themeList.filter((item: any) => item.value === theme)[0]}
-          onChange={changeThemeHandler}
+          onChange={(e: any) => {
+            if (e.value !== theme)
+            changeThemeHandler(e.value);
+          }}
           options={themeList}
         />
       </Container>
