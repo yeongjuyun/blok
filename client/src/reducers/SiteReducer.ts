@@ -29,6 +29,7 @@ const initialStateSample: Site = {
     background: '#123456',
     surface: '#123456',
   },
+  //blocks: [],
   blocks: [
     {
       id: 1,
@@ -171,7 +172,7 @@ export const siteSlice = createSlice({
         if (isFooterExist) {
           state.blocks.splice(length - 1, 0, block);
         } else {
-          state.blocks.splice(length - 2, 0, block);
+          state.blocks.splice(length, 0, block);
         }
       }
     },
