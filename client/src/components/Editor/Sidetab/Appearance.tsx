@@ -1,7 +1,5 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../../../reducers";
 import ColorSetExample from "../../ColorSetExample";
@@ -55,29 +53,14 @@ export default function Appearance() {
   const colorSetList = AppearanceData().colorSetData;
   const themeList = AppearanceData().themeData;
 
-  const [colorSet, setColorSet] = useState<any>([]);
-  const [font, setFont] = useState<any>([]);
-  const [theme, setTheme] = useState<any>([]);
+  const data = useSelector((state: RootState) => state.site);
+  const [colorSet, setColorSet] = useState(data.colorSet);
+  const [font, setFont] = useState(data.font);
+  const [theme, setTheme] = useState(data.theme);
 
-  const dispatch = useDispatch();
-
-  const { siteId } = useParams();
-
-  async function getStyleInfo() {
-    try {
-      const res = await axios.get("/site/2");
-      const data = res.data.sites[0];
-      setColorSet(data.colorSet);
-      setFont(data.font);
-      setTheme(data.theme);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  useEffect(() => {
-    getStyleInfo();
-  }, []);
+  console.log(colorSetList.map(
+    (item) => item.value.primary === colorSet.primary
+  )[0]);
 
   return (
     <>
