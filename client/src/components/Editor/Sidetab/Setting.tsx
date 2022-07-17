@@ -70,6 +70,7 @@ export default function Setting() {
       console.log(e);
     }
   };
+
   if (modalAction?.action === "deleteSite") {
     deleteSite();
   }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { RootState } from "../../../reducers";
 import ColorSetExample from "../../ColorSetExample";
@@ -53,19 +54,14 @@ export default function Appearance() {
   const fontList = AppearanceData().fontData;
   const colorSetList = AppearanceData().colorSetData;
   const themeList = AppearanceData().themeData;
+
   const [colorSet, setColorSet] = useState<any>([]);
   const [font, setFont] = useState<any>([]);
   const [theme, setTheme] = useState<any>([]);
-  const [tmpTheme, setTmpTheme] = useState<any>([]);
 
   const dispatch = useDispatch();
-  const confirmState = useSelector(
-    (state: RootState) => state.modalReducer.confirmState
-  );
 
-  const confirmAction = useSelector(
-    (state: RootState) => state.modalReducer.confirmData
-  );
+  const { siteId } = useParams();
 
   async function getStyleInfo() {
     try {
@@ -83,28 +79,42 @@ export default function Appearance() {
     getStyleInfo();
   }, []);
 
-  function changeThemeHandler(value: string) {
+  const changeThemeHandler = (props: string) => {
     dispatch({
       type: "CONFIRM/MODAL_ON",
       payload: {
         title: "테마 변경",
         msg: `테마에 해당 블록타입이 없을 시 블록이 삭제될 수 있습니다. 테마를 변경하시겠습니까?`,
         action: "changeTheme",
+        props: props,
       },
     });
-    setTmpTheme(value);
-  }
+  };
 
-  if (confirmState) {
-    if (confirmAction?.action === "changeTheme") {
-      setTheme(tmpTheme);
+  const modalAction = useSelector(
+    (state: RootState) => state.modalReducer.confirmData
+  );
+
+  const changeTheme = () => {
+    try {
+      if (modalAction?.props === "") {
+        console.log("modolAction의 props를 불러오지 못했습니다.");
+        return;
+      }
+      setTheme(modalAction?.props);
       dispatch({ type: "CONFIRM/MODAL_OFF" });
+    } catch (e) {
+      console.log(e);
     }
+  };
+
+  if (modalAction?.action === "changeTheme") {
+    changeTheme();
   }
 
   return (
     <>
-      <Container>
+      <Container id="colorSet">
         <Label required={true}>
           색상조합
           <Required>*</Required>
@@ -122,7 +132,7 @@ export default function Appearance() {
           options={colorSetList}
         />
       </Container>
-      <Container>
+      <Container id="font">
         <Label required={true}>
           폰트
           <Required>*</Required>
@@ -136,17 +146,14 @@ export default function Appearance() {
           options={fontList}
         />
       </Container>
-      <Container>
+      <Container id="theme">
         <Label required={true}>
           테마
           <Required>*</Required>
         </Label>
         <CustomSelect
           value={themeList.filter((item: any) => item.value === theme)[0]}
-          onChange={(e: any) => {
-            if (e.value !== theme)
-            changeThemeHandler(e.value);
-          }}
+          onChange={(e: any) => changeThemeHandler(e.value)}
           options={themeList}
         />
       </Container>
