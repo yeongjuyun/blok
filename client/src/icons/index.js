@@ -9,10 +9,10 @@ import Movable from './movable.png';
 import Navbar from './navbar.png';
 import Trash from './trash.png';
 import User from './User.png';
-import BlockFeature from './block_feature.png';
-import BlockFooter from './block_footer.png';
-import BlockHome from './block_home.png';
-import BlockNav from './block_navbar.png';
+import BlockFeature from './blockCreation/feature.png';
+import BlockFooter from './blockCreation/footer.png';
+import BlockHome from './blockCreation/home.png';
+import BlockNav from './blockCreation/navbar.png';
 
 export {
   User,
