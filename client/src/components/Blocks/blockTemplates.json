@@ -89,7 +89,7 @@
       },
       "creationData": {
         "title": "이미지+텍스트",
-        "icon": "feature",
+        "icon": "FeatureRight",
         "isUnique": false,
         "order": null
       },
@@ -118,7 +118,7 @@
       },
       "creationData": {
         "title": "텍스트",
-        "icon": "text",
+        "icon": "FeatureText",
         "isUnique": false,
         "order": null
       },
@@ -147,7 +147,7 @@
       },
       "creationData": {
         "title": "푸터",
-        "icon": "footer",
+        "icon": "Footer",
         "isUnique": true,
         "order": -1
       },

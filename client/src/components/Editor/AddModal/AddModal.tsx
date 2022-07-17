@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import BlockItem from './BlockItem';
 import * as icons from '../../../icons';
+import * as blockIcons from '../../../icons/blockCreation';
 import config from '../../Blocks/blockTemplates.json';
 import { Site, BlockTemplate } from '../../Blocks/blockValidator';
 import { RootState } from '../../../reducers';
@@ -156,8 +157,7 @@ export default function AddModal(props: ModalProps) {
       const { icon, title } = blockTemplate.creationData;
       return (
         <BlockItem
-          //icon={blockIcons[icon]}
-          icon=''
+          icon={blockIcons[icon as keyof typeof blockIcons]}
           label={title}
           onClick={() => {
             addBlockHandler(blockTemplate);
