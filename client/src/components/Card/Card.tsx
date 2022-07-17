@@ -35,12 +35,12 @@ const CardBoby = styled.div<{ dropClicked: boolean }>`
   }
 `;
 
-const Movable = styled.img`
+const HeaderIcon = styled.img<{ pinned: boolean }>`
   width: 22px;
   height: 22px;
   margin: auto 0;
   &:hover {
-    cursor: pointer;
+    cursor: ${(props) => (props.pinned ? 'default' : 'pointer')};
   }
 `;
 
@@ -97,6 +97,7 @@ type title = 'Footer' | 'Navbar' | 'Profile' | 'Hero' | 'Feature';
 interface Cardprops {
   title: title;
   children: any;
+  pinned?: boolean;
 }
 
 function Icon(title: title) {
@@ -119,7 +120,11 @@ export const Card = (props: Cardprops) => {
   return (
     <CardContainer>
       <CardHeader dropClicked={dropClicked}>
-        <Movable src={icon.Movable} alt='' />
+        <HeaderIcon
+          pinned={props.pinned ? true : false}
+          src={props.pinned ? icon.Pin : icon.Movable}
+          alt=''
+        />
         <TitleBox>
           <TitleIcon src={Icon(props.title)} alt='' />
           <Title>{props.title}</Title>

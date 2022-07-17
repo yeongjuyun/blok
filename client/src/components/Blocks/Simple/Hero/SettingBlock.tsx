@@ -17,7 +17,7 @@ function Hero({ data }: Hero) {
   ];
   return (
     <>
-      <Card title='Hero'>
+      <Card title='Hero' pinned>
         <TextInput
           title='메뉴명'
           required={true}

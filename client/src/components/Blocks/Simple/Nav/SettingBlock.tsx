@@ -16,7 +16,7 @@ function Navbar({ data }: Navbar) {
   ];
   return (
     <>
-      <Card title='Navbar'>
+      <Card title='Navbar' pinned>
         <CustomSelect
           title='스타일'
           required={true}
