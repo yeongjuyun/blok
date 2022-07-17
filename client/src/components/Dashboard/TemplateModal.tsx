@@ -1,15 +1,14 @@
 import styled from "styled-components";
 import { CgClose } from "react-icons/cg";
-import { useDispatch, useSelector } from "react-redux";
 import { TemplateCard } from "./TemplateCard";
 import Button from "../Button";
 import { useState, useRef, useEffect } from "react";
-import { RootState } from "../../reducers";
 import { InputDiv, Input, InputTitle } from "./UserUpdate";
 import { templateCardData } from "./TemplateData";
 import templateListData from "./TemplateData";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { useAppSelector, useAppDispatch } from "../../reducers";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -157,12 +156,10 @@ type SiteData = {
 
 export default function TemplateModal() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const userData = useSelector(
-    (state: RootState) => state.loginCheckReducer.loginData
-  );
-  const directTemplate = useSelector(
-    (state: RootState) => state.modalReducer.templateData
+  const dispatch = useAppDispatch();
+  const userData = useAppSelector((state) => state.loginCheckReducer.loginData);
+  const directTemplate = useAppSelector(
+    (state) => state.modalReducer.templateData
   );
 
   const siteName = useRef<HTMLInputElement>(null);
@@ -233,10 +230,14 @@ export default function TemplateModal() {
   // 사이트명, 도메인 인풋 검증
   const validation = !siteNameError && !domainError;
   const checkEnga = /[a-z]/;
+  const checkSpace = /[\s]/g;
+  const specialPattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 
   const changeDomainHandler = (e: any) => {
     if (
       checkEnga.test(domain.current!.value) !== true ||
+      checkSpace.test(domain.current!.value) === true ||
+      specialPattern.test(domain.current!.value) === true ||
       domain.current!.value.length <= 1
     ) {
       setDomainError(true);
@@ -275,9 +276,11 @@ export default function TemplateModal() {
     );
 
     // 사이트 DB 추가, 저장
-    const res = await axios.post(`/api/site/addsite`, data);
+    const res = await axios.post(`/api/site`, data);
     console.log("POST 요청 - 사이트추가 : ", res.data);
     dispatch({ type: "alertOn", payload: "사이트 추가되었습니다." });
+    dispatch({ type: "TEMPLATE/MODAL_OFF" });
+
     // 에디터 페이지로 이동
     navigate(`/editor/${res.data._id}`);
   };
