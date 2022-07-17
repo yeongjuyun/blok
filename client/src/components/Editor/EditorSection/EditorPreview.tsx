@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../reducers/store';
 import PageLoading from './PageLoading';
@@ -17,12 +17,16 @@ const Container = styled.div`
   box-sizing: border-box;
   overflow-y: scroll;
 `;
-const SiteBlockList = styled.div`
+const SiteBlockList = styled.div<{ blockCount: number }>`
   width: 100%;
   background: white;
-  min-height: 100%;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 4px;
+  ${(props) =>
+    props.blockCount === 0 &&
+    css`
+      min-height: 100%;
+    `}
 `;
 const SiteBlockContainer = styled.div``;
 const TestMessage = styled.div`
@@ -63,7 +67,7 @@ function Preview() {
   });
   return (
     <Container>
-      <SiteBlockList>
+      <SiteBlockList blockCount={blocks.length}>
         <ErrorBoundary>
           <SiteBlockContainer>
             <Suspense fallback={<PageLoading />}>{siteBlocks}</Suspense>
