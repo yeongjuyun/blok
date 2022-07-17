@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../../../reducers";
@@ -58,9 +58,18 @@ export default function Appearance() {
   const [font, setFont] = useState(data.font);
   const [theme, setTheme] = useState(data.theme);
 
-  console.log(colorSetList.map(
-    (item) => item.value.primary === colorSet.primary
-  )[0]);
+  // siteReducer 완성시 dispatch 추가 예정
+  // useEffect(() => {
+  //   console.log(colorSet);
+  // }, [colorSet]);
+
+  // useEffect(() => {
+  //   console.log(font);
+  // }, [font]);
+
+  // useEffect(() => {
+  //   console.log(theme);
+  // }, [theme]);
 
   return (
     <>

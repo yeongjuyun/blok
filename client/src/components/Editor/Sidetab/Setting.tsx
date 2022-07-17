@@ -63,7 +63,7 @@ export default function Setting() {
   if (modalAction?.action === "deleteSite") {
     deleteSite();
   }
-
+  
   return (
     <>
       <Container>
@@ -83,7 +83,7 @@ export default function Setting() {
           rounding
           fullWidth
         >
-          페이지 삭제
+          사이트 삭제
         </Button>
       </ButtonContainer>
     </>

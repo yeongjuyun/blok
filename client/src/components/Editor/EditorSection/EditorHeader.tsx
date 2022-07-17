@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { RootState } from '../../../reducers';
 
@@ -63,19 +64,23 @@ const SaveButton = styled.button`
 export default function PublishBar() {
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.site);
-  const [domain, setDomain] = useState(data.domain);
+  const [domain] = useState(data.domain);
   let msg = "";
+  const { siteId } = useParams();
+
+  console.log(data)
 
   async function saveHandler() {
-    const data = "";
     try {
-      await axios.put("/site/2", data);
+      await axios.patch(`/api/site/${siteId}`, data);
+      // await axios.patch(`http://localhost:3001/api/site/62d3c3597c3dd17b1efca050`, data);
       msg = "페이지가 저장되었습니다.";
       dispatch({
         type: "alertOn",
         payload: { msg: msg, link: domain, time: 2000 },
       });
-    } catch (err) {
+    } catch (e) {
+      console.log(e)
       dispatch({ type: "alertOn", payload: { msg: "잠시 후 시도해주세요." } });
     }
   }
