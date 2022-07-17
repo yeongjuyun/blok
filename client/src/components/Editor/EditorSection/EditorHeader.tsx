@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../../../reducers';
 
 const Container = styled.div`
   padding: 0 20px;
@@ -61,7 +62,8 @@ const SaveButton = styled.button`
 
 export default function PublishBar() {
   const dispatch = useDispatch();
-  const [domain, setDomain] = useState('');
+  const data = useSelector((state: RootState) => state.site);
+  const [domain, setDomain] = useState(data.domain);
   let msg = "";
 
   const getDomainInfo = async () => {
