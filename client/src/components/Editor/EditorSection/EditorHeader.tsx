@@ -85,7 +85,6 @@ export default function PublishBar() {
         payload: { msg: msg, link: domain, time: 2000 },
       });
     } catch (err) {
-      msg = "잠시 후 시도해주세요.";
       dispatch({ type: "alertOn", payload: { msg: "잠시 후 시도해주세요." } });
     }
   }
