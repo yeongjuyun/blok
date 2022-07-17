@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import MyInfo from "../components/MyInfo";
+import MyInfo from "../components/Dashboard/MyInfo";
 import Sidebar from "../components/Sidebar";
 
 const Container = styled.div`

@@ -1,20 +1,57 @@
-import styled from "styled-components";
-import Button from "../../Button";
+import React, { Suspense } from 'react';
+import styled from 'styled-components';
+import Button from '../../Button';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../../reducers/store';
+import CardLoading from '../../Card/CardLoading';
 
 const Container = styled.div`
   margin: 0 auto;
-  width: 80%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
 `;
 
+const SettingBlockList = styled.div`
+  width: 100%;
+  margin-top: 16px;
+`;
+const SettingBlockContainer = styled.div`
+  margin: 8px 0;
+`;
+
 export default function Block() {
+  const { blocks } = useSelector((state: RootState) => state.site);
+
+  //Set settinbBlocks dynamically.
+  const settingBlocks = blocks.map((block) => {
+    const { template, data } = block;
+    const { theme, blockType, layout } = template;
+
+    const SettingBlock = React.lazy(
+      () =>
+        import(
+          `../../Blocks/${theme}/${blockType}/${
+            layout ? layout + '/' : ''
+          }SettingBlock`
+        )
+    );
+    return (
+      <SettingBlockContainer>
+        <Suspense fallback={<CardLoading />}>
+          <SettingBlock data={data}></SettingBlock>
+        </Suspense>
+      </SettingBlockContainer>
+    );
+  });
+
   return (
     <Container>
-      <Button color="black" size="large" rounding fullWidth>
+      <Button color='black' size='large' rounding fullWidth>
         블록 추가하기
       </Button>
+      <SettingBlockList>{settingBlocks}</SettingBlockList>
     </Container>
   );
 }
