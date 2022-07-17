@@ -5,8 +5,9 @@ import { NavData } from '../../blockValidator';
 
 interface Navbar {
   data: NavData;
+  onRemove: (event: React.MouseEvent<HTMLElement>) => void;
 }
-function Navbar({ data }: Navbar) {
+function Navbar({ data, onRemove }: Navbar) {
   const [input, setInput] = useState('');
   const [selectinput, setSelectInput] = useState('');
   const options = [
@@ -16,24 +17,24 @@ function Navbar({ data }: Navbar) {
   ];
   return (
     <>
-      <Card title='Navbar' pinned>
+      <Card title="Navbar" pinned onRemove={onRemove}>
         <CustomSelect
-          title='스타일'
+          title="스타일"
           required={true}
-          guideline='스타일를 선택해주세요.'
-          placeholder='원하는 선택지를 선택해주세요'
+          guideline="스타일를 선택해주세요."
+          placeholder="원하는 선택지를 선택해주세요"
           options={options}
           onChange={(e: any) => {
             setSelectInput(e.value);
           }}
           value={data?.style?.value}
         />
-        <ImgInput title='로고 이미지' guideline='가능한 포맷: .jpg, .png' />
+        <ImgInput title="로고 이미지" guideline="가능한 포맷: .jpg, .png" />
         <TextInput
-          title='로고 텍스트'
+          title="로고 텍스트"
           required={true}
           onChange={setInput}
-          guideline='로고이미지가 없을시 입력될 로고 텍스트를 입력하세요.'
+          guideline="로고이미지가 없을시 입력될 로고 텍스트를 입력하세요."
           value={data?.logoText?.value}
         ></TextInput>
       </Card>

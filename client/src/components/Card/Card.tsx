@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import * as icon from '../../icons';
 import React, { useState } from 'react';
+import { BlockList } from 'net';
 
 export const CardHeader = styled.div<{ dropClicked: boolean }>`
   background: #ffffff;
@@ -98,6 +99,7 @@ interface Cardprops {
   title: title;
   children: any;
   pinned?: boolean;
+  onRemove: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 function Icon(title: title) {
@@ -123,16 +125,16 @@ export const Card = (props: Cardprops) => {
         <HeaderIcon
           pinned={props.pinned ? true : false}
           src={props.pinned ? icon.Pin : icon.Movable}
-          alt=''
+          alt=""
         />
         <TitleBox>
-          <TitleIcon src={Icon(props.title)} alt='' />
+          <TitleIcon src={Icon(props.title)} alt="" />
           <Title>{props.title}</Title>
         </TitleBox>
-        <Trash src={icon.Trash} alt='' />
+        <Trash src={icon.Trash} alt="" onClick={props.onRemove} />
         <Down
           src={icon.Down}
-          alt=''
+          alt=""
           dropClicked={dropClicked}
           onClick={() => {
             setDropClicked((res) => {
