@@ -6,10 +6,10 @@ class AdminService {
   constructor(userModel) {
     this.userModel = userModel;
   }
-  async getUsersInfoByPagenation(page, perPage) {
+  async getUsersInfoByPagenation(page, perPage, searchQuery) {
     const [totalCount, users] = await Promise.all([
-      this.userModel.countTotalUsers(),
-      this.userModel.pagenation(page, perPage),
+      this.userModel.countTotalUsers(searchQuery),
+      this.userModel.pagenation(page, perPage, searchQuery),
     ]);
     return [totalCount, users];
   }
@@ -18,15 +18,11 @@ class AdminService {
     if (!user) {
       throw new BadRequestError("존재하지 않는 유저입니다.");
     }
-    if (toUpdate.email) {
-      throw new BadRequestError("이메일은 변경할 수 없습니다.");
-    }
     const hashedPassword = await bcrypt.hash(toUpdate.password, 10);
     if (toUpdate.password) {
       toUpdate = { ...toUpdate, password: hashedPassword };
     }
-    const updatedUser = await this.userModel.update(userId, toUpdate);
-    return updatedUser;
+    return await this.userModel.update(userId, toUpdate);
   }
 }
 

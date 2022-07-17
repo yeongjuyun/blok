@@ -1,131 +1,70 @@
+import is from "@sindresorhus/is";
 import { siteService } from "../services";
+import { asyncHandler } from "../utils";
+
 import { BadRequestError, ForbiddenError } from "../errors";
 
 const siteController = {
-  register: asyncHandler(async (req, res, next) => {
+  addsite: asyncHandler(async (req, res, next) => {
     if (is.emptyObject(req.body)) {
       throw new BadRequestError(
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
-    const { userName, email, password } = req.body;
-    const newUser = await userService.addUser({
-      userName,
-      email,
-      password,
+    const { userId, name, domain, theme, font, colorset, blocks } = req.body;
+    const newSite = await siteService.addSite({
+      userId,
+      name,
+      domain,
+      theme,
+      font,
+      colorset,
+      blocks,
     });
-    return res.status(201).json(newUser);
+    return res.status(201).json(newSite);
   }),
-
-  login: asyncHandler(async (req, res, next) => {
-    if (is.emptyObject(req.body)) {
-      throw new BadRequestError(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
-      );
-    }
-    setUserToken(res, req.user);
-    res.status(200).json({
-      message: "로그인 성공",
-      status: 200,
-      passwordReset: req.user.passwordReset,
-    });
+  getSiteInfo: asyncHandler(async (req, res) => {
+    const siteIdentifier = req.params.siteIdentifier;
+    const site = await siteService.getSiteInfo(siteIdentifier);
+    res.status(200).json(site);
   }),
-
-  resetPassword: asyncHandler(async (req, res, next) => {
-    if (is.emptyObject(req.body)) {
-      throw new BadRequestError(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
-      );
-    }
-    const { userName, email } = req.body;
-    await userService.passwordReset(userName, email);
-    res
-      .status(201)
-      .json({ message: "비밀번호가 초기화 되었습니다!", status: 201 });
+  getSitesInfo: asyncHandler(async (req, res) => {
+    const sites = await siteService.getSitesInfo();
+    res.status(200).json(sites);
   }),
-
-  userDelete: asyncHandler(async (req, res, next) => {
+  getUserSites: asyncHandler(async (req, res) => {
     const userId = req.params.userId;
-    if (req.user.userId !== userId) {
-      throw new ForbiddenError("본인의 계정만 삭제할 수 있습니다.");
-    }
-    const deletedUserInfo = await userService.deleteUser(userId);
-    res.status(204).clearCookie(JWT_COOKIE_KEY).json(deletedUserInfo);
+    const sites = await siteService.getSites(userId);
+    res.status(200).json(sites);
   }),
+  updateSite: asyncHandler(async (req, res) => {
+    const siteIdentifier = parseInt(req.params.siteIdentifier);
+    const name = req.body.name;
+    const domain = req.body.domain;
+    const theme = req.body.theme;
+    const font = req.body.font;
+    const colorset = req.body.colorset;
+    const blocks = req.body.blocks;
 
-  googleOauth: asyncHandler((req, res, next) => {
-    setUserToken(res, req.user);
-    res.status(201).json(req.user);
-  }),
-
-  kakaoOauth: asyncHandler((req, res, next) => {
-    setUserToken(res, req.user);
-    res.status(201).json(req.user);
-  }),
-
-  logincheck: asyncHandler((req, res, next) => {
-    return res.status(200).json(userJWTObjectMaker(req.user));
-  }),
-
-  logout: asyncHandler(async (req, res, next) => {
-    return res
-      .status(200)
-      .clearCookie("jwttoken")
-      .json({ message: "로그아웃에 성공했습니다!", status: 200 });
-  }),
-
-  getUserInfo: asyncHandler(async (req, res, next) => {
-    const userId = req.params.userId;
-    const user = await userService.getUserInfo(userId);
-    res.status(200).json(user);
-  }),
-
-  changeProfileImage: asyncHandler(async (req, res) => {
-    // S3 이미지 처리 process
-    const results = await s3Uploadv2(req.file);
-    const profileImage = results.Location;
-    // S3 이미지 저장 주소
-    // await console.log(profileImage);
-    // Mongo DB 저장
-    if (req.user.userId !== req.params.userId) {
-      throw new ForbiddenError("본인의 정보만 수정할 수 있습니다!");
-    }
-    const userId = req.user.userId;
-    const updatedUserInfo = await userService.changeProfileImage(userId, {
-      profileImage: profileImage,
-    });
-    res.status(201).json(updatedUserInfo);
-  }),
-
-  changePassword: asyncHandler(async (req, res, next) => {
-    if (is.emptyObject(req.body)) {
-      throw new BadRequestError(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
-      );
-    }
-    const userId = req.params.userId;
-    const editPassword = req.body.password;
-    const currentPassword = req.body.currentPassword;
-
-    if (req.user.userId !== userId) {
-      throw new ForbiddenError("본인의 정보만 수정할 수 있습니다!");
-    }
-
-    if (!currentPassword) {
-      throw new BadRequestError(
-        "정보를 변경하려면, 현재의 비밀번호가 필요합니다."
-      );
-    }
-    const userInfoRequired = { userId, currentPassword };
     const toUpdate = {
-      ...(editPassword && { password: editPassword }),
+      ...(name && { name }),
+      ...(domain && { domain }),
+      ...(theme && { theme }),
+      ...(font && { font }),
+      ...(colorset && { colorset }),
+      ...(blocks && { blocks }),
     };
-    const updatedUserInfo = await userService.changeUserPassword(
-      userInfoRequired,
+    const updatedSiteInfo = await siteService.updateSite(
+      siteIdentifier,
       toUpdate
     );
-    res.status(201).json(updatedUserInfo);
+    res.status(200).json(updatedSiteInfo);
+  }),
+  deleteSiteUsingObjId: asyncHandler(async (req, res) => {
+    const siteObjId = req.params.siteObjId;
+    const deletedSite = await siteService.deleteSiteByObjectId(siteObjId);
+    res.status(200).json(deletedSite);
   }),
 };
 
-export { userController };
+export { siteController };

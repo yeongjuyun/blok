@@ -14,6 +14,24 @@ export class UserModel {
     return user;
   }
 
+  async createSiteById(userId, siteId) {
+    const user = await User.findOne({ _id: userId });
+    const addSite = await User.update(
+      { _id: userId },
+      { $push: { sites: siteId } }
+    );
+    return user;
+  }
+
+  async deleteSiteById(userId, siteId) {
+    const user = await User.findOne({ _id: userId });
+    const deleteSite = await User.update(
+      { _id: userId },
+      { $pull: { sites: siteId } }
+    );
+    return deleteSite;
+  }
+
   async create(userInfo) {
     const createdNewUser = await User.create(userInfo);
     return createdNewUser;
@@ -24,13 +42,13 @@ export class UserModel {
     return users;
   }
 
-  async countTotalUsers() {
-    const totalCount = await User.countDocuments({});
+  async countTotalUsers(searchQuery) {
+    const totalCount = await User.countDocuments(searchQuery);
     return totalCount;
   }
 
-  async pagenation(page, perPage) {
-    const users = await User.find({})
+  async pagenation(page, perPage, searchQuery) {
+    const users = await User.find(searchQuery)
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage);
