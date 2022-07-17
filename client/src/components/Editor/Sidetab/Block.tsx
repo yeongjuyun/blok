@@ -1,9 +1,10 @@
 import React, { Suspense } from 'react';
 import styled from 'styled-components';
 import Button from '../../Button';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../../reducers/store';
 import CardLoading from '../../Card/CardLoading';
+import { removeBlock } from '../../../reducers/SiteReducer';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -22,11 +23,21 @@ const SettingBlockContainer = styled.div`
 `;
 
 export default function Block() {
+  const dispatch = useDispatch();
   const { blocks } = useSelector((state: RootState) => state.site);
 
+  const addBlockHandler = () => {
+    dispatch({
+      type: 'ADD/MODAL_ON',
+    });
+  };
+  const removeBlockHandler = (index: number) => {
+    dispatch(removeBlock(index));
+  };
+
   //Set settinbBlocks dynamically.
-  const settingBlocks = blocks.map((block) => {
-    const { template, data } = block;
+  const settingBlocks = blocks.map((block, index) => {
+    const { template, data, id } = block;
     const { theme, blockType, layout } = template;
 
     const SettingBlock = React.lazy(
@@ -38,17 +49,25 @@ export default function Block() {
         )
     );
     return (
-      <SettingBlockContainer>
+      <SettingBlockContainer key={id}>
         <Suspense fallback={<CardLoading />}>
-          <SettingBlock data={data}></SettingBlock>
+          <SettingBlock
+            data={data}
+            onRemove={() => removeBlockHandler(index)}
+          ></SettingBlock>
         </Suspense>
       </SettingBlockContainer>
     );
   });
-
   return (
     <Container>
-      <Button color='black' size='large' rounding fullWidth>
+      <Button
+        color="black"
+        size="large"
+        rounding
+        fullWidth
+        onClick={addBlockHandler}
+      >
         블록 추가하기
       </Button>
       <SettingBlockList>{settingBlocks}</SettingBlockList>

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export default function SiteBlock(props: any) {
   const Container = styled.div`
@@ -14,6 +14,9 @@ export default function SiteBlock(props: any) {
 
     @media screen and (max-width: 1120px) {
       font-size: 1.5vw;
+    }
+    & p {
+      color: white;
     }
   `;
 
