@@ -6,19 +6,25 @@ export default function SiteBlock(props: any) {
     font-family: ${props.font};
     color: ${props.colorSet.surface};
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    padding: 100px 40px;
   `;
 
   const InnerContainer = styled.div`
-    padding: 90px 40px;
     vertical-align: middle;
+  `;
+
+  const Img = styled.img`
+    width: 20vw;
+    padding-left: 10vw;
   `;
 
   const Caption = styled.div`
     font-size: 1rem;
-    font-weight: 510;
+    font-weight: 600;
     color: ${props.colorSet.primary};
+    margin-bottom: 10px;
 
     @media screen and (max-width: 1120px) {
       font-size: 1.4vw;
@@ -27,7 +33,7 @@ export default function SiteBlock(props: any) {
 
   const Header = styled.div`
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 700;
     color: black;
     margin-bottom: 10px;
 
@@ -59,6 +65,7 @@ export default function SiteBlock(props: any) {
 
     @media screen and (max-width: 1120px) {
       font-size: 1.4vw;
+      padding: 1vw 2vw;
     }
   `;
 
@@ -84,12 +91,10 @@ export default function SiteBlock(props: any) {
           )}
         </InnerContainer>
         {props.data.image.src && (
-          <InnerContainer>
-            <img
-              src={props.data.image.src}
-              alt={props.data.image.alt ? props.data.image.alt : ""}
-            />
-          </InnerContainer>
+          <Img
+            src={props.data.image.src}
+            alt={props.data.image.alt ? props.data.image.alt : ""}
+          />
         )}
       </Container>
     </>
