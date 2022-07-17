@@ -66,17 +66,6 @@ export default function PublishBar() {
   const [domain, setDomain] = useState(data.domain);
   let msg = "";
 
-  const getDomainInfo = async () => {
-    try {
-      axios.get('/site/2').then((res): void => {
-        const domain = res.data.sites[0].domain;
-        setDomain(domain);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   async function saveHandler() {
     const data = "";
     try {
@@ -90,10 +79,6 @@ export default function PublishBar() {
       dispatch({ type: "alertOn", payload: { msg: "잠시 후 시도해주세요." } });
     }
   }
-
-  useEffect(() => {
-    getDomainInfo();
-  }, []);
 
   async function copyHandler() {
     try {
