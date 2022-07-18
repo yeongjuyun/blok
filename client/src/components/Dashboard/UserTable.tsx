@@ -142,7 +142,10 @@ export default function UserTable() {
   const handleDelete = async (userId: string) => {
     console.log("delete user : ", userId);
     await axios.delete(`/api/admin/user/${userId}`);
-    dispatch({ type: "alertOn", payload: "회원정보가 삭제되었습니다." });
+    dispatch({
+      type: "alertOn",
+      payload: { msg: "회원정보가 삭제되었습니다." },
+    });
   };
 
   const handleReset = () => {

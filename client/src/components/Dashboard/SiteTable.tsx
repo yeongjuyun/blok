@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { ControlButton } from "./DashboardBox";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import Button from "../Button";
 import { MainTitle } from "./MyInfo";
 // import { useDispatch } from "react-redux";
@@ -127,13 +126,20 @@ export default function SiteTable() {
   //   keys = keys.filter((key) => key === option);
   // }
 
+  const getSites = async () => {
+    const res = await axios.get(`/api/site`);
+    console.log(res.data);
+    setData(res.data);
+  };
+
   useEffect(() => {
     const getSites = async () => {
       const res = await axios.get(`/api/site`);
+      console.log(res.data);
       setData(res.data);
     };
     getSites();
-  }, [data]);
+  }, []);
 
   // useEffect(() => {
   //   const fetchUsers = async () => {
@@ -158,7 +164,8 @@ export default function SiteTable() {
   const handleDelete = async (_id: string) => {
     console.log("delete site : ", _id);
     await axios.delete(`/api/site/${_id}`);
-    dispatch({ type: "alertOn", payload: "사이트가 삭제되었습니다." });
+    dispatch({ type: "alertOn", payload: { msg: "사이트가 삭제되었습니다." } });
+    getSites();
   };
 
   return (

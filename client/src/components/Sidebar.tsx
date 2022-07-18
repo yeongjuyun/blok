@@ -122,7 +122,10 @@ const Menu = (props: IMyProps) => {
 
   const logoutHandler = async () => {
     await axios.get("/api/user/logout");
-    dispatch({ type: "alertOn", payload: "로그아웃 처리 되었습니다." });
+    dispatch({
+      type: "alertOn",
+      payload: { msg: "로그아웃 처리 되었습니다." },
+    });
     navigate("/login");
   };
 

@@ -128,7 +128,7 @@ export function DashboardInfo() {
   const getUserInfo = async () => {
     try {
       console.log("userId:", userData!.userId);
-      const res = await axios.get(`/api/site/user/${userData!.userId}`);
+      const res = await axios.get(`/api/site/user/${userData.userId}`);
       console.log("site Data:", res.data);
       setData(() => res.data);
     } catch (error) {
@@ -139,8 +139,8 @@ export function DashboardInfo() {
   useEffect(() => {
     const getUserInfo = async () => {
       try {
-        console.log("userId:", userData!.userId);
-        const res = await axios.get(`/api/site/user/${userData!.userId}`);
+        console.log("userId:", userData.userId);
+        const res = await axios.get(`/api/site/user/${userData.userId}`);
         console.log("site Data:", res.data);
         setData(() => res.data);
       } catch (error) {
@@ -181,7 +181,10 @@ export function DashboardInfo() {
       // 사이트 삭제 API 통신 에러
       await axios.delete(`/api/site/${modalAction!.props}`);
       dispatch({ type: "CONFIRM/MODAL_OFF" });
-      dispatch({ type: "alertOn", payload: "사이트가 삭제되었습니다." });
+      dispatch({
+        type: "alertOn",
+        payload: { msg: "사이트가 삭제되었습니다." },
+      });
     } catch (e) {
       console.log(e);
     }

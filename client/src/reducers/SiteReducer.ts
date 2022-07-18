@@ -78,6 +78,7 @@ const initialStateSample: Site = {
         header: {
           value: "블록으로 웹사이트를 만들어보세요",
         },
+
         body: {
           value:
             "블록은 노코드 웹사이트 빌더입니다. 빠르고 쉽게 웹사이트를 만들어보세요.",
@@ -146,34 +147,39 @@ export const siteSlice = createSlice({
   name: "site",
   initialState: initialStateSample,
   reducers: {
-    addBlock: (
-      state,
-      action: PayloadAction<{ order: number | null; block: Block }>
-    ) => {
-      //Nav -> order:0 최상단
-      //Hero -> order:1 두번째
-      //Footer -> order:-1 마지막
-      //그 외 -> order:null Footer가 없을경우 마지막(-1), Footer가 있을경우 마지막 이전(-2)
-
-      const { order, block } = action.payload;
-      const length = state.blocks.length;
-
-      if (order === -1) {
-        //order:-1 마지막에 추가(ex. Footer)
-        state.blocks.splice(length, 0, block);
-      } else if (order !== null && order >= 0) {
-        //order:0,1,2,3..... 특정 순서에 추가(ex.Nav, Hero)
-        state.blocks.splice(order, 0, block);
-      } else if (order === null) {
-        //order:null 특정 순서가 없는 블록 추가(Footer가 없을경우 마지막(-1), Footer가 있을경우 마지막 이전(-2))
-        const isFooterExist = state.blocks.find(
-          (block) => block.template.blockType === 'Footer'
+    addBlock: (state, action: PayloadAction<Block>) => {
+      const block = action.payload;
+      const isBlockExist = (blockType: string): boolean => {
+        const result = state.blocks.find(
+          (block) => block.template.blockType === blockType
         );
-        if (isFooterExist) {
-          state.blocks.splice(length - 1, 0, block);
-        } else {
-          state.blocks.splice(length, 0, block);
-        }
+        return result ? true : false;
+      };
+      let startIndex = 0;
+      let endIndex = state.blocks.length;
+
+      if (isBlockExist('Nav')) {
+        startIndex++;
+      }
+      if (isBlockExist('Hero')) {
+        startIndex++;
+      }
+      if (isBlockExist('Footer')) {
+        endIndex--;
+      }
+
+      if (block.template.blockType === 'Nav') {
+        //Nav블록 -> 맨 앞에 추가
+        state.blocks.splice(0, 0, block);
+      } else if (block.template.blockType === 'Hero') {
+        //Hero블록 -> Nav 다음에 추가(Nav가 없을경우 맨 앞에 추가, Nav가 있을경우 두번째에 추가)
+        state.blocks.splice(startIndex, 0, block);
+      } else if (block.template.blockType === 'Footer') {
+        //마지막에 추가(ex. Footer)
+        state.blocks.splice(endIndex, 0, block);
+      } else {
+        //특정 순서가 없는 블록 추가 (Footer가 없을경우 마지막에 추가, Footer가 있을경우 마지막 이전에 추가)
+        state.blocks.splice(endIndex, 0, block);
       }
     },
     removeBlock: (state, action: PayloadAction<number>) => {

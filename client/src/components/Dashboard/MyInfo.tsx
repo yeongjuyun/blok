@@ -111,7 +111,10 @@ export default function MyInfo() {
       console.log(data);
       await axios.post("/api/user/reset-password", data);
       dispatch({ type: "CONFIRM/MODAL_OFF" });
-      dispatch({ type: "alertOn", payload: "성공적으로 메일을 보냈습니다." });
+      dispatch({
+        type: "alertOn",
+        payload: { msg: "성공적으로 메일을 보냈습니다." },
+      });
       navigate("/ChangePassword");
     } catch (e) {
       console.log(e);
@@ -122,7 +125,10 @@ export default function MyInfo() {
     try {
       await axios.delete(`/api/user/${userData?.userId}`);
       dispatch({ type: "CONFIRM/MODAL_OFF" });
-      dispatch({ type: "alertOn", payload: "회원탈퇴 처리 되었습니다." });
+      dispatch({
+        type: "alertOn",
+        payload: { msg: "회원탈퇴 처리 되었습니다." },
+      });
       navigate("/login");
     } catch (e) {
       console.log(e);

@@ -41,7 +41,10 @@ const HeaderIcon = styled.img<{ pinned: boolean }>`
   height: 22px;
   margin: auto 0;
   &:hover {
-    cursor: ${(props) => (props.pinned ? 'default' : 'pointer')};
+    cursor: ${(props) => (props.pinned ? 'not-allowed' : 'grab')};
+  }
+  &:active {
+    cursor: ${(props) => (props.pinned ? 'not-allowed' : 'grabbing')};
   }
 `;
 
