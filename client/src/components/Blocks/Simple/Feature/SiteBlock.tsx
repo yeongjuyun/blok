@@ -95,7 +95,7 @@ export default function SiteBlock(props: any) {
   return (
     <>
       <Container id={props.data.navTitle}>
-        {props.data.image.src && (
+        {props.data.image && (
           <Img
             src={props.data.image.src}
             alt={props.data.image.alt ? props.data.image.alt : ''}
