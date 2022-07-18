@@ -102,7 +102,6 @@ export default function MyInfo() {
   const resetPassword = async () => {
     try {
       const data = { userName: userData!.userName, email: userData!.email };
-      console.log(data);
       await axios.post('/api/user/reset-password', data);
       dispatch({ type: 'CONFIRM/MODAL_OFF' });
       dispatch({

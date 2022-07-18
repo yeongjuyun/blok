@@ -156,6 +156,7 @@ export function DashboardInfo() {
     dispatch({ type: 'TEMPLATE/MODAL_ON' });
   };
 
+  // ********* 확인 버튼 누르기 전에 삭제되는 문제가 있음 확인 필요 ****************
   // 사이트 삭제 시, ConfirmModal로 확인 후 삭제
   const deleteHandler = (props: string) => {
     dispatch({
@@ -170,7 +171,7 @@ export function DashboardInfo() {
 
   const deleteSite = async (props: string) => {
     try {
-      // await axios.delete(`/api/site/${props}`);
+      await axios.delete(`/api/site/${props}`);
       dispatch({ type: 'CONFIRM/MODAL_OFF' });
       dispatch({
         type: 'alertOn',
