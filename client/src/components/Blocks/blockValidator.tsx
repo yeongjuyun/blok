@@ -29,6 +29,7 @@ export interface TemplateData {
   layout: string | null;
 }
 export interface BlockData {
+  [key: string]: any;
   navTitle: string | null;
   style?: StyleData;
   logoImage?: ImageData;
