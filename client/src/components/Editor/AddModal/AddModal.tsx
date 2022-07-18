@@ -1,13 +1,13 @@
-import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
-import BlockItem from "./BlockItem";
-import * as icons from "../../../icons";
-import * as blockIcons from "../../../icons/blockCreation";
-import config from "../../Blocks/blockTemplates.json";
-import { Site, BlockTemplate } from "../../Blocks/blockValidator";
-import { RootState } from "../../../reducers";
-import { addBlock } from "../../../reducers/SiteReducer";
-import { generateId } from "../../../reducers/IdGeneratorReducer";
+import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import BlockItem from './BlockItem';
+import * as icons from '../../../icons';
+import * as blockIcons from '../../../icons/blockCreation';
+import config from '../../Blocks/blockTemplates.json';
+import { Site, BlockTemplate } from '../../Blocks/blockValidator';
+import { RootState } from '../../../reducers';
+import { addBlock } from '../../../reducers/SiteReducer';
+import { generateId } from '../../../reducers/IdGeneratorReducer';
 
 const Background = styled.div`
   width: 100vw;
@@ -125,7 +125,7 @@ export default function AddModal(props: ModalProps) {
 
   const closeModal = () => {
     dispatch({
-      type: "ADD/MODAL_OFF",
+      type: 'ADD/MODAL_OFF',
     });
   };
   const addBlockHandler = (blockTemplate: BlockTemplate) => {
@@ -147,7 +147,7 @@ export default function AddModal(props: ModalProps) {
 
       //3.모달창 닫기
       dispatch({
-        type: "ADD/MODAL_OFF",
+        type: 'ADD/MODAL_OFF',
       });
     }
   };

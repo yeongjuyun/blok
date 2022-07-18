@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 //initial Value
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
 
 //Slice
 export const idGeneratorSlice = createSlice({
-  name: "idGenerator",
+  name: 'idGenerator',
   initialState,
   reducers: {
     generateId: (state) => {
