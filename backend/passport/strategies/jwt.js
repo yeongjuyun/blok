@@ -1,8 +1,9 @@
 import { Strategy } from "passport-jwt";
 import { userModel } from "../../db";
-import "dotenv/config";
+import dotenv from "dotenv";
 import { JWT_COOKIE_KEY, userJWTObjectMaker } from "../../utils";
 
+dotenv.config();
 const cookieExtractor = (req) => {
   return req.cookies[JWT_COOKIE_KEY];
 };

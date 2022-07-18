@@ -1,5 +1,8 @@
+// AWS S3 업로드
 import multer from "multer";
-import "dotenv/config";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const storage = multer.memoryStorage();
 

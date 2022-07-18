@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
-import "dotenv/config";
+import dotenv from "dotenv";
 
+dotenv.config();
 const secret = process.env.JWT_SECRET_KEY;
 const JWT_COOKIE_KEY = "jwttoken";
 

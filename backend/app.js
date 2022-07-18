@@ -1,4 +1,4 @@
-import "dotenv/config";
+import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -10,7 +10,8 @@ import passport from "passport";
 import { passportStrategies } from "./passport";
 import cookieParser from "cookie-parser";
 
-const PORT = process.env.SERVER_PORT || 5001;
+dotenv.config();
+const PORT = process.env.SERVER_PORT || 8000;
 const app = express();
 
 const DB_URL = process.env.MONGODB_URL;
