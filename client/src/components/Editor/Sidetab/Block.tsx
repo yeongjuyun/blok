@@ -37,7 +37,7 @@ export default function Block() {
 
   //Set settinbBlocks dynamically.
   const settingBlocks = blocks.map((block, index) => {
-    const { template, data, id } = block;
+    const { template, id } = block;
     const { theme, blockType, layout } = template;
 
     const SettingBlock = React.lazy(
@@ -52,7 +52,7 @@ export default function Block() {
       <SettingBlockContainer key={id}>
         <Suspense fallback={<CardLoading />}>
           <SettingBlock
-            data={data}
+            block={block}
             onRemove={() => removeBlockHandler(index)}
           ></SettingBlock>
         </Suspense>

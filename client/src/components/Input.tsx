@@ -188,10 +188,10 @@ export const ImgInput = (props: ImgInputprops) => {
       )}
       <InputImg
         ref={ImgRef}
-        type='file'
-        className='imgInput'
-        accept='image/*'
-        name='file'
+        type="file"
+        className="imgInput"
+        accept="image/*"
+        name="file"
         onChange={onImgChange}
       />
       {props.guideline ? (

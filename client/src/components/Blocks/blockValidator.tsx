@@ -70,12 +70,20 @@ export interface CreationData {
 }
 
 //By BlockType
+
+export interface NavBlock extends Omit<Block, 'data'> {
+  data: FeatureData;
+}
 export interface NavData {
   navTitle?: null;
   style: StyleData;
   logoImage?: ImageData;
   logoText?: TextData;
   button?: ButtonData;
+}
+
+export interface HeroBlock extends Omit<Block, 'template'> {
+  template: HeroData;
 }
 export interface HeroData {
   navTitle: string;
@@ -86,6 +94,10 @@ export interface HeroData {
   body?: TextData;
   button?: ButtonData;
 }
+
+export interface FeatureBlock extends Omit<Block, 'template'> {
+  template: FeatureData;
+}
 export interface FeatureData {
   navTitle: string;
   style: StyleData;
@@ -94,6 +106,10 @@ export interface FeatureData {
   header?: TextData;
   body?: TextData;
   button?: ButtonData;
+}
+
+export interface FooterBlock extends Omit<Block, 'template'> {
+  template: FooterData;
 }
 export interface FooterData {
   navTitle: string;

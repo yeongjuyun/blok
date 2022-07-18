@@ -62,6 +62,7 @@
         "isUnique": false
       },
       "defaultData": {
+        "style": { "value": "Simple Default" },
         "navTitle": "기능 1",
         "image": {
           "src": "",

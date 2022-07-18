@@ -1,20 +1,24 @@
 import { useState } from 'react';
 import { TextInput, CustomSelect, ImgInput } from '../../../Input';
 import { Card } from '../../../Card/Card';
-import { FeatureData } from '../../blockValidator';
+import { NavBlock } from '../../blockValidator';
+import { getStyleOptions } from '../../blockHelper';
 
 interface Feature {
-  data: FeatureData;
+  block: NavBlock;
   onRemove: (event: React.MouseEvent<HTMLElement>) => void;
 }
-function Feature({ data, onRemove }: Feature) {
+
+function Feature({ block, onRemove }: Feature) {
+  const data = block.data;
+  const blockType = block.template.blockType;
+  let styleOptions = getStyleOptions(blockType);
+
   const [input, setInput] = useState('');
-  const [selectinput, setSelectInput] = useState('');
-  const options = [
-    { value: '스타일1', label: '스타일1' },
-    { value: '스타일2', label: '스타일2' },
-    { value: '스타일3', label: '스타일3' },
-  ];
+  const [selectinput, setSelectInput] = useState({
+    label: data.style.value,
+    value: data.style.value,
+  });
 
   return (
     <>
@@ -22,9 +26,7 @@ function Feature({ data, onRemove }: Feature) {
         <TextInput
           title="메뉴명"
           required={true}
-          onChange={(e: any) => {
-            setInput(e.target.value);
-          }}
+          onChange={(e: any) => {}}
           guideline="네비게이션 바에 입력될 메뉴명을 입력하세요."
           value={data.navTitle}
         ></TextInput>
@@ -33,11 +35,11 @@ function Feature({ data, onRemove }: Feature) {
           required={true}
           guideline="스타일를 선택해주세요."
           placeholder="원하는 선택지를 선택해주세요"
-          options={options}
+          options={styleOptions}
           onChange={(e: any) => {
-            setSelectInput(e.value);
+            setSelectInput(e);
           }}
-          value={data?.style?.value}
+          value={selectinput}
         />
         <ImgInput
           title="이미지"
