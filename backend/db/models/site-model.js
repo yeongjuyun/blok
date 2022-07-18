@@ -86,6 +86,7 @@ export class SiteModel {
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage);
+    await Site.populate(sites, { path: "userId" });
     return sites;
   }
 
