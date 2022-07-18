@@ -116,6 +116,9 @@ export function TextInput(props: Inputprops) {
 
 export const SelectBox = styled(ReactSelect)`
   width: 100%;
+  & :hover {
+    cursor: pointer;
+  }
 `;
 
 export const CustomSelect = (props: any) => {
