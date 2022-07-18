@@ -2,7 +2,7 @@ import is from "@sindresorhus/is";
 import { siteService } from "../services";
 import { asyncHandler } from "../utils";
 
-import { BadRequestError, ForbiddenError } from "../errors";
+import { BadRequestError } from "../errors";
 
 const siteController = {
   addsite: asyncHandler(async (req, res, next) => {
