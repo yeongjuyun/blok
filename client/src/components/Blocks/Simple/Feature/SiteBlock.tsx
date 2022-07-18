@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export default function SiteBlock(props: any) {
   const Container = styled.div`
@@ -89,7 +89,7 @@ export default function SiteBlock(props: any) {
   `;
 
   function buttonHandler() {
-    window.location.href = props.data.button.url ? props.data.button.url : "";
+    window.location.href = props.data.button.url ? props.data.button.url : '';
   }
 
   return (
@@ -98,7 +98,7 @@ export default function SiteBlock(props: any) {
         {props.data.image.src && (
           <Img
             src={props.data.image.src}
-            alt={props.data.image.alt ? props.data.image.alt : ""}
+            alt={props.data.image.alt ? props.data.image.alt : ''}
           />
         )}
         <TextContainer>
