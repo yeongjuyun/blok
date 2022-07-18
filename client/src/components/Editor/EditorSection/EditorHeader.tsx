@@ -64,11 +64,9 @@ const SaveButton = styled.button`
 export default function PublishBar() {
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.site);
-  const [domain] = useState(data.domain);
+  const domain = useState(data.domain);
   let msg = '';
   const { siteId } = useParams();
-
-  console.log(data);
 
   async function saveHandler() {
     try {
@@ -87,7 +85,7 @@ export default function PublishBar() {
 
   async function copyHandler() {
     try {
-      await navigator.clipboard.writeText(domain);
+      await navigator.clipboard.writeText(domain[0]);
       msg = '클립보드에 복사되었습니다.';
     } catch (err) {
       console.log(err);
@@ -100,7 +98,7 @@ export default function PublishBar() {
     <Container>
       <DomainContainer>
         <MyPage>MyPage:</MyPage>
-        <Domain>{domain}</Domain>
+        <Domain>{domain[0]}</Domain>
         <CopyButton onClick={copyHandler}>복사</CopyButton>
       </DomainContainer>
       <SaveButton onClick={saveHandler}>저장</SaveButton>
