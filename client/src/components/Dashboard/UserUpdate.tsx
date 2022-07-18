@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from '../Button';
-import React, { useState, useEffect, useRef, forwardRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { MainTitle } from './MyInfo';
@@ -23,8 +23,7 @@ const UserContainer = styled.div`
 `;
 
 const UserUpdate = styled.div`
-  width: 500px;
-  height: 600px;
+  width: 700px;
   padding: 40px 80px;
   border: 1px solid black;
   background-color: #fff;
@@ -36,47 +35,25 @@ const UserUpdate = styled.div`
     text-align: center;
   }
 
+  .userUpdateInputBox {
+    display: flex;
+    flex-direction: column;
+
+    .inputBox {
+      display: flex;
+
+      .inputBox:not(:first-child) {
+        padding-left: 10px;
+      }
+    }
+  }
+
   .updateButton {
-    margin-top: 20px;
+    margin-top: 40px;
   }
 
   @media screen and (max-width: 580px) {
     width: 100%;
-  }
-`;
-
-export const InputDiv = styled.div`
-  display: flex;
-  margin-bottom: 18px;
-`;
-
-export const InputTitle = styled.label`
-  font-size: 16px;
-  line-height: 36px;
-  margin-right: 12px;
-  flex: 1;
-
-  @media screen and (max-width: 500px) {
-    width: 90%;
-    font-size: 14px;
-  }
-`;
-
-export const Input = styled.input`
-  flex: 2;
-  width: 100%;
-  height: 38px;
-  font-size: 16px;
-  line-height: 40px;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid black;
-  box-sizing: border-box;
-  padding: 12px;
-
-  @media screen and (max-width: 500px) {
-    width: 90%;
-    font-size: 14px;
   }
 `;
 
@@ -130,6 +107,9 @@ export default function User() {
   const [role, setRole] = useState({ value: data.role, label: data.role });
   const [plan, setPlan] = useState({ value: data.plan, label: data.plan });
 
+  console.log(3333, data.role, data.plan);
+  console.log(role, plan);
+
   const roleOptions = [
     { value: 'basic', label: 'basic' },
     { value: 'admin', label: 'admin' },
@@ -138,6 +118,18 @@ export default function User() {
     { value: 'free', label: 'free' },
     { value: 'paid', label: 'paid' },
   ];
+
+  // userId로 userData 불러오기
+  const getUserInfo = async () => {
+    const res = await axios.get(`/api/admin/user/${userId}`);
+    await setData(() => res.data);
+    setRole({ value: res.data.role, label: res.data.role });
+    setPlan({ value: res.data.plan, label: res.data.plan });
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   const userNameHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (
@@ -160,28 +152,9 @@ export default function User() {
       setPasswordError(false);
     }
   };
-  const getUserInfo = async () => {
-    const res = await axios.get(`/api/admin/user/${userId}`);
-    await setData(() => res.data);
-  };
-
-  useEffect(() => {
-    const getUserInfo = async () => {
-      const res = await axios.get(`/api/admin/user/${userId}`);
-      console.log(11111, res.data);
-      await setData(() => res.data);
-      // await setRole({ value: data.role, label: data.role });
-      // await setPlan({ value: data.plan, label: data.plan });
-    };
-    getUserInfo();
-  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
-    console.log(1111, userName.current!.value);
-    console.log(2222, profileImage.current!.value);
-    console.log(3333, plan.value);
 
     const userToPatch = {
       userName: userName.current!.value,
@@ -202,9 +175,8 @@ export default function User() {
       payload: { msg: '회원정보 수정 되었습니다.' },
     });
     password.current!.value = '';
+    getUserInfo();
   };
-
-  getUserInfo();
 
   return (
     <Container>
@@ -215,69 +187,58 @@ export default function User() {
           <div>
             <EmailDiv>{data.email}</EmailDiv>
           </div>
-          <form className="userUpdateForm" onSubmit={handleSubmit}>
-            <div className="userUpdateItem">
-              <InputDiv>
+          <form onSubmit={handleSubmit}>
+            <div className="userUpdateInputBox">
+              <div className="inputBox">
                 <TextInput
                   key={data.userName}
-                  ref={userName}
                   title="이름"
+                  ref={userName}
                   onChange={userNameHandler}
                   defaultValue={data.userName}
-                  // value={data.userName}
-                  // placeholder="elice"
+                  placeholder="이름을 입력해주세요"
                 />
                 {userNameError && '2글자 이상 입력해주세요'}
-              </InputDiv>
-              <InputDiv>
                 <TextInput
+                  key={`${data.userName}/password`}
                   title="비밀번호"
                   ref={password}
                   placeholder=" "
                   onChange={passwordHandler}
-                  key={`${data.userName}/1`}
                   defaultValue=" "
                 />
                 {passwordError && '비밀번호는 6자리 이상이여야 합니다.'}
-              </InputDiv>
-              <InputDiv>
-                <ImgInput
-                  key={data.profileImage}
-                  title="프로필 이미지"
-                  ref={profileImage}
-                  defaultValue={data.profileImage}
-                />
-              </InputDiv>
-              <InputDiv>
+              </div>
+              <div className="inputBox">
                 <CustomSelect
-                  key={data.role}
                   title="분류"
                   options={roleOptions}
-                  onChange={(e: any) => setRole(e)}
+                  onChange={(e: any) => setRole(() => e)}
                   value={role}
-                  defaultValue={{ value: 'basic', label: 'basic' }}
                 />
-              </InputDiv>
-              <InputDiv>
                 <CustomSelect
-                  key={data.plan}
                   title="플랜"
                   options={planOptions}
-                  value={plan}
                   onChange={(e: any) => setPlan(() => e)}
-                  defaultValue={{ value: 'free', label: 'free' }}
+                  value={plan}
                 />
-              </InputDiv>
-              <Button
-                className="updateButton"
-                type="submit"
-                size="large"
-                fullWidth
-                disabled={userNameError || passwordError}
-              >
-                Update
-              </Button>
+              </div>
             </div>
+            <ImgInput
+              key={data.profileImage}
+              title="프로필 이미지"
+              ref={profileImage}
+              defaultValue={data.profileImage}
+            />
+            <Button
+              className="updateButton"
+              type="submit"
+              size="large"
+              fullWidth
+              disabled={userNameError || passwordError}
+            >
+              Update
+            </Button>
           </form>
         </UserUpdate>
       </UserContainer>
