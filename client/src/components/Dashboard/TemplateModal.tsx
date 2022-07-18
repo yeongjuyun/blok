@@ -1,14 +1,14 @@
-import styled from "styled-components";
-import { CgClose } from "react-icons/cg";
-import { TemplateCard } from "./TemplateCard";
-import Button from "../Button";
-import { useState, useRef, useEffect } from "react";
-import { InputDiv, Input, InputTitle } from "./UserUpdate";
-import { templateCardData } from "./TemplateData";
-import templateListData from "./TemplateData";
-import axios from "axios";
-import { useNavigate } from "react-router";
-import { useAppSelector, useAppDispatch } from "../../reducers";
+import styled from 'styled-components';
+import { CgClose } from 'react-icons/cg';
+import { TemplateCard } from './TemplateCard';
+import Button from '../Button';
+import { useState, useRef, useEffect } from 'react';
+import { InputDiv, Input, InputTitle } from './UserUpdate';
+import { templateCardData } from './TemplateData';
+import templateListData from './TemplateData';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
+import { useAppSelector, useAppDispatch } from '../../reducers';
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -170,22 +170,22 @@ export default function TemplateModal() {
   const [template, setTemplate] = useState<any | null>(null);
   const [data, setData] = useState<SiteData>({
     userId: userData?.userId,
-    name: "",
-    domain: "",
-    theme: "",
-    font: "",
+    name: '',
+    domain: '',
+    theme: '',
+    font: '',
     colorSet: {
-      primary: "",
-      secondary: "",
-      background: "",
-      surface: "",
+      primary: '',
+      secondary: '',
+      background: '',
+      surface: '',
     },
     blocks: [],
   });
 
   // 대시보드에서 바로 템플릿 카드를 클릭했을 경우, 해당 템플릿 선택된 모달창 보여주기
   useEffect(() => {
-    if (directTemplate !== "") {
+    if (directTemplate !== '') {
       setTemplate(directTemplate);
     }
   }, [directTemplate]);
@@ -200,20 +200,20 @@ export default function TemplateModal() {
     // 템플릿 선택 시, 해당 하는 colorSet, font, theme 등 추가
     let selectedTemplate = {};
     switch (template) {
-      case "랜딩페이지":
+      case '랜딩페이지':
         selectedTemplate = templateListData().landingPage;
         break;
-      case "이력서":
+      case '이력서':
         selectedTemplate = templateListData().portfolio;
         break;
-      case "기업소개 웹사이트":
+      case '기업소개 웹사이트':
         selectedTemplate = templateListData().companyProfile;
         break;
-      case "기본 웹사이트":
+      case '기본 웹사이트':
         selectedTemplate = templateListData().basicWeb;
         break;
       default:
-        alert("어떤 값인지 파악이 되지 않습니다.");
+        alert('어떤 값인지 파악이 되지 않습니다.');
     }
 
     console.log(selectedTemplate);
@@ -269,30 +269,30 @@ export default function TemplateModal() {
   const createSiteHandler = async () => {
     // 사이트 DB 추가, 저장
     const res = await axios.post(`/api/site`, data);
-    console.log("POST 요청 - 사이트추가 : ", res.data);
-    dispatch({ type: "alertOn", payload: "사이트 추가되었습니다." });
-    dispatch({ type: "TEMPLATE/MODAL_OFF" });
+    console.log('POST 요청 - 사이트추가 : ', res.data);
+    dispatch({ type: 'alertOn', payload: { msg: '사이트 추가되었습니다.' } });
+    dispatch({ type: 'TEMPLATE/MODAL_OFF' });
 
     // 에디터 페이지로 이동
     navigate(`/editor/${res.data._id}`);
   };
 
   const closeModalHandler = () => {
-    dispatch({ type: "TEMPLATE/MODAL_OFF" });
+    dispatch({ type: 'TEMPLATE/MODAL_OFF' });
   };
 
   return (
     <>
       <ModalContainer>
         <MainTitle>
-          {data.theme === "" ? "템플릿 선택" : "도메인 설정"}
+          {data.theme === '' ? '템플릿 선택' : '도메인 설정'}
         </MainTitle>
-        {data.theme === "" ? (
+        {data.theme === '' ? (
           <TemplateListContainer>
             {templateCardData?.map((e: any) => (
               <TemplateCardCustom
                 key={e.title}
-                className={e.title === template ? "selectedCard" : "card"}
+                className={e.title === template ? 'selectedCard' : 'card'}
                 onClick={() => onSelectHandler(e.title)}
                 title={e.title}
                 description={e.description}
@@ -315,7 +315,7 @@ export default function TemplateModal() {
                   }}
                 />
                 <span className="validationText">
-                  {siteNameError && "유효하지 않은 사이트명 입니다."}
+                  {siteNameError && '유효하지 않은 사이트명 입니다.'}
                 </span>
               </div>
             </CustomInputDiv>
@@ -333,7 +333,7 @@ export default function TemplateModal() {
                   }}
                 />
                 <span className="validationText">
-                  {domainError && "유효하지 않은 도메인 입니다."}
+                  {domainError && '유효하지 않은 도메인 입니다.'}
                 </span>
               </div>
             </CustomInputDiv>
@@ -349,9 +349,9 @@ export default function TemplateModal() {
         )}
 
         <div className="closeButton" onClick={closeModalHandler}>
-          <CgClose size={30} color={"gray"} />
+          <CgClose size={30} color={'gray'} />
         </div>
-        {data.theme === "" ? (
+        {data.theme === '' ? (
           <ButtonPadiing
             className="createButton"
             size="large"
