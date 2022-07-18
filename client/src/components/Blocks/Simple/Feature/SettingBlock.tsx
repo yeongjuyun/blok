@@ -4,12 +4,16 @@ import { Card } from '../../../Card/Card';
 import { NavBlock } from '../../blockValidator';
 import { getStyleOptions } from '../../blockHelper';
 
+import { useDispatch } from 'react-redux';
+import { updateBlockData } from '../../../../reducers/SiteReducer';
+
 interface Feature {
   block: NavBlock;
   onRemove: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 function Feature({ block, onRemove }: Feature) {
+  const dispatch = useDispatch();
   const data = block.data;
   const blockType = block.template.blockType;
   let styleOptions = getStyleOptions(blockType);
@@ -26,7 +30,16 @@ function Feature({ block, onRemove }: Feature) {
         <TextInput
           title="메뉴명"
           required={true}
-          onChange={(e: any) => {}}
+          onChange={(e: any) => {
+            console.log(e.target.value);
+            // dispatch(
+            //   updateBlockData({
+            //     blockId: block.id,
+            //     field: 'navTitle',
+            //     value: e.target.value,
+            //   })
+            // );
+          }}
           guideline="네비게이션 바에 입력될 메뉴명을 입력하세요."
           value={data.navTitle}
         ></TextInput>

@@ -21,5 +21,3 @@ export const getStyleOptions = (blockType: string): StyleOption[] => {
 
   return styleOptions;
 };
-//   let styleOptions = getStyleOptions(blockType);
-//console.log(styleOptions);

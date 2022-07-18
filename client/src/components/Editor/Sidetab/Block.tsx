@@ -25,7 +25,6 @@ const SettingBlockContainer = styled.div`
 export default function Block() {
   const dispatch = useDispatch();
   const { blocks } = useSelector((state: RootState) => state.site);
-
   const addBlockHandler = () => {
     dispatch({
       type: 'ADD/MODAL_ON',

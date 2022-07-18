@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { Site, Block } from '../components/Blocks/blockValidator';
+import { Site, Block, BlockData } from '../components/Blocks/blockValidator';
 
 //Initial Value
 const initialState: Site = {
@@ -236,9 +236,23 @@ export const siteSlice = createSlice({
     removeBlock: (state, action: PayloadAction<number>) => {
       state.blocks.splice(action.payload, 1);
     },
+    updateBlockData: (
+      state,
+      action: PayloadAction<{ blockId: number; field: string; value: any }>
+    ) => {
+      const { blockId, field, value } = action.payload;
+      let index = state.blocks.findIndex((block) => block.id === blockId);
+      console.log(state.blocks[index].data);
+    },
   },
 });
 
+/*
+리듀서 예시
+const changeInputData = (blockId: number, field: string, value: any) => {};
+changeInputData(12, 'header', 'Good People Deserves Food');
+*/
+
 //Action creators are generated for each case reducer function
-export const { addBlock, removeBlock } = siteSlice.actions;
+export const { addBlock, removeBlock, updateBlockData } = siteSlice.actions;
 export default siteSlice.reducer;
