@@ -92,6 +92,18 @@ export default function SiteBlock(props: any) {
     window.location.href = props.data.button.url ? props.data.button.url : "";
   }
 
+  function headerCheck(header: string, keyword: string) {
+    let result = "";
+
+    if (header.includes(keyword)) {
+      
+    } else {
+      result = header;
+    }
+    
+    return <Header>result</Header>
+  }
+
   return (
     <>
       <Container id={props.data.navTitle}>
