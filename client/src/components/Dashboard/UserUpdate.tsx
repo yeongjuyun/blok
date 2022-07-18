@@ -1,10 +1,11 @@
-import styled from "styled-components";
-import Button from "../Button";
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import { MainTitle } from "./MyInfo";
-import { useAppDispatch } from "../../reducers";
+import styled from 'styled-components';
+import Button from '../Button';
+import React, { useState, useEffect, useRef, forwardRef } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { MainTitle } from './MyInfo';
+import { useAppDispatch } from '../../reducers';
+import { ImgInput, TextInput, CustomSelect } from '../Input';
 
 const Container = styled.div`
   margin-bottom: 10px;
@@ -103,31 +104,40 @@ interface IUser {
 export default function User() {
   const { userId } = useParams();
   const dispatch = useAppDispatch();
+  const [data, setData] = useState<IUser>({
+    createdAt: '',
+    email: '',
+    oauth: '',
+    password: '',
+    passwordReset: false,
+    plan: '',
+    profileImage: '',
+    role: '',
+    sites: [],
+    updatedAt: '',
+    userName: '',
+    __v: 0,
+    _id: '',
+  });
 
-  const [profileImage, setProfileImage] = useState("");
-  const [role, setRole] = useState("");
-  const [plan, setPlan] = useState("");
-
-  const password = useRef<HTMLInputElement>(null);
+  const profileImage = useRef<HTMLInputElement>(null);
   const userName = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
+
   const [userNameError, setUserNameError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
 
-  const [data, setData] = useState<IUser>({
-    createdAt: "",
-    email: "",
-    oauth: "",
-    password: "",
-    passwordReset: false,
-    plan: "",
-    profileImage: "",
-    role: "",
-    sites: [],
-    updatedAt: "",
-    userName: "",
-    __v: 0,
-    _id: "",
-  });
+  const [role, setRole] = useState({ value: data.role, label: data.role });
+  const [plan, setPlan] = useState({ value: data.plan, label: data.plan });
+
+  const roleOptions = [
+    { value: 'basic', label: 'basic' },
+    { value: 'admin', label: 'admin' },
+  ];
+  const planOptions = [
+    { value: 'free', label: 'free' },
+    { value: 'paid', label: 'paid' },
+  ];
 
   const userNameHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (
@@ -150,48 +160,51 @@ export default function User() {
       setPasswordError(false);
     }
   };
+  const getUserInfo = async () => {
+    const res = await axios.get(`/api/admin/user/${userId}`);
+    await setData(() => res.data);
+  };
 
   useEffect(() => {
     const getUserInfo = async () => {
       const res = await axios.get(`/api/admin/user/${userId}`);
-      await setData(res.data);
-      await setProfileImage(data.profileImage);
-      await setRole(data.role);
-      await setPlan(data.plan);
+      console.log(11111, res.data);
+      await setData(() => res.data);
+      // await setRole({ value: data.role, label: data.role });
+      // await setPlan({ value: data.plan, label: data.plan });
     };
     getUserInfo();
-  }, [
-    userId,
-    data.userName,
-    data.password,
-    data.profileImage,
-    data.role,
-    data.plan,
-  ]);
+  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    console.log(1111, userName.current!.value);
+    console.log(2222, profileImage.current!.value);
+    console.log(3333, plan.value);
+
     const userToPatch = {
       userName: userName.current!.value,
       password: password.current!.value,
-      profileImage: profileImage,
-      plan: plan,
-      role: role,
+      profileImage: profileImage.current!.value,
+      plan: plan.value,
+      role: role.value,
     };
 
-    console.log("patchData", userToPatch);
+    console.log('patchData', userToPatch);
 
     await axios
       .patch(`/api/admin/user/${userId}`, userToPatch)
-      .catch((error) => console.log("Error: ", error));
+      .catch((error) => console.log('Error: ', error));
 
     dispatch({
-      type: "alertOn",
-      payload: { msg: "회원정보 수정 되었습니다." },
+      type: 'alertOn',
+      payload: { msg: '회원정보 수정 되었습니다.' },
     });
-    password.current!.value = "";
+    password.current!.value = '';
   };
+
+  getUserInfo();
 
   return (
     <Container>
@@ -199,59 +212,60 @@ export default function User() {
       <UserContainer>
         <UserUpdate>
           <div className="editTitle">회원정보 수정</div>
-
           <div>
             <EmailDiv>{data.email}</EmailDiv>
           </div>
           <form className="userUpdateForm" onSubmit={handleSubmit}>
             <div className="userUpdateItem">
               <InputDiv>
-                <InputTitle htmlFor="">이름</InputTitle>
-                <Input
-                  type="text"
-                  placeholder="elice"
+                <TextInput
+                  key={data.userName}
                   ref={userName}
-                  defaultValue={data.userName}
+                  title="이름"
                   onChange={userNameHandler}
+                  defaultValue={data.userName}
+                  // value={data.userName}
+                  // placeholder="elice"
                 />
-                {userNameError && "2글자 이상 입력해주세요"}
+                {userNameError && '2글자 이상 입력해주세요'}
               </InputDiv>
               <InputDiv>
-                <InputTitle htmlFor="">비밀번호</InputTitle>
-                <Input
-                  type="text"
-                  placeholder=""
-                  defaultValue=" "
+                <TextInput
+                  title="비밀번호"
                   ref={password}
+                  placeholder=" "
                   onChange={passwordHandler}
+                  key={`${data.userName}/1`}
+                  defaultValue=" "
                 />
-                {passwordError && "비밀번호는 6자리 이상이여야 합니다."}
+                {passwordError && '비밀번호는 6자리 이상이여야 합니다.'}
               </InputDiv>
               <InputDiv>
-                <InputTitle htmlFor="">프로필</InputTitle>
-                <Input
-                  type="text"
-                  placeholder="elice"
+                <ImgInput
+                  key={data.profileImage}
+                  title="프로필 이미지"
+                  ref={profileImage}
                   defaultValue={data.profileImage}
-                  onChange={(e) => setProfileImage(e.target.value)}
                 />
               </InputDiv>
               <InputDiv>
-                <InputTitle htmlFor="">분류</InputTitle>
-                <Input
-                  type="text"
-                  placeholder="elice"
-                  defaultValue={data.role}
-                  onChange={(e) => setRole(e.target.value)}
+                <CustomSelect
+                  key={data.role}
+                  title="분류"
+                  options={roleOptions}
+                  onChange={(e: any) => setRole(e)}
+                  value={role}
+                  defaultValue={{ value: 'basic', label: 'basic' }}
                 />
               </InputDiv>
               <InputDiv>
-                <InputTitle htmlFor="">플랜</InputTitle>
-                <Input
-                  type="text"
-                  placeholder="elice"
-                  defaultValue={data.plan}
-                  onChange={(e) => setPlan(e.target.value)}
+                <CustomSelect
+                  key={data.plan}
+                  title="플랜"
+                  options={planOptions}
+                  value={plan}
+                  onChange={(e: any) => setPlan(() => e)}
+                  defaultValue={{ value: 'free', label: 'free' }}
                 />
               </InputDiv>
               <Button
