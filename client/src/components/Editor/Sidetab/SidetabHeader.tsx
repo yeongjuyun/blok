@@ -18,7 +18,7 @@ const Container = styled.div`
 
 export default function SidetabHeader() {
   const dispatch = useAppDispatch();
-  const now = useAppSelector((state: any) => state.sidetabReducer);
+  const now = useAppSelector((state) => state.sidetabReducer);
   const toolList = ['Block', 'Appearance', 'Setting'];
   const itemWidth = 100 / toolList.length;
 
