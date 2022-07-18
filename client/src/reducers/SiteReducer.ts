@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Site, Block } from '../components/Blocks/blockValidator';
-import { updateLanguageServiceSourceFile } from 'typescript';
 
 //Initial Value
 const initialState: Site = {

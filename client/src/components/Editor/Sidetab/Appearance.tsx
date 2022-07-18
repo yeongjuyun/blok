@@ -63,15 +63,15 @@ export default function Appearance() {
 
   // siteReducer 완성시 dispatch 추가 예정
   useEffect(() => {
-    dispatch({type: 'site/updateColorSet', payload: colorSet});
+    dispatch({ type: 'site/updateColorSet', payload: colorSet });
   }, [colorSet]);
 
   useEffect(() => {
-    dispatch({type: 'site/updateFont', payload: font});
+    dispatch({ type: 'site/updateFont', payload: font });
   }, [font]);
 
   useEffect(() => {
-    dispatch({type: 'site/updateTheme', payload: theme});
+    dispatch({ type: 'site/updateTheme', payload: theme });
   }, [theme]);
 
   return (
