@@ -1,4 +1,4 @@
-import { model } from "mongoose";
+import mongoose, { model } from "mongoose";
 import { userModel } from "./user-model";
 import { SiteSchema } from "../schemas/site-schema";
 
@@ -14,14 +14,30 @@ export class SiteModel {
     return createdNewSite;
   }
 
-  async findBySiteId(siteId) {
-    const site = await Site.findOne({ _id: siteId });
-    return site;
-  }
+  // async findBySiteId(siteId) {
+  //   const site = await Site.findOne({ _id: siteId });
+  //   return site;
+  // }
   // async findBySiteDomain(siteDomain) {
   //   const site = await Site.findOne({ domain: siteDomain });
   //   return site;
   // }
+  async findBySiteId(siteId) {
+    const site = await Site.aggregate([
+      {
+        $match: {
+          _id: mongoose.Types.ObjectId(siteId),
+        },
+      },
+      {
+        $addFields: {
+          siteId: "$_id",
+        },
+      },
+      { $project: { _id: 0 } },
+    ]);
+    return site[0];
+  }
 
   async findAllSite() {
     const sites = await Site.find({}).populate("userId");
