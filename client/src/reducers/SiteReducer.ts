@@ -168,7 +168,7 @@ const initialStateTest: Site = {
           value: 'Simple Default',
         },
         image: {
-          src: 'www.image.com/source/12312',
+          src: 'https://images.unsplash.com/photo-1658081459867-108ddc6f7dc5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80',
           alt: 'logo',
         },
         caption: {
@@ -176,6 +176,9 @@ const initialStateTest: Site = {
         },
         header: {
           value: '블록으로 웹사이트를 만들어보세요',
+        },
+        headerHighlight: {
+          value: '웹사이트',
         },
         body: {
           value:

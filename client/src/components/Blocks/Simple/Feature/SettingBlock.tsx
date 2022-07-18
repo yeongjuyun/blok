@@ -44,6 +44,8 @@ function Feature({ block, onRemove }: Feature) {
         <ImgInput
           title="이미지"
           guideline="헤드라인 내용 중에서 강조할 텍스트를 입력하세요"
+          src={data.image?.src}
+          alt={data.image?.alt}
         />
         <TextInput
           title="캡션"
@@ -61,6 +63,7 @@ function Feature({ block, onRemove }: Feature) {
           title="헤드라인 강조 테스트"
           required={false}
           guideline="헤드라인 내용 중에서 강조할 텍스트를 입력하세요"
+          value={data.headerHighlight?.value}
         ></TextInput>
         <TextInput
           title="설명"

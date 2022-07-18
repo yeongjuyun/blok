@@ -45,6 +45,8 @@ interface ImgInputprops {
   required?: boolean;
   placeholder?: string;
   guideline?: string;
+  src?: string;
+  alt?: string;
 }
 interface Inputprops {
   title?: string;
@@ -169,7 +171,7 @@ export const CustomSelect = (props: any) => {
 export const ImgInput = (props: ImgInputprops) => {
   // const [ImgLoading, setImgLoading] = useState<boolean>(false);
   const ImgRef = useRef<HTMLInputElement>(null);
-  const [Img, setImg] = useState<any>(null);
+  const [Img, setImg] = useState<any>(props.src);
   const onImgChange = async (event: any) => {
     // setImgLoading(true);
     setImg(URL.createObjectURL(event.target.files[0]));
@@ -199,7 +201,7 @@ export const ImgInput = (props: ImgInputprops) => {
       ) : (
         <DisplayNone />
       )}
-      {Img !== null ? <PreviewImg src={Img} /> : <DisplayNone />}
+      {Img !== null ? <PreviewImg src={Img} alt="이미지" /> : <DisplayNone />}
     </Width100>
   );
 };

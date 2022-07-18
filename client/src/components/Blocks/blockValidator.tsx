@@ -36,6 +36,7 @@ export interface BlockData {
   image?: ImageData;
   caption?: TextData;
   header?: TextData;
+  headerHighlight?: TextData;
   body?: TextData;
   button?: ButtonData;
   rightText?: TextData;
@@ -91,6 +92,7 @@ export interface HeroData {
   image?: ImageData;
   caption?: TextData;
   header?: TextData;
+  headerHighlight?: TextData;
   body?: TextData;
   button?: ButtonData;
 }
@@ -104,6 +106,7 @@ export interface FeatureData {
   image?: ImageData;
   caption?: TextData;
   header?: TextData;
+  headerHighlight?: TextData;
   body?: TextData;
   button?: ButtonData;
 }
