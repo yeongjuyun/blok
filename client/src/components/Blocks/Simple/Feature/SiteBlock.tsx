@@ -13,6 +13,10 @@ export default function SiteBlock(props: any) {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+
+    @media screen and (max-width: 1120px) {
+      justify-content: flex-start;
+    }
   `;
 
   const TextContainer = styled.div`
