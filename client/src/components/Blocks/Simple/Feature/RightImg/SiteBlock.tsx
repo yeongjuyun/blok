@@ -8,30 +8,26 @@ export default function SiteBlock(props: any) {
 
     padding: 100px 40px;
     margin: 0 auto;
-    width: 1000px;
 
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-
-    @media screen and (max-width: 1120px) {
-      width: auto;
-    }
   `;
 
   const TextContainer = styled.div`
     vertical-align: middle;
+    padding-bottom: 30px;
 
     @media screen and (max-width: 1120px) {
       width: 400px;
-      padding: 20px;
     }
   `;
 
   const Img = styled.img`
     width: 400px;
     padding-left: 20px;
+    padding-bottom: 30px;
 
     @media screen and (max-width: 1120px) {
       width: 400px;
