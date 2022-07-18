@@ -3,7 +3,6 @@ import { CgClose } from 'react-icons/cg';
 import { TemplateCard } from './TemplateCard';
 import Button from '../Button';
 import { useState, useRef, useEffect } from 'react';
-import { InputDiv, Input, InputTitle } from './UserUpdate';
 import { templateCardData } from './TemplateData';
 import templateListData from './TemplateData';
 import axios from 'axios';
@@ -109,22 +108,42 @@ const DomainContainer = styled.div`
   }
 `;
 
-const CustomInputDiv = styled(InputDiv)`
+const CustomInputDiv = styled.div`
+  display: flex;
+  margin-bottom: 18px;
   flex-direction: column;
 
   .inputBox {
     height: 60px;
   }
 `;
-
-const CustomInput = styled(Input)`
-  border: 1px solid #ececec;
-  font-size: 18px;
+const CustomInput = styled.input`
+  flex: 2;
+  width: 100%;
   height: 50px;
+  font-size: 18px;
+  line-height: 40px;
+  background-color: transparent;
+  border: 1px solid #ececec;
+  box-sizing: border-box;
+  padding: 12px;
+
+  @media screen and (max-width: 500px) {
+    width: 90%;
+    font-size: 14px;
+  }
 `;
 
-const CustomInputTitle = styled(InputTitle)`
+const CustomInputTitle = styled.label`
   font-size: 18px;
+  line-height: 36px;
+  margin-right: 12px;
+  flex: 1;
+
+  @media screen and (max-width: 500px) {
+    width: 90%;
+    font-size: 14px;
+  }
 `;
 
 const MainTitle = styled.div`
