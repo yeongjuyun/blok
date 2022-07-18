@@ -67,7 +67,6 @@ export interface CreationData {
   title: string;
   icon: string;
   isUnique: boolean;
-  order: number | null;
 }
 
 //By BlockType

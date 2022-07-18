@@ -9,8 +9,7 @@
       "creationData": {
         "title": "네비게이션바",
         "icon": "Navbar",
-        "isUnique": true,
-        "order": 0
+        "isUnique": true
       },
       "defaultData": {
         "navTitle": null,
@@ -32,8 +31,7 @@
       "creationData": {
         "title": "메인 화면",
         "icon": "Home",
-        "isUnique": true,
-        "order": 1
+        "isUnique": true
       },
       "defaultData": {
         "navTitle": "홈",
@@ -61,8 +59,7 @@
       "creationData": {
         "title": "이미지+텍스트",
         "icon": "Feature",
-        "isUnique": false,
-        "order": null
+        "isUnique": false
       },
       "defaultData": {
         "navTitle": "기능 1",
@@ -94,8 +91,7 @@
       "creationData": {
         "title": "이미지+텍스트",
         "icon": "FeatureRight",
-        "isUnique": false,
-        "order": null
+        "isUnique": false
       },
       "defaultData": {
         "navTitle": "기능 1",
@@ -127,8 +123,7 @@
       "creationData": {
         "title": "텍스트",
         "icon": "FeatureText",
-        "isUnique": false,
-        "order": null
+        "isUnique": false
       },
       "defaultData": {
         "navTitle": "기능 1",
@@ -156,8 +151,7 @@
       "creationData": {
         "title": "푸터",
         "icon": "Footer",
-        "isUnique": true,
-        "order": -1
+        "isUnique": true
       },
       "defaultData": {
         "navTitle": null,
@@ -178,8 +172,7 @@
       "creationData": {
         "title": "푸터",
         "icon": "Footer",
-        "isUnique": true,
-        "order": -1
+        "isUnique": true
       },
       "defaultData": {
         "navTitle": null,
