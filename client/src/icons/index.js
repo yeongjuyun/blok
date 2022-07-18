@@ -9,6 +9,12 @@ import Movable from './movable.png';
 import Navbar from './navbar.png';
 import Trash from './trash.png';
 import User from './User.png';
+import Close from './x.png';
+import Pin from './pinned.png';
+import BlockFeature from './blockCreation/feature.png';
+import BlockFooter from './blockCreation/footer.png';
+import BlockHome from './blockCreation/home.png';
+import BlockNav from './blockCreation/navbar.png';
 
 export {
   User,
@@ -22,4 +28,10 @@ export {
   Footer,
   Hero,
   Logo,
+  Close,
+  Pin,
+  BlockNav,
+  BlockHome,
+  BlockFooter,
+  BlockFeature,
 };

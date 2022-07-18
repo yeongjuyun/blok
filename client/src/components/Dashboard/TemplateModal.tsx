@@ -243,6 +243,12 @@ export default function TemplateModal() {
       setDomainError(true);
     } else {
       setDomainError(false);
+      setData((prev) => {
+        return {
+          ...prev,
+          domain: `www.block.com/${domain.current!.value}`,
+        };
+      });
     }
   };
 
@@ -251,30 +257,16 @@ export default function TemplateModal() {
       setSiteNameError(true);
     } else {
       setSiteNameError(false);
+      setData((prev) => {
+        return {
+          ...prev,
+          name: siteName.current!.value,
+        };
+      });
     }
   };
 
   const createSiteHandler = async () => {
-    if (siteName.current!.value === "" || domain.current!.value === "") {
-      console.log("인풋없음");
-      return;
-    }
-    setData((prev) => {
-      return {
-        ...prev,
-        name: siteName.current!.value,
-        domain: `www.block.com/${domain.current!.value}`,
-      };
-    });
-
-    console.log(
-      `template: ${template}, siteName: ${
-        siteName.current!.value
-      }, domain: www.block.com/${domain.current!.value}, siteDesc: ${
-        siteDesc.current!.value
-      } => create web!`
-    );
-
     // 사이트 DB 추가, 저장
     const res = await axios.post(`/api/site`, data);
     console.log("POST 요청 - 사이트추가 : ", res.data);

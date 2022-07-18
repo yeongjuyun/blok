@@ -22,20 +22,10 @@ export default function SiteBlock(props: any) {
   const TextContainer = styled.div`
     vertical-align: middle;
     padding-bottom: 30px;
+    text-align: center;
 
     @media screen and (max-width: 1120px) {
       width: 400px;
-    }
-  `;
-
-  const Img = styled.img`
-    width: 400px;
-    padding-left: 20px;
-    padding-bottom: 30px;
-
-    @media screen and (max-width: 1120px) {
-      width: 400px;
-      padding-left: 0;
     }
   `;
 
@@ -43,7 +33,7 @@ export default function SiteBlock(props: any) {
     font-size: 1rem;
     font-weight: 600;
     color: ${props.colorSet.primary};
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 
     @media screen and (max-width: 1120px) {
       font-size: 1.4vw;
@@ -62,41 +52,19 @@ export default function SiteBlock(props: any) {
 
   const Body = styled.div`
     color: ${props.colorSet.surface};
-    margin-top: 10px;
+    margin-top: 15px;
 
     @media screen and (max-width: 1120px) {
       font-size: 1.4vw;
     }
   `;
-
-  const Button = styled.button`
-    background-color: ${props.colorSet.primary};
-    color: white;
-    padding: 10px 20px;
-    border: 0;
-    border-radius: 7px;
-    font-size: 1rem;
-    margin-top: 20px;
-
-    :hover {
-      cursor: pointer;
-    }
-
-    @media screen and (max-width: 1120px) {
-      font-size: 1.4vw;
-      padding: 1vw 2vw;
-    }
-  `;
-
-  function buttonHandler() {
-    window.location.href = props.data.button.url ? props.data.button.url : '';
-  }
 
   function highlightHandler(header: string, keyword: string) {
     const HeaderHighlight = styled.span`
       font-size: 2rem;
       font-weight: 700;
       color: ${props.colorSet.primary};
+      margin-bottom: 10px;
 
       @media screen and (max-width: 1120px) {
         font-size: 2.8vw;
@@ -142,18 +110,7 @@ export default function SiteBlock(props: any) {
               <Header>{props.data.header.value}</Header>
             ))}
           {props.data.body.value && <Body>{props.data.body.value}</Body>}
-          {props.data.button.title && (
-            <Button color={props.colorSet.primary} onClick={buttonHandler}>
-              {props.data.button.title}
-            </Button>
-          )}
         </TextContainer>
-        {props.data.image && (
-          <Img
-            src={props.data.image.src}
-            alt={props.data.image.alt ? props.data.image.alt : ''}
-          />
-        )}
       </Container>
     </>
   );

@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import * as icon from '../../icons';
 import React, { useState } from 'react';
+import { BlockList } from 'net';
 
 export const CardHeader = styled.div<{ dropClicked: boolean }>`
   background: #ffffff;
@@ -35,12 +36,15 @@ const CardBoby = styled.div<{ dropClicked: boolean }>`
   }
 `;
 
-const Movable = styled.img`
+const HeaderIcon = styled.img<{ pinned: boolean }>`
   width: 22px;
   height: 22px;
   margin: auto 0;
   &:hover {
-    cursor: pointer;
+    cursor: ${(props) => (props.pinned ? 'not-allowed' : 'grab')};
+  }
+  &:active {
+    cursor: ${(props) => (props.pinned ? 'not-allowed' : 'grabbing')};
   }
 `;
 
@@ -97,6 +101,8 @@ type title = 'Footer' | 'Navbar' | 'Profile' | 'Hero' | 'Feature';
 interface Cardprops {
   title: title;
   children: any;
+  pinned?: boolean;
+  onRemove: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 function Icon(title: title) {
@@ -119,15 +125,19 @@ export const Card = (props: Cardprops) => {
   return (
     <CardContainer>
       <CardHeader dropClicked={dropClicked}>
-        <Movable src={icon.Movable} alt='' />
+        <HeaderIcon
+          pinned={props.pinned ? true : false}
+          src={props.pinned ? icon.Pin : icon.Movable}
+          alt=""
+        />
         <TitleBox>
-          <TitleIcon src={Icon(props.title)} alt='' />
+          <TitleIcon src={Icon(props.title)} alt="" />
           <Title>{props.title}</Title>
         </TitleBox>
-        <Trash src={icon.Trash} alt='' />
+        <Trash src={icon.Trash} alt="" onClick={props.onRemove} />
         <Down
           src={icon.Down}
-          alt=''
+          alt=""
           dropClicked={dropClicked}
           onClick={() => {
             setDropClicked((res) => {

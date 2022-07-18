@@ -186,7 +186,10 @@ export default function User() {
       .patch(`/api/admin/user/${userId}`, userToPatch)
       .catch((error) => console.log("Error: ", error));
 
-    dispatch({ type: "alertOn", payload: "회원정보 수정 되었습니다." });
+    dispatch({
+      type: "alertOn",
+      payload: { msg: "회원정보 수정 되었습니다." },
+    });
     password.current!.value = "";
   };
 

@@ -12,6 +12,9 @@ const Container = styled.div`
   background-color: white;
   display: flex;
   align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1;
 `;
 
 export default function SidetabHeader() {

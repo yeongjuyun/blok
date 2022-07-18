@@ -22,8 +22,8 @@ export const templateCardData = [
 
 export default function templateListData() {
   const landingPage = {
-    name: "First Site",
-    domain: "firstSite",
+    name: "",
+    domain: "",
     theme: "Minimal",
     font: "Roboto",
     colorSet: {
@@ -113,8 +113,8 @@ export default function templateListData() {
   };
 
   const portfolio = {
-    name: "First Site",
-    domain: "firstSite",
+    name: "",
+    domain: "",
     theme: "Minimal",
     font: "Roboto",
     colorSet: {
@@ -127,8 +127,8 @@ export default function templateListData() {
   };
 
   const companyProfile = {
-    name: "First Site",
-    domain: "firstSite",
+    name: "",
+    domain: "",
     theme: "Minimal",
     font: "Roboto",
     colorSet: {
@@ -141,8 +141,8 @@ export default function templateListData() {
   };
 
   const basicWeb = {
-    name: "First Site",
-    domain: "firstSite",
+    name: "",
+    domain: "",
     theme: "Minimal",
     font: "Roboto",
     colorSet: {
