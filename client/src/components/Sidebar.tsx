@@ -1,19 +1,18 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import logoImg from "./../imgs/logo.png";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../reducers";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import logoImg from './../imgs/logo.png';
+import { MdOutlineSpaceDashboard } from 'react-icons/md';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../reducers';
 
 // import icon
-import { CgClose } from "react-icons/cg";
-import { BiLogOut } from "react-icons/bi";
-import { FaUserAlt } from "react-icons/fa";
-import { GrMenu } from "react-icons/gr";
-import { FaRegUserCircle } from "react-icons/fa";
+import { CgClose } from 'react-icons/cg';
+import { BiLogOut } from 'react-icons/bi';
+import { FaUserAlt } from 'react-icons/fa';
+import { GrMenu } from 'react-icons/gr';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 const Nav = styled.nav`
   width: 72px;
@@ -81,7 +80,7 @@ const MenuContainer = styled.div`
     right: 0;
     left: auto;
     width: 100%;
-    height: 290px;
+    height: fit-content;
     border-radius: 0;
     text-align: center;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
@@ -114,19 +113,17 @@ interface IMyProps {
 
 const Menu = (props: IMyProps) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const userData = useSelector(
-    (state: RootState) => state.loginCheckReducer.loginData
-  );
+  const userData = useAppSelector((state) => state.loginCheckReducer.loginData);
 
   const logoutHandler = async () => {
-    await axios.get("/api/user/logout");
+    await axios.get('/api/user/logout');
     dispatch({
-      type: "alertOn",
-      payload: { msg: "로그아웃 처리 되었습니다." },
+      type: 'alertOn',
+      payload: { msg: '로그아웃 처리 되었습니다.' },
     });
-    navigate("/login");
+    navigate('/login');
   };
 
   return (
@@ -134,22 +131,22 @@ const Menu = (props: IMyProps) => {
       onMouseLeave={props.onMouseLeave}
       onMouseEnter={props.onMouseEnter}
     >
-      <Link to="/account" style={{ textDecoration: "none" }}>
+      <Link to="/account" style={{ textDecoration: 'none' }}>
         <List>
           <FaUserAlt color="black" />
           <span>Account</span>
         </List>
       </Link>
 
-      {userData?.role === "admin" ? (
+      {userData?.role === 'admin' ? (
         <>
-          <Link to="/site" style={{ textDecoration: "none" }}>
+          <Link to="/site" style={{ textDecoration: 'none' }}>
             <List>
               <MdOutlineSpaceDashboard color="black" />
               <span>Manage Site</span>
             </List>
           </Link>
-          <Link to="/user" style={{ textDecoration: "none" }}>
+          <Link to="/user" style={{ textDecoration: 'none' }}>
             <List>
               <MdOutlineSpaceDashboard color="black" />
               <span>Manage User</span>
@@ -157,7 +154,7 @@ const Menu = (props: IMyProps) => {
           </Link>
         </>
       ) : (
-        <Link to="/dashboard" style={{ textDecoration: "none" }}>
+        <Link to="/dashboard" style={{ textDecoration: 'none' }}>
           <List>
             <MdOutlineSpaceDashboard color="black" />
             <span>Dashboard</span>
@@ -167,7 +164,7 @@ const Menu = (props: IMyProps) => {
       <Link
         to="/login"
         onClick={logoutHandler}
-        style={{ textDecoration: "none" }}
+        style={{ textDecoration: 'none' }}
       >
         <List>
           <BiLogOut color="black" />
