@@ -130,9 +130,7 @@ export function DashboardInfo() {
   // userId 별 sites 데이터 조회, 재랜더링 문제로 아래와 같이 코드 수정, 사이트 삭제 시 getUserInfo() 호출하여 재랜더링됨.
   const getUserInfo = async () => {
     try {
-      console.log('userId:', userData!.userId);
       const res = await axios.get(`/api/site/user/${userData.userId}`);
-      console.log('site Data:', res.data);
       setData(() => res.data);
     } catch (error) {
       console.log(error);
@@ -142,8 +140,8 @@ export function DashboardInfo() {
   useEffect(() => {
     const getUserInfo = async () => {
       try {
-        console.log('userId:', userData.userId);
-        const res = await axios.get(`/api/site/user/${userData.userId}`);
+        console.log('userId:', userData!.userId);
+        const res = await axios.get(`/api/site/user/${userData!.userId}`);
         console.log('site Data:', res.data);
         setData(() => res.data);
       } catch (error) {
@@ -151,7 +149,7 @@ export function DashboardInfo() {
       }
     };
     getUserInfo();
-  }, [userData]);
+  }, []);
 
   const showModalHandler = () => {
     dispatch({ type: 'TEMPLATE/MODAL_ON' });
@@ -172,10 +170,6 @@ export function DashboardInfo() {
   const deleteSite = async () => {
     try {
       console.log('siteId:', modalAction!.props);
-      if (modalAction!.props === '') {
-        console.log('modolAction의 props를 불러오지 못했습니다.');
-        return;
-      }
       await axios.delete(`/api/site/${modalAction!.props}`);
       dispatch({ type: 'CONFIRM/MODAL_OFF' });
       dispatch({
