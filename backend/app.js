@@ -10,7 +10,7 @@ import passport from "passport";
 import { passportStrategies } from "./passport";
 import cookieParser from "cookie-parser";
 
-const PORT = process.env.SERVER_PORT || 8000;
+const PORT = process.env.SERVER_PORT || 5001;
 const app = express();
 
 const DB_URL = process.env.MONGODB_URL;
