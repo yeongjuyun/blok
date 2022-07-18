@@ -50,11 +50,10 @@ export default function SiteBlock(props: any) {
     }
   `;
 
-  const Header = styled.div`
+  const Header = styled.span`
     font-size: 2rem;
     font-weight: 700;
     color: black;
-    margin-bottom: 10px;
 
     @media screen and (max-width: 1120px) {
       font-size: 2.8vw;
@@ -63,6 +62,7 @@ export default function SiteBlock(props: any) {
 
   const Body = styled.div`
     color: ${props.colorSet.surface};
+    margin-top: 10px;
 
     @media screen and (max-width: 1120px) {
       font-size: 1.4vw;
@@ -92,15 +92,37 @@ export default function SiteBlock(props: any) {
     window.location.href = props.data.button.url ? props.data.button.url : '';
   }
 
-  function headerCheck(header: string, keyword: string) {
-    let result = '';
+  function highlightHandler(header: string, keyword: string) {
+    const HeaderHighlight = styled.span`
+      font-size: 2rem;
+      font-weight: 700;
+      color: ${props.colorSet.primary};
+
+      @media screen and (max-width: 1120px) {
+        font-size: 2.8vw;
+      }
+    `;
+
+    let result = [];
 
     if (header.includes(keyword)) {
+      const splitedByKeyword = header.split(keyword);
+      for (let i = 0; i < splitedByKeyword.length - 1; i++) {
+        result.push(
+          <>
+            <Header>{splitedByKeyword[i]}</Header>
+            <HeaderHighlight>{keyword}</HeaderHighlight>
+          </>
+        );
+      }
+      result.push(
+        <Header>{splitedByKeyword[splitedByKeyword.length - 1]}</Header>
+      );
     } else {
-      result = header;
+      result.push(<Header>{header}</Header>);
     }
 
-    return <Header>result</Header>;
+    return result.map((item) => item);
   }
 
   return (
@@ -110,9 +132,15 @@ export default function SiteBlock(props: any) {
           {props.data.caption.value && (
             <Caption>{props.data.caption.value}</Caption>
           )}
-          {props.data.header.value && (
-            <Header>{props.data.header.value}</Header>
-          )}
+          {props.data.header.value &&
+            (props.data.headerHighlight ? (
+              highlightHandler(
+                props.data.header.value,
+                props.data.headerHighlight.value
+              )
+            ) : (
+              <Header>{props.data.header.value}</Header>
+            ))}
           {props.data.body.value && <Body>{props.data.body.value}</Body>}
           {props.data.button.title && (
             <Button color={props.colorSet.primary} onClick={buttonHandler}>
