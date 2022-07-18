@@ -159,7 +159,7 @@ const ButtonPadiing = styled(Button)`
   margin: auto;
 `;
 type SiteData = {
-  userId: string | undefined;
+  userId: string;
   name: string;
   domain: string;
   theme: string;

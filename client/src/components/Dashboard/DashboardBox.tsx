@@ -23,6 +23,8 @@ const Container = styled.div`
 
   @media screen and (max-width: 1120px) {
     width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
   }
 `;
 
@@ -102,11 +104,21 @@ export function TemplateList() {
   const showModalHandler = (template: string) => {
     dispatch({ type: 'TEMPLATE/MODAL_ON', template: template });
   };
+
+  // 템플릿 데이터 3개만 불러오기
+  function DashboardTemplateList() {
+    let list = [];
+    for (let i = 0; i < templateCardData.length - 1; i++) {
+      list.push(templateCardData[i]);
+    }
+    return list;
+  }
+
   return (
     <Container>
       <MainTitle className="title">Template</MainTitle>
       <TemplateBox>
-        {templateCardData?.map((e: any, idx: number) => (
+        {DashboardTemplateList()?.map((e: any, idx: number) => (
           <div key={idx}>
             <TemplateCard
               title={e.title}
@@ -130,7 +142,9 @@ export function DashboardInfo() {
   // userId 별 sites 데이터 조회
   const getUserInfo = async () => {
     try {
+      console.log('userId:', userData!.userId);
       const res = await axios.get(`/api/site/user/${userData.userId}`);
+      console.log('site Data:', res.data);
       setData(() => res.data);
     } catch (error) {
       console.log(error);
@@ -138,18 +152,8 @@ export function DashboardInfo() {
   };
 
   useEffect(() => {
-    const getUserInfo = async () => {
-      try {
-        console.log('userId:', userData!.userId);
-        const res = await axios.get(`/api/site/user/${userData!.userId}`);
-        console.log('site Data:', res.data);
-        setData(() => res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getUserInfo();
-  }, []);
+  }, [userData]);
 
   // 사이트 추가 버튼 클릭 시, 템플릿 모달 보여짐
   const showModalHandler = () => {

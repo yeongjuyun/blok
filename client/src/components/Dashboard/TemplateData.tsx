@@ -17,8 +17,8 @@ export const templateCardData = [
   {
     title: '기본 웹사이트',
     description: '기업소개 템플릿 입니다.',
-    color1: '#F5E44C',
-    color2: '#CEA9D3',
+    color1: '#8c929c',
+    color2: '#51565e',
   },
 ];
 
