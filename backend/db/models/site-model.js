@@ -13,6 +13,7 @@ export class SiteModel {
 
     return createdNewSite;
   }
+
   async findBySiteId(siteId) {
     const site = await Site.findOne({ _id: siteId });
     return site;
@@ -21,34 +22,45 @@ export class SiteModel {
   //   const site = await Site.findOne({ domain: siteDomain });
   //   return site;
   // }
+
   async findAllSite() {
     const sites = await Site.find({}).populate("userId");
     return sites;
   }
+
   async findAllUserSites(userId) {
     const sites = await Site.find({ userId: userId });
     return sites;
   }
+
   async update({ id, update }) {
     const filter = { _id: id };
     const option = { returnOriginal: false };
     const updatedSite = await Site.findOneAndUpdate(filter, update, option);
-    console.log(filter, update, updatedSite);
-
     return updatedSite;
   }
+
   async deleteById(id) {
     const filter = { _id: id };
     const deletedSite = await Site.findOneAndDelete(filter);
     return deletedSite;
   }
 
-  async pagenation(page, perPage, searchQuery) {
-    const site = await Site.find(searchQuery)
+  async countTotalSites(serachKey, searchValue) {
+    const totalCount = await Site.countDocuments({
+      [serachKey]: { $regex: searchValue, $options: "i" },
+    });
+    return totalCount;
+  }
+
+  async pagenation(page, perPage, serachKey, searchValue) {
+    const sites = await Site.find({
+      [serachKey]: { $regex: searchValue, $options: "i" },
+    })
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage);
-    return site;
+    return sites;
   }
 
   async deleteSiteBySiteId(siteId) {
@@ -57,7 +69,6 @@ export class SiteModel {
     const userId = JSON.stringify(site[0].userId._id).replace(/["]/g, "");
     const user = await userModel.deleteSiteById(userId, siteId);
     const deletedSite = await Site.findOneAndDelete(filter);
-    console.log(filter);
     return deletedSite;
     // //solve 1:
     // const site = await Site.find({ _id: id });

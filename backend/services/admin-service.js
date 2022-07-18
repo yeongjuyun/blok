@@ -14,10 +14,10 @@ class AdminService {
     return [totalCount, users];
   }
 
-  async getSitesByPagenation(page, perPage, searchQuery) {
+  async getSitesByPagenation(page, perPage, searchKey, searchValue) {
     const [totalCount, sites] = await Promise.all([
-      this.siteModel.countTotalSites(searchQuery),
-      this.siteModel.pagenation(page, perPage, searchQuery),
+      siteModel.countTotalSites(searchKey, searchValue),
+      siteModel.pagenation(page, perPage, searchKey, searchValue),
     ]);
     return [totalCount, sites];
   }

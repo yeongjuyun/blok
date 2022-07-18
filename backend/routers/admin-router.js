@@ -8,7 +8,7 @@ adminRouter.get("/user", adminController.getUsersInfoByPagenation);
 adminRouter.get("/user/:userId", adminController.getUserInfo);
 
 adminRouter.get("/site", adminController.getSitesByPagenation);
-adminRouter.get("/site/:siteId", adminController.getSiteInfo);
+adminRouter.delete("/site/:siteId", adminController.deleteSite);
 
 adminRouter.patch(
   "/user/:userId",

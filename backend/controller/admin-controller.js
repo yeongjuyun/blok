@@ -37,10 +37,10 @@ const adminController = {
     res.status(200).json({ page, perPage, totalPage, totalCount, sites });
   }),
 
-  getSiteInfo: asyncHandler(async (req, res) => {
+  deleteSite: asyncHandler(async (req, res) => {
     const siteId = req.params.siteId;
-    const site = await siteService.getSites(siteId);
-    res.status(200).json(site);
+    const sites = await siteService.deleteSiteBySiteId(siteId);
+    res.status(200).json(sites);
   }),
 
   editUserInfo: asyncHandler(async (req, res) => {
