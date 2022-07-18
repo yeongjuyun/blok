@@ -1,12 +1,13 @@
-import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import BlockItem from './BlockItem';
-import * as icons from '../../../icons';
-import * as blockIcons from '../../../icons/blockCreation';
-import config from '../../Blocks/blockTemplates.json';
-import { Site, BlockTemplate } from '../../Blocks/blockValidator';
-import { RootState } from '../../../reducers';
-import { addBlock } from '../../../reducers/SiteReducer';
+import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+import BlockItem from "./BlockItem";
+import * as icons from "../../../icons";
+import * as blockIcons from "../../../icons/blockCreation";
+import config from "../../Blocks/blockTemplates.json";
+import { Site, BlockTemplate } from "../../Blocks/blockValidator";
+import { RootState } from "../../../reducers";
+import { addBlock } from "../../../reducers/SiteReducer";
+import { generateId } from "../../../reducers/IdGeneratorReducer";
 
 const Background = styled.div`
   width: 100vw;
@@ -120,21 +121,24 @@ const isBlockExist = (site: Site, blockToCheck: BlockTemplate): boolean => {
 export default function AddModal(props: ModalProps) {
   const dispatch = useDispatch();
   const site = useSelector((state: RootState) => state.site);
+  const newId = useSelector((state: RootState) => state.idGenerator.id);
+
   const closeModal = () => {
     dispatch({
-      type: 'ADD/MODAL_OFF',
+      type: "ADD/MODAL_OFF",
     });
   };
   const addBlockHandler = (blockTemplate: BlockTemplate) => {
     //2. 블록추가
     const result = validate(site, blockTemplate);
+    dispatch(generateId());
     if (!result) {
       //이미 있는 블록이면 불가 경고창 띄우기(모달에 띄우는 로직 추가)
       alert(`최대 1개까지만 추가가능한 블록입니다.`);
     } else {
       //추가 가능한 블록이면 추가하기
       const newBlock = {
-        id: 1,
+        id: newId,
         template: blockTemplate?.template,
         data: blockTemplate?.defaultData,
       };
@@ -144,7 +148,7 @@ export default function AddModal(props: ModalProps) {
 
       //3.모달창 닫기
       dispatch({
-        type: 'ADD/MODAL_OFF',
+        type: "ADD/MODAL_OFF",
       });
     }
   };
