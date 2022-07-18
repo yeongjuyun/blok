@@ -142,9 +142,8 @@ export default function AddModal(props: ModalProps) {
         template: blockTemplate?.template,
         data: blockTemplate?.defaultData,
       };
-      const order = blockTemplate.creationData.order;
       //사이트 추가
-      dispatch(addBlock({ order: order, block: newBlock }));
+      dispatch(addBlock(newBlock));
 
       //3.모달창 닫기
       dispatch({
