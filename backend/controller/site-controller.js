@@ -21,24 +21,38 @@ const siteController = {
       colorset,
       blocks,
     });
-    return res.status(201).json(newSite);
+    return res.ok(200, newSite);
   }),
+
   getSiteInfo: asyncHandler(async (req, res) => {
-    const siteIdentifier = req.params.siteIdentifier;
-    const site = await siteService.getSiteInfo(siteIdentifier);
-    res.status(200).json(site);
+    // if (is.emptyObject(req.body)) {
+    //   throw new BadRequestError(
+    //     "headers의 Content-Type을 application/json으로 설정해주세요"
+    //   );
+    // }
+    const siteId = req.params.siteId;
+    const site = await siteService.getSiteInfo(siteId);
+    return res.ok(200, site);
   }),
-  getSitesInfo: asyncHandler(async (req, res) => {
-    const sites = await siteService.getSitesInfo();
-    res.status(200).json(sites);
-  }),
+
   getUserSites: asyncHandler(async (req, res) => {
+    // if (is.emptyObject(req.body)) {
+    //   throw new BadRequestError(
+    //     "headers의 Content-Type을 application/json으로 설정해주세요"
+    //   );
+    // }
     const userId = req.params.userId;
     const sites = await siteService.getSites(userId);
-    res.status(200).json(sites);
+    return res.ok(200, sites);
   }),
+
   updateSite: asyncHandler(async (req, res) => {
-    const siteIdentifier = parseInt(req.params.siteIdentifier);
+    if (is.emptyObject(req.body)) {
+      throw new BadRequestError(
+        "headers의 Content-Type을 application/json으로 설정해주세요"
+      );
+    }
+    const siteId = req.params.siteId;
     const name = req.body.name;
     const domain = req.body.domain;
     const theme = req.body.theme;
@@ -54,16 +68,19 @@ const siteController = {
       ...(colorset && { colorset }),
       ...(blocks && { blocks }),
     };
-    const updatedSiteInfo = await siteService.updateSite(
-      siteIdentifier,
-      toUpdate
-    );
-    res.status(200).json(updatedSiteInfo);
+    const updatedSiteInfo = await siteService.updateSite(siteId, toUpdate);
+    return res.ok(200, updatedSiteInfo);
   }),
-  deleteSiteUsingObjId: asyncHandler(async (req, res) => {
-    const siteObjId = req.params.siteObjId;
-    const deletedSite = await siteService.deleteSiteByObjectId(siteObjId);
-    res.status(200).json(deletedSite);
+
+  deleteSite: asyncHandler(async (req, res) => {
+    // if (is.emptyObject(req.body)) {
+    //   throw new BadRequestError(
+    //     "headers의 Content-Type을 application/json으로 설정해주세요"
+    //   );
+    // }
+    const siteId = req.params.siteId;
+    const deletedSite = await siteService.deleteSiteBySiteId(siteId);
+    return res.ok(200, deletedSite);
   }),
 };
 

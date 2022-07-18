@@ -1,10 +1,9 @@
 import { Strategy } from "passport-google-oauth20";
 import { authService } from "../../services";
 import { userJWTObjectMaker } from "../../utils";
-import { AUTH_ENUM } from "./";
-import dotenv from "dotenv";
+import { AUTH_ENUM } from "../";
+import "dotenv/config";
 
-dotenv.config();
 const config = {
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,

@@ -16,7 +16,7 @@ const authController = {
   },
   // passport google oauth strategy
   googleOauth: (req, res) => {
-    res.okWithSetToken(201, req.user);
+    res.okWithSetToken(201);
   },
 };
 

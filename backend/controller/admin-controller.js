@@ -6,12 +6,12 @@ const adminController = {
   getUsersInfoByPagenation: asyncHandler(async (req, res) => {
     const page = Number(req.query.page || 1);
     const perPage = Number(req.query.perPage || 10);
-    const { serachKey, serachValue } = req.query;
-    const searchQuery = { [serachKey]: serachValue };
+    const { searchKey, searchValue } = req.query;
     const [totalCount, users] = await adminService.getUsersInfoByPagenation(
       page,
       perPage,
-      searchQuery
+      searchKey,
+      searchValue
     );
     const totalPage = Math.ceil(totalCount / perPage);
     res.ok(200, { page, perPage, totalPage, totalCount, users });
@@ -26,18 +26,18 @@ const adminController = {
   getSitesByPagenation: asyncHandler(async (req, res) => {
     const page = Number(req.query.page || 1);
     const perPage = Number(req.query.perPage || 10);
-    const { serachKey, serachValue } = req.query;
-    const searchQuery = { [serachKey]: serachValue };
+    const { searchKey, searchValue } = req.query;
     const [totalCount, sites] = await adminService.getSitesByPagenation(
       page,
       perPage,
-      searchQuery
+      searchKey,
+      searchValue
     );
     const totalPage = Math.ceil(totalCount / perPage);
     res.ok(200, { page, perPage, totalPage, totalCount, sites });
   }),
 
-  getSiteInfo: asyncHandler(async (req, res) => {
+  deleteSite: asyncHandler(async (req, res) => {
     const siteId = req.params.siteId;
     const site = await siteService.getSites(siteId);
     res.ok(200, site);
