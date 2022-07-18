@@ -7,6 +7,12 @@ const Width100 = styled.div`
   margin-top: 28px;
 `;
 
+const Width90 = styled.div`
+  width: 90%;
+  margin-top: 28px;
+  margin: 28px 1% 0 1%;
+`;
+
 const DisplayNone = styled.div`
   display: none;
 `;
@@ -121,6 +127,40 @@ export const TextInput = forwardRef<HTMLInputElement, Inputprops>(
   }
 );
 
+export const TextInputWidth90 = forwardRef<HTMLInputElement, Inputprops>(
+  (props: Inputprops, ref) => {
+    return (
+      <Width90>
+        {props.title ? (
+          <Label required={props.required}>
+            {props.title}
+            <Required>*</Required>
+          </Label>
+        ) : (
+          <DisplayNone />
+        )}
+        <Input
+          placeholder={
+            props.placeholder
+              ? props.placeholder
+              : '안에 들어갈 내용을 입력하세요'
+          }
+          value={props.value && props.value}
+          onChange={props.onChange}
+          key={props.key}
+          ref={ref}
+          defaultValue={props.defaultValue}
+        />
+        {props.guideline ? (
+          <Guideline>{props.guideline}</Guideline>
+        ) : (
+          <DisplayNone />
+        )}
+      </Width90>
+    );
+  }
+);
+
 export const SelectBox = styled(ReactSelect)`
   width: 100%;
 `;
@@ -174,6 +214,58 @@ export const CustomSelect = (props: any) => {
         <DisplayNone />
       )}
     </Width100>
+  );
+};
+
+export const CustomSelectWidth90 = (props: any) => {
+  const customStyles = useMemo(
+    () => ({
+      option: (provided: any, state: any) => ({
+        ...provided,
+        width: '100%',
+        color: state.data.color,
+        opacity: 0.8,
+        padding: 20,
+      }),
+      control: (provided: any) => ({
+        ...provided,
+        border: '1px solid #ececec',
+        height: 48,
+        width: '100%',
+      }),
+      singleValue: (provided: any, state: any) => ({
+        ...provided,
+        color: state.data.color,
+        width: '100%',
+      }),
+    }),
+    []
+  );
+  return (
+    <Width90>
+      {props.title ? (
+        <Label required={props.required}>
+          {props.title}
+          <Required>*</Required>
+        </Label>
+      ) : (
+        <DisplayNone />
+      )}
+      <SelectBox
+        placeholder={props.placeholder}
+        value={props.value}
+        styles={customStyles}
+        options={props.options}
+        onChange={props.onChange}
+        key={props.key}
+        defaultValue={props.defaultValue}
+      />
+      {props.guideline ? (
+        <Guideline>{props.guideline}</Guideline>
+      ) : (
+        <DisplayNone />
+      )}
+    </Width90>
   );
 };
 

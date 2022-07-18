@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { MainTitle } from './MyInfo';
 import { useAppDispatch } from '../../reducers';
-import { ImgInput, TextInput, CustomSelect } from '../Input';
+import { ImgInput, TextInputWidth90, CustomSelectWidth90 } from '../Input';
 
 const Container = styled.div`
   margin-bottom: 10px;
@@ -41,10 +41,6 @@ const UserUpdate = styled.div`
 
     .inputBox {
       display: flex;
-
-      .inputBox:not(:first-child) {
-        padding-left: 10px;
-      }
     }
   }
 
@@ -190,7 +186,7 @@ export default function User() {
           <form onSubmit={handleSubmit}>
             <div className="userUpdateInputBox">
               <div className="inputBox">
-                <TextInput
+                <TextInputWidth90
                   key={data.userName}
                   title="이름"
                   ref={userName}
@@ -199,7 +195,7 @@ export default function User() {
                   placeholder="이름을 입력해주세요"
                 />
                 {userNameError && '2글자 이상 입력해주세요'}
-                <TextInput
+                <TextInputWidth90
                   key={`${data.userName}/password`}
                   title="비밀번호"
                   ref={password}
@@ -210,13 +206,13 @@ export default function User() {
                 {passwordError && '비밀번호는 6자리 이상이여야 합니다.'}
               </div>
               <div className="inputBox">
-                <CustomSelect
+                <CustomSelectWidth90
                   title="분류"
                   options={roleOptions}
                   onChange={(e: any) => setRole(() => e)}
                   value={role}
                 />
-                <CustomSelect
+                <CustomSelectWidth90
                   title="플랜"
                   options={planOptions}
                   onChange={(e: any) => setPlan(() => e)}
