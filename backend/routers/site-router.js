@@ -6,8 +6,6 @@ siteRouter.post("/", siteController.addsite);
 
 siteRouter.get("/:siteId", siteController.getSiteInfo);
 
-siteRouter.get("/", siteController.getSitesInfo);
-
 siteRouter.get("/user/:userId", siteController.getUserSites);
 
 siteRouter.patch("/:siteId", siteController.updateSite);

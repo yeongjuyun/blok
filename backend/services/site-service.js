@@ -33,11 +33,7 @@ class SiteService {
     }
     return site;
   }
-  // 전체 사이트 정보 조회
-  async getSitesInfo() {
-    const sites = await this.siteModel.findAllSite();
-    return sites;
-  }
+
   // 유저가 가진 사이트 목록을 받음.
   async getSites(userId) {
     const sites = await this.siteModel.findAllUserSites(userId);

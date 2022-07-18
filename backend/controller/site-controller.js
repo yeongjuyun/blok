@@ -35,16 +35,6 @@ const siteController = {
     return res.ok(200, site);
   }),
 
-  getSitesInfo: asyncHandler(async (req, res) => {
-    if (is.emptyObject(req.body)) {
-      throw new BadRequestError(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
-      );
-    }
-    const sites = await siteService.getSitesInfo();
-    return res.ok(200, sites);
-  }),
-
   getUserSites: asyncHandler(async (req, res) => {
     if (is.emptyObject(req.body)) {
       throw new BadRequestError(
