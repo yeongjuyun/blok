@@ -24,32 +24,31 @@ const SettingBlockContainer = styled.div`
 `;
 
 const selectBlocks = (state: RootState) => state.site.blocks;
+const blockDataUpdateChecker = (
+  prevBlocks: BlockType[],
+  currentBlocks: BlockType[]
+) => {
+  //1. length 가 다름 -> 추가,삭제 등으로 블록 수가 변경되었을 때
+  if (prevBlocks.length !== currentBlocks.length) {
+    return false;
+  }
+  //2. id,style -> 블록 순서(id)나 style 이 변경되었을 때
+  for (let i = 0; i < prevBlocks.length; i++) {
+    if (prevBlocks[i].id !== currentBlocks[i].id) {
+      return false;
+    }
+    if (prevBlocks[0].template.theme !== currentBlocks[0].template.theme) {
+      return false;
+    }
+    if (prevBlocks[0].template.layout !== currentBlocks[0].template.layout) {
+      return false;
+    }
+  }
+  return true;
+};
 
 export default function Block() {
-  const blocksWithoutData = useSelector(
-    selectBlocks,
-    (prevBlocks, currentBlocks) => {
-      //1. length 가 다름 -> 추가,삭제 등으로 블록 수가 변경되었을 때
-      if (prevBlocks.length !== currentBlocks.length) {
-        return false;
-      }
-      //2. id,style -> 블록 순서(id)나 style 이 변경되었을 때
-      for (let i = 0; i < prevBlocks.length; i++) {
-        if (prevBlocks[i].id !== currentBlocks[i].id) {
-          return false;
-        }
-        if (prevBlocks[0].template.theme !== currentBlocks[0].template.theme) {
-          return false;
-        }
-        if (
-          prevBlocks[0].template.layout !== currentBlocks[0].template.layout
-        ) {
-          return false;
-        }
-      }
-      return true;
-    }
-  );
+  const blocksWithoutData = useSelector(selectBlocks, blockDataUpdateChecker);
   const dispatch = useDispatch();
 
   const addBlockHandler = () => {
