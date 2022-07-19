@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Site, Block, BlockData } from '../components/Blocks/blockValidator';
+import { RootState } from './store';
 
 //Initial Value
 const initialState: Site = {
@@ -247,12 +248,29 @@ export const siteSlice = createSlice({
   },
 });
 
-/*
-리듀서 예시
-const changeInputData = (blockId: number, field: string, value: any) => {};
-changeInputData(12, 'header', 'Good People Deserves Food');
-*/
-
+export const selectBlocks = (state: RootState) => state.site.blocks;
+export const blockDataUpdateChecker = (
+  prevBlocks: Block[],
+  currentBlocks: Block[]
+) => {
+  //1. length 가 다름 -> 추가,삭제 등으로 블록 수가 변경되었을 때
+  if (prevBlocks.length !== currentBlocks.length) {
+    return false;
+  }
+  //2. id,style -> 블록 순서(id)나 style 이 변경되었을 때
+  for (let i = 0; i < prevBlocks.length; i++) {
+    if (prevBlocks[i].id !== currentBlocks[i].id) {
+      return false;
+    }
+    if (prevBlocks[i].template.theme !== currentBlocks[i].template.theme) {
+      return false;
+    }
+    if (prevBlocks[i].template.layout !== currentBlocks[i].template.layout) {
+      return false;
+    }
+  }
+  return true;
+};
 //Action creators are generated for each case reducer function
 export const { addBlock, removeBlock, updateBlockData } = siteSlice.actions;
 export default siteSlice.reducer;
