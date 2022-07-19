@@ -54,7 +54,7 @@ interface Inputprops {
   placeholder?: string;
   onChange?: any;
   guideline?: string;
-  value?: string;
+  value?: string | null;
   ref?: React.RefObject<HTMLInputElement>;
 }
 
@@ -101,7 +101,7 @@ export function TextInput(props: Inputprops) {
             ? props.placeholder
             : '안에 들어갈 내용을 입력하세요'
         }
-        value={props.value && props.value}
+        value={props.value ? props.value : ''}
         onChange={props.onChange}
         ref={props.ref}
       />

@@ -1,30 +1,36 @@
 import { useState } from 'react';
 import { TextInput, CustomSelect, ImgInput } from '../../../Input';
 import { Card } from '../../../Card/Card';
-import { NavBlock } from '../../blockValidator';
 import { getStyleOptions } from '../../blockHelper';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { updateBlockData } from '../../../../reducers/SiteReducer';
+import type { RootState } from '../../../../reducers/store';
 
 interface Feature {
-  block: NavBlock;
+  blockId: number;
   onRemove: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
-function Feature({ block, onRemove }: Feature) {
+function Feature({ blockId, onRemove }: Feature) {
   const {
     id,
     template: { blockType },
     data,
-  } = block;
+  } = useSelector((state: RootState) => {
+    const block = state.site.blocks.find((block) => block.id === blockId);
+    if (typeof block === 'undefined') {
+      throw new Error('Feature: No block found');
+    }
+    return block;
+  });
   let styleOptions = getStyleOptions(blockType);
   const dispatch = useDispatch();
 
   //Input
   const [navTitle, setNavTitle] = useState(data.navTitle);
   const [style, setStyle] = useState({
-    label: data.style.value,
-    value: data.style.value,
+    label: data.style?.value,
+    value: data.style?.value,
   });
   const [caption, setCaption] = useState(data.caption?.value);
   const [header, setHeader] = useState(data.header?.value);

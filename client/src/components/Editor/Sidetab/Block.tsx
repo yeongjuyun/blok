@@ -53,7 +53,7 @@ export default function Block() {
       <SettingBlockContainer key={id}>
         <Suspense fallback={<CardLoading />}>
           <SettingBlock
-            block={block}
+            blockId={id}
             onRemove={() => removeBlockHandler(index)}
           ></SettingBlock>
         </Suspense>
