@@ -1,6 +1,23 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../reducers';
 
 export default function SiteBlock(props: any) {
+  const { blockId } = props;
+  const {
+    template: { blockType },
+    data,
+  } = useSelector((state: RootState) => {
+    const block = state.site.blocks.find((block) => block.id === blockId);
+    if (typeof block === 'undefined') {
+      throw new Error('No block found');
+    }
+    if (typeof block.data === 'undefined') {
+      throw new Error('No block Data found');
+    }
+    return block;
+  });
+
   const Container = styled.div`
     background-color: ${props.colorSet.background};
     font-family: ${props.font};
@@ -85,29 +102,25 @@ export default function SiteBlock(props: any) {
   `;
 
   function buttonHandler() {
-    window.location.href = props.data.button.url ? props.data.button.url : "";
+    window.location.href = data.button?.url ? data.button.url : '';
   }
 
   return (
     <>
-      <Container id={props.data.navTitle}>
-        {props.data.image.src && (
+      <Container id={data.navTitle !== null ? data.navTitle : ''}>
+        {data.image?.src && (
           <Img
-            src={props.data.image.src}
-            alt={props.data.image.alt ? props.data.image.alt : ""}
+            src={data.image.src}
+            alt={data.image.alt ? data.image.alt : ''}
           />
         )}
         <TextContainer>
-          {props.data.caption.value && (
-            <Caption>{props.data.caption.value}</Caption>
-          )}
-          {props.data.header.value && (
-            <Header>{props.data.header.value}</Header>
-          )}
-          {props.data.body.value && <Body>{props.data.body.value}</Body>}
-          {props.data.button.title && (
+          {data.caption?.value && <Caption>{data.caption.value}</Caption>}
+          {data.header?.value && <Header>{data.header.value}</Header>}
+          {data.body?.value && <Body>{data.body.value}</Body>}
+          {data.button?.title && (
             <Button color={props.colorSet.primary} onClick={buttonHandler}>
-              {props.data.button.title}
+              {data.button.title}
             </Button>
           )}
         </TextContainer>
