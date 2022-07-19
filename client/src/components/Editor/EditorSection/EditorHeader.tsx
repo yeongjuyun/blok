@@ -63,25 +63,23 @@ const SaveButton = styled.button`
 
 export default function PublishBar() {
   const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.site);
-  const [domain] = useState(data.domain);
-  let msg = "";
+  const data = useSelector((state: RootState) => state.site.domain);
+  const [domain, setDomain] = useState(data);
+  let msg = '';
   const { siteId } = useParams();
-
-  console.log(data)
 
   async function saveHandler() {
     try {
       await axios.patch(`/api/site/${siteId}`, data);
       // await axios.patch(`http://localhost:3001/api/site/62d3c3597c3dd17b1efca050`, data);
-      msg = "페이지가 저장되었습니다.";
+      msg = '페이지가 저장되었습니다.';
       dispatch({
         type: 'alertOn',
         payload: { msg: msg, link: domain, time: 2000 },
       });
     } catch (e) {
-      console.log(e)
-      dispatch({ type: "alertOn", payload: { msg: "잠시 후 시도해주세요." } });
+      console.log(e);
+      dispatch({ type: 'alertOn', payload: { msg: '잠시 후 시도해주세요.' } });
     }
   }
 
@@ -89,12 +87,16 @@ export default function PublishBar() {
     try {
       await navigator.clipboard.writeText(domain);
       msg = '클립보드에 복사되었습니다.';
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      console.log(e);
       msg = '잠시 후 시도해주세요.';
     }
     dispatch({ type: 'alertOn', payload: { msg: msg } });
   }
+
+  useEffect(() => {
+    setDomain(data);
+  }, [data]);
 
   return (
     <Container>

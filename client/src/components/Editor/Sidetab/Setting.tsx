@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../../Button';
@@ -25,7 +25,12 @@ export default function Setting() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const data = useSelector((state: RootState) => state.site);
+  
   const [domain, setDomain] = useState(data.domain);
+
+  useEffect(() => {
+    dispatch({type: 'site/updateDomain', payload: domain});
+  }, [domain]);
 
   const { siteId } = useParams();
 
@@ -58,8 +63,7 @@ export default function Setting() {
     <>
       <Container>
         <TextInput
-          title="도메인"
-          required={true}
+          title='도메인'
           value={domain}
           guideline="도메인을 변경할 수 있습니다."
           onChange={(e: any) => setDomain(e.target.value)}
