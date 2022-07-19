@@ -38,7 +38,6 @@ const blockDataUpdateChecker = (
   prevBlocks: BlockType[],
   currentBlocks: BlockType[]
 ) => {
-  return true;
   //1. length 가 다름 -> 추가,삭제 등으로 블록 수가 변경되었을 때
   if (prevBlocks.length !== currentBlocks.length) {
     return false;
