@@ -25,19 +25,9 @@ const SettingBlockContainer = styled.div`
 
 const selectBlocks = (state: RootState) => state.site.blocks;
 
-const selectBlocksWithoutData = createSelector(
-  selectBlocks,
-  (blocks: BlockType[]) => {
-    return blocks.map((block) => {
-      const blocksWithoutData = { id: block.id, template: block.template };
-      return blocksWithoutData;
-    });
-  }
-);
-
 export default function Block() {
   const blocksWithoutData = useSelector(
-    selectBlocksWithoutData,
+    selectBlocks,
     (prevBlocks, currentBlocks) => {
       //1. length 가 다름 -> 추가,삭제 등으로 블록 수가 변경되었을 때
       if (prevBlocks.length !== currentBlocks.length) {
@@ -60,7 +50,6 @@ export default function Block() {
       return true;
     }
   );
-  console.log(blocksWithoutData);
   const dispatch = useDispatch();
 
   const addBlockHandler = () => {
