@@ -9,6 +9,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { useAppSelector, useAppDispatch } from '../../reducers';
 
+// const PxtoVw = (px: number) => {
+//   return (100 * px) / 780 + 'vw';
+// };
+// const RemtoVw = (px: number, rem: number) => {
+//   return (rem * 100 * px) / 780 + 'vw';
+// };
+
 const ModalBackground = styled.div`
   position: fixed;
   left: 0;
@@ -34,7 +41,7 @@ const ModalContainer = styled.div`
   background-color: #fff;
   padding: 3rem;
   z-index: 5;
-  overflow: scroll;
+  overflow: hidden;
 
   .closeButton {
     position: absolute;
@@ -42,9 +49,9 @@ const ModalContainer = styled.div`
     right: 5px;
   }
 
-  @media screen and (max-width: 780px) {
-    max-height: 100%;
-    overflow-y: auto;
+  @media screen and (max-width: 930px) {
+    // max-height: 100%;
+    // overflow-y: auto;
   }
 `;
 
@@ -52,7 +59,7 @@ const TemplateListContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: cneter;
+  justify-content: center;
   align-items: center;
   margin: 1rem;
 
@@ -61,9 +68,12 @@ const TemplateListContainer = styled.div`
   }
 
   @media screen and (max-width: 780px) {
+    max-height: 100%;
+    overflow-y: hidden;
     flex-direction: column;
   }
 `;
+
 const TemplateCardCustom = styled(TemplateCard)`
   :hover {
     background-color: lightgray;
