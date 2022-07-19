@@ -50,12 +50,6 @@ function Preview() {
           }SiteBlock`
         )
     );
-
-    console.log(
-      `../../Blocks/${theme}/${blockType}/${
-        layout ? layout + '/' : ''
-      }SiteBlock`
-    );
     return (
       <SiteBlock
         key={id}

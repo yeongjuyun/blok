@@ -243,7 +243,6 @@ export const siteSlice = createSlice({
       const { blockId, field, value } = action.payload;
       let index = state.blocks.findIndex((block) => block.id === blockId);
       state.blocks[index].data[field] = value;
-      console.log(blockId, field, value);
     },
   },
 });
