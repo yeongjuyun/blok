@@ -13,7 +13,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: flex-start;
 `;
-
 const SettingBlockList = styled.div`
   width: 100%;
   margin-top: 16px;
@@ -23,8 +22,9 @@ const SettingBlockContainer = styled.div`
 `;
 
 export default function Block() {
+  const blocks = useSelector((state: RootState) => state.site.blocks);
   const dispatch = useDispatch();
-  const { blocks } = useSelector((state: RootState) => state.site);
+
   const addBlockHandler = () => {
     dispatch({
       type: 'ADD/MODAL_ON',
@@ -34,10 +34,12 @@ export default function Block() {
     dispatch(removeBlock(index));
   };
 
-  //Set settinbBlocks dynamically.
+  //Set settigBlocks dynamically.
   const settingBlocks = blocks.map((block, index) => {
-    const { template, id } = block;
-    const { theme, blockType, layout } = template;
+    const {
+      id,
+      template: { theme, blockType, layout },
+    } = block;
 
     const SettingBlock = React.lazy(
       () =>

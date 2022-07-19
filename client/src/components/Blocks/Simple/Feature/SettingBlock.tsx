@@ -3,7 +3,6 @@ import { TextInput, CustomSelect, ImgInput } from '../../../Input';
 import { Card } from '../../../Card/Card';
 import { NavBlock } from '../../blockValidator';
 import { getStyleOptions } from '../../blockHelper';
-
 import { useDispatch } from 'react-redux';
 import { updateBlockData } from '../../../../reducers/SiteReducer';
 
@@ -13,10 +12,13 @@ interface Feature {
 }
 
 function Feature({ block, onRemove }: Feature) {
-  const dispatch = useDispatch();
-  const data = block.data;
-  const blockType = block.template.blockType;
+  const {
+    id,
+    template: { blockType },
+    data,
+  } = block;
   let styleOptions = getStyleOptions(blockType);
+  const dispatch = useDispatch();
 
   //Input
   const [navTitle, setNavTitle] = useState(data.navTitle);
@@ -32,7 +34,8 @@ function Feature({ block, onRemove }: Feature) {
   const [body, setBody] = useState(data.body?.value);
   const [buttonTitle, setButtonTitle] = useState(data.button?.title);
   const [buttonUrl, setButtonUrl] = useState(data.button?.url);
-  const [image, setImageUrl] = useState(data.button?.url);
+  const [imageSrc, setImageSrc] = useState(data.image?.src);
+  const [imageAlt, setImageAlt] = useState(data.image?.alt);
 
   return (
     <>
@@ -44,7 +47,7 @@ function Feature({ block, onRemove }: Feature) {
             setNavTitle(e.target.value);
             dispatch(
               updateBlockData({
-                blockId: block.id,
+                blockId: id,
                 field: 'navTitle',
                 value: e.target.value,
               })
@@ -62,7 +65,7 @@ function Feature({ block, onRemove }: Feature) {
           onChange={(e: any) => {
             setStyle(e);
             dispatch(
-              updateBlockData({ blockId: block.id, field: 'style', value: e })
+              updateBlockData({ blockId: id, field: 'style', value: e })
             );
           }}
           value={style}
@@ -70,8 +73,8 @@ function Feature({ block, onRemove }: Feature) {
         <ImgInput
           title="이미지"
           guideline="사이트에 표시할 이미지를 업로드하세요"
-          src={data.image?.src}
-          alt={data.image?.alt}
+          src={imageSrc}
+          alt={imageAlt}
         />
         <TextInput
           title="캡션"
@@ -82,7 +85,7 @@ function Feature({ block, onRemove }: Feature) {
             setCaption(e.target.value);
             dispatch(
               updateBlockData({
-                blockId: block.id,
+                blockId: id,
                 field: 'caption',
                 value: { value: e.target.value },
               })
@@ -98,7 +101,7 @@ function Feature({ block, onRemove }: Feature) {
             setHeader(e.target.value);
             dispatch(
               updateBlockData({
-                blockId: block.id,
+                blockId: id,
                 field: 'header',
                 value: { value: e.target.value },
               })
@@ -114,7 +117,7 @@ function Feature({ block, onRemove }: Feature) {
             setHeaderHighlight(e.target.value);
             dispatch(
               updateBlockData({
-                blockId: block.id,
+                blockId: id,
                 field: 'headerHighlight',
                 value: { value: e.target.value },
               })
@@ -130,7 +133,7 @@ function Feature({ block, onRemove }: Feature) {
             setBody(e.target.value);
             dispatch(
               updateBlockData({
-                blockId: block.id,
+                blockId: id,
                 field: 'body',
                 value: { value: e.target.value },
               })
@@ -146,7 +149,7 @@ function Feature({ block, onRemove }: Feature) {
             setButtonTitle(e.target.value);
             dispatch(
               updateBlockData({
-                blockId: block.id,
+                blockId: id,
                 field: 'button',
                 value: { title: e.target.value, url: buttonUrl },
               })
@@ -162,7 +165,7 @@ function Feature({ block, onRemove }: Feature) {
             setButtonUrl(e.target.value);
             dispatch(
               updateBlockData({
-                blockId: block.id,
+                blockId: id,
                 field: 'button',
                 value: { title: buttonTitle, url: e.target.value },
               })
