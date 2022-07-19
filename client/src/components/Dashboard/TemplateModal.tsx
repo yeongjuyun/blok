@@ -33,19 +33,22 @@ const ModalContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   width: 660px;
   border-radius: 10px;
   background-color: #fff;
   padding: 3rem;
   z-index: 5;
   overflow: hidden;
-  transition: 0.2s ease-out;
 
   .closeButton {
     position: absolute;
     top: 5px;
     right: 5px;
+    transition: opacity 0.3s;
+    &:hover {
+      opacity: 0.7;
+      cursor: pointer;
+    }
   }
   @media screen and (max-width: 780px) {
     position: absolute;
@@ -220,9 +223,7 @@ export default function TemplateModal() {
     }
   }, [directTemplate]);
 
-  console.log(data);
   const onSelectHandler = (title: string) => {
-    console.log(title);
     setTemplate(title);
   };
 

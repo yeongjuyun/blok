@@ -59,8 +59,6 @@ const SearchInput = styled.input`
 
 const TableContainer = styled.div`
   width: 1200px;
-  // min-height: 500px;
-  // height: 600px;
   height: 580px;
   overflow: scroll;
   background-color: #fff;
@@ -76,8 +74,6 @@ const Table = styled.table`
   margin-bottom: 1rem;
   width: 1100px;
   word-wrap: break-word;
-  // table-layout: fixed;
-  // white-space: nowrap;
 
   caption {
     color: black;

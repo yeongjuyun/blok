@@ -1,8 +1,6 @@
 type ConfirmDataType = {
   title: string;
   msg: string;
-  action: string;
-  props?: string;
   onConfirm?: (props?: string) => void;
 };
 
@@ -12,7 +10,6 @@ type ModalState = {
   isConfirmModal: boolean;
   isAddModal: boolean;
   confirmData?: ConfirmDataType;
-  confirmState: boolean;
 };
 
 const initialState: ModalState = {
@@ -23,10 +20,7 @@ const initialState: ModalState = {
   confirmData: {
     title: '',
     msg: '',
-    action: '',
-    props: '',
   },
-  confirmState: false,
 };
 
 // 액션 타입 정의

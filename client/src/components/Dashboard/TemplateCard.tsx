@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from 'styled-components';
 
 type ColorProps = {
   color1: string;
@@ -7,7 +7,7 @@ type ColorProps = {
   color4: string;
 };
 
-const ContentBox = styled.div`
+const ContentBox = styled.div<ColorProps>`
   position: relative;
   width: 280px;
   height: 165px;
@@ -27,26 +27,30 @@ const ContentBox = styled.div`
     box-sizing: border-box;
   }
 
-  .circle1 {
-    top: 30px;
-    left: 30px;
-    background-color: ${(props: ColorProps) => props.color1};
-  }
-  .circle2 {
-    top: 30px;
-    left: 53px;
-    background-color: ${(props: ColorProps) => props.color2};
-  }
-  .circle3 {
-    top: 30px;
-    left: 76px;
-    background-color: ${(props: ColorProps) => props.color3};
-  }
-  .circle4 {
-    top: 30px;
-    left: 99px;
-    background-color: ${(props: ColorProps) => props.color4};
-  }
+  ${({ color1, color2, color3, color4 }) => {
+    return css`
+      .circle1 {
+        top: 30px;
+        left: 30px;
+        background-color: ${color1};
+      }
+      .circle2 {
+        top: 30px;
+        left: 53px;
+        background-color: ${color2};
+      }
+      .circle3 {
+        top: 30px;
+        left: 76px;
+        background-color: ${color3};
+      }
+      .circle4 {
+        top: 30px;
+        left: 99px;
+        background-color: ${color4};
+      }
+    `;
+  }}
 
   .contentTitle {
     position: absolute;
@@ -74,20 +78,18 @@ type TemplateCardProps = {
   color3: string;
   color4: string;
   className: string;
-  //   style: React.CSSProperties | undefined;
-  onClick: (() => void) | undefined;
+  onClick?: () => void;
 };
 
 TemplateCard.defaultProps = {
-  title: "black",
-  description: "small",
-  color1: "#5754de",
-  color2: "#aba9ff",
-  color3: "#ffffff",
-  color4: "#e2e2e2",
-  className: "",
-  //   style: undefined,
-  onClick: () => null,
+  title: 'black',
+  description: 'small',
+  color1: '#5754de',
+  color2: '#aba9ff',
+  color3: '#ffffff',
+  color4: '#e2e2e2',
+  className: '',
+  onClick: () => {},
 };
 
 export function TemplateCard({
@@ -98,7 +100,6 @@ export function TemplateCard({
   color3,
   color4,
   className,
-  //   style,
   onClick,
 }: TemplateCardProps) {
   return (
@@ -108,7 +109,6 @@ export function TemplateCard({
       color2={color2}
       color3={color3}
       color4={color4}
-      //   style={style}
       onClick={onClick}
     >
       <div className="circle circle1"></div>
