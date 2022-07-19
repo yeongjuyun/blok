@@ -103,9 +103,6 @@ export default function User() {
   const [role, setRole] = useState({ value: data.role, label: data.role });
   const [plan, setPlan] = useState({ value: data.plan, label: data.plan });
 
-  console.log(3333, data.role, data.plan);
-  console.log(role, plan);
-
   const roleOptions = [
     { value: 'basic', label: 'basic' },
     { value: 'admin', label: 'admin' },
@@ -118,7 +115,7 @@ export default function User() {
   // userId로 userData 불러오기
   const getUserInfo = async () => {
     const res = await axios.get(`/api/admin/user/${userId}`);
-    await setData(() => res.data);
+    setData(() => res.data);
     setRole({ value: res.data.role, label: res.data.role });
     setPlan({ value: res.data.plan, label: res.data.plan });
   };

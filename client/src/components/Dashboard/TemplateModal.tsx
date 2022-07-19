@@ -9,12 +9,21 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { useAppSelector, useAppDispatch } from '../../reducers';
 
+<<<<<<< HEAD
 const PxtoVw = (px: number) => {
   return (100 * px) / 780 + 'vw';
 };
 const RemVw = (px: number, rem: number) => {
   return (rem * 100 * px) / 780 + 'vw';
 };
+=======
+// const PxtoVw = (px: number) => {
+//   return (100 * px) / 780 + 'vw';
+// };
+// const RemtoVw = (px: number, rem: number) => {
+//   return (rem * 100 * px) / 780 + 'vw';
+// };
+>>>>>>> front
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -32,29 +41,40 @@ const ModalContainer = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-  top: 50%;
   transform: translate(-50%, -50%);
-
   width: 660px;
-  height: 520px;
   border-radius: 10px;
   background-color: #fff;
   padding: 3rem;
   z-index: 5;
-  overflow: scroll;
+  overflow: hidden;
 
   .closeButton {
     position: absolute;
     top: 5px;
     right: 5px;
+    transition: opacity 0.3s;
+    &:hover {
+      opacity: 0.7;
+      cursor: pointer;
+    }
   }
-
   @media screen and (max-width: 780px) {
+<<<<<<< HEAD
     max-height: 100%;
     overflow-y: auto;
     width: PxtoVw(660);
     height: PxtoVw(520);
     border-radius: PxtoVw(10);
+=======
+    position: absolute;
+    width: 460px;
+    height: 90%;
+    padding: 30px 0;
+    flex-direction: column;
+    overflow-y: scroll;
+    box-sizing: border-box;
+>>>>>>> front
   }
 `;
 
@@ -62,18 +82,19 @@ const TemplateListContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: cneter;
+  justify-content: center;
   align-items: center;
-  margin: 1rem;
 
   .selectedCard {
     border: 5px solid #dfdfdf;
+    box-sizing: border-box;
   }
 
   @media screen and (max-width: 780px) {
     flex-direction: column;
   }
 `;
+
 const TemplateCardCustom = styled(TemplateCard)`
   :hover {
     background-color: lightgray;
@@ -169,7 +190,7 @@ const ButtonPadiing = styled(Button)`
   margin: auto;
 `;
 type SiteData = {
-  userId: string | undefined;
+  userId: string;
   name: string;
   domain: string;
   theme: string;
@@ -219,9 +240,7 @@ export default function TemplateModal() {
     }
   }, [directTemplate]);
 
-  console.log(data);
   const onSelectHandler = (title: string) => {
-    console.log(title);
     setTemplate(title);
   };
 

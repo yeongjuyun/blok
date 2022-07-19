@@ -63,15 +63,14 @@ const SaveButton = styled.button`
 
 export default function PublishBar() {
   const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.site.domain);
-  const [domain, setDomain] = useState(data);
+  const data = useSelector((state: RootState) => state.site);
+  const [domain, setDomain] = useState(data.domain);
   let msg = '';
   const { siteId } = useParams();
 
   async function saveHandler() {
     try {
       await axios.patch(`/api/site/${siteId}`, data);
-      // await axios.patch(`http://localhost:3001/api/site/62d3c3597c3dd17b1efca050`, data);
       msg = '페이지가 저장되었습니다.';
       dispatch({
         type: 'alertOn',
@@ -95,7 +94,7 @@ export default function PublishBar() {
   }
 
   useEffect(() => {
-    setDomain(data);
+    setDomain(data.domain);
   }, [data]);
 
   return (
