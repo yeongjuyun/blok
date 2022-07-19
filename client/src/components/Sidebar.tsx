@@ -80,7 +80,7 @@ const MenuContainer = styled.div`
     right: 0;
     left: auto;
     width: 100%;
-    height: 290px;
+    height: fit-content;
     border-radius: 0;
     text-align: center;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;

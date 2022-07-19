@@ -1,7 +1,8 @@
-import styled from "styled-components";
-import { CgClose } from "react-icons/cg";
-import { useDispatch, useSelector } from "react-redux";
-import Button from "./Button";
+import styled from 'styled-components';
+import { CgClose } from 'react-icons/cg';
+
+import Button from './Button';
+import { useAppDispatch } from '../reducers';
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -55,31 +56,31 @@ interface IMyProps {
 }
 
 export default function ConfirmModal(props: IMyProps) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const closeModalHandler = () => {
-    dispatch({ type: "CONFIRM/MODAL_OFF" });
+    dispatch({ type: 'CONFIRM/MODAL_OFF' });
   };
 
   const conFirmHandler = () => {
-    dispatch({ type: "CONFIRM/CONFIRM_YES" });
+    dispatch({ type: 'CONFIRM/CONFIRM_YES' });
   };
 
   return (
     <>
       <ModalContainer>
-        <div className="confirmHeader">
-          <div className="confirmTitle">{props.confirmData.title}</div>
-          <div className="closeButton" onClick={closeModalHandler}>
-            <CgClose size={23} color={"gray"} />
+        <div className='confirmHeader'>
+          <div className='confirmTitle'>{props.confirmData.title}</div>
+          <div className='closeButton' onClick={closeModalHandler}>
+            <CgClose size={23} color={'gray'} />
           </div>
         </div>
-        <div className="confirmText">{props.confirmData.msg}</div>
-        <div className="buttonContainer">
-          <Button size="medium" color="gray" onClick={closeModalHandler}>
+        <div className='confirmText'>{props.confirmData.msg}</div>
+        <div className='buttonContainer'>
+          <Button size='medium' color='gray' onClick={closeModalHandler}>
             취소
           </Button>
-          <Button size="medium" onClick={conFirmHandler}>
+          <Button size='medium' onClick={conFirmHandler}>
             확인
           </Button>
         </div>
