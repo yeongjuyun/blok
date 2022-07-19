@@ -32,26 +32,29 @@ const ModalContainer = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-  top: 50%;
   transform: translate(-50%, -50%);
 
   width: 660px;
-  height: 520px;
   border-radius: 10px;
   background-color: #fff;
   padding: 3rem;
   z-index: 5;
   overflow: hidden;
+  transition: 0.2s ease-out;
 
   .closeButton {
     position: absolute;
     top: 5px;
     right: 5px;
   }
-
-  @media screen and (max-width: 930px) {
-    // max-height: 100%;
-    // overflow-y: auto;
+  @media screen and (max-width: 780px) {
+    position: absolute;
+    width: 460px;
+    height: 90%;
+    padding: 30px 0;
+    flex-direction: column;
+    overflow-y: scroll;
+    box-sizing: border-box;
   }
 `;
 
@@ -61,15 +64,13 @@ const TemplateListContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
 
   .selectedCard {
     border: 5px solid #dfdfdf;
+    box-sizing: border-box;
   }
 
   @media screen and (max-width: 780px) {
-    max-height: 100%;
-    overflow-y: hidden;
     flex-direction: column;
   }
 `;
