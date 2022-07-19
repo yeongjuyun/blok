@@ -72,6 +72,14 @@ export class SiteModel {
   async pagenation(page, perPage, searchKey, searchValue) {
     const sites = await Site.aggregate([
       {
+        $lookup: {
+          from: "users",
+          localField: "userId",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
         $match: {
           [searchKey]: { $regex: searchValue, $options: "i" },
         },
@@ -86,7 +94,7 @@ export class SiteModel {
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage);
-    await Site.populate(sites, { path: "userId" });
+    // await Site.populate(sites, { path: "userId" });
     return sites;
   }
 
