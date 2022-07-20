@@ -11,14 +11,14 @@ const siteController = {
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
-    const { userId, name, domain, theme, font, colorset, blocks } = req.body;
+    const { userId, name, domain, theme, font, colorSet, blocks } = req.body;
     const newSite = await siteService.addSite({
       userId,
       name,
       domain,
       theme,
       font,
-      colorset,
+      colorSet,
       blocks,
     });
     return res.ok(200, newSite);
