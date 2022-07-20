@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from '../../Button';
 import { useSelector, useDispatch } from 'react-redux';
 import CardLoading from '../../Card/CardLoading';
@@ -8,6 +8,7 @@ import {
   selectBlocks,
   blockDataUpdateChecker,
   moveBlock,
+  pinnedBlockTypes,
 } from '../../../reducers/SiteReducer';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -22,8 +23,13 @@ const SettingBlockList = styled.div`
   width: 100%;
   margin-top: 16px;
 `;
-const SettingBlockContainer = styled.div`
+const SettingBlockContainer = styled.div<{ isPinned: boolean }>`
   margin: 8px 0;
+  ${(props) =>
+    props.isPinned &&
+    css`
+      cursor: not-allowed;
+    `}
 `;
 
 export default function Block() {
@@ -38,10 +44,8 @@ export default function Block() {
   const removeBlockHandler = (index: number) => {
     dispatch(removeBlock(index));
   };
-
-  const draggableChecker = (blockType: string) => {
-    const notDraggable = ['Nav', 'Footer', 'Hero'];
-    return notDraggable.includes(blockType);
+  const isPinnedBlock = (blockType: string) => {
+    return pinnedBlockTypes.includes(blockType);
   };
 
   //Set settigBlocks dynamically.
@@ -63,7 +67,7 @@ export default function Block() {
         key={id.toString()}
         draggableId={id.toString()}
         index={index}
-        isDragDisabled={draggableChecker(blockType)}
+        isDragDisabled={isPinnedBlock(blockType)}
       >
         {(provided) => {
           return (
@@ -71,6 +75,7 @@ export default function Block() {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
+              isPinned={isPinnedBlock(blockType)}
             >
               <Suspense fallback={<CardLoading />}>
                 <SettingBlock

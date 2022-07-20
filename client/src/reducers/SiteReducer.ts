@@ -193,12 +193,14 @@ const initialStateTest: Site = {
     },
   ],
 };
+
+export const pinnedBlockTypes = ['Nav', 'Footer', 'Hero'];
+
 function moveItem(blocks: any, sourceIndex: number, destinationIndex: number) {
-  const notAllowedBlockType = ['Nav', 'Footer', 'Hero'];
   const blockToMove = blocks[sourceIndex];
   const destinationBlockType = blocks[destinationIndex].template.blockType;
 
-  if (notAllowedBlockType.includes(destinationBlockType)) {
+  if (pinnedBlockTypes.includes(destinationBlockType)) {
     return -1;
   } else {
     blocks.splice(sourceIndex, 1);
