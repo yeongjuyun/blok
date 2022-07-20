@@ -50,12 +50,11 @@ export default function Editor() {
   );
 
   // siteId 별 데이터 불러오기
-  const { siteId } = useParams();
-  const [data, setData] = useState({
+  const defaultSiteData = {
     id: null,
     name: '',
     domain: '',
-    theme: '',
+    theme: 'Simple',
     font: '',
     colorSet: {
       primary: '',
@@ -64,7 +63,9 @@ export default function Editor() {
       background: '',
     },
     blocks: [],
-  });
+  };
+  const { siteId } = useParams();
+  const [data, setData] = useState(defaultSiteData);
 
   useEffect(() => {
     const getSiteInfo = async () => {

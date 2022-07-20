@@ -7,7 +7,7 @@ const initialState: Site = {
   id: null,
   name: '',
   domain: '',
-  theme: '',
+  theme: 'Simple',
   font: '',
   colorSet: {
     primary: '',
