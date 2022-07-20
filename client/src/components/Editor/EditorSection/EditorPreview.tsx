@@ -4,7 +4,10 @@ import { useSelector } from 'react-redux';
 import type { RootState } from '../../../reducers/store';
 import PageLoading from './PageLoading';
 import ErrorBoundary from '../ErrorBoundary';
-import Site from '../../Blocks/Simple/Feature/RightImg/SiteBlock';
+import {
+  selectBlocks,
+  blockDataUpdateChecker,
+} from '../../../reducers/SiteReducer';
 
 const NAV_WIDTH = 72;
 const SIDETAB_WIDTH = 440;
@@ -29,19 +32,17 @@ const SiteBlockList = styled.div<{ blockCount: number }>`
     `}
 `;
 const SiteBlockContainer = styled.div``;
-const TestMessage = styled.div`
-  padding: 24px;
-`;
 
-export default Preview;
-function Preview() {
-  const { blocks, colorSet, font } = useSelector(
-    (state: RootState) => state.site
-  );
+export default function EditorPreview() {
+  const colorSet = useSelector((state: RootState) => state.site.colorSet);
+  const font = useSelector((state: RootState) => state.site.font);
+  const blocks = useSelector(selectBlocks, blockDataUpdateChecker);
+
   const siteBlocks = blocks.map((block) => {
-    const { template, data, id } = block;
-    const { theme, blockType, layout } = template;
-
+    const {
+      template: { theme, blockType, layout },
+      id,
+    } = block;
     const SiteBlock = React.lazy(
       () =>
         import(
@@ -50,16 +51,10 @@ function Preview() {
           }SiteBlock`
         )
     );
-
-    console.log(
-      `../../Blocks/${theme}/${blockType}/${
-        layout ? layout + '/' : ''
-      }SiteBlock`
-    );
     return (
       <SiteBlock
         key={id}
-        data={data}
+        blockId={id}
         colorSet={colorSet}
         font={font}
       ></SiteBlock>

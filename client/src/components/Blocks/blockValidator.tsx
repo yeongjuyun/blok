@@ -9,7 +9,7 @@ export interface Site {
   blocks: Block[] | [];
 }
 
-interface ColorSet {
+export interface ColorSet {
   primary: string;
   secondary: string;
   background: string;
@@ -23,12 +23,22 @@ export interface Block {
   template: TemplateData;
   data: BlockData;
 }
+
 export interface TemplateData {
   theme: string;
   blockType: string;
   layout: string | null;
 }
+
+export type BlockDataOptions =
+  | string
+  | TextData
+  | ImageData
+  | StyleData
+  | ButtonData;
+
 export interface BlockData {
+  [key: string]: any;
   navTitle: string | null;
   style?: StyleData;
   logoImage?: ImageData;
@@ -36,6 +46,7 @@ export interface BlockData {
   image?: ImageData;
   caption?: TextData;
   header?: TextData;
+  headerHighlight?: TextData;
   body?: TextData;
   button?: ButtonData;
   rightText?: TextData;
@@ -52,8 +63,8 @@ export interface TextData {
   value: string;
 }
 export interface ButtonData {
-  title: string;
-  url: string;
+  title?: string;
+  url?: string;
 }
 
 //Block Preset
@@ -70,6 +81,10 @@ export interface CreationData {
 }
 
 //By BlockType
+
+export interface NavBlock extends Omit<Block, 'data'> {
+  data: FeatureData;
+}
 export interface NavData {
   navTitle?: null;
   style: StyleData;
@@ -77,14 +92,23 @@ export interface NavData {
   logoText?: TextData;
   button?: ButtonData;
 }
+
+export interface HeroBlock extends Omit<Block, 'template'> {
+  template: HeroData;
+}
 export interface HeroData {
   navTitle: string;
   style: StyleData;
   image?: ImageData;
   caption?: TextData;
   header?: TextData;
+  headerHighlight?: TextData;
   body?: TextData;
   button?: ButtonData;
+}
+
+export interface FeatureBlock extends Omit<Block, 'template'> {
+  template: FeatureData;
 }
 export interface FeatureData {
   navTitle: string;
@@ -92,12 +116,26 @@ export interface FeatureData {
   image?: ImageData;
   caption?: TextData;
   header?: TextData;
+  headerHighlight?: TextData;
   body?: TextData;
   button?: ButtonData;
+}
+
+export interface FooterBlock extends Omit<Block, 'template'> {
+  template: FooterData;
 }
 export interface FooterData {
   navTitle: string;
   style: StyleData;
   leftText?: TextData;
   rightText?: TextData;
+}
+
+//SettingBlock & SiteBlock Props
+export interface SettingBlockProps {
+  blockId: number;
+  onRemove: (event: React.MouseEvent<HTMLElement>) => void;
+}
+export interface SiteBlockProps {
+  blockId: number;
 }

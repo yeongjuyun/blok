@@ -10,6 +10,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../reducers/hooks';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { testSite } from '../reducers/SiteReducer';
 
 const DesktopContainer = styled.div`
   width: 100vw;
@@ -50,6 +51,8 @@ export default function Editor() {
   );
 
   // siteId 별 데이터 불러오기
+
+  /*
   const defaultSiteData = {
     id: null,
     name: '',
@@ -65,7 +68,7 @@ export default function Editor() {
     blocks: [],
   };
   const { siteId } = useParams();
-  const [data, setData] = useState(defaultSiteData);
+  const [data, setData] = useState(testSite);
 
   useEffect(() => {
     const getSiteInfo = async () => {
@@ -93,6 +96,7 @@ export default function Editor() {
 
   const siteData = useAppSelector((state) => state.site);
   console.log(3333, siteData);
+  */
 
   return (
     <>

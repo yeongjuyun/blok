@@ -28,7 +28,10 @@ export default class ErrorBoundary extends React.Component {
       // You can render any custom fallback UI
       return (
         <ErrorMessage>
-          <h1>Something went wrong.</h1>
+          <h3>
+            [사이트 블록 파일 오류]: 방금 선택하신 블록의 SiteBlock 파일에
+            문제가 없는지 확인해주세요
+          </h3>
         </ErrorMessage>
       );
     }

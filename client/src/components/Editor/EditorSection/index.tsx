@@ -11,8 +11,8 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default Article;
-function Article() {
+export default EditorSection;
+function EditorSection() {
   return (
     <Container>
       <EditorHeader />

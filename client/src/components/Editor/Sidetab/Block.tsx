@@ -1,10 +1,16 @@
 import React, { Suspense } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from '../../Button';
 import { useSelector, useDispatch } from 'react-redux';
-import type { RootState } from '../../../reducers/store';
 import CardLoading from '../../Card/CardLoading';
-import { removeBlock } from '../../../reducers/SiteReducer';
+import {
+  removeBlock,
+  selectBlocks,
+  blockDataUpdateChecker,
+  moveBlock,
+  pinnedBlockTypes,
+} from '../../../reducers/SiteReducer';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -13,18 +19,22 @@ const Container = styled.div`
   justify-content: center;
   align-items: flex-start;
 `;
-
 const SettingBlockList = styled.div`
   width: 100%;
   margin-top: 16px;
 `;
-const SettingBlockContainer = styled.div`
+const SettingBlockContainer = styled.div<{ isPinned: boolean }>`
   margin: 8px 0;
+  ${(props) =>
+    props.isPinned &&
+    css`
+      cursor: not-allowed;
+    `}
 `;
 
 export default function Block() {
+  const blocks = useSelector(selectBlocks, blockDataUpdateChecker);
   const dispatch = useDispatch();
-  const { blocks } = useSelector((state: RootState) => state.site);
 
   const addBlockHandler = () => {
     dispatch({
@@ -34,12 +44,16 @@ export default function Block() {
   const removeBlockHandler = (index: number) => {
     dispatch(removeBlock(index));
   };
+  const isPinnedBlock = (blockType: string) => {
+    return pinnedBlockTypes.includes(blockType);
+  };
 
-  //Set settinbBlocks dynamically.
+  //Set settigBlocks dynamically.
   const settingBlocks = blocks.map((block, index) => {
-    const { template, data, id } = block;
-    const { theme, blockType, layout } = template;
-
+    const {
+      id,
+      template: { theme, blockType, layout },
+    } = block;
     const SettingBlock = React.lazy(
       () =>
         import(
@@ -49,16 +63,40 @@ export default function Block() {
         )
     );
     return (
-      <SettingBlockContainer key={id}>
-        <Suspense fallback={<CardLoading />}>
-          <SettingBlock
-            data={data}
-            onRemove={() => removeBlockHandler(index)}
-          ></SettingBlock>
-        </Suspense>
-      </SettingBlockContainer>
+      <Draggable
+        key={id.toString()}
+        draggableId={id.toString()}
+        index={index}
+        isDragDisabled={isPinnedBlock(blockType)}
+      >
+        {(provided) => {
+          return (
+            <SettingBlockContainer
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              ref={provided.innerRef}
+              isPinned={isPinnedBlock(blockType)}
+            >
+              <Suspense fallback={<CardLoading />}>
+                <SettingBlock
+                  blockId={id}
+                  onRemove={() => removeBlockHandler(index)}
+                ></SettingBlock>
+              </Suspense>
+            </SettingBlockContainer>
+          );
+        }}
+      </Draggable>
     );
   });
+  const handleOnDragEnd = (result: any) => {
+    dispatch(
+      moveBlock({
+        sourceIndex: result.source.index,
+        destinationIndex: result.destination.index,
+      })
+    );
+  };
   return (
     <Container>
       <Button
@@ -70,7 +108,18 @@ export default function Block() {
       >
         블록 추가하기
       </Button>
-      <SettingBlockList>{settingBlocks}</SettingBlockList>
+      <SettingBlockList>
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="settingBlocks">
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {settingBlocks}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </SettingBlockList>
     </Container>
   );
 }

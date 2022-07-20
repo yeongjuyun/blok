@@ -54,6 +54,8 @@ interface ImgInputprops {
   defaultValue?: string;
   ref?: React.RefObject<HTMLInputElement>;
   key?: string;
+  src?: string;
+  alt?: string;
 }
 interface Inputprops {
   title?: string;
@@ -61,7 +63,7 @@ interface Inputprops {
   placeholder?: string;
   onChange?: any;
   guideline?: string;
-  value?: string;
+  value?: string | null;
   ref?: React.RefObject<HTMLInputElement>;
   defaultValue?: string;
   key?: string;
@@ -111,7 +113,7 @@ export const TextInput = forwardRef<HTMLInputElement, Inputprops>(
               ? props.placeholder
               : '안에 들어갈 내용을 입력하세요'
           }
-          value={props.value && props.value}
+          value={props.value ? props.value : ''}
           onChange={props.onChange}
           key={props.key}
           ref={ref}
@@ -145,7 +147,7 @@ export const TextInputWidth90 = forwardRef<HTMLInputElement, Inputprops>(
               ? props.placeholder
               : '안에 들어갈 내용을 입력하세요'
           }
-          value={props.value && props.value}
+          value={props.value ? props.value : ''}
           onChange={props.onChange}
           key={props.key}
           ref={ref}
@@ -163,6 +165,9 @@ export const TextInputWidth90 = forwardRef<HTMLInputElement, Inputprops>(
 
 export const SelectBox = styled(ReactSelect)`
   width: 100%;
+  & :hover {
+    cursor: pointer;
+  }
 `;
 
 export const CustomSelect = (props: any) => {
