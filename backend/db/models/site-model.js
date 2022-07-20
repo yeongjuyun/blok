@@ -16,12 +16,12 @@ export class SiteModel {
 
   // async findBySiteId(siteId) {
   //   const site = await Site.findOne({ _id: siteId });
-  //   return site;
+  //   return site;""
   // }
-  // async findBySiteDomain(siteDomain) {
-  //   const site = await Site.findOne({ domain: siteDomain });
-  //   return site;
-  // }
+  async findBySiteDomain(siteDomain) {
+    const site = await Site.findOne({ domain: siteDomain });
+    return site;
+  }
   async findBySiteId(siteId) {
     const site = await Site.aggregate([
       {
@@ -70,24 +70,66 @@ export class SiteModel {
   }
 
   async pagination(page, perPage, searchKey, searchValue) {
-    const sites = await Site.aggregate([
+    let pipeline = [
       {
-        $match: {
-          [searchKey]: { $regex: searchValue, $options: "i" },
+        $lookup: {
+          from: "users",
+          localField: "userId",
+          foreignField: "_id",
+          as: "user",
         },
       },
-      {
-        $addFields: {
-          siteId: "$_id",
+    ];
+    if (searchKey && searchValue) {
+      pipeline.push(
+        {
+          $match: {
+            [searchKey]: { $regex: searchValue, $options: "i" },
+          },
         },
-      },
-      { $project: { _id: 0 } },
-    ])
+        {
+          $addFields: {
+            siteId: "$_id",
+          },
+        },
+        { $project: { _id: 0 } }
+      );
+    }
+    const sites = await Site.aggregate(pipeline)
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage);
     return sites;
   }
+
+  // async pagination(page, perPage, searchKey, searchValue) {
+  //   const sites = await Site.aggregate([
+  //     {
+  //       $lookup: {
+  //         from: "users",
+  //         localField: "userId",
+  //         foreignField: "_id",
+  //         as: "user",
+  //       },
+  //     },
+  //     {
+  //       $match: {
+  //         [searchKey]: { $regex: searchValue, $options: "i" },
+  //       },
+  //     },
+  //     {
+  //       $addFields: {
+  //         siteId: "$_id",
+  //       },
+  //     },
+  //     { $project: { _id: 0 } },
+  //   ])
+  //     .sort({ createdAt: -1 })
+  //     .skip(perPage * (page - 1))
+  //     .limit(perPage);
+  //   // await Site.populate(sites, { path: "userId" });
+  //   return sites;
+  // }
 
   async deleteSiteBySiteId(siteId) {
     const filter = { _id: siteId };

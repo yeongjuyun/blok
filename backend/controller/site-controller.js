@@ -11,36 +11,26 @@ const siteController = {
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
-    const { userId, name, domain, theme, font, colorset, blocks } = req.body;
+    const { userId, name, domain, theme, font, colorSet, blocks } = req.body;
     const newSite = await siteService.addSite({
       userId,
       name,
       domain,
       theme,
       font,
-      colorset,
+      colorSet,
       blocks,
     });
     return res.ok(200, newSite);
   }),
 
   getSiteInfo: asyncHandler(async (req, res) => {
-    // if (is.emptyObject(req.body)) {
-    //   throw new BadRequestError(
-    //     "headers의 Content-Type을 application/json으로 설정해주세요"
-    //   );
-    // }
     const siteId = req.params.siteId;
     const site = await siteService.getSiteInfo(siteId);
     return res.ok(200, site);
   }),
 
   getUserSites: asyncHandler(async (req, res) => {
-    // if (is.emptyObject(req.body)) {
-    //   throw new BadRequestError(
-    //     "headers의 Content-Type을 application/json으로 설정해주세요"
-    //   );
-    // }
     const userId = req.params.userId;
     const sites = await siteService.getSites(userId);
     return res.ok(200, sites);
@@ -57,7 +47,7 @@ const siteController = {
     const domain = req.body.domain;
     const theme = req.body.theme;
     const font = req.body.font;
-    const colorset = req.body.colorset;
+    const colorSet = req.body.colorSet;
     const blocks = req.body.blocks;
 
     const toUpdate = {
@@ -65,7 +55,7 @@ const siteController = {
       ...(domain && { domain }),
       ...(theme && { theme }),
       ...(font && { font }),
-      ...(colorset && { colorset }),
+      ...(colorSet && { colorSet }),
       ...(blocks && { blocks }),
     };
     const updatedSiteInfo = await siteService.updateSite(siteId, toUpdate);
@@ -73,11 +63,6 @@ const siteController = {
   }),
 
   deleteSite: asyncHandler(async (req, res) => {
-    // if (is.emptyObject(req.body)) {
-    //   throw new BadRequestError(
-    //     "headers의 Content-Type을 application/json으로 설정해주세요"
-    //   );
-    // }
     const siteId = req.params.siteId;
     const deletedSite = await siteService.deleteSiteBySiteId(siteId);
     return res.ok(200, deletedSite);
