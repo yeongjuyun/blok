@@ -7,7 +7,9 @@ import {
   removeBlock,
   selectBlocks,
   blockDataUpdateChecker,
+  moveBlock,
 } from '../../../reducers/SiteReducer';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -37,13 +39,17 @@ export default function Block() {
     dispatch(removeBlock(index));
   };
 
+  const draggableChecker = (blockType: string) => {
+    const notDraggable = ['Nav', 'Footer', 'Hero'];
+    return notDraggable.includes(blockType);
+  };
+
   //Set settigBlocks dynamically.
   const settingBlocks = blocks.map((block, index) => {
     const {
       id,
       template: { theme, blockType, layout },
     } = block;
-
     const SettingBlock = React.lazy(
       () =>
         import(
@@ -53,16 +59,40 @@ export default function Block() {
         )
     );
     return (
-      <SettingBlockContainer key={id}>
-        <Suspense fallback={<CardLoading />}>
-          <SettingBlock
-            blockId={id}
-            onRemove={() => removeBlockHandler(index)}
-          ></SettingBlock>
-        </Suspense>
-      </SettingBlockContainer>
+      <Draggable
+        key={id.toString()}
+        draggableId={id.toString()}
+        index={index}
+        isDragDisabled={draggableChecker(blockType)}
+      >
+        {(provided) => {
+          return (
+            <SettingBlockContainer
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              ref={provided.innerRef}
+            >
+              <Suspense fallback={<CardLoading />}>
+                <SettingBlock
+                  blockId={id}
+                  onRemove={() => removeBlockHandler(index)}
+                ></SettingBlock>
+              </Suspense>
+            </SettingBlockContainer>
+          );
+        }}
+      </Draggable>
     );
   });
+  const handleOnDragEnd = (result: any) => {
+    console.log(result);
+    dispatch(
+      moveBlock({
+        sourceIndex: result.source.index,
+        destinationIndex: result.destination.index,
+      })
+    );
+  };
   return (
     <Container>
       <Button
@@ -74,7 +104,18 @@ export default function Block() {
       >
         블록 추가하기
       </Button>
-      <SettingBlockList>{settingBlocks}</SettingBlockList>
+      <SettingBlockList>
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="settingBlocks">
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {settingBlocks}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </SettingBlockList>
     </Container>
   );
 }

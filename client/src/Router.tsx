@@ -1,18 +1,18 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./pages/Login";
-import Account from "./pages/Account";
-import Dashboard from "./pages/Dashboard";
-import ManageSite from "./pages/ManageSite";
-import ManageUser from "./pages/ManageUser";
-import UserInfo from "./pages/UserInfo";
-import About from "./components/About";
-import NotFound from "./components/NotFound";
-import FindPassword from "./pages/FindPassword";
-import Signin from "./pages/Signin";
-import Editor from "./pages/Editor";
-import ChangePassword from "./pages/ChangePassword";
-import Main from "./pages/Main";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './pages/Login';
+import Account from './pages/Account';
+import Dashboard from './pages/Dashboard';
+import ManageSite from './pages/ManageSite';
+import ManageUser from './pages/ManageUser';
+import UserInfo from './pages/UserInfo';
+import About from './components/About';
+import NotFound from './components/NotFound';
+import FindPassword from './pages/FindPassword';
+import Signin from './pages/Signin';
+import Editor from './pages/Editor';
+import ChangePassword from './pages/ChangePassword';
+import Main from './pages/Main';
 
 export function AppRouter() {
   return (

@@ -193,6 +193,11 @@ const initialStateTest: Site = {
     },
   ],
 };
+function moveItem(blocks: any, sourceIndex: number, destinationIndex: number) {
+  let element = blocks[sourceIndex];
+  blocks.splice(sourceIndex, 1);
+  blocks.splice(destinationIndex, 0, element);
+}
 
 //Create Slice
 export const siteSlice = createSlice({
@@ -245,6 +250,19 @@ export const siteSlice = createSlice({
       let index = state.blocks.findIndex((block) => block.id === blockId);
       state.blocks[index].data[field] = value;
     },
+    moveBlock: (
+      state,
+      action: PayloadAction<{
+        sourceIndex: number;
+        destinationIndex: number;
+      }>
+    ) => {
+      moveItem(
+        state.blocks,
+        action.payload.sourceIndex,
+        action.payload.destinationIndex
+      );
+    },
   },
 });
 
@@ -272,5 +290,6 @@ export const blockDataUpdateChecker = (
   return true;
 };
 //Action creators are generated for each case reducer function
-export const { addBlock, removeBlock, updateBlockData } = siteSlice.actions;
+export const { addBlock, removeBlock, updateBlockData, moveBlock } =
+  siteSlice.actions;
 export default siteSlice.reducer;
