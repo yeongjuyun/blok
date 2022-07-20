@@ -194,20 +194,6 @@ const initialStateTest: Site = {
   ],
 };
 
-export const pinnedBlockTypes = ['Nav', 'Footer', 'Hero'];
-
-function moveItem(blocks: any, sourceIndex: number, destinationIndex: number) {
-  const blockToMove = blocks[sourceIndex];
-  const destinationBlockType = blocks[destinationIndex].template.blockType;
-
-  if (pinnedBlockTypes.includes(destinationBlockType)) {
-    return -1;
-  } else {
-    blocks.splice(sourceIndex, 1);
-    blocks.splice(destinationIndex, 0, blockToMove);
-  }
-}
-
 //Create Slice
 export const siteSlice = createSlice({
   name: 'site',
@@ -275,6 +261,7 @@ export const siteSlice = createSlice({
   },
 });
 
+//Helpers & Values
 export const selectBlocks = (state: RootState) => state.site.blocks;
 export const blockDataUpdateChecker = (
   prevBlocks: Block[],
@@ -298,6 +285,19 @@ export const blockDataUpdateChecker = (
   }
   return true;
 };
+export const pinnedBlockTypes = ['Nav', 'Footer', 'Hero'];
+function moveItem(blocks: any, sourceIndex: number, destinationIndex: number) {
+  const blockToMove = blocks[sourceIndex];
+  const destinationBlockType = blocks[destinationIndex].template.blockType;
+
+  if (pinnedBlockTypes.includes(destinationBlockType)) {
+    return -1;
+  } else {
+    blocks.splice(sourceIndex, 1);
+    blocks.splice(destinationIndex, 0, blockToMove);
+  }
+}
+
 //Action creators are generated for each case reducer function
 export const { addBlock, removeBlock, updateBlockData, moveBlock } =
   siteSlice.actions;
