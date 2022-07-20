@@ -71,9 +71,9 @@ export default function ConfirmModal(props: IMyProps) {
   return (
     <>
       <ModalContainer>
-        <div className="confirmHeader">
-          <div className="confirmTitle">{props.confirmData.title}</div>
-          <div className="closeButton" onClick={closeModalHandler}>
+        <div className='confirmHeader'>
+          <div className='confirmTitle'>{props.confirmData.title}</div>
+          <div className='closeButton' onClick={closeModalHandler}>
             <CgClose size={23} color={'gray'} />
           </div>
         </div>
