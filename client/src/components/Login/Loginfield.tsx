@@ -12,14 +12,24 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 49px 72px 25px 70px;
+  padding: 48px 39px 51px 39px;
   box-sizing: border-box;
-  width: 645px;
-  border: 1px solid black;
+  width: 478px;
+
+  /* shadow-m */
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12);
+  border-radius: 7px;
   @media screen and (max-width: 1120px) {
     width: 100%;
-    padding: 39px 62px 15px 60px;
+    padding: 39px 62px 30px 60px;
   }
+`;
+const Atagbox = styled.div`
+  margin-top: 24px;
+  margin-bottom: 8px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 function Loginfield() {
@@ -67,11 +77,6 @@ function Loginfield() {
   const handleClick = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    console.log(
-      `email: ${emailRef.current!.value}, password: ${
-        passwordRef.current!.value
-      } `
-    );
     const data = {
       email: emailRef.current!.value,
       password: passwordRef.current!.value,
@@ -103,7 +108,6 @@ function Loginfield() {
       const timer = setInterval(async () => {
         const res = await axios.get('/api/user/logincheck');
         if (res) {
-          console.log(res);
           new_popup!.close();
           clearInterval(timer);
           nav('/dashboard');
@@ -128,12 +132,11 @@ function Loginfield() {
     async function loginCheck() {
       const res = await axios.get('/api/user/logincheck');
       if (res.data) {
-        console.log(res.data);
         if (res.data.passwordReset) {
           nav('/changepassword');
         }
         console.log('이미 로그인 되어있습니다.');
-        nav('/main');
+        nav('/dashboard');
       }
     }
     loginCheck();
@@ -167,23 +170,23 @@ function Loginfield() {
         placeholder='비밀번호는 6자리 이상이여야합니다.'
         error={pswError}
       />
-
-      <LoginForm.FindPasswordtag onClick={tofindPswClick}>
-        비밀번호 찾기
-      </LoginForm.FindPasswordtag>
+      <Atagbox>
+        <LoginForm.Graytext>
+          처음이신가요?
+          <LoginForm.Atag onClick={toSigninClick}>가입하기</LoginForm.Atag>
+        </LoginForm.Graytext>
+        <LoginForm.FindPasswordtag onClick={tofindPswClick}>
+          비밀번호 찾기
+        </LoginForm.FindPasswordtag>
+      </Atagbox>
 
       <LoginForm.Button onClick={handleClick} disabled={btnactive}>
-        로그인 버튼
+        로그인하기
       </LoginForm.Button>
       <LoginForm.Text>또는</LoginForm.Text>
       <LoginForm.GoogleButton onClick={googleClick}>
-        <img src={imgs.googleloginicon} alt='구글'></img>구글 로그인
+        <img src={imgs.googleloginicon} alt='구글'></img>구글로 로그인 하기
       </LoginForm.GoogleButton>
-
-      <LoginForm.Graytext>
-        처음이신가요?
-        <LoginForm.Atag onClick={toSigninClick}>가입하기</LoginForm.Atag>
-      </LoginForm.Graytext>
     </Container>
   );
 }

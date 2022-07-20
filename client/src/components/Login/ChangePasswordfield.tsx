@@ -8,16 +8,22 @@ const Container = styled.div`
   background-color: #fff;
   border-radius: 10px;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding: 49px 72px 25px 70px;
+  align-items: center;
+  padding: 48px 39px 40px 39px;
   box-sizing: border-box;
-  width: 645px;
-  border: 1px solid black;
+  width: 478px;
+
+  /* shadow-m */
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12);
+  border-radius: 7px;
   @media screen and (max-width: 1120px) {
     width: 100%;
-    padding: 39px 62px 15px 60px;
+    padding: 39px 62px 30px 60px;
   }
+`;
+const Button = styled(LoginForm.Button)`
+  margin: 32px 0;
 `;
 
 function ChangePasswordfield() {
@@ -116,12 +122,16 @@ function ChangePasswordfield() {
 
   useEffect(() => {
     async function loginCheck() {
-      const res = await axios.get('/api/user/logincheck');
-      if (res.data) {
-        console.log(res.data.passwordReset);
-        setUserId(() => res.data.userId);
-      } else {
-        nav('login');
+      try {
+        const res = await axios.get('/api/user/logincheck');
+
+        if (res.data) {
+          setUserId(() => res.data.userId);
+        } else {
+          nav('/login');
+        }
+      } catch (e) {
+        nav('/login');
       }
     }
     loginCheck();
@@ -175,10 +185,10 @@ function ChangePasswordfield() {
         error={newpswcheckError}
       />
 
-      <LoginForm.Button onClick={handleClick} disabled={btnactive}>
+      <Button onClick={handleClick} disabled={btnactive}>
         비밀번호 변경
-      </LoginForm.Button>
-      <LoginForm.Text>또는</LoginForm.Text>
+      </Button>
+
       <LoginForm.Graytext>
         로그인으로 돌아가기
         <LoginForm.Atag onClick={toLoginClick}>로그인하기</LoginForm.Atag>
