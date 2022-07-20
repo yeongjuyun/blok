@@ -47,7 +47,7 @@ const siteController = {
     const domain = req.body.domain;
     const theme = req.body.theme;
     const font = req.body.font;
-    const colorset = req.body.colorset;
+    const colorSet = req.body.colorSet;
     const blocks = req.body.blocks;
 
     const toUpdate = {
@@ -55,7 +55,7 @@ const siteController = {
       ...(domain && { domain }),
       ...(theme && { theme }),
       ...(font && { font }),
-      ...(colorset && { colorset }),
+      ...(colorSet && { colorSet }),
       ...(blocks && { blocks }),
     };
     const updatedSiteInfo = await siteService.updateSite(siteId, toUpdate);
