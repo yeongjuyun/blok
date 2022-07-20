@@ -18,10 +18,10 @@ export class SiteModel {
   //   const site = await Site.findOne({ _id: siteId });
   //   return site;
   // }
-  // async findBySiteDomain(siteDomain) {
-  //   const site = await Site.findOne({ domain: siteDomain });
-  //   return site;
-  // }
+  async findBySiteDomain(siteDomain) {
+    const site = await Site.findOne({ domain: siteDomain });
+    return site;
+  }
   async findBySiteId(siteId) {
     const site = await Site.aggregate([
       {
