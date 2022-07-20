@@ -1,13 +1,7 @@
 import styled from 'styled-components';
 import { CgClose } from 'react-icons/cg';
-<<<<<<< HEAD
-
-import Button from './Button';
-import { useAppDispatch } from '../reducers';
-=======
 import Button from './Button';
 import { useAppSelector, useAppDispatch } from '../reducers';
->>>>>>> front
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -62,38 +56,24 @@ interface IMyProps {
 
 export default function ConfirmModal(props: IMyProps) {
   const dispatch = useAppDispatch();
-<<<<<<< HEAD
-=======
   const onConfirm = useAppSelector(
     (state) => state.modalReducer.confirmData?.onConfirm
   );
->>>>>>> front
 
   const closeModalHandler = () => {
     dispatch({ type: 'CONFIRM/MODAL_OFF' });
   };
 
-<<<<<<< HEAD
-  const conFirmHandler = () => {
-    dispatch({ type: 'CONFIRM/CONFIRM_YES' });
-=======
   const conFirmHandler = (props?: string) => {
     onConfirm?.(props);
->>>>>>> front
   };
 
   return (
     <>
       <ModalContainer>
-<<<<<<< HEAD
-        <div className='confirmHeader'>
-          <div className='confirmTitle'>{props.confirmData.title}</div>
-          <div className='closeButton' onClick={closeModalHandler}>
-=======
         <div className="confirmHeader">
           <div className="confirmTitle">{props.confirmData.title}</div>
           <div className="closeButton" onClick={closeModalHandler}>
->>>>>>> front
             <CgClose size={23} color={'gray'} />
           </div>
         </div>
