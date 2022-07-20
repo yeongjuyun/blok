@@ -169,7 +169,7 @@ export function DashboardInfo() {
       type: 'CONFIRM/MODAL_ON',
       payload: {
         title: '삭제',
-        msg: '정말 삭제하시겠습니까!',
+        msg: '정말 삭제하시겠습니까?',
         onConfirm: deleteSite(props),
       },
     });
