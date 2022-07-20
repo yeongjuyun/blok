@@ -89,7 +89,12 @@ function Loginfield() {
       if (resdata.passwordReset === true) {
         nav('/changepassword');
       }
-      nav('/dashboard');
+      const loginCheckData = await axios.get('/api/user/logincheck');
+      if (loginCheckData.data.role === 'admin') {
+        nav('/account');
+      } else {
+        nav('/dashboard');
+      }
     } catch (e: any) {
       console.log(e.response.data);
       alert(e.response.data.reason);
@@ -101,7 +106,7 @@ function Loginfield() {
   ) => {
     try {
       const new_popup = window.open(
-        'http://localhost:3000/api/auth/google',
+        'http://localhost:5001/api/auth/google',
         '_blank',
         'height=400,width=377,top=100,left=200,scrollbars=yes,resizable=yes'
       );
@@ -131,12 +136,16 @@ function Loginfield() {
   useEffect(() => {
     async function loginCheck() {
       const res = await axios.get('/api/user/logincheck');
-      if (res.data) {
+      if (res.data.userid) {
         if (res.data.passwordReset) {
           nav('/changepassword');
         }
         console.log('이미 로그인 되어있습니다.');
-        nav('/dashboard');
+        if (res.data.role === 'admin') {
+          nav('/account');
+        } else {
+          nav('/dashboard');
+        }
       }
     }
     loginCheck();
