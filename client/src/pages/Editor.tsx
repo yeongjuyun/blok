@@ -9,7 +9,7 @@ import Button from '../components/Button';
 import { Link, useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../reducers/hooks';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const DesktopContainer = styled.div`
   width: 100vw;
@@ -38,9 +38,9 @@ const MobileContainer = styled.div`
 `;
 
 export default function Editor() {
+  const dispatch = useAppDispatch();
   const AlertModalState = useAppSelector((state) => state.alertReducer.state);
   const alertData = useAppSelector((state) => state.alertReducer.alertData);
-
   const ConfirmModalState = useAppSelector(
     (state) => state.modalReducer.isConfirmModal
   );
@@ -51,13 +51,47 @@ export default function Editor() {
 
   // siteId 별 데이터 불러오기
   const { siteId } = useParams();
-  const getSiteInfo = async () => {
-    const res = await axios.get(`/api/site/${siteId}`);
-    console.log('SiteData:', res.data);
-  };
+  const [data, setData] = useState({
+    id: null,
+    name: '',
+    domain: '',
+    theme: '',
+    font: '',
+    colorSet: {
+      primary: '',
+      secondary: '',
+      surface: '',
+      background: '',
+    },
+    blocks: [],
+  });
+
   useEffect(() => {
+    const getSiteInfo = async () => {
+      const res = await axios.get(`/api/site/${siteId}`);
+      console.log('SiteData:', res.data);
+      setData(res.data);
+    };
     getSiteInfo();
   }, []);
+
+  useEffect(() => {
+    dispatch({
+      type: 'site/getSite',
+      payload: {
+        id: null,
+        name: data.name,
+        domain: data.domain,
+        theme: data.theme,
+        font: data.font,
+        colorSet: data.colorSet,
+        blocks: data.blocks,
+      },
+    });
+  }, [data]);
+
+  const siteData = useAppSelector((state) => state.site);
+  console.log(3333, siteData);
 
   return (
     <>
