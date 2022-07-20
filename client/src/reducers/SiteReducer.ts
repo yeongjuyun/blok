@@ -194,9 +194,16 @@ const initialStateTest: Site = {
   ],
 };
 function moveItem(blocks: any, sourceIndex: number, destinationIndex: number) {
-  let element = blocks[sourceIndex];
-  blocks.splice(sourceIndex, 1);
-  blocks.splice(destinationIndex, 0, element);
+  const notAllowedBlockType = ['Nav', 'Footer', 'Hero'];
+  const blockToMove = blocks[sourceIndex];
+  const destinationBlockType = blocks[destinationIndex].template.blockType;
+
+  if (notAllowedBlockType.includes(destinationBlockType)) {
+    return -1;
+  } else {
+    blocks.splice(sourceIndex, 1);
+    blocks.splice(destinationIndex, 0, blockToMove);
+  }
 }
 
 //Create Slice
