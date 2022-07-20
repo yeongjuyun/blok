@@ -6,9 +6,10 @@ import AlertModal from '../components/AlertModal';
 import ConfirmModal from '../components/ConfirmModal';
 import AddModal from '../components/Editor/AddModal/AddModal';
 import Button from '../components/Button';
-import { Link } from 'react-router-dom';
-import type { RootState } from '../reducers/store';
-import { useAppSelector } from '../reducers/hooks';
+import { Link, useParams } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../reducers/hooks';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const DesktopContainer = styled.div`
   width: 100vw;
@@ -43,13 +44,20 @@ export default function Editor() {
   const ConfirmModalState = useAppSelector(
     (state) => state.modalReducer.isConfirmModal
   );
-  const confirmData = useAppSelector(
-    (state) => state.modalReducer.confirmData
+  const confirmData = useAppSelector((state) => state.modalReducer.confirmData);
+  const AddModalState = useAppSelector(
+    (state) => state.modalReducer.isAddModal
   );
 
-  const AddModalState = useAppSelector(
-    (state: RootState) => state.modalReducer.isAddModal
-  );
+  // siteId 별 데이터 불러오기
+  const { siteId } = useParams();
+  const getSiteInfo = async () => {
+    const res = await axios.get(`/api/site/${siteId}`);
+    console.log('SiteData:', res.data);
+  };
+  useEffect(() => {
+    getSiteInfo();
+  }, []);
 
   return (
     <>
@@ -59,7 +67,7 @@ export default function Editor() {
         <EditorSection />
         {AlertModalState && <AlertModal alertData={alertData} />}
         {ConfirmModalState && <ConfirmModal confirmData={confirmData} />}
-        {AddModalState && <AddModal theme='Simple' />}
+        {AddModalState && <AddModal theme="Simple" />}
       </DesktopContainer>
       <MobileContainer>
         <div>
@@ -69,8 +77,8 @@ export default function Editor() {
           빠른 시일 내에 <b>업데이트</b> 하도록 하겠습니다.
         </div>
         <br />
-        <Link to='/' style={{ textDecoration: 'none' }}>
-          <Button color='white' size='large'>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <Button color="white" size="large">
             Home
           </Button>
         </Link>
