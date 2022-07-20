@@ -5,8 +5,10 @@ const PageLoadingContainer = styled.div`
   border: 1px solid #efefef;
   border-radius: 12px;
   width: 100%;
-  height: 1000px;
+  min-height: 1000px;
+  height: 100%;
   box-sizing: border-box;
+  background: white;
 `;
 const placeholderShimmer = keyframes`
     0% {
@@ -36,8 +38,6 @@ const GradientAnimation = styled.div`
 `;
 export default function PageLoading() {
   return (
-    <PageLoadingContainer>
-      <GradientAnimation />
-    </PageLoadingContainer>
+    <PageLoadingContainer>{/* <GradientAnimation /> */}</PageLoadingContainer>
   );
 }
