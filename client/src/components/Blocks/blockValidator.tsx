@@ -23,11 +23,20 @@ export interface Block {
   template: TemplateData;
   data: BlockData;
 }
+
 export interface TemplateData {
   theme: string;
   blockType: string;
   layout: string | null;
 }
+
+export type BlockDataOptions =
+  | string
+  | TextData
+  | ImageData
+  | StyleData
+  | ButtonData;
+
 export interface BlockData {
   [key: string]: any;
   navTitle: string | null;
@@ -54,8 +63,8 @@ export interface TextData {
   value: string;
 }
 export interface ButtonData {
-  title: string;
-  url: string;
+  title?: string;
+  url?: string;
 }
 
 //Block Preset

@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { Site, Block, BlockData } from '../components/Blocks/blockValidator';
+import {
+  Site,
+  Block,
+  BlockDataOptions,
+} from '../components/Blocks/blockValidator';
 import { RootState } from './store';
 
 //Initial Value
@@ -239,7 +243,11 @@ export const siteSlice = createSlice({
     },
     updateBlockData: (
       state,
-      action: PayloadAction<{ blockId: number; field: string; value: any }>
+      action: PayloadAction<{
+        blockId: number;
+        field: string;
+        value: BlockDataOptions;
+      }>
     ) => {
       const { blockId, field, value } = action.payload;
       let index = state.blocks.findIndex((block) => block.id === blockId);
