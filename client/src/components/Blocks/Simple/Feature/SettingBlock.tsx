@@ -18,7 +18,6 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   } = useSelector((state: RootState) => selectBlockById(state, blockId));
   let styleOptions = getStyleOptions(blockType);
   const dispatch = useDispatch();
-
   //Input
 
   const [navTitle, setNavTitle] = useState(data.navTitle);
