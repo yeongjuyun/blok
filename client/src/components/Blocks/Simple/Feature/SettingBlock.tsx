@@ -3,26 +3,19 @@ import { TextInput, CustomSelect, ImgInput } from '../../../Input';
 import { Card } from '../../../Card/Card';
 import { getStyleOptions } from '../../blockHelper';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateBlockData } from '../../../../reducers/SiteReducer';
+import {
+  updateBlockData,
+  selectBlockById,
+} from '../../../../reducers/SiteReducer';
 import type { RootState } from '../../../../reducers/store';
+import { SettingBlockProps } from '../../blockValidator';
 
-interface Feature {
-  blockId: number;
-  onRemove: (event: React.MouseEvent<HTMLElement>) => void;
-}
-
-function Feature({ blockId, onRemove }: Feature) {
+function SettingBlocks({ blockId, onRemove }: SettingBlockProps) {
   const {
     id,
     template: { blockType },
     data,
-  } = useSelector((state: RootState) => {
-    const block = state.site.blocks.find((block) => block.id === blockId);
-    if (typeof block === 'undefined') {
-      throw new Error('Feature: No block found');
-    }
-    return block;
-  });
+  } = useSelector((state: RootState) => selectBlockById(state, blockId));
   let styleOptions = getStyleOptions(blockType);
   const dispatch = useDispatch();
 
@@ -183,4 +176,4 @@ function Feature({ blockId, onRemove }: Feature) {
   );
 }
 
-export default Feature;
+export default SettingBlocks;

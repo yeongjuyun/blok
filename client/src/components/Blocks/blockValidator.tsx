@@ -9,7 +9,7 @@ export interface Site {
   blocks: Block[] | [];
 }
 
-interface ColorSet {
+export interface ColorSet {
   primary: string;
   secondary: string;
   background: string;
@@ -120,4 +120,13 @@ export interface FooterData {
   style: StyleData;
   leftText?: TextData;
   rightText?: TextData;
+}
+
+//SettingBlock & SiteBlock Props
+export interface SettingBlockProps {
+  blockId: number;
+  onRemove: (event: React.MouseEvent<HTMLElement>) => void;
+}
+export interface SiteBlockProps {
+  blockId: number;
 }

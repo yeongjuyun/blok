@@ -261,8 +261,18 @@ export const siteSlice = createSlice({
   },
 });
 
-//Helpers & Values
+//Selectors
 export const selectBlocks = (state: RootState) => state.site.blocks;
+export const selectBlockById = (state: RootState, blockId: number) => {
+  const block = state.site.blocks.find((block) => block.id === blockId);
+  if (typeof block === 'undefined') {
+    throw new Error('Feature: No block found');
+  }
+  return block;
+};
+
+//Helpers & Values
+export const pinnedBlockTypes = ['Nav', 'Footer', 'Hero'];
 export const blockDataUpdateChecker = (
   prevBlocks: Block[],
   currentBlocks: Block[]
@@ -285,7 +295,6 @@ export const blockDataUpdateChecker = (
   }
   return true;
 };
-export const pinnedBlockTypes = ['Nav', 'Footer', 'Hero'];
 function moveItem(blocks: any, sourceIndex: number, destinationIndex: number) {
   const blockToMove = blocks[sourceIndex];
   const destinationBlockType = blocks[destinationIndex].template.blockType;
