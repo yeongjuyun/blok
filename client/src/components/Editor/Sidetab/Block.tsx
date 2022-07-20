@@ -90,7 +90,6 @@ export default function Block() {
     );
   });
   const handleOnDragEnd = (result: any) => {
-    console.log(result);
     dispatch(
       moveBlock({
         sourceIndex: result.source.index,
