@@ -9,7 +9,7 @@ export class SiteModel {
     const userId = siteInfo.userId;
     const createdNewSite = await Site.create(siteInfo);
     const siteId = JSON.stringify(createdNewSite._id).replace(/["]/g, "");
-    const user = await userModel.createSiteById(userId, siteId);
+    await userModel.createSiteById(userId, siteId);
 
     return createdNewSite;
   }
