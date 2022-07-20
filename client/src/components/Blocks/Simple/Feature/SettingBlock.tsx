@@ -10,7 +10,7 @@ import {
 import type { RootState } from '../../../../reducers/store';
 import { SettingBlockProps } from '../../blockValidator';
 
-function SettingBlocks({ blockId, onRemove }: SettingBlockProps) {
+function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const {
     id,
     template: { blockType },
@@ -176,4 +176,4 @@ function SettingBlocks({ blockId, onRemove }: SettingBlockProps) {
   );
 }
 
-export default SettingBlocks;
+export default SettingBlock;
