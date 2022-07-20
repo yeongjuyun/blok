@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { RootState } from '../../../reducers';
 
 const Container = styled.div`
-  padding: 0 20px;
+  padding: 0 32px;
   height: 60px;
   flex-grow: 1;
   position: sticky;
@@ -49,12 +49,12 @@ const CopyButton = styled.button`
 const SaveButton = styled.button`
   background-color: black;
   border: 1px solid black;
-  padding: 5px 12px;
-  border-radius: 40px / 40px;
+  padding: 6px 16px;
+  border-radius: 40px;
 
   font-weight: 600;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
 
   :hover {
     cursor: pointer;
@@ -100,8 +100,8 @@ export default function PublishBar() {
   return (
     <Container>
       <DomainContainer>
-        <MyPage>MyPage:</MyPage>
-        <Domain>{domain}</Domain>
+        <MyPage>도메인:</MyPage>
+        <Domain>block.com/{domain}</Domain>
         <CopyButton onClick={copyHandler}>복사</CopyButton>
       </DomainContainer>
       <SaveButton onClick={saveHandler}>저장</SaveButton>
