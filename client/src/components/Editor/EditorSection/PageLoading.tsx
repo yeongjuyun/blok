@@ -36,5 +36,7 @@ const GradientAnimation = styled.div`
   position: relative;
 `;
 export default function PageLoading() {
-  return <PageLoadingContainer>{<GradientAnimation />}</PageLoadingContainer>;
+  return (
+    <PageLoadingContainer>{/*<GradientAnimation />*/}</PageLoadingContainer>
+  );
 }
