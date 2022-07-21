@@ -1,39 +1,34 @@
 import { useState } from 'react';
 import { TextInput, CustomSelect, ImgInput } from '../../../Input';
 import { Card } from '../../../Card/Card';
-import { getStyleOptions } from '../../blockHelper';
+import { getCurrentStyleOption, getStyleOptions } from '../../blockHelper';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   updateBlockData,
   selectBlockById,
+  updateTemplate,
 } from '../../../../reducers/SiteReducer';
 import type { RootState } from '../../../../reducers/store';
-import { SettingBlockProps } from '../../blockValidator';
 import * as icon from '../../../../icons';
+import { SettingBlockProps, StyleData } from '../../blockValidator';
 
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
-  const {
-    id,
-    template: { blockType },
-    data,
-  } = useSelector((state: RootState) => selectBlockById(state, blockId));
-  let styleOptions = getStyleOptions(blockType);
+  const { id, template, data } = useSelector((state: RootState) =>
+    selectBlockById(state, blockId)
+  );
+  const styleOptions = getStyleOptions(template);
+  const currentStyle = getCurrentStyleOption(template);
   const dispatch = useDispatch();
+
   //Input
-
   const [navTitle, setNavTitle] = useState(data.navTitle);
-  const [style, setStyle] = useState({
-    label: data.style?.value,
-    value: data.style?.value,
-  });
-
+  const [style, setStyle] = useState(currentStyle);
   const [caption, setCaption] = useState(data.caption?.value);
   const [header, setHeader] = useState(data.header?.value);
   const [headerHighlight, setHeaderHighlight] = useState(
     data.headerHighlight?.value
   );
   const [body, setBody] = useState(data.body?.value);
-
   const [button, setButton] = useState(data.button);
   const [image, setImage] = useState(data.image);
 
@@ -62,11 +57,9 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           guideline="스타일를 선택해주세요."
           placeholder="원하는 선택지를 선택해주세요"
           options={styleOptions}
-          onChange={(e: any) => {
+          onChange={(e: StyleData) => {
             setStyle(e);
-            dispatch(
-              updateBlockData({ blockId: id, field: 'style', value: e })
-            );
+            dispatch(updateTemplate({ blockId: id, newTemplate: e.value }));
           }}
           value={style}
         />
