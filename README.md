@@ -1,46 +1,54 @@
-# Getting Started with Create React App
+# ㅠ
+## 1. 서비스 소개
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- 소개:
+    - Block -노코드 웹사이트 빌더
+    - 여러 블록을 내 마음대로 조합하여 웹사이트를 만들 수 있는 노코드 플랫폼.
+    - 타겟 유저
+        - 랜딩페이지 웹사이트를 만들고 싶은 사람
+        - 온라인 이력서를 만들고 싶은 엘리스 수강생
+- 기능
+    - 주요기능
+        - 대시보드 → 사이트 조회, 사이트 생성,사이트 삭제
+        - 에디터 →
+            - 블록 기능
+                - 블록 보기 → 에디터 페이지에서 프리뷰 실시간 조회 가능
+                - 블록 생성 → 각 테마별로 지원하는 블록 추가가능, 유효성 검사(중복여부)
+                - 블록 수정 → 다양한 타입의 필드 지원
+                    - 텍스트 → 텍스트 변경, 강조 표시
+                    - 이미지 → 이미지 업로드 및 변경 기능
+                    - 버튼 → 버튼 텍스트 변경, URL 변경
+                    - 태그 → 태그 추가
+                    - 드롭다운 → 다양한 블록 지원
+                - 블록 삭제
+                - 블록 이동 → 블록 이동기능, 이동불가블록 예외처리, 이동 불가 장소 예외처리
+            - 테마 변경
+                - 전체 (색상조합 변경, 폰트 변경, 테마 변경)
+                - 개별 (블록 스타일
+            - 도메인 수정
+    - 서브기능
+        - 로그인 → 로그인,소셜로그인, 회원가입,비밀번호찾기
+        - 프로필  → 프로필 조회
+        - 어드민 → 유저, 사이트 목록 조회
 
-## Available Scripts
+## 2. 구현
 
-In the project directory, you can run:
+### 2-1 기획 및 디자인
 
-### `npm start`
+- 시장조사 → Littly, Launchaco
+- 디자인 → Figma
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 2-2 테크 스택
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- 구조도 그림
+- React, TypeScript, MongoDB
 
-### `npm test`
+- 어려움
+    - 서비스 구조 설계  ⇒ 서비스 → 동적렌더링, 유연한 폴더구조
+    - 렌더링 이슈 ⇒ 상위 컴포넌트
+    - 프로젝트 운영 ⇒ 이슈, 미팅 최소화,스크럼 미팅
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 결과물
+    - 다양성 → 원하는대로 커스터마이징
+    - 확장성 → 추후에 다양한 테마를 지원할 수 있도록 설계
+    - UX/DX → 일관성 있는 유저 경험 제공
