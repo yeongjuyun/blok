@@ -1,10 +1,10 @@
 import config from './blockTemplates.json';
 import { StyleData, TemplateData } from './blockValidator';
 
-export const getStyleOptions = (blockType: string): StyleData[] => {
+export const getStyleOptions = (template: TemplateData): StyleData[] => {
   //동일한 blockType을 가진 다른 블록템플릿 리스트를 구함
   let blockTemplates = config.blockTemplates.filter((blockTemplate) => {
-    return blockTemplate.template.blockType === blockType;
+    return blockTemplate.template.blockType === template.blockType;
   });
   let styleOptions = blockTemplates.map(({ template }) => {
     return { label: getLabelOfTemplate(template), value: template };
