@@ -42,6 +42,18 @@ const Img = styled.img`
   }
 `;
 
+export const ImgDiv = styled.div`
+  width: 400px;
+  height: 240px;
+  padding-right: 20px;
+  padding-top: 30px;
+  background-color: #efefef;
+  @media screen and (max-width: 1120px) {
+    width: 400px;
+    padding-right: 0;
+  }
+`;
+
 const Caption = styled.div<{ colorSet: ColorSet }>`
   font-size: 1rem;
   font-weight: 600;
@@ -138,16 +150,11 @@ export default function SiteBlock(props: SiteBlockProps) {
 
   return (
     <>
-      <Container
-        colorSet={colorSet}
-        font={font}
-        id={data.navTitle ?? ''}
-      >
-        {data.image?.src && (
-          <Img
-            src={data.image.src}
-            alt={data.image.alt ?? ''}
-          />
+      <Container colorSet={colorSet} font={font} id={data.navTitle ?? ''}>
+        {data.image?.src ? (
+          <Img src={data.image.src} alt={data.image.alt ?? ''} />
+        ) : (
+          <ImgDiv />
         )}
         <TextContainer>
           {data.caption?.value && (
