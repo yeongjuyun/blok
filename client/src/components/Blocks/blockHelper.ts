@@ -12,16 +12,16 @@ export const getStyleOptions = (blockType: string): StyleData[] => {
   return styleOptions;
 };
 
-export const getLabelOfTemplate = (template: TemplateData) => {
-  const name = template.layout
-    ? `${template.theme} ${template.layout}`
-    : `${template.theme} Default`;
-  return name;
-};
-
 export const getCurrentStyleOption = (template: TemplateData) => {
   return {
     label: getLabelOfTemplate(template),
     value: template,
   };
+};
+
+export const getLabelOfTemplate = (template: TemplateData) => {
+  const name = template.layout
+    ? `${template.theme} ${template.layout}`
+    : `${template.theme} Default`;
+  return name;
 };
