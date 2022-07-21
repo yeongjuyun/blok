@@ -9,6 +9,7 @@ const SiteSchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
       ref: "users",
+      required: true,
     },
     name: {
       type: String,

@@ -39,7 +39,7 @@ const adminController = {
 
   deleteSite: asyncHandler(async (req, res) => {
     const siteId = req.params.siteId;
-    const site = await siteService.getSites(siteId);
+    const site = await siteService.deleteSiteBySiteId(siteId);
     res.ok(200, site);
   }),
 
