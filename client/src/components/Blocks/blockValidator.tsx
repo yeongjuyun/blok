@@ -138,6 +138,6 @@ export interface SettingBlockProps {
   onRemove: (event: React.MouseEvent<HTMLElement>) => void;
 }
 export interface SiteBlockProps {
-  blockId: number;
+  blockId: string;
   type: string;
 }
