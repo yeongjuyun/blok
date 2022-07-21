@@ -35,6 +35,11 @@ export class SiteModel {
     return site[0];
   }
 
+  async findBySiteDomain(siteDomain) {
+    const site = await Site.findOne({ domain: siteDomain });
+    return site;
+  }
+
   async findAllSite() {
     const sites = await Site.find({}).populate("userId");
     return sites;

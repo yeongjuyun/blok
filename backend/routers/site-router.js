@@ -9,6 +9,8 @@ siteRouter.get("/:siteId", siteController.getSiteInfo);
 
 siteRouter.get("/user/:userId", loginRequired, siteController.getUserSites);
 
+siteRouter.get("/domain/:domain", siteController.getSiteInfoByDomain);
+
 siteRouter.patch("/:siteId", loginRequired, siteController.updateSite);
 
 siteRouter.delete("/:siteId", loginRequired, siteController.deleteSite);

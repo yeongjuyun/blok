@@ -31,6 +31,14 @@ class SiteService {
     return sites;
   }
 
+  async getSiteInfoByDomain(domain) {
+    const site = await this.siteModel.findBySiteDomain(domain);
+    if (!site) {
+      throw new BadRequestError("존재하지 않는 사이트입니다.");
+    }
+    return site;
+  }
+
   async updateSite(siteId, toUpdate) {
     let site = await this.siteModel.findBySiteId(siteId);
     if (!site) {

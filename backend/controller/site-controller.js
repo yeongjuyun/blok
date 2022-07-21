@@ -36,6 +36,12 @@ const siteController = {
     return res.ok(200, sites);
   }),
 
+  getSiteInfoByDomain: asyncHandler(async (req, res) => {
+    const domain = req.params.domain;
+    const site = await siteService.getSiteInfoByDomain(domain);
+    return res.ok(200, site);
+  }),
+
   updateSite: asyncHandler(async (req, res) => {
     if (is.emptyObject(req.body)) {
       throw new BadRequestError(
