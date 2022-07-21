@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { TextInput, CustomSelect, ArrInput } from '../../../Input';
 import { Card } from '../../../Card/Card';
 
-import { getStyleOptions } from '../../blockHelper';
+import { getStyleOptions, getCurrentStyleOption } from '../../blockHelper';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   updateBlockData,
@@ -14,18 +14,14 @@ import styled from 'styled-components';
 import * as icons from '../../../../icons';
 
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
-  const {
-    id,
-    template: { blockType },
-    data,
-  } = useSelector((state: RootState) => selectBlockById(state, blockId));
-  let styleOptions = getStyleOptions(blockType);
+  const { id, template, data } = useSelector((state: RootState) =>
+    selectBlockById(state, blockId)
+  );
+  const styleOptions = getStyleOptions(template);
+  const currentStyle = getCurrentStyleOption(template);
   const dispatch = useDispatch();
 
-  const [style, setStyle] = useState({
-    label: data.style?.value,
-    value: data.style?.value,
-  });
+  const [style, setStyle] = useState(currentStyle);
   const [title, setTitle] = useState(data.title?.value);
   const [intros, setIntros] = useState('');
   const [arr, setArr] = useState(data.arrText?.value);
