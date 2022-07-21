@@ -77,7 +77,8 @@ export default function Appearance() {
   const [font, setFont] = useState(data.font);
   const [theme, setTheme] = useState(data.theme);
 
-  function ThemeHandler(newTheme: string) {
+  function ThemeHandler() {
+    const newTheme = theme;
     const blockTemplates = config.blockTemplates;
     const newThemeCheckList: string[][] = [];
 
@@ -90,7 +91,6 @@ export default function Appearance() {
         newThemeCheckList.push(newThemeCheck);
       }
     }
-    console.log(newThemeCheckList);
 
     const newBlockList = data.blocks.filter((item) => {
       const list = [item.template.blockType, item.template.layout ?? ''];
@@ -104,18 +104,17 @@ export default function Appearance() {
       }
       return false;
     });
-    console.log(newBlockList)
 
-    // try {
-    //   dispatch({ type: 'CONFIRM/MODAL_OFF' });
-    //   dispatch({
-    //     type: 'site/updateSite',
-    //     payload: { theme: newTheme, blocks: newBlockList },
-    //   });
-    //   setTheme(newTheme);
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    try {
+      dispatch({ type: 'CONFIRM/MODAL_OFF' });
+      dispatch({
+        type: 'site/updateSite',
+        payload: { theme: newTheme, blocks: newBlockList },
+      });
+      setTheme(newTheme);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   useEffect(() => {
@@ -182,7 +181,7 @@ export default function Appearance() {
                 payload: {
                   title: '테마 변경',
                   msg: '해당 테마에 타입이 없는 블록들은 삭제됩니다. 변경하시겠습니까?',
-                  onConfirm: ThemeHandler(theme),
+                  onConfirm: ThemeHandler,
                 },
               });
             }}
