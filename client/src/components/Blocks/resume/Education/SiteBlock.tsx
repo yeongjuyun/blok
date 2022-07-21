@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { RemtoVw } from '../../../../utils/cssconvert';
-import { useAppSelector } from '../../../../reducers';
-import { selectBlockById } from '../../../../reducers/SiteReducer';
 import { SiteBlockProps, ColorSet } from '../../blockValidator';
+import { SiteBlockByType } from '../../../../reducers/HostReducer';
 
 const REM = 16;
 const Educationbox = styled.div`
@@ -89,10 +88,8 @@ const CareerRole = styled.div`
 `;
 
 export default function SiteBlock(props: SiteBlockProps) {
-  const { blockId } = props;
-  const { data } = useAppSelector((state) => selectBlockById(state, blockId));
-  const colorSet = useAppSelector((state) => state.site.colorSet);
-  const font = useAppSelector((state) => state.site.font);
+  const { blockId, type } = props;
+  const { colorSet, font, data } = SiteBlockByType({ blockId, type });
 
   return (
     <Container font={font} colorSet={colorSet}>
