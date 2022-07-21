@@ -37,7 +37,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
       <Card title='Feature' onRemove={onRemove} icon={icon.Feature}>
         <TextInput
           title='메뉴명'
-          required
+          required={false}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setNavTitle(e.target.value);
             dispatch(

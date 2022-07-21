@@ -22,6 +22,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
 
   const [style, setStyle] = useState(currentStyle);
   const [title, setTitle] = useState(data.title?.value);
+  const [rem, setRem] = useState(data.headerHighlight?.value);
 
   return (
     <>
@@ -52,6 +53,25 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
                 value: { value: e.target.value },
               })
             );
+          }}
+        ></TextInput>
+        <TextInput
+          title='너비'
+          required={true}
+          guideline='1~10 숫자를 입력해주세요.'
+          type='number'
+          value={rem}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            if (0 <= Number(e.target.value) && 10 >= Number(e.target.value)) {
+              setRem(e.target.value);
+              dispatch(
+                updateBlockData({
+                  blockId: id,
+                  field: 'number',
+                  value: { value: e.target.value },
+                })
+              );
+            }
           }}
         ></TextInput>
       </Card>
