@@ -31,7 +31,7 @@ const TextContainer = styled.div`
 `;
 
 const Img = styled.img`
-  width: 400px;
+  width: 300px;
   padding-left: 20px;
   padding-top: 30px;
 
