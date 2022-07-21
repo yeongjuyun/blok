@@ -22,7 +22,7 @@ export const templateCardData = [
 
 export default function templateListData() {
   const landingPage = {
-    id: 1,
+    id: null,
     name: '',
     domain: '',
     theme: 'Simple',
@@ -194,7 +194,7 @@ export default function templateListData() {
   };
 
   const portfolio = {
-    id: 2,
+    id: null,
     name: '',
     domain: '',
     theme: 'Resume',

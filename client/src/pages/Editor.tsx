@@ -51,8 +51,6 @@ export default function Editor() {
   );
 
   // siteId 별 데이터 불러오기
-
-  /*
   const defaultSiteData = {
     id: null,
     name: '',
@@ -79,6 +77,8 @@ export default function Editor() {
     getSiteInfo();
   }, []);
 
+  console.log(data.colorSet);
+
   useEffect(() => {
     dispatch({
       type: 'site/getSite',
@@ -93,10 +93,6 @@ export default function Editor() {
       },
     });
   }, [data]);
-
-  const siteData = useAppSelector((state) => state.site);
-  console.log(3333, siteData);
-  */
 
   return (
     <>
