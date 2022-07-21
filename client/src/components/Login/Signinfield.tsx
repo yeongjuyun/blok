@@ -132,8 +132,11 @@ function Signinfield() {
   useEffect(() => {
     async function loginCheck() {
       const res = await axios.get('/api/user/logincheck');
-      if (res.data) {
-        console.log('로그아웃 이후 사용해주세요.'); // 모달창구현
+      if (res.data.userId) {
+        dispatch({
+          type: 'alertOn',
+          payload: { msg: '로그아웃 이후 사용해주세요.' },
+        });
         nav('/dashboard');
       }
     }

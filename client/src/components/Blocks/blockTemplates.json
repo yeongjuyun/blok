@@ -271,6 +271,9 @@
         "navTitle": null,
         "title": {
           "value": "해더"
+        },
+        "number": {
+          "value": 5
         }
       }
     },
