@@ -181,7 +181,7 @@ export default function Appearance() {
                 type: 'CONFIRM/MODAL_ON',
                 payload: {
                   title: '테마 변경',
-                  msg: '해당 테마에 블록타입이 없는 블록들은 삭제됩니다. 정말 변경하시겠습니까?',
+                  msg: '해당 테마에 타입이 없는 블록들은 삭제됩니다. 변경하시겠습니까?',
                   onConfirm: ThemeHandler(theme),
                 },
               });
