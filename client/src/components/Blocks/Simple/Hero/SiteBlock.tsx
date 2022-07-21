@@ -84,9 +84,10 @@ export default function SiteBox(props: any) {
     }
   `;
   const data = props.data;
+
   return (
     <>
-      <Container id={props.data.navTitle}>
+      <Container id={data.navTitle.value}>
         <HeroMenuName>{data.caption.value}</HeroMenuName>
         <HeadLine>{data.header.value}</HeadLine>
         <HeadLineText>{data.body.value}</HeadLineText>
