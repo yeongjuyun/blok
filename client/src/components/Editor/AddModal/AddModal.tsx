@@ -139,6 +139,7 @@ export default function AddModal(props: ModalProps) {
       const { icon, title } = blockTemplate.creationData;
       return (
         <BlockItem
+          key={uniqid()}
           icon={blockIcons[icon as keyof typeof blockIcons]}
           label={title}
           onClick={() => {
