@@ -4,6 +4,7 @@ import {
   Site,
   Block,
   BlockDataOptions,
+  TemplateData,
 } from '../components/Blocks/blockValidator';
 import { RootState } from './store';
 
@@ -274,6 +275,17 @@ export const siteSlice = createSlice({
       let index = state.blocks.findIndex((block) => block.id === blockId);
       state.blocks[index].data[field] = value;
     },
+    updateTemplate: (
+      state,
+      action: PayloadAction<{
+        blockId: number;
+        newTemplate: TemplateData;
+      }>
+    ) => {
+      const { blockId, newTemplate } = action.payload;
+      let index = state.blocks.findIndex((block) => block.id === blockId);
+      state.blocks[index].template = newTemplate;
+    },
     moveBlock: (
       state,
       action: PayloadAction<{
@@ -346,6 +358,7 @@ export const {
   updateTheme,
   updateDomain,
   updateBlockData,
+  updateTemplate,
   moveBlock,
 } = siteSlice.actions;
 export default siteSlice.reducer;

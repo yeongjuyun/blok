@@ -1,38 +1,28 @@
 import { useState } from 'react';
 import { TextInput, CustomSelect } from '../../../../Input';
 import { Card } from '../../../../Card/Card';
-import { getStyleOptions } from '../../../blockHelper';
+import { getStyleOptions, getCurrentStyleOption } from '../../../blockHelper';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   updateBlockData,
   selectBlockById,
+  updateTemplate,
 } from '../../../../../reducers/SiteReducer';
 import type { RootState } from '../../../../../reducers/store';
-import { SettingBlockProps } from '../../../blockValidator';
+import { SettingBlockProps, StyleData } from '../../../blockValidator';
 
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
-  const {
-    id,
-    template: { blockType },
-    data,
-  } = useSelector((state: RootState) => selectBlockById(state, blockId));
-  let styleOptions = getStyleOptions(blockType);
+  const { id, template, data } = useSelector((state: RootState) =>
+    selectBlockById(state, blockId)
+  );
+  let styleOptions = getStyleOptions(template);
+  let currentStyle = getCurrentStyleOption(template);
   const dispatch = useDispatch();
 
   //Input
 
   const [navTitle, setNavTitle] = useState(data.navTitle);
-  const [style, setStyle] = useState({
-    label: data.style?.value,
-    value: data.style?.value,
-  });
-
-  if (!style.label) {
-    setStyle({
-      label: 'Simple Text',
-      value: 'Simple Text',
-    });
-  }
+  const [style, setStyle] = useState(currentStyle);
 
   const [caption, setCaption] = useState(data.caption?.value);
   const [header, setHeader] = useState(data.header?.value);
@@ -43,9 +33,9 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
 
   return (
     <>
-      <Card title='Feature' onRemove={onRemove}>
+      <Card title="Feature" onRemove={onRemove}>
         <TextInput
-          title='메뉴명'
+          title="메뉴명"
           required
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setNavTitle(e.target.value);
@@ -57,27 +47,27 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
               })
             );
           }}
-          guideline='네비게이션 바에 입력될 메뉴명을 입력하세요.'
+          guideline="네비게이션 바에 입력될 메뉴명을 입력하세요."
           value={navTitle}
         ></TextInput>
         <CustomSelect
-          title='스타일'
+          title="스타일"
           required
-          guideline='스타일를 선택해주세요.'
-          placeholder='원하는 선택지를 선택해주세요'
+          guideline="스타일를 선택해주세요."
+          placeholder="원하는 선택지를 선택해주세요"
           options={styleOptions}
-          onChange={(e: any) => {
+          onChange={(e: StyleData) => {
             setStyle(e);
             dispatch(
-              updateBlockData({ blockId: id, field: 'style', value: e })
+              dispatch(updateTemplate({ blockId: id, newTemplate: e.value }))
             );
           }}
           value={style}
         />
         <TextInput
-          title='캡션'
+          title="캡션"
           required={false}
-          guideline='캡션에 표시될 내용을 입력하세요.'
+          guideline="캡션에 표시될 내용을 입력하세요."
           value={caption}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setCaption(e.target.value);
@@ -91,9 +81,9 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           }}
         ></TextInput>
         <TextInput
-          title='헤드라인'
+          title="헤드라인"
           required
-          guideline='헤드라인에 표시될 내용을 입력하세요.'
+          guideline="헤드라인에 표시될 내용을 입력하세요."
           value={header}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setHeader(e.target.value);
@@ -107,9 +97,9 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           }}
         ></TextInput>
         <TextInput
-          title='헤드라인 강조 테스트'
+          title="헤드라인 강조 테스트"
           required={false}
-          guideline='헤드라인 내용 중에서 강조할 텍스트를 입력하세요'
+          guideline="헤드라인 내용 중에서 강조할 텍스트를 입력하세요"
           value={headerHighlight}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setHeaderHighlight(e.target.value);
@@ -123,9 +113,9 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           }}
         ></TextInput>
         <TextInput
-          title='설명'
+          title="설명"
           required={false}
-          guideline='설명에 표시될 내용을 입력하세요'
+          guideline="설명에 표시될 내용을 입력하세요"
           value={body}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setBody(e.target.value);
