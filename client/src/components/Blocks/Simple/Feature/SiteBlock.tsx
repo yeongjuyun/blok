@@ -1,10 +1,6 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import { SiteBlockProps, ColorSet } from '../../blockValidator';
-import { selectBlockById } from '../../../../reducers/SiteReducer';
-import { selectHostedBlockById } from '../../../../reducers/HostReducer';
-import * as blockValidator from '../../blockValidator';
-import { useAppSelector } from '../../../../reducers';
+import { SiteBlockByType } from '../../../../reducers/HostReducer';
 
 const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   background-color: ${(props) => props.colorSet.background};
@@ -139,40 +135,7 @@ function highlightHandler(header: string, keyword: string, colorSet: ColorSet) {
 
 export default function SiteBlock(props: SiteBlockProps) {
   const { blockId, type } = props;
-  let colorSet, font;
-  let data: blockValidator.BlockData;
-
-  console.log(333333, type);
-
-  // 호스팅 페이지 데이터
-  const hostColorSet = useAppSelector((state) => state.host.colorSet);
-  const hostFont = useAppSelector((state) => state.host.font);
-  const hostData = useAppSelector(
-    (state) => selectHostedBlockById(state, blockId).data
-  );
-
-  console.log(44444, hostData);
-
-  // 미리보기 화면 데이터
-  const previewData = useAppSelector(
-    (state) => selectBlockById(state, blockId).data
-  );
-  const previewColorSet = useAppSelector((state) => state.site.colorSet);
-  const previewFont = useAppSelector((state) => state.site.font);
-
-  console.log(55555, previewData);
-
-  if (type === 'host') {
-    colorSet = hostColorSet;
-    font = hostFont;
-    data = hostData;
-  } else {
-    colorSet = previewColorSet;
-    font = previewFont;
-    data = previewData;
-  }
-
-  console.log(33333, data);
+  const { colorSet, font, data } = SiteBlockByType({ blockId, type });
 
   function buttonHandler() {
     window.location.href = data.button?.url ? data.button.url : '';

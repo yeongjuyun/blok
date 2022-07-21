@@ -40,7 +40,7 @@ export type BlockDataOptions =
 
 export interface BlockData {
   [key: string]: any;
-  navTitle: string | null;
+  navTitle?: string | null;
   logoImage?: ImageData;
   logoText?: TextData;
   image?: ImageData;
