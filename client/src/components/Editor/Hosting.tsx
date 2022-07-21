@@ -79,7 +79,10 @@ export default function Hosting() {
 
   const colorSet = useAppSelector((state) => state.host.colorSet);
   const font = useAppSelector((state) => state.host.font);
-  const blocks = useAppSelector(selectBlocks, blockDataUpdateChecker);
+  const blocks = useAppSelector((state) => state.host.blocks);
+  // const blocks = useAppSelector(selectBlocks, blockDataUpdateChecker);
+
+  console.log(blocks);
 
   const siteBlocks = blocks.map((block) => {
     const {
@@ -97,7 +100,7 @@ export default function Hosting() {
 
     return (
       <SiteBlock
-        type="hosting"
+        type="host"
         key={id}
         blockId={id}
         colorSet={colorSet}

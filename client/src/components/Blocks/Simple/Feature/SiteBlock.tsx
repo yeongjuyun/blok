@@ -1,8 +1,10 @@
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../reducers';
+import { useState } from 'react';
 import { SiteBlockProps, ColorSet } from '../../blockValidator';
 import { selectBlockById } from '../../../../reducers/SiteReducer';
+import { selectHostedBlockById } from '../../../../reducers/HostReducer';
+import * as blockValidator from '../../blockValidator';
+import { useAppSelector } from '../../../../reducers';
 
 const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   background-color: ${(props) => props.colorSet.background};
@@ -136,18 +138,83 @@ function highlightHandler(header: string, keyword: string, colorSet: ColorSet) {
 }
 
 export default function SiteBlock(props: SiteBlockProps) {
-  const { blockId } = props;
+  const { blockId, type } = props;
+  let colorSet, font;
+  let data: blockValidator.BlockData;
 
-  const { data } = useSelector((state: RootState) =>
-    selectBlockById(state, blockId)
+  console.log(333333, type);
+
+  // 호스팅 페이지 데이터
+  const hostColorSet = useAppSelector((state) => state.host.colorSet);
+  const hostFont = useAppSelector((state) => state.host.font);
+  const hostData = useAppSelector(
+    (state) => selectHostedBlockById(state, blockId).data
   );
-  const colorSet = useSelector((state: RootState) => state.site.colorSet);
-  const font = useSelector((state: RootState) => state.site.font);
 
-  function buttonHandler() {
-    window.location.href = data.button?.url ?? '';
+  console.log(44444, hostData);
+
+  // 미리보기 화면 데이터
+  const previewData = useAppSelector(
+    (state) => selectBlockById(state, blockId).data
+  );
+  const previewColorSet = useAppSelector((state) => state.site.colorSet);
+  const previewFont = useAppSelector((state) => state.site.font);
+
+  console.log(55555, previewData);
+
+  if (type === 'host') {
+    colorSet = hostColorSet;
+    font = hostFont;
+    data = {
+      navTitle: hostData.navTitle,
+      logoImage: {
+        src: hostData.image?.src,
+        alt: hostData.image?.alt,
+      },
+      logoText: hostData.logoText,
+      image: {
+        src: hostData.image?.src,
+        alt: hostData.image?.alt,
+      },
+      caption: hostData.caption,
+      header: hostData.header,
+      headerHighlight: hostData.headerHighlight,
+      body: hostData.body,
+      button: hostData.button,
+      rightText: hostData.rightText,
+      leftText: hostData.leftText,
+      arrText: hostData.arrText,
+    };
+  } else {
+    colorSet = previewColorSet;
+    font = previewFont;
+    data = {
+      navTitle: previewData.navTitle,
+      logoImage: {
+        src: previewData.image?.src,
+        alt: previewData.image?.alt,
+      },
+      logoText: previewData.logoText,
+      image: {
+        src: previewData.image?.src,
+        alt: previewData.image?.alt,
+      },
+      caption: previewData.caption,
+      header: previewData.header,
+      headerHighlight: previewData.headerHighlight,
+      body: previewData.body,
+      button: previewData.button,
+      rightText: previewData.rightText,
+      leftText: previewData.leftText,
+      arrText: previewData.arrText,
+    };
   }
 
+  console.log(33333, data);
+
+  function buttonHandler() {
+    window.location.href = data.button?.url ? data.button.url : '';
+  }
   return (
     <>
       <Container colorSet={colorSet} font={font} id={data.navTitle ?? ''}>

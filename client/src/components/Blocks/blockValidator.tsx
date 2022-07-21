@@ -58,7 +58,7 @@ export interface StyleData {
   value: TemplateData;
 }
 export interface ImageData {
-  src: string;
+  src: string | undefined;
   alt?: string;
 }
 export interface TextData {
@@ -139,4 +139,5 @@ export interface SettingBlockProps {
 }
 export interface SiteBlockProps {
   blockId: number;
+  type: string;
 }

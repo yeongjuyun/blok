@@ -117,9 +117,9 @@ export const hostSlice = createSlice({
 });
 
 //Selectors
-export const selectBlocks = (state: RootState) => state.site.blocks;
-export const selectBlockById = (state: RootState, blockId: number) => {
-  const block = state.site.blocks.find((block) => block.id === blockId);
+export const selectHostedBlocks = (state: RootState) => state.host.blocks;
+export const selectHostedBlockById = (state: RootState, blockId: number) => {
+  const block = state.host.blocks.find((block) => block.id === blockId);
   if (typeof block === 'undefined') {
     throw new Error('Feature: No block found');
   }
