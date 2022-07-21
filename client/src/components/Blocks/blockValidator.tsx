@@ -19,7 +19,7 @@ export interface ColorSet {
 //Block Interface
 
 export interface Block {
-  id: number;
+  id: string;
   template: TemplateData;
   data: BlockData;
 }
@@ -134,7 +134,7 @@ export interface FooterData {
 
 //SettingBlock & SiteBlock Props
 export interface SettingBlockProps {
-  blockId: number;
+  blockId: string;
   onRemove: (event: React.MouseEvent<HTMLElement>) => void;
 }
 export interface SiteBlockProps {
