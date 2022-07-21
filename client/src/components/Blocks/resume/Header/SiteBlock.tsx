@@ -10,7 +10,11 @@ import { SiteBlockByType } from '../../../../reducers/HostReducer';
 
 const REM = 16;
 
-const Container = styled.div<{ colorSet: ColorSet; font: string }>`
+const Container = styled.div<{
+  colorSet: ColorSet;
+  font: string;
+  paddingNumber: number;
+}>`
   background-color: ${(props) => props.colorSet.background};
   font-family: ${(props) => props.font};
   color: ${(props) => props.colorSet.surface};
@@ -19,7 +23,8 @@ const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  padding: 7rem 4rem;
+  padding: ${(props) =>
+    props.paddingNumber ? `${props.paddingNumber}rem 4rem` : '0 4rem'};
   font-size: ${REM}px;
   box-sizing: border-box;
   @media screen and (max-width: 1120px) {
@@ -69,7 +74,11 @@ export default function SiteBlock(props: SiteBlockProps) {
   });
   console.log(data);
   return (
-    <Container colorSet={colorSet} font={font}>
+    <Container
+      colorSet={colorSet}
+      font={font}
+      paddingNumber={data.number?.value}
+    >
       <Title colorSet={colorSet}>{data.title?.value}</Title>
       <Nav>{NavTitle(NavTitles)}</Nav>
     </Container>

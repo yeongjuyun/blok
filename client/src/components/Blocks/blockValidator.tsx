@@ -52,6 +52,7 @@ export interface BlockData {
   rightText?: TextData;
   leftText?: TextData;
   arrText?: ArrData;
+  number?: NumberData;
 }
 export interface StyleData {
   label: string;
@@ -63,6 +64,9 @@ export interface ImageData {
 }
 export interface TextData {
   value: string;
+}
+export interface NumberData {
+  value: number;
 }
 export interface ButtonData {
   title?: string;
