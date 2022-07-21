@@ -12,6 +12,32 @@ import { SettingBlockProps } from '../../blockValidator';
 import styled from 'styled-components';
 import * as icons from '../../../../icons';
 
+const Skill = styled.div`
+  box-sizing: border-box;
+  padding: 5px 8px;
+  background-color: #f0f1f3;
+  margin: 0 4px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+`;
+const Intro = styled.span`
+  font-size: 1rem;
+  color: black;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+`;
+const Del = styled.img`
+  width: 8px;
+  height: 8px;
+  padding: 3px;
+  margin-left: 2px;
+  cursor: pointer;
+`;
+
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const { id, template, data } = useSelector((state: RootState) =>
     selectBlockById(state, blockId)
@@ -25,31 +51,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
 
   const [intros, setIntros] = useState('');
   const [arr, setArr] = useState(data.arrText?.value);
-  const Skill = styled.div`
-    box-sizing: border-box;
-    padding: 5px 8px;
-    background-color: #f0f1f3;
-    margin: 0 4px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5px;
-  `;
-  const Intro = styled.span`
-    font-size: 1rem;
-    color: black;
-    width: 80%;
-    display: flex;
-    flex-wrap: wrap;
-  `;
-  const Del = styled.img`
-    width: 8px;
-    height: 8px;
-    padding: 3px;
-    margin-left: 2px;
-    cursor: pointer;
-  `;
+
   const skills = (data: Array<string> | undefined) => {
     const arr = [];
     if (!data) {
