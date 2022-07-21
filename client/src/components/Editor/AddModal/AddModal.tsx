@@ -7,11 +7,11 @@ import config from '../../Blocks/blockTemplates.json';
 import { BlockTemplate } from '../../Blocks/blockValidator';
 import { RootState } from '../../../reducers';
 import { addBlock } from '../../../reducers/SiteReducer';
-import { generateId } from '../../../reducers/IdGeneratorReducer';
 import {
   getBlockTemplatesByTheme,
   addValidator,
 } from '../../Blocks/blockHelper';
+import uniqid from 'uniqid';
 
 const Background = styled.div`
   width: 100vw;
@@ -97,8 +97,8 @@ interface ModalProps {
 export default function AddModal(props: ModalProps) {
   const dispatch = useDispatch();
   const site = useSelector((state: RootState) => state.site);
-  const newId = useSelector((state: RootState) => state.idGenerator.id);
-
+  const newId = uniqid('block-');
+  console.log(newId);
   const closeModal = () => {
     dispatch({
       type: 'ADD/MODAL_OFF',
@@ -106,27 +106,26 @@ export default function AddModal(props: ModalProps) {
   };
   const addBlockHandler = (blockTemplate: BlockTemplate) => {
     //해당 블록이 추가가능한지 확인.
-    const result = addValidator(site, blockTemplate);
-    dispatch(generateId());
-    if (!result) {
-      //이미 있는 블록이면 불가 경고창 띄우기(모달에 띄우는 로직 추가)
-      dispatch({
-        type: 'alertOn',
-        payload: { msg: '최대 1개까지만 추가가능한 블록입니다.' },
-      });
-    } else {
-      //추가 가능한 블록이면 추가하기
+    const isAddable = addValidator(site, blockTemplate);
+
+    if (isAddable) {
+      //** 추가 가능한 블록이면 추가하기
       const newBlock = {
         id: newId,
         template: blockTemplate?.template,
         data: blockTemplate?.defaultData,
       };
-      //사이트에 추가
       dispatch(addBlock(newBlock));
 
       //모달창 닫기
       dispatch({
         type: 'ADD/MODAL_OFF',
+      });
+    } else {
+      //** 이미 있는 블록이면 불가 경고창 띄우기(모달에 띄우는 로직 추가)
+      dispatch({
+        type: 'alertOn',
+        payload: { msg: '최대 1개까지만 추가가능한 블록입니다.' },
       });
     }
   };
