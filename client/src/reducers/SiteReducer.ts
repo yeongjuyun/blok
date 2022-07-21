@@ -35,10 +35,9 @@ const initialStateSample: Site = {
     background: '#FFFFFF',
     surface: '#B0B0B0',
   },
-  //blocks: [],
   blocks: [
     {
-      id: 1,
+      id: 'sdafdsfsadf',
       template: {
         theme: 'Simple',
         blockType: 'Nav',
@@ -63,7 +62,7 @@ const initialStateSample: Site = {
       },
     },
     {
-      id: 2,
+      id: 'dafsasdfsdfs',
       template: {
         theme: 'Simple',
         blockType: 'Hero',
@@ -96,7 +95,7 @@ const initialStateSample: Site = {
       },
     },
     {
-      id: 3,
+      id: 'asdfsdf',
       template: {
         theme: 'Simple',
         blockType: 'Feature',
@@ -128,7 +127,7 @@ const initialStateSample: Site = {
       },
     },
     {
-      id: 4,
+      id: 'asdfsdfdasf',
       template: {
         theme: 'Simple',
         blockType: 'Footer',
@@ -159,10 +158,9 @@ export const testSite: Site = {
     background: '#FFFFFF',
     surface: '#B0B0B0',
   },
-  //blocks: [],
   blocks: [
     {
-      id: 3,
+      id: 'sdafhhsdf',
       template: {
         theme: 'Simple',
         blockType: 'Feature',
@@ -266,7 +264,7 @@ export const siteSlice = createSlice({
     updateBlockData: (
       state,
       action: PayloadAction<{
-        blockId: number;
+        blockId: string;
         field: string;
         value: BlockDataOptions;
       }>
@@ -278,7 +276,7 @@ export const siteSlice = createSlice({
     updateTemplate: (
       state,
       action: PayloadAction<{
-        blockId: number;
+        blockId: string;
         newTemplate: TemplateData;
       }>
     ) => {
@@ -304,7 +302,7 @@ export const siteSlice = createSlice({
 
 //Selectors
 export const selectBlocks = (state: RootState) => state.site.blocks;
-export const selectBlockById = (state: RootState, blockId: number) => {
+export const selectBlockById = (state: RootState, blockId: string) => {
   const block = state.site.blocks.find((block) => block.id === blockId);
   if (typeof block === 'undefined') {
     throw new Error('Feature: No block found');

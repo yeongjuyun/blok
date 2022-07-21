@@ -91,7 +91,7 @@ export const hostSlice = createSlice({
     updateBlockData: (
       state,
       action: PayloadAction<{
-        blockId: number;
+        blockId: string;
         field: string;
         value: BlockDataOptions;
       }>
@@ -118,7 +118,7 @@ export const hostSlice = createSlice({
 
 //Selectors
 export const selectBlocks = (state: RootState) => state.site.blocks;
-export const selectBlockById = (state: RootState, blockId: number) => {
+export const selectBlockById = (state: RootState, blockId: string) => {
   const block = state.site.blocks.find((block) => block.id === blockId);
   if (typeof block === 'undefined') {
     throw new Error('Feature: No block found');
