@@ -143,7 +143,7 @@ export default function SiteBlock(props: SiteBlockProps) {
         {data.image?.src ? (
           <Img src={data.image.src} alt={data.image.alt ?? ''} />
         ) : (
-          <ImgDiv />
+          <ImgDiv>여기에 이미지가 보여집니다.</ImgDiv>
         )}
         <TextContainer>
           {data.caption?.value && (
