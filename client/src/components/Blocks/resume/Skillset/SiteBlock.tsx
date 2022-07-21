@@ -3,6 +3,8 @@ import { RemtoVw } from '../../../../utils/cssconvert';
 import { useAppSelector } from '../../../../reducers';
 import { selectBlockById } from '../../../../reducers/SiteReducer';
 import { SiteBlockProps, ColorSet } from '../../blockValidator';
+import { SiteBlockByType } from '../../../../reducers/HostReducer';
+
 const REM = 16;
 const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   background-color: ${(props) => props.colorSet.background};
@@ -59,10 +61,8 @@ const Skill = styled.div`
   }
 `;
 export default function SiteBlock(props: SiteBlockProps) {
-  const { blockId } = props;
-  const { data } = useAppSelector((state) => selectBlockById(state, blockId));
-  const colorSet = useAppSelector((state) => state.site.colorSet);
-  const font = useAppSelector((state) => state.site.font);
+  const { blockId, type } = props;
+  const { colorSet, font, data } = SiteBlockByType({ blockId, type });
 
   const skills = (data: any) => {
     const arr = [];

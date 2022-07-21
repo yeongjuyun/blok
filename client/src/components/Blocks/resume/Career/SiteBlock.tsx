@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { RemtoVw } from '../../../../utils/cssconvert';
-import { useAppSelector } from '../../../../reducers';
-import { selectBlockById } from '../../../../reducers/SiteReducer';
 import { SiteBlockProps, ColorSet } from '../../blockValidator';
 import { LinkTag } from '../../../../icons';
+import { SiteBlockByType } from '../../../../reducers/HostReducer';
 
 const REM = 16;
 const Container = styled.div<{ colorSet: ColorSet; font: string }>`
@@ -138,10 +137,8 @@ const LinkImg = styled.img`
   }
 `;
 export default function SiteBlock(props: SiteBlockProps) {
-  const { blockId } = props;
-  const { data } = useAppSelector((state) => selectBlockById(state, blockId));
-  const colorSet = useAppSelector((state) => state.site.colorSet);
-  const font = useAppSelector((state) => state.site.font);
+  const { blockId, type } = props;
+  const { colorSet, font, data } = SiteBlockByType({ blockId, type });
 
   const skills = (data: any) => {
     const arr = [];
@@ -161,7 +158,7 @@ export default function SiteBlock(props: SiteBlockProps) {
         <Skills>{skills(data.arrText?.value)}</Skills>
         <Careerparaphrase>{data.body?.value}</Careerparaphrase>
         {data.button?.url && (
-          <Link href={data.button?.url} target='_blank'>
+          <Link href={data.button?.url} target="_blank">
             <LinkImg src={LinkTag} />
             {data.button?.url}
           </Link>

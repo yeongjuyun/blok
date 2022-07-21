@@ -54,7 +54,8 @@ export function SiteBlockByType(props: SiteBlockProps) {
   const blocks: BlockData = useAppSelector((state) =>
     type === 'host' ? state.host.blocks : state.site.blocks
   );
-  const { data } = blocks.find((block: Block) => block.id === blockId);
+
+  const { data } = blocks.find((block: any) => block.id === blockId);
 
   return { colorSet, font, data };
 }
