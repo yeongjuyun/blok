@@ -165,49 +165,11 @@ export default function SiteBlock(props: SiteBlockProps) {
   if (type === 'host') {
     colorSet = hostColorSet;
     font = hostFont;
-    data = {
-      navTitle: hostData.navTitle,
-      logoImage: {
-        src: hostData.image?.src,
-        alt: hostData.image?.alt,
-      },
-      logoText: hostData.logoText,
-      image: {
-        src: hostData.image?.src,
-        alt: hostData.image?.alt,
-      },
-      caption: hostData.caption,
-      header: hostData.header,
-      headerHighlight: hostData.headerHighlight,
-      body: hostData.body,
-      button: hostData.button,
-      rightText: hostData.rightText,
-      leftText: hostData.leftText,
-      arrText: hostData.arrText,
-    };
+    data = hostData;
   } else {
     colorSet = previewColorSet;
     font = previewFont;
-    data = {
-      navTitle: previewData.navTitle,
-      logoImage: {
-        src: previewData.image?.src,
-        alt: previewData.image?.alt,
-      },
-      logoText: previewData.logoText,
-      image: {
-        src: previewData.image?.src,
-        alt: previewData.image?.alt,
-      },
-      caption: previewData.caption,
-      header: previewData.header,
-      headerHighlight: previewData.headerHighlight,
-      body: previewData.body,
-      button: previewData.button,
-      rightText: previewData.rightText,
-      leftText: previewData.leftText,
-      arrText: previewData.arrText,
-    };
+    data = previewData;
   }
 
   console.log(33333, data);
