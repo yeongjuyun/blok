@@ -22,7 +22,6 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   //Input
   const [navTitle, setNavTitle] = useState(data.navTitle);
   const [style, setStyle] = useState(currentStyle);
-
   const [caption, setCaption] = useState(data.caption?.value);
   const [header, setHeader] = useState(data.header?.value);
   const [headerHighlight, setHeaderHighlight] = useState(

@@ -18,18 +18,16 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const styleOptions = getStyleOptions(template);
   const currentStyle = getCurrentStyleOption(template);
   const dispatch = useDispatch();
-  //Input
 
+  //Input
   const [navTitle, setNavTitle] = useState(data.navTitle);
   const [style, setStyle] = useState(currentStyle);
-
   const [caption, setCaption] = useState(data.caption?.value);
   const [header, setHeader] = useState(data.header?.value);
   const [headerHighlight, setHeaderHighlight] = useState(
     data.headerHighlight?.value
   );
   const [body, setBody] = useState(data.body?.value);
-
   const [button, setButton] = useState(data.button);
   const [image, setImage] = useState(data.image);
 
