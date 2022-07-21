@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { TextInput, CustomSelect, ArrInput } from '../../../Input';
 import { Card } from '../../../Card/Card';
-import { getStyleOptions } from '../../blockHelper';
+import { getCurrentStyleOption, getStyleOptions } from '../../blockHelper';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   updateBlockData,
@@ -12,47 +12,46 @@ import { SettingBlockProps } from '../../blockValidator';
 import styled from 'styled-components';
 import * as icons from '../../../../icons';
 
+const Skill = styled.div`
+  box-sizing: border-box;
+  padding: 5px 8px;
+  background-color: #f0f1f3;
+  margin: 0 4px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+`;
+const Intro = styled.span`
+  font-size: 1rem;
+  color: black;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+`;
+const Del = styled.img`
+  width: 8px;
+  height: 8px;
+  padding: 3px;
+  margin-left: 2px;
+  cursor: pointer;
+`;
+
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
-  const {
-    id,
-    template: { blockType },
-    data,
-  } = useSelector((state: RootState) => selectBlockById(state, blockId));
-  let styleOptions = getStyleOptions(blockType);
+  const { id, template, data } = useSelector((state: RootState) =>
+    selectBlockById(state, blockId)
+  );
+  const styleOptions = getStyleOptions(template);
+  const currentStyle = getCurrentStyleOption(template);
   const dispatch = useDispatch();
 
-  const [style, setStyle] = useState({
-    label: data.style?.value,
-    value: data.style?.value,
-  });
+  const [style, setStyle] = useState(currentStyle);
   const [title, setTitle] = useState(data.title?.value);
+
   const [intros, setIntros] = useState('');
   const [arr, setArr] = useState(data.arrText?.value);
-  const Skill = styled.div`
-    box-sizing: border-box;
-    padding: 5px 8px;
-    background-color: #f0f1f3;
-    margin: 0 4px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5px;
-  `;
-  const Intro = styled.span`
-    font-size: 1rem;
-    color: black;
-    width: 80%;
-    display: flex;
-    flex-wrap: wrap;
-  `;
-  const Del = styled.img`
-    width: 8px;
-    height: 8px;
-    padding: 3px;
-    margin-left: 2px;
-    cursor: pointer;
-  `;
+
   const skills = (data: Array<string> | undefined) => {
     const arr = [];
     if (!data) {
@@ -69,8 +68,8 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
                 if (!res) {
                   return;
                 }
-                res.splice(i, 1);
-                return [...res];
+                const newarr = res.filter((value, index) => index !== i);
+                return [...newarr];
               });
             }}
           />

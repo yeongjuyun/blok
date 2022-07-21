@@ -4,10 +4,14 @@ import BlockItem from './BlockItem';
 import * as icons from '../../../icons';
 import * as blockIcons from '../../../icons/blockCreation';
 import config from '../../Blocks/blockTemplates.json';
-import { Site, BlockTemplate } from '../../Blocks/blockValidator';
+import { BlockTemplate } from '../../Blocks/blockValidator';
 import { RootState } from '../../../reducers';
 import { addBlock } from '../../../reducers/SiteReducer';
-import { generateId } from '../../../reducers/IdGeneratorReducer';
+import {
+  getBlockTemplatesByTheme,
+  addValidator,
+} from '../../Blocks/blockHelper';
+import uniqid from 'uniqid';
 
 const Background = styled.div`
   width: 100vw;
@@ -90,71 +94,43 @@ const AddButton = styled.button`
 interface ModalProps {
   theme: string;
 }
-
-const getBlockTemplatesByTheme = (
-  blockTemplates: BlockTemplate[],
-  theme: string
-): BlockTemplate[] => {
-  const arr: BlockTemplate[] = blockTemplates.filter((block) => {
-    return block.template.theme === theme;
-  });
-  return arr;
-};
-const validate = (site: Site, blockToAdd: BlockTemplate): boolean => {
-  const isUnique = blockToAdd.creationData.isUnique;
-  const isDuplicated: boolean = isBlockExist(site, blockToAdd);
-  //1개만 있어야하는데 이미 있어서 추가 불가능
-  if (isUnique && isDuplicated) {
-    return false;
-  }
-  return true;
-};
-const isBlockExist = (site: Site, blockToCheck: BlockTemplate): boolean => {
-  let blocks = Object.values(site.blocks);
-  const index = blocks.findIndex((block) => {
-    return block.template.blockType === blockToCheck.template.blockType;
-  });
-  const result = index >= 0 ? true : false;
-  return result;
-};
-
 export default function AddModal(props: ModalProps) {
   const dispatch = useDispatch();
   const site = useSelector((state: RootState) => state.site);
-  const newId = useSelector((state: RootState) => state.idGenerator.id);
-
+  const newId = uniqid('block-');
+  console.log(newId);
   const closeModal = () => {
     dispatch({
       type: 'ADD/MODAL_OFF',
     });
   };
   const addBlockHandler = (blockTemplate: BlockTemplate) => {
-    //2. 블록추가
-    const result = validate(site, blockTemplate);
-    dispatch(generateId());
-    if (!result) {
-      //이미 있는 블록이면 불가 경고창 띄우기(모달에 띄우는 로직 추가)
-      dispatch({
-        type: 'alertOn',
-        payload: { msg: '최대 1개까지만 추가가능한 블록입니다.' },
-      });
-    } else {
-      //추가 가능한 블록이면 추가하기
+    //해당 블록이 추가가능한지 확인.
+    const isAddable = addValidator(site, blockTemplate);
+
+    if (isAddable) {
+      //** 추가 가능한 블록이면 추가하기
       const newBlock = {
         id: newId,
         template: blockTemplate?.template,
         data: blockTemplate?.defaultData,
       };
-      //사이트 추가
       dispatch(addBlock(newBlock));
 
-      //3.모달창 닫기
+      //모달창 닫기
       dispatch({
         type: 'ADD/MODAL_OFF',
+      });
+    } else {
+      //** 이미 있는 블록이면 불가 경고창 띄우기(모달에 띄우는 로직 추가)
+      dispatch({
+        type: 'alertOn',
+        payload: { msg: '최대 1개까지만 추가가능한 블록입니다.' },
       });
     }
   };
   const renderBlockItem = () => {
+    //현재
     const blockTemplates = getBlockTemplatesByTheme(
       config.blockTemplates,
       site.theme
@@ -163,6 +139,7 @@ export default function AddModal(props: ModalProps) {
       const { icon, title } = blockTemplate.creationData;
       return (
         <BlockItem
+          key={uniqid()}
           icon={blockIcons[icon as keyof typeof blockIcons]}
           label={title}
           onClick={() => {

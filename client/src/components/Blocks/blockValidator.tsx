@@ -19,7 +19,7 @@ export interface ColorSet {
 //Block Interface
 
 export interface Block {
-  id: number;
+  id: string;
   template: TemplateData;
   data: BlockData;
 }
@@ -41,7 +41,6 @@ export type BlockDataOptions =
 export interface BlockData {
   [key: string]: any;
   navTitle: string | null;
-  style?: StyleData;
   logoImage?: ImageData;
   logoText?: TextData;
   image?: ImageData;
@@ -55,7 +54,8 @@ export interface BlockData {
   arrText?: ArrData;
 }
 export interface StyleData {
-  value: string;
+  label: string;
+  value: TemplateData;
 }
 export interface ImageData {
   src: string;
@@ -92,7 +92,6 @@ export interface NavBlock extends Omit<Block, 'data'> {
 }
 export interface NavData {
   navTitle?: null;
-  style: StyleData;
   logoImage?: ImageData;
   logoText?: TextData;
   button?: ButtonData;
@@ -103,7 +102,6 @@ export interface HeroBlock extends Omit<Block, 'template'> {
 }
 export interface HeroData {
   navTitle: string;
-  style: StyleData;
   image?: ImageData;
   caption?: TextData;
   header?: TextData;
@@ -117,7 +115,6 @@ export interface FeatureBlock extends Omit<Block, 'template'> {
 }
 export interface FeatureData {
   navTitle: string;
-  style: StyleData;
   image?: ImageData;
   caption?: TextData;
   header?: TextData;
@@ -131,16 +128,15 @@ export interface FooterBlock extends Omit<Block, 'template'> {
 }
 export interface FooterData {
   navTitle: string;
-  style: StyleData;
   leftText?: TextData;
   rightText?: TextData;
 }
 
 //SettingBlock & SiteBlock Props
 export interface SettingBlockProps {
-  blockId: number;
+  blockId: string;
   onRemove: (event: React.MouseEvent<HTMLElement>) => void;
 }
 export interface SiteBlockProps {
-  blockId: number;
+  blockId: string;
 }
