@@ -358,6 +358,7 @@ export const {
   updateTheme,
   updateDomain,
   updateBlockData,
+  updateTemplate,
   moveBlock,
 } = siteSlice.actions;
 export default siteSlice.reducer;
