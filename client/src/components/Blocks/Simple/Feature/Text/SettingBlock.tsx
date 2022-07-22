@@ -13,7 +13,7 @@ import * as icon from '../../../../../icons';
 import { SettingBlockProps, StyleData } from '../../../blockValidator';
 
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
-  const { id, template, data } = useSelector((state: RootState) =>
+  const { id, template, data, isCardOpened } = useSelector((state: RootState) =>
     selectBlockById(state, blockId)
   );
   let styleOptions = getStyleOptions(template);
@@ -34,7 +34,13 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
 
   return (
     <>
-      <Card title="Feature" onRemove={onRemove} icon={icon.Feature}>
+      <Card
+        title="Feature"
+        onRemove={onRemove}
+        icon={icon.Feature}
+        isCardOpened={isCardOpened}
+        blockId={blockId}
+      >
         <TextInput
           title="메뉴명"
           required

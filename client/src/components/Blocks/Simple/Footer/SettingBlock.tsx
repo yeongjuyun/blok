@@ -13,7 +13,7 @@ import { SettingBlockProps, StyleData } from '../../blockValidator';
 import { getStyleOptions, getCurrentStyleOption } from '../../blockHelper';
 
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
-  const { id, template, data } = useSelector((state: RootState) =>
+  const { id, template, data, isCardOpened } = useSelector((state: RootState) =>
     selectBlockById(state, blockId)
   );
   const styleOptions = getStyleOptions(template);
@@ -28,7 +28,14 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const [rightText, setRightText] = useState(data.rightText?.value);
   return (
     <>
-      <Card title="Footer" pinned onRemove={onRemove} icon={icon.Footer}>
+      <Card
+        title="Footer"
+        pinned
+        onRemove={onRemove}
+        icon={icon.Footer}
+        isCardOpened={isCardOpened}
+        blockId={blockId}
+      >
         <TextInput
           title="메뉴명"
           required
