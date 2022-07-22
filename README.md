@@ -67,14 +67,21 @@
   - 상태관리: Redux, Redux Toolkit
   - 스타일링: styled-components
   
-- 백엔드 
-  - Node.js, Express.js
-  - MongoDB
+### 테크스택
+
+- 프론트엔드 
+  - 코어: React, TypeScript
+  - 상태관리: Redux, Redux Toolkit
+  - 스타일링: styled-components
   
+- 백엔드 
+  - 서버: Node.js, Express.js
+  - DataBase: MongoDB
+  - Infra : aws s3
 - 이 테크스택을 사용한 이유
   - 웹빌더 특성상 한번 접속한 이후 해당 페이지를 수정하는 작업이 많기 때문에 CSR로 개발하는게 맞다고 판단하여 Next.js 대신 React 사용. 
   - 상태관리는 팀원들이 모두 배워본 경험이 있는 Redux를 사용. 
-  - 백엔드 부분 추가 필요
+  - 백엔드 팀원들이 공통적으로 사용해 본 적 있는 Express와 MongoDB를 사용, 추후 TypeScript로 마이그레이션 예정
 
 <br>
 <br>
@@ -105,6 +112,10 @@
 | 테마,폰트,컬러 타입 등 다양한 블록과 스타일을 지원하기 위한 데이터 구조 | 
 |:-------------:| 
 |<img width="300" alt="team" src="https://user-images.githubusercontent.com/32115010/180238644-286bdb6f-3dda-48d9-afad-d02e864140b1.png">|
+
+| 다양한 블록을 백엔드에서 처리하기 위해 스키마에서 Object로 설정 | 
+|:-------------:| 
+|<img width="300" alt="team" src="https://raw.githubusercontent.com/croookid/imageupload/main/siite.JPG">|
 
 | 동적렌더링 코드 예시 | 
 |:-------------:| 
