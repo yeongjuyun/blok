@@ -131,6 +131,7 @@ const ListSpan = styled.span`
   font-size: 18px;
   display: inline-block;
   text-align: center;
+  cursor: pointer;
   @media screen and (max-width: 780px) {
     margin-top: 6px;
     width: 100px;
