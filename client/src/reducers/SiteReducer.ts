@@ -314,7 +314,6 @@ export const siteSlice = createSlice({
         //block에 isOpenedCard 있을경우 현재값의 반대를 저장
         block.isCardOpened = !block.isCardOpened;
       }
-      console.log(block.isCardOpened);
     },
   },
 });
