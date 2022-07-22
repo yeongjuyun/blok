@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  Navigate,
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from 'react-router-dom';
 import Login from './pages/Login';
 import Account from './pages/Account';
 import Dashboard from './pages/Dashboard';
@@ -19,6 +24,7 @@ export function AppRouter() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Navigate to="/blok" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/account" element={<Account />} />
