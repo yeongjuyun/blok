@@ -6,7 +6,7 @@ import { MdOutlineSpaceDashboard } from 'react-icons/md';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../reducers';
-
+import default_profile from '../imgs/profileImage.png';
 // import icon
 import { CgClose } from 'react-icons/cg';
 import { BiLogOut } from 'react-icons/bi';
@@ -214,9 +214,12 @@ const Menu = (props: IMyProps) => {
 
 export default function Sidebar() {
   const [isMobile, setIsMobile] = useState(false);
-  const { profileImage, userId } = useAppSelector(
+  const { profileImage } = useAppSelector(
     (state) => state.loginCheckReducer.loginData
   );
+  const onErrorImg = (e: any) => {
+    e.target.src = default_profile;
+  };
 
   return (
     <Nav>
@@ -233,9 +236,13 @@ export default function Sidebar() {
         onMouseLeave={() => setIsMobile(false)}
       >
         {profileImage === null ? (
-          <FaRegUserCircle size='48' color='#CCCCCC' />
+          <ProfileImage src={default_profile} alt='profile' />
         ) : (
-          <ProfileImage src={profileImage} alt='profileImg' />
+          <ProfileImage
+            src={profileImage}
+            alt='profileImg'
+            onError={onErrorImg}
+          />
         )}
       </Profile>
       {isMobile && (
