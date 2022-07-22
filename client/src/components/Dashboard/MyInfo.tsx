@@ -104,7 +104,7 @@ export default function MyInfo() {
       setUserId(res.data.userId);
       setProfileImage(res.data.profileImage);
 
-      if (res.data.profileImage === null) {
+      if (res.data.profileImage == null) {
         setProfileImage(default_profile);
       }
     } catch (error) {
