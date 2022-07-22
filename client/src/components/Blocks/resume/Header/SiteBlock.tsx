@@ -38,11 +38,11 @@ const Title = styled.div<{ colorSet: ColorSet }>`
     margin-left: ${RemtoVw(REM, 0.75)};
   }
 `;
-const NavTitleses = styled.div<{ colorSet: ColorSet }>`
+const NavTitles = styled.div<{ colorSet: ColorSet }>`
   font-size: 1rem;
   margin-left: 0.75rem;
+  color: ${(props) => props.colorSet.background};
   @media screen and (max-width: 1120px) {
-    color: ${(props) => props.colorSet.background};
     font-size: ${RemtoVw(16, 2)};
     margin-left: ${RemtoVw(16, 0.75)};
   }
@@ -51,9 +51,9 @@ const NavTitle = (titles: string | any[], colorSet: ColorSet) => {
   const arr = [];
   for (let i = 0; i < titles.length; i++) {
     arr.push(
-      <NavTitleses key={titles[i]} colorSet={colorSet}>
+      <NavTitles key={titles[i]} colorSet={colorSet}>
         {titles[i]}
-      </NavTitleses>
+      </NavTitles>
     );
   }
   return arr;
