@@ -93,7 +93,7 @@ export default function Hosting() {
 
     return (
       <SiteBlock
-        type="host"
+        type='host'
         key={id}
         blockId={id}
         colorSet={colorSet}

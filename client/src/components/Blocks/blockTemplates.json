@@ -13,8 +13,8 @@
       },
       "defaultData": {
         "navTitle": null,
-        "logoImage": {
-          "src": "www.image.com/source/12312",
+        "image": {
+          "src": "",
           "alt": "logo"
         },
         "logoText": {
@@ -294,10 +294,10 @@
           "value": "Education"
         },
         "leftText": {
-          "value": "연세대학교"
+          "value": "어디대학교"
         },
         "rightText": {
-          "value": "실내건축학과"
+          "value": "무슨학과"
         },
         "caption": {
           "value": "2017년 3월~2021년 12월"
