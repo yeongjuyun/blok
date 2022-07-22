@@ -77,8 +77,6 @@ export default function Editor() {
     getSiteInfo();
   }, []);
 
-  console.log(data.colorSet);
-
   useEffect(() => {
     dispatch({
       type: 'site/getSite',
