@@ -1,6 +1,6 @@
 import is from "@sindresorhus/is";
 import { siteService } from "../services";
-import { asyncHandler } from "../utils";
+import { asyncHandler, s3Uploadv2 } from "../utils";
 
 import { BadRequestError } from "../errors";
 
