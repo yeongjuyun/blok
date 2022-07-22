@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Button from '../Button';
 import { MainTitle } from './MyInfo';
@@ -106,6 +107,7 @@ const AddButton = styled(Button)`
 
 export function TemplateList() {
   const dispatch = useAppDispatch();
+
   const showModalHandler = (template: string) => {
     dispatch({ type: 'TEMPLATE/MODAL_ON', template: template });
   };
@@ -121,7 +123,7 @@ export function TemplateList() {
 
   return (
     <Container>
-      <MainTitle className="title">Template</MainTitle>
+      <MainTitle className='title'>Template</MainTitle>
       <TemplateBox>
         {DashboardTemplateList()?.map((e: any, idx: number) => (
           <div key={idx}>
@@ -142,7 +144,7 @@ export function TemplateList() {
 export function DashboardInfo() {
   const [data, setData] = useState<any[]>([]);
   const dispatch = useAppDispatch();
-
+  const nav = useNavigate();
   // userId 별 sites 데이터 조회
   const getUserInfo = async () => {
     try {
@@ -166,8 +168,13 @@ export function DashboardInfo() {
           plan: user.plan,
         },
       });
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      dispatch({
+        type: 'alertOn',
+        payload: { msg: `${error.response.data.reason}` },
+      });
+      nav('/login');
     }
   };
 
@@ -208,8 +215,8 @@ export function DashboardInfo() {
 
   return (
     <Container>
-      <MainTitle className="title dashboardTitle">Dashboard</MainTitle>
-      <div className="tableBox">
+      <MainTitle className='title dashboardTitle'>Dashboard</MainTitle>
+      <div className='tableBox'>
         <Table>
           <thead>
             <tr>
@@ -234,18 +241,18 @@ export function DashboardInfo() {
                       style={{ textDecoration: 'none' }}
                     >
                       <ControlButton
-                        className="editButton"
+                        className='editButton'
                         rounding
-                        color="white"
+                        color='white'
                         onClick={() => dispatch({ type: 'Block' })}
                       >
                         Edit
                       </ControlButton>
                     </Link>
                     <ControlButton
-                      className="deleteButton"
+                      className='deleteButton'
                       onClick={() => deleteHandler(e._id)}
-                      color="gray"
+                      color='gray'
                       rounding
                     >
                       Delete
@@ -261,9 +268,9 @@ export function DashboardInfo() {
           </tbody>
         </Table>
         <AddButton
-          className="addButton"
+          className='addButton'
           onClick={showModalHandler}
-          size="medium"
+          size='medium'
           rounding
         >
           사이트 추가
