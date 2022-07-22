@@ -12,10 +12,8 @@ const Container = styled.div<{
   font: string;
   paddingNumber: number;
 }>`
-  background-color: #fff;
+  background-color: ${(props) => props.colorSet.primary};
   font-family: ${(props) => props.font};
-  color: ${(props) => props.colorSet.surface};
-
   display: flex;
   align-items: center;
   width: 100%;
@@ -34,24 +32,29 @@ const Title = styled.div<{ colorSet: ColorSet }>`
   font-weight: 700;
   font-size: 2rem;
   margin-left: 0.75rem;
-  color: ${(props) => props.colorSet.primary};
+  color: ${(props) => props.colorSet.background};
   @media screen and (max-width: 1120px) {
     font-size: ${RemtoVw(REM, 2)};
     margin-left: ${RemtoVw(REM, 0.75)};
   }
 `;
-const NavTitleses = styled.div`
+const NavTitleses = styled.div<{ colorSet: ColorSet }>`
   font-size: 1rem;
   margin-left: 0.75rem;
   @media screen and (max-width: 1120px) {
+    color: ${(props) => props.colorSet.background};
     font-size: ${RemtoVw(16, 2)};
     margin-left: ${RemtoVw(16, 0.75)};
   }
 `;
-const NavTitle = (titles: string | any[]) => {
+const NavTitle = (titles: string | any[], colorSet: ColorSet) => {
   const arr = [];
   for (let i = 0; i < titles.length; i++) {
-    arr.push(<NavTitleses>{titles[i]}</NavTitleses>);
+    arr.push(
+      <NavTitleses key={titles[i]} colorSet={colorSet}>
+        {titles[i]}
+      </NavTitleses>
+    );
   }
   return arr;
 };
@@ -69,7 +72,7 @@ export default function SiteBlock(props: SiteBlockProps) {
   alldata.forEach((res) => {
     if (res.data.navTitle) return NavTitles.push(res.data.navTitle);
   });
-
+  console.log(data);
   return (
     <Container
       colorSet={colorSet}
@@ -77,7 +80,7 @@ export default function SiteBlock(props: SiteBlockProps) {
       paddingNumber={data.number?.value}
     >
       <Title colorSet={colorSet}>{data.title?.value}</Title>
-      <Nav>{NavTitle(NavTitles)}</Nav>
+      <Nav>{NavTitle(NavTitles, colorSet)}</Nav>
     </Container>
   );
 }
