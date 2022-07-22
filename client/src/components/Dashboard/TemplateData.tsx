@@ -282,8 +282,8 @@ export default function templateListData() {
             value: '프론트 엔드 개발',
           },
           button: {
-            title: '프로젝트URL',
-            url: 'http://naver.com/',
+            title: '',
+            url: '',
           },
           body: {
             value:
@@ -317,7 +317,7 @@ export default function templateListData() {
           },
           button: {
             title: '프로젝트URL',
-            url: 'naver.com',
+            url: 'https://naver.com',
           },
           body: {
             value:
