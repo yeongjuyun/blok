@@ -14,7 +14,8 @@ const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   flex-direction: column;
   box-sizing: border-box;
   width: 100%;
-  padding: 5rem 2rem;
+  margin-top: 56px;
+  padding: 7rem 2rem;
 `;
 
 const HeroMenuName = styled.div<{ colorSet: ColorSet }>`

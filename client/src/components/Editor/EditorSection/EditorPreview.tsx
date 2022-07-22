@@ -40,7 +40,7 @@ const SiteBlockContainer = styled.div<{ theme: any }>`
   ${(props) =>
     props.theme === 'Simple' &&
     css`
-      padding: 24px 40px 0 40px;
+      padding: 8px 40px 0 40px;
     `}
 `;
 
