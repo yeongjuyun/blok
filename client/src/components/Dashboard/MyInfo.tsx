@@ -79,7 +79,7 @@ const ProfileImage = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background-color: red;
+  background-color: #e7e7e7;
   cursor: pointer;
 `;
 
