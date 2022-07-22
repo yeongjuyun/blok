@@ -30,7 +30,7 @@ export default function templateListData() {
     colorSet: {
       primary: '#5754DE',
       secondary: '#ABA9FF',
-      background: '#FFFFFF"',
+      background: '#FFFFFF',
       surface: '#B0B0B0',
     },
     blocks: [
@@ -200,10 +200,10 @@ export default function templateListData() {
     theme: 'Resume',
     font: 'Roboto',
     colorSet: {
-      primary: '#2B5E27',
-      secondary: '#668C62',
-      background: '#FFFFFF"',
-      surface: '#9DA89D',
+      primary: '#5754DE',
+      secondary: '#ABA9FF',
+      background: '#FFFFFF',
+      surface: '#B0B0B0',
     },
     blocks: [
       {
@@ -352,16 +352,15 @@ export default function templateListData() {
   };
 
   const companyProfile = {
-    id: null,
     name: '',
     domain: '',
     theme: 'Minimal',
     font: 'Roboto',
     colorSet: {
-      primary: '#F0BA1A',
-      secondary: '#EDD077',
-      background: '#FFFFFF"',
-      surface: '#BFBAAA',
+      primary: '#5754DE',
+      secondary: '#ABA9FF',
+      background: '#FFFFFF',
+      surface: '#B0B0B0',
     },
     blocks: [
       {
@@ -527,12 +526,12 @@ export default function templateListData() {
     id: null,
     name: '',
     domain: '',
-    theme: 'Minimal',
+    theme: 'Simple',
     font: 'Roboto',
     colorSet: {
       primary: '#5754DE',
       secondary: '#ABA9FF',
-      background: '#FFFFFF"',
+      background: '#FFFFFF',
       surface: '#B0B0B0',
     },
     blocks: [],
