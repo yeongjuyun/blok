@@ -39,6 +39,7 @@ function Hero({ blockId, onRemove }: SettingBlockProps) {
         onRemove={onRemove}
         icon={icon.Hero}
         isCardOpened={isCardOpened}
+        pinned
         blockId={blockId}
       >
         <TextInput
