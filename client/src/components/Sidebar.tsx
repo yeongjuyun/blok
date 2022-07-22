@@ -172,39 +172,39 @@ const Menu = (props: IMyProps) => {
       onMouseLeave={props.onMouseLeave}
       onMouseEnter={props.onMouseEnter}
     >
-      <Link to='/account' style={{ textDecoration: 'none' }}>
+      <Link to="/account" style={{ textDecoration: 'none' }}>
         <List>
-          <FaUserAlt color='black' />
+          <FaUserAlt color="black" />
           <ListSpan>Account</ListSpan>
         </List>
       </Link>
 
       {userData?.role === 'admin' ? (
         <>
-          <Link to='/site' style={{ textDecoration: 'none' }}>
+          <Link to="/site" style={{ textDecoration: 'none' }}>
             <List>
-              <MdOutlineSpaceDashboard color='black' />
+              <MdOutlineSpaceDashboard color="black" />
               <ListSpan>Manage Site</ListSpan>
             </List>
           </Link>
-          <Link to='/user' style={{ textDecoration: 'none' }}>
+          <Link to="/user" style={{ textDecoration: 'none' }}>
             <List>
-              <MdOutlineSpaceDashboard color='black' />
+              <MdOutlineSpaceDashboard color="black" />
               <ListSpan>Manage User</ListSpan>
             </List>
           </Link>
         </>
       ) : (
-        <Link to='/dashboard' style={{ textDecoration: 'none' }}>
+        <Link to="/dashboard" style={{ textDecoration: 'none' }}>
           <List>
-            <MdOutlineSpaceDashboard color='black' />
+            <MdOutlineSpaceDashboard color="black" />
             <ListSpan>Dashboard</ListSpan>
           </List>
         </Link>
       )}
       <div onClick={logoutHandler} style={{ textDecoration: 'none' }}>
         <List>
-          <BiLogOut color='black' />
+          <BiLogOut color="black" />
           <ListSpan>Logout</ListSpan>
         </List>
       </div>
@@ -223,9 +223,9 @@ export default function Sidebar() {
 
   return (
     <Nav>
-      <div className='navbarLogo'>
-        <Link to='/'>
-          <LogoImg src={logoImg} alt='logo' />
+      <div className="navbarLogo">
+        <Link to="/dashboard">
+          <LogoImg src={logoImg} alt="logo" />
         </Link>
       </div>
       <Hamburger onClick={() => setIsMobile(true)}>
@@ -236,11 +236,11 @@ export default function Sidebar() {
         onMouseLeave={() => setIsMobile(false)}
       >
         {profileImage === null ? (
-          <ProfileImage src={default_profile} alt='profile' />
+          <ProfileImage src={default_profile} alt="profile" />
         ) : (
           <ProfileImage
             src={profileImage}
-            alt='profileImg'
+            alt="profileImg"
             onError={onErrorImg}
           />
         )}
