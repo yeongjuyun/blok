@@ -349,15 +349,10 @@ export const CustomSelectWidth90 = (props: any) => {
 
 export const ImgInput = forwardRef<HTMLInputElement, ImgInputprops>(
   (props: ImgInputprops, ref) => {
-    // const [ImgLoading, setImgLoading] = useState<boolean>(false);
-    // const ImgRef = useRef<HTMLInputElement>(null);
     const [Img, setImg] = useState<any>(null);
     const onImgChange = (event: any, imgHandler: Function) => {
-      // setImgLoading(true);
       setImg(URL.createObjectURL(event.target.files[0]));
-      // const response = axios.post(URL.createObjectURL(event.target.files[0]))
-      // setImgLoading(false);
-      imgHandler(URL.createObjectURL(event.target.files[0]));
+      imgHandler(event.target.files[0]);
     };
 
     return (
