@@ -26,8 +26,6 @@ const UserSchema = new Schema(
     },
     oauth: {
       type: String,
-      // enum: [AUTH_ENUM.LOCAL, AUTH_ENUM.GOOGLE],
-      // default: AUTH_ENUM.LOCAL,
       enum: ["local", "google"],
       default: "local",
     },
@@ -39,7 +37,6 @@ const UserSchema = new Schema(
     plan: {
       type: String,
       default: "free",
-      // 추가 예정
       enum: ["free", "paid"],
     },
     // true일 때 비밀번호 재설정 페이지 렌더링

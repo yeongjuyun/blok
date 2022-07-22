@@ -2,19 +2,30 @@ import is from "@sindresorhus/is";
 import { userService } from "../services";
 import { JWT_COOKIE_KEY, asyncHandler, s3Uploadv2 } from "../utils";
 import { BadRequestError, ForbiddenError } from "../errors";
+import passport from "passport";
 
 const userController = {
   register: asyncHandler(async (req, res) => {
     if (is.emptyObject(req.body)) {
       throw new BadRequestError(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
+        "입력값이 비어있습니다! 다시 한번 확인해주세요."
       );
     }
     const { userName, email, password } = req.body;
+    if (
+      !email.match(
+        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+      )
+    ) {
+      throw new BadRequestError(
+        "이메일 형식이 올바르지 않습니다. 다시 한번 확인해 주세요."
+      );
+    }
+    if (password.length < 6) {
+      throw new BadRequestError("비밀번호의 길이는 6자리 이상이어야 합니다");
+    }
     const newUser = await userService.addUser({
-      userName,
-      email,
-      password,
+      ...req.body,
     });
     return res.ok(200, newUser);
   }),
@@ -22,7 +33,7 @@ const userController = {
   resetPassword: asyncHandler(async (req, res) => {
     if (is.emptyObject(req.body)) {
       throw new BadRequestError(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
+        "입력값이 비어있습니다! 다시 한번 확인해주세요."
       );
     }
     const { userName, email } = req.body;
@@ -35,12 +46,17 @@ const userController = {
     if (req.user.userId !== userId) {
       throw new ForbiddenError("본인의 계정만 삭제할 수 있습니다.");
     }
-    const deletedUserInfo = await userService.deleteUser(userId);
-    res.status(204).clearCookie(JWT_COOKIE_KEY).json(deletedUserInfo);
+    await userService.deleteUser(userId);
+    res.okWithDeleteCookie(204, JWT_COOKIE_KEY);
   }),
   // (jwttoken가 쿠키로 전달되기 때문에 클라이언트에선 변수 없이 호출)
-  logincheck: (req, res) => {
-    return res.ok(200, req.user);
+  logincheck: (req, res, next) => {
+    return passport.authenticate("jwt", { session: false }, (authErr, user) => {
+      if (!user) {
+        return res.ok(200);
+      }
+      return res.ok(200, user);
+    })(req, res, next);
   },
 
   logout: (req, res) => {
@@ -86,6 +102,9 @@ const userController = {
       throw new BadRequestError(
         "정보를 변경하려면, 현재의 비밀번호가 필요합니다."
       );
+    }
+    if (toEditPassword.length < 6) {
+      throw new BadRequestError("비밀번호의 길이는 6자리 이상이어야 합니다");
     }
     const userInfoRequired = { userId, currentPassword };
     const toUpdate = { password: toEditPassword };

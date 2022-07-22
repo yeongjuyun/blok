@@ -1,4 +1,3 @@
-import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -9,9 +8,9 @@ import { NotFoundError } from "./errors";
 import passport from "passport";
 import { passportStrategies } from "./passport";
 import cookieParser from "cookie-parser";
+import "dotenv/config";
 
-dotenv.config();
-const PORT = process.env.SERVER_PORT || 8000;
+const PORT = process.env.SERVER_PORT || 5001;
 const app = express();
 
 const DB_URL = process.env.MONGODB_URL;
@@ -31,11 +30,6 @@ app.use(cookieParser());
 passportStrategies();
 
 app.use(express.json());
-
-// 테스팅용 라우터, 제거예정
-app.get("/", function (req, res) {
-  res.send("<h1>welcome page</h1>");
-});
 
 app.use(passport.initialize());
 

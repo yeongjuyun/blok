@@ -1,8 +1,8 @@
 import is from "@sindresorhus/is";
 import { siteService } from "../services";
-import { asyncHandler } from "../utils";
+import { asyncHandler, s3Uploadv2 } from "../utils";
 
-import { BadRequestError, ForbiddenError } from "../errors";
+import { BadRequestError } from "../errors";
 
 const siteController = {
   addsite: asyncHandler(async (req, res, next) => {
@@ -36,6 +36,12 @@ const siteController = {
     return res.ok(200, sites);
   }),
 
+  getSiteInfoByDomain: asyncHandler(async (req, res) => {
+    const domain = req.params.domain;
+    const site = await siteService.getSiteInfoByDomain(domain);
+    return res.ok(200, site);
+  }),
+
   updateSite: asyncHandler(async (req, res) => {
     if (is.emptyObject(req.body)) {
       throw new BadRequestError(
@@ -60,6 +66,11 @@ const siteController = {
     };
     const updatedSiteInfo = await siteService.updateSite(siteId, toUpdate);
     return res.ok(200, updatedSiteInfo);
+  }),
+  uploadImage: asyncHandler(async (req, res) => {
+    const results = await s3Uploadv2(req.file);
+    const imageUrl = results.Location;
+    return res.ok(200, imageUrl);
   }),
 
   deleteSite: asyncHandler(async (req, res) => {

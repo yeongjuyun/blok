@@ -1,12 +1,11 @@
 import is from "@sindresorhus/is";
-import { setUserToken } from "../utils";
 import { BadRequestError } from "../errors";
 
 const authController = {
   login: (req, res) => {
     if (is.emptyObject(req.body)) {
       throw new BadRequestError(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
+        "입력값이 비어있습니다! 다시 한번 확인해주세요."
       );
     }
     res.okWithSetToken(200, {
@@ -14,7 +13,6 @@ const authController = {
       passwordReset: req.user.passwordReset,
     });
   },
-
   googleOauth: (req, res) => {
     res.okWithSetToken(201);
   },

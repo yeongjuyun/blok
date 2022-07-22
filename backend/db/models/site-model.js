@@ -9,15 +9,11 @@ export class SiteModel {
     const userId = siteInfo.userId;
     const createdNewSite = await Site.create(siteInfo);
     const siteId = JSON.stringify(createdNewSite._id).replace(/["]/g, "");
-    const user = await userModel.createSiteById(userId, siteId);
+    await userModel.createSiteById(userId, siteId);
 
     return createdNewSite;
   }
 
-  // async findBySiteId(siteId) {
-  //   const site = await Site.findOne({ _id: siteId });
-  //   return site;""
-  // }
   async findBySiteDomain(siteDomain) {
     const site = await Site.findOne({ domain: siteDomain });
     return site;
@@ -37,6 +33,11 @@ export class SiteModel {
       { $project: { _id: 0 } },
     ]);
     return site[0];
+  }
+
+  async findBySiteDomain(siteDomain) {
+    const site = await Site.findOne({ domain: siteDomain });
+    return site;
   }
 
   async findAllSite() {
@@ -69,8 +70,8 @@ export class SiteModel {
     return totalCount;
   }
 
-  async pagenation(page, perPage, searchKey, searchValue) {
-    const sites = await Site.aggregate([
+  async pagination(page, perPage, searchKey, searchValue) {
+    const pipeline = [
       {
         $lookup: {
           from: "users",
@@ -79,22 +80,26 @@ export class SiteModel {
           as: "user",
         },
       },
-      {
-        $match: {
-          [searchKey]: { $regex: searchValue, $options: "i" },
+    ];
+    if (searchKey && searchValue) {
+      pipeline.push(
+        {
+          $match: {
+            [searchKey]: { $regex: searchValue, $options: "i" },
+          },
         },
-      },
-      {
-        $addFields: {
-          siteId: "$_id",
+        {
+          $addFields: {
+            siteId: "$_id",
+          },
         },
-      },
-      { $project: { _id: 0 } },
-    ])
+        { $project: { _id: 0 } }
+      );
+    }
+    const sites = await Site.aggregate(pipeline)
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage);
-    // await Site.populate(sites, { path: "userId" });
     return sites;
   }
 
@@ -105,10 +110,6 @@ export class SiteModel {
     const user = await userModel.deleteSiteById(userId, siteId);
     const deletedSite = await Site.findOneAndDelete(filter);
     return deletedSite;
-    // //solve 1:
-    // const site = await Site.find({ _id: id });
-    // const userId = JSON.stringify(site[0].owner).replace(/["]/g, "");
-    // const user = await userModel.findById(userId);
   }
 }
 
