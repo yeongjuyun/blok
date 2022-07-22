@@ -35,7 +35,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
 
   async function imgHandler(data: any) {
     const formData = new FormData();
-    formData.append('image', data);
+    formData.append('file', data);
 
     const config = {
       headers: {

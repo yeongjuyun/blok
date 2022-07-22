@@ -10,6 +10,7 @@ const Width100 = styled.div`
 const Widthflex = styled.form`
   width: 100%;
   display: flex;
+  align-items: center;
 `;
 
 const Width90 = styled.div`
@@ -58,8 +59,9 @@ const ArrButton = styled.button`
   line-height: 19px;
   width: 7rem;
   height: 48px;
+  background-color: transparent;
   margin-left: 5px;
-  border: 1px solid #ececec;
+  border: 1px solid black;
   box-sizing: border-box;
   padding: 12px 19px;
   border-radius: 5px;
@@ -130,6 +132,19 @@ export const Guideline = styled.div`
   line-height: 16px;
   margin-top: 16px;
   margin-left: 1px;
+`;
+
+const ImgBnt = styled.label`
+  font-size: 16px;
+  width: 6.5rem;
+  height: 40px;
+  margin-left: 5px;
+  line-height: 16px;
+  text-align: center;
+  border: 1px solid black;
+  box-sizing: border-box;
+  padding: 12px 19px;
+  border-radius: 30px;
 `;
 
 export const TextInput = forwardRef<HTMLInputElement, Inputprops>(
@@ -365,31 +380,23 @@ export const ImgInput = forwardRef<HTMLInputElement, ImgInputprops>(
         ) : (
           <DisplayNone />
         )}
-        <Input
-          style={{
-            width: '260px',
-            backgroundColor: 'white',
-            padding: '7px 12px',
-          }}
-          disabled
-          value={
-            Img
-              ? Img.split('blob:http://localhost:3000/')[1]
-              : props.placeholder
-          }
-        ></Input>
-        <label
-          htmlFor='imgUpload'
-          style={{
-            border: '1px solid black',
-            padding: '7px 12px',
-            borderRadius: '20px',
-            cursor: 'pointer',
-            marginLeft: '10px',
-          }}
-        >
-          올리기
-        </label>
+        <Widthflex>
+          <Input
+            style={{
+              width: '100%',
+              backgroundColor: 'white',
+              padding: '7px 12px',
+            }}
+            disabled
+            value={
+              Img
+                ? Img.split('blob:http://localhost:3000/')[1]
+                : props.placeholder
+            }
+          ></Input>
+          <ImgBnt htmlFor='imgUpload'>올리기</ImgBnt>
+        </Widthflex>
+
         <InputImg
           style={{ display: 'none' }}
           key={props.key}

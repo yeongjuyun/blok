@@ -11,6 +11,7 @@ import {
 } from '../../../../reducers/SiteReducer';
 import type { RootState } from '../../../../reducers/store';
 import { SettingBlockProps, StyleData } from '../../blockValidator';
+import axios from 'axios';
 
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const { id, template, data } = useSelector((state: RootState) =>
@@ -23,6 +24,30 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const [style, setStyle] = useState(currentStyle);
   const [Logo, setLogo] = useState(data.logoText?.value);
   const [image, setImage] = useState<any>(data.logoImage);
+
+  async function imgHandler(data: any) {
+    const formData = new FormData();
+    formData.append('file', data);
+
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+    const result = await axios.post('/api/site/image', formData, config);
+
+    setImage(result.data);
+    dispatch(
+      updateBlockData({
+        blockId: id,
+        field: 'image',
+        value: {
+          src: result.data,
+          alt: result.data,
+        },
+      })
+    );
+  }
 
   return (
     <>
@@ -45,19 +70,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           src={image?.src}
           alt={image?.alt}
           placeholder={image?.src}
-          onChange={(e: any) => {
-            setImage(e);
-            dispatch(
-              updateBlockData({
-                blockId: id,
-                field: 'image',
-                value: {
-                  src: e,
-                  alt: e,
-                },
-              })
-            );
-          }}
+          onChange={imgHandler}
         />
         <TextInput
           title='텍스트'
