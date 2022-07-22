@@ -12,7 +12,7 @@ const Container = styled.div`
   margin-bottom: 10px;
 
   .dashboardTitle {
-    margin-top: 72px;
+    margin-top: 62px;
   }
 
   @media screen and (max-width: 780px) {
@@ -229,11 +229,15 @@ export function DashboardInfo() {
                   </td>
                   <td>Free</td>
                   <td>
-                    <Link to={`/editor/${e._id}`}>
+                    <Link
+                      to={`/editor/${e._id}`}
+                      style={{ textDecoration: 'none' }}
+                    >
                       <ControlButton
                         className="editButton"
                         rounding
                         color="white"
+                        onClick={() => dispatch({ type: 'Block' })}
                       >
                         Edit
                       </ControlButton>

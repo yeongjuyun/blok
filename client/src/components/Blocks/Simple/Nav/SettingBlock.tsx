@@ -14,7 +14,7 @@ import { SettingBlockProps, StyleData } from '../../blockValidator';
 import axios from 'axios';
 
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
-  const { id, template, data } = useSelector((state: RootState) =>
+  const { id, template, data, isCardOpened } = useSelector((state: RootState) =>
     selectBlockById(state, blockId)
   );
   let styleOptions = getStyleOptions(template);
@@ -51,12 +51,19 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
 
   return (
     <>
-      <Card title='Navbar' pinned onRemove={onRemove} icon={icon.Navbar}>
+      <Card
+        title="Navbar"
+        pinned
+        onRemove={onRemove}
+        icon={icon.Navbar}
+        isCardOpened={isCardOpened}
+        blockId={blockId}
+      >
         <CustomSelect
-          title='스타일'
+          title="스타일"
           required={true}
-          guideline='스타일를 선택해주세요.'
-          placeholder='원하는 선택지를 선택해주세요'
+          guideline="스타일를 선택해주세요."
+          placeholder="원하는 선택지를 선택해주세요"
           options={styleOptions}
           onChange={(e: StyleData) => {
             setStyle(e);
@@ -65,17 +72,17 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           value={style}
         />
         <ImgInput
-          title='로고 이미지'
-          guideline='1:1 비율의 이미지로 업로드해주세요'
+          title="로고 이미지"
+          guideline="1:1 비율의 이미지로 업로드해주세요"
           src={image?.src}
           alt={image?.alt}
           placeholder={image?.src}
           onChange={imgHandler}
         />
         <TextInput
-          title='텍스트'
+          title="텍스트"
           required={true}
-          guideline='텍스트를 입력해주세요'
+          guideline="텍스트를 입력해주세요"
           value={Logo}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setLogo(e.target.value);

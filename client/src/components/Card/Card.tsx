@@ -1,12 +1,14 @@
 import styled, { css } from 'styled-components';
 import * as icon from '../../icons';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { toggleCardState } from '../../reducers/SiteReducer';
 
-export const CardHeader = styled.div<{ dropClicked: boolean }>`
+export const CardHeader = styled.div<{ isOpened: boolean }>`
   background: #ffffff;
   border: 1px solid #efefef;
   border-radius: ${(props) =>
-    props.dropClicked === true ? '12px 12px 0 0' : '12px'};
+    props.isOpened === true ? '12px 12px 0 0' : '12px'};
   position: relative;
   width: 100%;
   height: 60px;
@@ -23,7 +25,7 @@ const CardContainer = styled.div`
   width: 100%;
 `;
 
-const CardBoby = styled.div<{ dropClicked: boolean }>`
+const CardBoby = styled.div<{ isOpened: boolean }>`
   background: #ffffff;
   border: 1px solid #efefef;
   border-top: none;
@@ -78,7 +80,7 @@ const Trash = styled.img`
     opacity: 0.6;
   }
 `;
-const Down = styled.img<{ dropClicked: boolean }>`
+const Down = styled.img<{ isOpened: boolean }>`
   width: 20px;
   height: 20px;
   position: absolute;
@@ -90,7 +92,7 @@ const Down = styled.img<{ dropClicked: boolean }>`
     cursor: pointer;
   }
   ${(props) =>
-    props.dropClicked &&
+    props.isOpened &&
     css`
       transform: rotate(180deg);
     `}
@@ -102,13 +104,16 @@ interface Cardprops {
   pinned?: boolean;
   icon?: string;
   onRemove: (event: React.MouseEvent<HTMLElement>) => void;
+  isCardOpened?: boolean;
+  blockId?: string;
 }
 
 export const Card = (props: Cardprops) => {
-  const [dropClicked, setDropClicked] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const isCardOpened = props.isCardOpened ?? false;
   return (
     <CardContainer>
-      <CardHeader dropClicked={dropClicked}>
+      <CardHeader isOpened={isCardOpened}>
         <HeaderIcon
           pinned={props.pinned ? true : false}
           src={props.pinned ? icon.Pin : icon.Movable}
@@ -122,16 +127,14 @@ export const Card = (props: Cardprops) => {
         <Down
           src={icon.Down}
           alt=''
-          dropClicked={dropClicked}
+          isOpened={isCardOpened}
           onClick={() => {
-            setDropClicked((res) => {
-              return !res;
-            });
+            dispatch(toggleCardState(props.blockId ?? ''));
           }}
         />
       </CardHeader>
-      {dropClicked && (
-        <CardBoby dropClicked={dropClicked}>{props.children}</CardBoby>
+      {isCardOpened && (
+        <CardBoby isOpened={isCardOpened}>{props.children}</CardBoby>
       )}
     </CardContainer>
   );

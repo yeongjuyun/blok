@@ -98,7 +98,6 @@ export default function AddModal(props: ModalProps) {
   const dispatch = useDispatch();
   const site = useSelector((state: RootState) => state.site);
   const newId = uniqid('block-');
-  console.log(newId);
   const closeModal = () => {
     dispatch({
       type: 'ADD/MODAL_OFF',
