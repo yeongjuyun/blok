@@ -301,6 +301,21 @@ export const siteSlice = createSlice({
         action.payload.destinationIndex
       );
     },
+    toggleCardState: (state, action: PayloadAction<string>) => {
+      //해당 id의 블록을 찾는다.
+      const blockId = action.payload;
+      const index = state.blocks.findIndex((block) => block.id === blockId);
+      let block = state.blocks[index];
+
+      if (typeof block.isCardOpened === 'undefined') {
+        //block에 isOpenedCard 필드가 없을경우 추가하고 true로 셋
+        block['isCardOpened'] = true;
+      } else {
+        //block에 isOpenedCard 있을경우 현재값의 반대를 저장
+        block.isCardOpened = !block.isCardOpened;
+      }
+      console.log(block.isCardOpened);
+    },
   },
 });
 
@@ -363,5 +378,6 @@ export const {
   updateBlockData,
   updateTemplate,
   moveBlock,
+  toggleCardState,
 } = siteSlice.actions;
 export default siteSlice.reducer;
