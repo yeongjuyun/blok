@@ -19,9 +19,11 @@ export interface ColorSet {
 //Block Interface
 
 export interface Block {
+  [key: string]: any;
   id: string;
   template: TemplateData;
   data: BlockData;
+  isCardOpened?: boolean;
 }
 
 export interface TemplateData {
