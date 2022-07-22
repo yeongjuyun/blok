@@ -117,16 +117,16 @@ export const Card = (props: Cardprops) => {
         <HeaderIcon
           pinned={props.pinned ? true : false}
           src={props.pinned ? icon.Pin : icon.Movable}
-          alt=""
+          alt=''
         />
         <TitleBox>
-          <TitleIcon src={props.icon} alt="" />
+          <TitleIcon src={props.icon} alt='' />
           <Title>{props.title}</Title>
         </TitleBox>
-        <Trash src={icon.Trash} alt="" onClick={props.onRemove} />
+        <Trash src={icon.Trash} alt='' onClick={props.onRemove} />
         <Down
           src={icon.Down}
-          alt=""
+          alt=''
           isOpened={isCardOpened}
           onClick={() => {
             dispatch(toggleCardState(props.blockId ?? ''));
