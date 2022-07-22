@@ -27,7 +27,6 @@ const Nav = styled.nav`
   z-index: 2;
 
   .navbarLogo {
-    display: block;
     margin: 0px auto;
   }
 
@@ -40,7 +39,6 @@ const Nav = styled.nav`
     padding: 0 10px;
 
     .navbarLogo {
-      display: block;
       margin: 0;
     }
   }
@@ -75,14 +73,16 @@ const Hamburger = styled.span`
   @media screen and (min-width: 780px) {
     display: none;
   }
+  @media screen and (max-width: 780px) {
+    display: flex;
+  }
 `;
 
 const MenuContainer = styled.div`
-  width: 200px;
   background-color: white;
   border-radius: 16px;
   border: 1px solid E5E5E5;
-  padding: 10px 5px;
+  padding: 10px 10px;
   box-sizing: border-box;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   position: fixed;
@@ -104,6 +104,9 @@ const MenuContainer = styled.div`
 const List = styled.div`
   padding: 24px;
   border-radius: 16px;
+  width: 180px;
+  display: flex;
+  align-items: center;
 
   span {
     color: black;
@@ -117,6 +120,29 @@ const List = styled.div`
 
   @media screen and (min-width: 780px) {
     padding: 12px;
+  }
+  @media screen and (max-width: 780px) {
+    width: auto;
+    justify-content: center;
+  }
+`;
+
+const ListSpan = styled.span`
+  font-size: 18px;
+  display: inline-block;
+  text-align: center;
+  @media screen and (max-width: 780px) {
+    margin-top: 6px;
+    width: 100px;
+  }
+`;
+
+const LogoImg = styled.img`
+  width: 49px;
+  height: 43px;
+  margin-top: 10px;
+  @media screen and (max-width: 780px) {
+    margin-top: 6px;
   }
 `;
 
@@ -146,40 +172,40 @@ const Menu = (props: IMyProps) => {
       onMouseLeave={props.onMouseLeave}
       onMouseEnter={props.onMouseEnter}
     >
-      <Link to="/account" style={{ textDecoration: 'none' }}>
+      <Link to='/account' style={{ textDecoration: 'none' }}>
         <List>
-          <FaUserAlt color="black" />
-          <span>Account</span>
+          <FaUserAlt color='black' />
+          <ListSpan>Account</ListSpan>
         </List>
       </Link>
 
       {userData?.role === 'admin' ? (
         <>
-          <Link to="/site" style={{ textDecoration: 'none' }}>
+          <Link to='/site' style={{ textDecoration: 'none' }}>
             <List>
-              <MdOutlineSpaceDashboard color="black" />
-              <span>Manage Site</span>
+              <MdOutlineSpaceDashboard color='black' />
+              <ListSpan>Manage Site</ListSpan>
             </List>
           </Link>
-          <Link to="/user" style={{ textDecoration: 'none' }}>
+          <Link to='/user' style={{ textDecoration: 'none' }}>
             <List>
-              <MdOutlineSpaceDashboard color="black" />
-              <span>Manage User</span>
+              <MdOutlineSpaceDashboard color='black' />
+              <ListSpan>Manage User</ListSpan>
             </List>
           </Link>
         </>
       ) : (
-        <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+        <Link to='/dashboard' style={{ textDecoration: 'none' }}>
           <List>
-            <MdOutlineSpaceDashboard color="black" />
-            <span>Dashboard</span>
+            <MdOutlineSpaceDashboard color='black' />
+            <ListSpan>Dashboard</ListSpan>
           </List>
         </Link>
       )}
       <div onClick={logoutHandler} style={{ textDecoration: 'none' }}>
         <List>
-          <BiLogOut color="black" />
-          <span>Logout</span>
+          <BiLogOut color='black' />
+          <ListSpan>Logout</ListSpan>
         </List>
       </div>
     </MenuContainer>
@@ -194,9 +220,9 @@ export default function Sidebar() {
 
   return (
     <Nav>
-      <div className="navbarLogo">
-        <Link to="/">
-          <img src={logoImg} alt="logo" width={49} height={43} />
+      <div className='navbarLogo'>
+        <Link to='/'>
+          <LogoImg src={logoImg} alt='logo' />
         </Link>
       </div>
       <Hamburger onClick={() => setIsMobile(true)}>
@@ -207,9 +233,9 @@ export default function Sidebar() {
         onMouseLeave={() => setIsMobile(false)}
       >
         {profileImage === null ? (
-          <FaRegUserCircle size="48" color="#CCCCCC" />
+          <FaRegUserCircle size='48' color='#CCCCCC' />
         ) : (
-          <ProfileImage src={profileImage} alt="profileImg" />
+          <ProfileImage src={profileImage} alt='profileImg' />
         )}
       </Profile>
       {isMobile && (
