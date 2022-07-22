@@ -236,7 +236,8 @@ export default function templateListData() {
             value: 'Introduce',
           },
           body: {
-            value: '여기에 블록에 입력한 제목이 들어갑니다. 여러줄도 오케이',
+            value:
+              '여기에 Introduce에 입력한 텍스트가 들어갑니다. 여러줄도 가능합니다.',
           },
         },
       },
@@ -287,7 +288,7 @@ export default function templateListData() {
           },
           body: {
             value:
-              '여기에는 설명이 들어갑니다. 여기에는 설명이 들어갑니다. 여러줄도 괜찮습니다.',
+              '여기에는 설명이 들어갑니다. 여기에는 설명이 들어갑니다. 안쓰셔도 괜찮습니다.',
           },
         },
       },
