@@ -16,10 +16,36 @@ const NavBarContainer = styled.div<{ font: any; colorSet: any }>`
   justify-content: space-between;
   height: 3.8rem;
   padding: 1.2rem 1.6rem;
+  max-width: 940px;
+  margin: 0 auto;
+  margin-top: 8px;
   @media screen and (max-width: 1120px) {
     height: ${RemtoVw(16, 3.8)};
     padding: ${RemtoVw(16, 1.2)} ${RemtoVw(16, 1.6)};
   }
+`;
+const DefaultLogo = styled.div`
+  position: relative;
+  bottom: 5px;
+  width: 40px;
+  height: 40px;
+  margin-right: 28px;
+`;
+const Box1 = styled.div<{ colorSet: any }>`
+  position: relative;
+  border-radius: 5px;
+  width: 32px;
+  height: 32px;
+  background-color: ${(props) => props.colorSet.secondary};
+`;
+const Box2 = styled.div<{ colorSet: any }>`
+  position: relative;
+  bottom: 20px;
+  left: 15px;
+  border-radius: 5px;
+  width: 32px;
+  height: 32px;
+  background-color: ${(props) => props.colorSet.primary};
 `;
 
 const LogoBox = styled.div<{ style: any }>`
@@ -34,9 +60,12 @@ const LogoImg = styled.img`
   }
 `;
 const LogoTitle = styled.div`
-  font-weight: 900;
-  font-size: 2rem;
-  margin-left: 0.75rem;
+  font-family: 'GangwonEduPower';
+  font-weight: 300;
+  font-size: 28px;
+  letter-spacing: 0.8px;
+  color: black;
+  user-select: none;
 
   @media screen and (max-width: 1120px) {
     font-size: ${RemtoVw(16, 2)};
@@ -90,7 +119,10 @@ export default function SiteBlock(props: SiteBlockProps) {
         {data.image?.src ? (
           <LogoImg src={data.image.src} alt={data.image.alt ?? ''} />
         ) : (
-          <ImgDiv style={{ marginRight: '20px' }}>logo</ImgDiv>
+          <DefaultLogo>
+            <Box1 colorSet={colorSet}></Box1>
+            <Box2 colorSet={colorSet}></Box2>
+          </DefaultLogo>
         )}
         <LogoTitle>{data.logoText?.value}</LogoTitle>
       </LogoBox>
