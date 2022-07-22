@@ -229,7 +229,10 @@ export function DashboardInfo() {
                   </td>
                   <td>Free</td>
                   <td>
-                    <Link to={`/editor/${e._id}`}>
+                    <Link
+                      to={`/editor/${e._id}`}
+                      style={{ textDecoration: 'none' }}
+                    >
                       <ControlButton
                         className="editButton"
                         rounding
