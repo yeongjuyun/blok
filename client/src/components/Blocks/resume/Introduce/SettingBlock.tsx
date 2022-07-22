@@ -13,7 +13,7 @@ import { SettingBlockProps, StyleData } from '../../blockValidator';
 import * as icons from '../../../../icons';
 
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
-  const { id, template, data } = useSelector((state: RootState) =>
+  const { id, template, data, isCardOpened } = useSelector((state: RootState) =>
     selectBlockById(state, blockId)
   );
   const styleOptions = getStyleOptions(template);
@@ -26,9 +26,15 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const [navTitle, setNavTitle] = useState(data.navTitle);
   return (
     <>
-      <Card title='Introduce' onRemove={onRemove} icon={icons.Introduce}>
+      <Card
+        title="Introduce"
+        onRemove={onRemove}
+        icon={icons.Introduce}
+        isCardOpened={isCardOpened}
+        blockId={blockId}
+      >
         <TextInput
-          title='메뉴명'
+          title="메뉴명"
           required={false}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setNavTitle(e.target.value);
@@ -40,14 +46,14 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
               })
             );
           }}
-          guideline='네비게이션 바에 입력될 메뉴명을 입력하세요.'
+          guideline="네비게이션 바에 입력될 메뉴명을 입력하세요."
           value={navTitle}
         ></TextInput>
         <CustomSelect
-          title='스타일'
+          title="스타일"
           required={true}
-          guideline='스타일를 선택해주세요.'
-          placeholder='원하는 선택지를 선택해주세요'
+          guideline="스타일를 선택해주세요."
+          placeholder="원하는 선택지를 선택해주세요"
           options={styleOptions}
           onChange={(e: StyleData) => {
             setStyle(e);
@@ -56,9 +62,9 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           value={style}
         />
         <TextInput
-          title='타이틀'
+          title="타이틀"
           required={true}
-          guideline='텍스트를 입력해주세요'
+          guideline="텍스트를 입력해주세요"
           value={title}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setTitle(e.target.value);
@@ -72,9 +78,9 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           }}
         ></TextInput>
         <TextInput
-          title='소개글'
+          title="소개글"
           required={true}
-          guideline='텍스트를 입력해주세요'
+          guideline="텍스트를 입력해주세요"
           value={body}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setbody(e.target.value);
