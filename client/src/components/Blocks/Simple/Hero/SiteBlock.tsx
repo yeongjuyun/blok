@@ -33,6 +33,7 @@ const HeadLine = styled.div`
   font-weight: 700;
   font-size: 2.7rem;
   margin-top: 1.3rem;
+  text-align: center;
   @media screen and (max-width: 1120px) {
     margin-top: ${RemtoVw(16, 1.3)};
     font-size: ${RemtoVw(16, 2.7)};

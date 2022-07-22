@@ -74,7 +74,12 @@ const LogoTitle = styled.div`
 `;
 const NavTitleses = styled.div`
   font-size: 1rem;
-  margin-left: 0.75rem;
+  padding: 8px 0 6px 24px;
+  color: #5e5e5e;
+  &:hover {
+    cursor: pointer;
+  }
+
   @media screen and (max-width: 1120px) {
     font-size: ${RemtoVw(16, 2)};
     margin-left: ${RemtoVw(16, 0.75)};
