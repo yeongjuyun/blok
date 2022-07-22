@@ -234,6 +234,7 @@ export function DashboardInfo() {
                         className="editButton"
                         rounding
                         color="white"
+                        onClick={() => dispatch({ type: 'Block' })}
                       >
                         Edit
                       </ControlButton>
