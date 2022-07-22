@@ -109,14 +109,29 @@ export const ImgDiv = styled.div`
   }
 `;
 
+const LoginButton = styled.div<{ colorSet: any }>`
+  font-weight: 700;
+
+  transition: color 0.3s;
+  & a {
+    text-decoration: none;
+  }
+  & a:hover {
+    opacity: 0.5;
+  }
+  & a:visited {
+    color: ${(props) => props.colorSet.primary};
+  }
+`;
+
 export default function SiteBlock(props: SiteBlockProps) {
   const { blockId, type } = props;
   const { colorSet, font, data } = SiteBlockByType({ blockId, type });
   const alldata = useAppSelector((state) => selectBlocks(state));
-  const NavTitles: (string | null)[] = [];
-  alldata.forEach((res) => {
-    if (res.data.navTitle) return NavTitles.push(res.data.navTitle);
-  });
+  // const NavTitles: (string | null)[] = [];
+  // alldata.forEach((res) => {
+  //   if (res.data.navTitle) return NavTitles.push(res.data.navTitle);
+  // });
 
   return (
     <NavBarContainer font={font} colorSet={colorSet}>
@@ -132,7 +147,12 @@ export default function SiteBlock(props: SiteBlockProps) {
         <LogoTitle>{data.logoText?.value}</LogoTitle>
       </LogoBox>
 
-      <Nav>{NavTitle(NavTitles)}</Nav>
+      {data.logoText?.value === 'blok' && (
+        <LoginButton colorSet={colorSet}>
+          <a href="/login">로그인</a>
+        </LoginButton>
+      )}
+      {/* <Nav>{NavTitle(NavTitles)}</Nav> */}
     </NavBarContainer>
   );
 }
