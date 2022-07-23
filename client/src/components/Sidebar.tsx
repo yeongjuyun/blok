@@ -83,8 +83,8 @@ const MenuContainer = styled.div`
   box-sizing: border-box;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   position: fixed;
-  bottom: 54px;
-  left: 54px;
+  bottom: 50px;
+  left: 50px;
 
   @media screen and (max-width: 780px) {
     top: 51px;
