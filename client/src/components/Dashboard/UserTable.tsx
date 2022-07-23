@@ -5,7 +5,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Button from '../Button';
 import { MainTitle } from './MyInfo';
-import { useAppDispatch } from '../../reducers';
+import { useAppDispatch, useAppSelector } from '../../reducers';
+import { useNavigate } from 'react-router-dom';
 import ReactSelect from 'react-select';
 
 const Container = styled.div`
@@ -143,26 +144,24 @@ export const CustomSelect = (props: any) => {
 
 export default function UserTable() {
   const dispatch = useAppDispatch();
-  const [query, setQuery] = useState('');
-  const [text, setText] = useState('');
+  const navigate = useNavigate();
   const [data, setData] = useState<any[]>([]);
-  const [option, setOption] = useState({ value: 'userName', label: '이름' });
-
+  const [text, setText] = useState('');
+  const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const [perPage, setPerpage] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
+  const [option, setOption] = useState({ value: 'userName', label: '이름' });
 
-  const handlePrevPage = () => {
-    setPage(page - 1);
-  };
+  const userData = useAppSelector((state) => state.loginCheckReducer.loginData);
 
-  const handleNextPage = () => {
-    setPage(page + 1);
-  };
-  const handleChangeperPage = (e: any) => {
-    setPerpage(parseInt(e.target.value, 10));
-    setPage(1);
-  };
+  if (userData.role !== 'admin') {
+    dispatch({
+      type: 'alertOn',
+      payload: { msg: `관리자만 이용 가능합니다.` },
+    });
+    navigate('/login');
+  }
 
   useEffect(() => {
     const getSites = async () => {
@@ -193,6 +192,18 @@ export default function UserTable() {
   const handleReset = () => {
     setText('');
     setQuery('');
+    setPage(1);
+  };
+
+  const handlePrevPage = () => {
+    setPage(page - 1);
+  };
+
+  const handleNextPage = () => {
+    setPage(page + 1);
+  };
+  const handleChangeperPage = (e: any) => {
+    setPerpage(parseInt(e.target.value, 10));
     setPage(1);
   };
 

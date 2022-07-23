@@ -182,13 +182,13 @@ const Menu = (props: IMyProps) => {
 
       {userData?.role === 'admin' ? (
         <>
-          <Link to="/site" style={{ textDecoration: 'none' }}>
+          <Link to="/admin/site" style={{ textDecoration: 'none' }}>
             <List>
               <MdOutlineSpaceDashboard color="black" />
               <ListSpan>Manage Site</ListSpan>
             </List>
           </Link>
-          <Link to="/user" style={{ textDecoration: 'none' }}>
+          <Link to="/admin/user" style={{ textDecoration: 'none' }}>
             <List>
               <MdOutlineSpaceDashboard color="black" />
               <ListSpan>Manage User</ListSpan>
@@ -236,7 +236,7 @@ export default function Sidebar() {
         onMouseEnter={() => setIsMobile(true)}
         onMouseLeave={() => setIsMobile(false)}
       >
-        {profileImage === null ? (
+        {profileImage == null ? (
           <ProfileImage src={default_profile} alt="profile" />
         ) : (
           <ProfileImage
