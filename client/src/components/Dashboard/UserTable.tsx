@@ -5,8 +5,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Button from '../Button';
 import { MainTitle } from './MyInfo';
-import { useAppDispatch, useAppSelector } from '../../reducers';
-import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../reducers';
 import ReactSelect from 'react-select';
 
 const Container = styled.div`
@@ -144,34 +143,25 @@ export const CustomSelect = (props: any) => {
 
 export default function UserTable() {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const [data, setData] = useState<any[]>([]);
-  const [text, setText] = useState('');
   const [query, setQuery] = useState('');
+  const [text, setText] = useState('');
+  const [data, setData] = useState<any[]>([]);
+  const [option, setOption] = useState({ value: 'userName', label: '이름' });
+
   const [page, setPage] = useState(1);
   const [perPage, setPerpage] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
-  const [option, setOption] = useState({ value: 'userName', label: '이름' });
 
-  const userData = useAppSelector((state) => state.loginCheckReducer.loginData);
-
-  if (userData.role !== 'admin') {
-    dispatch({
-      type: 'alertOn',
-      payload: { msg: `관리자만 이용 가능합니다.` },
-    });
-    navigate('/login');
-  }
+  const getUsers = async () => {
+    const res = await axios.get(
+      `/api/admin/user?page=${page}&perPage=${perPage}&searchKey=${option.value}&searchValue=${query}`
+    );
+    setData(res.data.users);
+    setTotalCount(res.data.totalCount);
+  };
 
   useEffect(() => {
-    const getSites = async () => {
-      const res = await axios.get(
-        `/api/admin/user?page=${page}&perPage=${perPage}&searchKey=${option.value}&searchValue=${query}`
-      );
-      setData(res.data.users);
-      setTotalCount(res.data.totalCount);
-    };
-    getSites();
+    getUsers();
   }, [page, perPage, query, data]);
 
   const handleSearch = async (e: any) => {
@@ -187,6 +177,7 @@ export default function UserTable() {
       type: 'alertOn',
       payload: { msg: '회원정보가 삭제되었습니다.' },
     });
+    getUsers();
   };
 
   const handleReset = () => {

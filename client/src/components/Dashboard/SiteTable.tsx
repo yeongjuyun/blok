@@ -126,14 +126,15 @@ export default function SiteTable() {
     navigate('/login');
   }
 
+  const getSites = async () => {
+    const res = await axios.get(
+      `/api/admin/site?page=${page}&perPage=${perPage}&searchKey=${option.value}&searchValue=${query}`
+    );
+    setData(res.data.sites);
+    setTotalCount(res.data.totalCount);
+  };
+
   useEffect(() => {
-    const getSites = async () => {
-      const res = await axios.get(
-        `/api/admin/site?page=${page}&perPage=${perPage}&searchKey=${option.value}&searchValue=${query}`
-      );
-      setData(res.data.sites);
-      setTotalCount(res.data.totalCount);
-    };
     getSites();
   }, [query, page, perPage]);
 
@@ -155,7 +156,7 @@ export default function SiteTable() {
     await axios.delete(`/api/admin/site/${siteId}`);
     dispatch({ type: 'alertOn', payload: { msg: '사이트가 삭제되었습니다.' } });
     // 삭제 후 재랜더링
-    // getSites();
+    getSites();
   };
 
   const handlePrevPage = () => {
