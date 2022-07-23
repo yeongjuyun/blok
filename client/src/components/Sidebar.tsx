@@ -46,7 +46,7 @@ const Nav = styled.nav`
 
 const Profile = styled.div`
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   left: 12px;
   cursor: pointer;
 
@@ -56,11 +56,8 @@ const Profile = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  /* position: absolute; */
-  bottom: 20px;
-  left: 12px;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   cursor: pointer;
 
