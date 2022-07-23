@@ -1,6 +1,6 @@
 import is from "@sindresorhus/is";
 import { BadRequestError } from "../errors";
-import { setUserToken } from "../utils";
+
 const authController = {
   login: (req, res) => {
     if (is.emptyObject(req.body)) {
@@ -14,9 +14,7 @@ const authController = {
     });
   },
   googleOauth: (req, res) => {
-    console.log("controller", req.user);
-    setUserToken(res, req.user);
-    return res.status(201).redirect("/dashboard");
+    res.okWithSetToken(201, req.user);
   },
 };
 
