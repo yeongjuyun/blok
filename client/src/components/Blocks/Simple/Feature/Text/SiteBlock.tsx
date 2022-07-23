@@ -7,17 +7,13 @@ const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   font-family: ${(props) => props.font};
   color: ${(props) => props.colorSet.surface};
 
-  padding: 100px 40px;
+  padding: 160px 40px;
   margin: 0 auto;
 
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-
-  @media screen and (max-width: 1120px) {
-    justify-content: flex-start;
-  }
 `;
 
 const TextContainer = styled.div`
