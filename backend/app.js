@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import path from "path";
 import { userRouter, adminRouter, authRouter, siteRouter } from "./routers";
 import { errorHandler, adminRequired, loginRequired } from "./middlewares";
 import { setUserToken } from "./utils";
@@ -59,8 +60,14 @@ app.listen(PORT, function () {
   console.log(`listening on http://localhost:${PORT}`);
 });
 
-app.use("*", (req, res) => {
+app.use("/api/*", (req, res) => {
   throw new NotFoundError("404 Not Found");
+});
+
+app.use(express.static(path.join(__dirname, "../client/build")));
+
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
 app.use(errorHandler);

@@ -12,7 +12,7 @@ userRouter.delete("/:userId", loginRequired, userController.userDelete);
 
 userRouter.get("/logincheck", userController.logincheck);
 
-userRouter.get("/logout", loginRequired, userController.logout);
+userRouter.get("/logout", userController.logout);
 
 userRouter.get("/:userId", loginRequired, userController.getUserInfo);
 

@@ -6,6 +6,7 @@ function loginRequired(req, res, next) {
     if (authErr) {
       next(authErr);
     }
+    console.log("loginrequired", user);
     if (!user) {
       throw new ForbiddenError("로그인한 유저만 사용할 수 있는 서비스입니다.");
     }

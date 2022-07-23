@@ -14,6 +14,7 @@ const opts = {
 
 const jwt = new Strategy(opts, async (user, done) => {
   try {
+    console.log("jwt", user);
     const findUser = await userModel.findById(user.userId);
     if (findUser) {
       done(null, userJWTObjectMaker(findUser));
