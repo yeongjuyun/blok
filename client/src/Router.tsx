@@ -29,9 +29,9 @@ export function AppRouter() {
         <Route path="/about" element={<About />} />
         <Route path="/account" element={<Account />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/admin/user" element={<ManageUser />} />
         <Route path="admin/site" element={<ManageSite />} />
-        <Route path="/user/:userId" element={<UserInfo />} />
+        <Route path="/admin/user" element={<ManageUser />} />
+        <Route path="/admin/user/:userId" element={<UserInfo />} />
         <Route path="/changepassword" element={<ChangePassword />} />
         <Route path="/main" element={<Main />} />
         <Route path="/findpassword" element={<FindPassword />} />

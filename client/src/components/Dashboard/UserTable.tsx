@@ -270,7 +270,7 @@ export default function UserTable() {
                   <td>{e.role}</td>
                   <td>
                     <Link
-                      to={'/user/' + e.userId}
+                      to={'/admin/user/' + e.userId}
                       style={{ textDecoration: 'none' }}
                     >
                       <ControlButton
