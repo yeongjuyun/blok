@@ -129,7 +129,7 @@ function Loginfield() {
     try {
       const domain = window.location.origin;
       const new_popup = window.open(
-        `$${domain}/api/auth/google`,
+        `${domain}/api/auth/google`,
         '_blank',
         'height=400,width=377,top=100,left=200,scrollbars=yes,resizable=yes'
       );
@@ -184,9 +184,9 @@ function Loginfield() {
       </LoginForm.InputDiv>
       <LoginForm.Input
         onChange={handleEmailChange}
-        type='string'
+        type="string"
         ref={emailRef}
-        placeholder='이메일 주소를 입력하세요.'
+        placeholder="이메일 주소를 입력하세요."
         error={emailError}
       />
       <LoginForm.InputDiv>
@@ -197,9 +197,9 @@ function Loginfield() {
       </LoginForm.InputDiv>
       <LoginForm.Input
         onChange={handlePasswordChange}
-        type='password'
+        type="password"
         ref={passwordRef}
-        placeholder='비밀번호는 6자리 이상이여야합니다.'
+        placeholder="비밀번호는 6자리 이상이여야합니다."
         error={pswError}
       />
       <Atagbox>
@@ -217,7 +217,7 @@ function Loginfield() {
       </LoginForm.Button>
       <LoginForm.Text>또는</LoginForm.Text>
       <LoginForm.GoogleButton onClick={googleClick}>
-        <img src={imgs.googleloginicon} alt='구글'></img>구글로 로그인 하기
+        <img src={imgs.googleloginicon} alt="구글"></img>구글로 로그인 하기
       </LoginForm.GoogleButton>
     </Container>
   );
