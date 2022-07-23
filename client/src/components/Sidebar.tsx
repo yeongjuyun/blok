@@ -176,7 +176,12 @@ const Menu = (props: IMyProps) => {
           <ListSpan>Account</ListSpan>
         </List>
       </Link>
-
+      <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+        <List>
+          <MdOutlineSpaceDashboard color="black" />
+          <ListSpan>Dashboard</ListSpan>
+        </List>
+      </Link>
       {userData?.role === 'admin' ? (
         <>
           <Link to="/admin/site" style={{ textDecoration: 'none' }}>
@@ -193,13 +198,9 @@ const Menu = (props: IMyProps) => {
           </Link>
         </>
       ) : (
-        <Link to="/dashboard" style={{ textDecoration: 'none' }}>
-          <List>
-            <MdOutlineSpaceDashboard color="black" />
-            <ListSpan>Dashboard</ListSpan>
-          </List>
-        </Link>
+        ''
       )}
+
       <div onClick={logoutHandler} style={{ textDecoration: 'none' }}>
         <List>
           <BiLogOut color="black" />
