@@ -94,7 +94,7 @@ export default function MyInfo() {
   const handleButtonClick = (e: any) => {
     fileInput.current?.click();
   };
-  const handleChange = async (e: any) => {
+  const changeProfileImage = async (e: any) => {
     const formData = new FormData();
     formData.append('profileImage', e.target.files[0]);
     const config = {
@@ -111,6 +111,13 @@ export default function MyInfo() {
       type: 'USER/LOGIN',
       payload: {
         profileImage: res.data.profileImage,
+        userId: user.userId,
+        email: user.email,
+        role: user.role,
+        userName: user.userName,
+        oauth: user.oauth,
+        passwordReset: user.passwordReset,
+        plan: user.plan,
       },
     });
     setTimeout(
@@ -192,7 +199,7 @@ export default function MyInfo() {
           <input
             type='file'
             ref={fileInput}
-            onChange={handleChange}
+            onChange={changeProfileImage}
             style={{ display: 'none' }}
           />
         </ContentDiv>
