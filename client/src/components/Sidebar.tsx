@@ -46,7 +46,7 @@ const Nav = styled.nav`
 
 const Profile = styled.div`
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   left: 12px;
   cursor: pointer;
 
@@ -56,11 +56,8 @@ const Profile = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  /* position: absolute; */
-  bottom: 20px;
-  left: 12px;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   cursor: pointer;
 
@@ -182,13 +179,13 @@ const Menu = (props: IMyProps) => {
 
       {userData?.role === 'admin' ? (
         <>
-          <Link to="/site" style={{ textDecoration: 'none' }}>
+          <Link to="/admin/site" style={{ textDecoration: 'none' }}>
             <List>
               <MdOutlineSpaceDashboard color="black" />
               <ListSpan>Manage Site</ListSpan>
             </List>
           </Link>
-          <Link to="/user" style={{ textDecoration: 'none' }}>
+          <Link to="/admin/user" style={{ textDecoration: 'none' }}>
             <List>
               <MdOutlineSpaceDashboard color="black" />
               <ListSpan>Manage User</ListSpan>
@@ -236,7 +233,7 @@ export default function Sidebar() {
         onMouseEnter={() => setIsMobile(true)}
         onMouseLeave={() => setIsMobile(false)}
       >
-        {profileImage === null ? (
+        {profileImage == null ? (
           <ProfileImage src={default_profile} alt="profile" />
         ) : (
           <ProfileImage
