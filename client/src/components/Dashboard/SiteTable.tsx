@@ -116,9 +116,9 @@ export default function SiteTable() {
     { value: 'user.userName', label: '소유자' },
   ];
 
-  const userData = useAppSelector((state) => state.loginCheckReducer.loginData);
+  const user = useAppSelector((state) => state.loginCheckReducer.loginData);
 
-  if (userData.role !== 'admin') {
+  if (user.role !== 'admin') {
     dispatch({
       type: 'alertOn',
       payload: { msg: `관리자만 이용 가능합니다.` },
@@ -152,7 +152,6 @@ export default function SiteTable() {
   };
 
   const handleDelete = async (siteId: string) => {
-    console.log('delete site : ', siteId);
     await axios.delete(`/api/admin/site/${siteId}`);
     dispatch({ type: 'alertOn', payload: { msg: '사이트가 삭제되었습니다.' } });
     // 삭제 후 재랜더링
@@ -173,31 +172,31 @@ export default function SiteTable() {
 
   return (
     <Container>
-      <MainTitle className="title">Site Management</MainTitle>
+      <MainTitle className='title'>Site Management</MainTitle>
 
-      <div className="controlBox">
+      <div className='controlBox'>
         <div>
           <CustomSelect
-            name="Searchfilter"
+            name='Searchfilter'
             value={option}
             options={options}
             onChange={(e: any) => setOption(() => e)}
           ></CustomSelect>
         </div>
         <div>
-          <form onSubmit={handleSearch} className="searchForm">
-            <label htmlFor="search-query">Search: </label>
+          <form onSubmit={handleSearch} className='searchForm'>
+            <label htmlFor='search-query'>Search: </label>
             <SearchInput
               value={text}
               onChange={(e) => setText(e.target.value)}
-              type="text"
-              name="search-query"
-              placeholder="검색어를 입력하세요"
+              type='text'
+              name='search-query'
+              placeholder='검색어를 입력하세요'
             />
-            <Button type="submit" size="medium">
+            <Button type='submit' size='medium'>
               Search
             </Button>
-            <Button onClick={() => handleReset()} size="medium">
+            <Button onClick={() => handleReset()} size='medium'>
               Reset
             </Button>
           </form>
@@ -219,7 +218,7 @@ export default function SiteTable() {
           <tbody>
             {data.length > 0 ? (
               data.map((e, idx) => (
-                <tr key={e.siteId}>
+                <tr key={e._id}>
                   <td>{(page - 1) * perPage + idx + 1}</td>
                   <td>{e.name}</td>
                   <td>{e.domain}</td>
@@ -229,7 +228,7 @@ export default function SiteTable() {
                     <ControlButton
                       className={'deleteButton'}
                       onClick={() => handleDelete(e._id)}
-                      color="gray"
+                      color='gray'
                       rounding
                     >
                       Delete
@@ -239,7 +238,7 @@ export default function SiteTable() {
               ))
             ) : (
               <tr>
-                <td className="noSite" colSpan={7}>
+                <td className='noSite' colSpan={7}>
                   사이트가 존재하지 않습니다.
                 </td>
               </tr>
@@ -247,8 +246,8 @@ export default function SiteTable() {
           </tbody>
         </Table>
       </TableContainer>
-      <div className="pagenationControlBox">
-        <div className="perPageBox">
+      <div className='pagenationControlBox'>
+        <div className='perPageBox'>
           <span>Rows per page: </span>
           <select onChange={handleChangePerPage}>
             {[10, 20, 30, 40, 50].map((pageSize) => (
@@ -259,31 +258,31 @@ export default function SiteTable() {
           </select>
         </div>
 
-        <div className="pagenationBox">
+        <div className='pagenationBox'>
           <Button
             outline
             rounding
-            className="border rounded p-1"
+            className='border rounded p-1'
             onClick={() => handlePrevPage()}
             disabled={page === 1 ? true : false}
           >
             {'<'}
           </Button>
-          <span className="pageText">
+          <span className='pageText'>
             <strong>{page}</strong> / {Math.ceil(totalCount / perPage)} of{' '}
             {totalCount}
           </span>
           <Button
             outline
             rounding
-            className="border rounded p-1"
+            className='border rounded p-1'
             onClick={() => handleNextPage()}
             disabled={page === Math.ceil(totalCount / perPage) ? true : false}
           >
             {'>'}
           </Button>
         </div>
-        <div className="div"></div>
+        <div className='div'></div>
       </div>
     </Container>
   );

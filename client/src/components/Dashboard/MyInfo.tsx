@@ -87,43 +87,7 @@ const ProfileImage = styled.img`
 export default function MyInfo() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [plan, setPlan] = useState('');
-  const [userName, setUserName] = useState('');
-  const [userId, setUserId] = useState('');
-  const [prorileImage, setProfileImage] = useState('');
-  // const userData = useAppSelector((state) => state.loginCheckReducer.loginData);
-
-  // 리덕스 스토어에서 userData를 불러올 때 리랜더링 이슈가 있어서 아래 코드 추가
-  const getUserInfo = async () => {
-    try {
-      const res = await axios.get('/api/user/logincheck');
-      setEmail(res.data.email);
-      setPlan(res.data.plan);
-      setUserName(res.data.userName);
-      setUserName(res.data.userName);
-      setUserId(res.data.userId);
-      setProfileImage(res.data.profileImage);
-
-      if (!res.data.userId) {
-        dispatch({
-          type: 'alertOn',
-          payload: { msg: `로그인 한 유저만 이용 가능합니다.` },
-        });
-        navigate('/login');
-      }
-
-      if (res.data.profileImage == null) {
-        setProfileImage(default_profile);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
+  const user = useAppSelector((state) => state.loginCheckReducer.loginData);
 
   // 이미지 로더
   const fileInput = useRef<HTMLInputElement>(null);
@@ -139,11 +103,10 @@ export default function MyInfo() {
       },
     };
     const res = await axios.patch(
-      `/api/user/change-profileImage/${userId}`,
+      `/api/user/change-profileImage/${user.userId}`,
       formData,
       config
     );
-    setProfileImage(res.data.profileImage);
     dispatch({
       type: 'USER/LOGIN',
       payload: {
@@ -188,7 +151,7 @@ export default function MyInfo() {
 
   const resetPassword = async () => {
     try {
-      const data = { userName: userName, email: email };
+      const data = { userName: user.userName, email: user.email };
       await axios.post('/api/user/reset-password', data);
       dispatch({ type: 'CONFIRM/MODAL_OFF' });
       dispatch({
@@ -203,7 +166,7 @@ export default function MyInfo() {
 
   const deleteUser = async () => {
     try {
-      await axios.delete(`/api/user/${userId}`);
+      await axios.delete(`/api/user/${user.userId}`);
       dispatch({ type: 'CONFIRM/MODAL_OFF' });
       dispatch({
         type: 'alertOn',
@@ -217,47 +180,47 @@ export default function MyInfo() {
 
   return (
     <MainContainer>
-      <MainTitle className="title">Account</MainTitle>
+      <MainTitle className='title'>Account</MainTitle>
       <Container>
         <ContentDiv>
           <ProfileImage
-            src={prorileImage}
-            alt="profileImg"
+            src={user.profileImage}
+            alt='profileImg'
             onError={onErrorImg}
             onClick={handleButtonClick}
           ></ProfileImage>
           <input
-            type="file"
+            type='file'
             ref={fileInput}
             onChange={handleChange}
             style={{ display: 'none' }}
           />
         </ContentDiv>
         <Title>내 정보</Title>
-        <ContentDiv className="content">
+        <ContentDiv className='content'>
           <ContentTitle>이름</ContentTitle>
-          <Content>{userName}</Content>
+          <Content>{user.userName}</Content>
         </ContentDiv>
-        <ContentDiv className="content">
+        <ContentDiv className='content'>
           <ContentTitle>이메일</ContentTitle>
-          <Content>{email}</Content>
+          <Content>{user.email}</Content>
         </ContentDiv>
         <ContentDiv>
           <ContentTitle>플랜</ContentTitle>
-          <Content>{plan}</Content>
+          <Content>{user.plan}</Content>
         </ContentDiv>
       </Container>
       <Container>
         <Title>계정 관리</Title>
         <ControlButton
           onClick={resethandler}
-          size="large"
-          color="white"
+          size='large'
+          color='white'
           rounding
         >
           Reset Password
         </ControlButton>
-        <ControlButton onClick={deleteHandler} size="large" rounding>
+        <ControlButton onClick={deleteHandler} size='large' rounding>
           Delete Account
         </ControlButton>
       </Container>

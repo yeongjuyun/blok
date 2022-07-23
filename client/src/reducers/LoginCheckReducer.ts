@@ -49,6 +49,6 @@ export const loginCheckReducer = (
     case 'USER/LOGOUT':
       return { ...state, loginState: false, loginData: initialState.loginData };
     default:
-      return { ...state };
+      return state;
   }
 };
