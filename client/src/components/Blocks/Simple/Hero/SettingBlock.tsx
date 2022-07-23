@@ -18,14 +18,12 @@ function Hero({ blockId, onRemove }: SettingBlockProps) {
   );
   let styleOptions = getStyleOptions(template);
   let currentStyle = getCurrentStyleOption(template);
-
   const dispatch = useAppDispatch();
   const [navTitle, setNavTitle] = useState(data.navTitle);
   const [caption, setCaption] = useState(data.caption?.value);
   const [header, setHeader] = useState(data.header?.value);
   const [body, setBody] = useState(data.body?.value);
-  const [buttontext, setButtontext] = useState(data.button?.title);
-  const [buttonurl, setButtonUrl] = useState(data.button?.url);
+  const [button, setButton] = useState(data.button);
   const [style, setStyle] = useState(currentStyle);
   return (
     <>
@@ -52,7 +50,7 @@ function Hero({ blockId, onRemove }: SettingBlockProps) {
             );
           }}
           guideline="네비게이션 바에 입력될 메뉴명을 입력하세요."
-        ></TextInput>
+        ></TextInput>{' '}
         <CustomSelect
           title="스타일"
           required
@@ -116,38 +114,37 @@ function Hero({ blockId, onRemove }: SettingBlockProps) {
         <TextInput
           title="버튼 텍스트"
           required={false}
+          guideline="비워둘 경우 버튼이 나타나지 않습니다."
+          value={button?.title}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setButtontext(e.target.value);
+            setButton({ ...button, title: e.target.value });
             dispatch(
               updateBlockData({
                 blockId: id,
                 field: 'button',
-                value: { title: e.target.value },
+                value: { ...button, title: e.target.value },
               })
             );
           }}
-          guideline="비워둘 경우 버튼이 나타나지 않습니다."
-          value={buttontext}
         ></TextInput>
         <TextInput
           title="버튼 URL"
           required={false}
+          guideline="버튼 클릭시 이동될 url을 입력하세요"
+          value={button?.url}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setButtonUrl(e.target.value);
+            setButton({ ...button, url: e.target.value });
             dispatch(
               updateBlockData({
                 blockId: id,
                 field: 'button',
-                value: { url: e.target.value },
+                value: { title: button?.title, url: e.target.value },
               })
             );
           }}
-          guideline="버튼 클릭시 이동될 url을 입력하세요"
-          value={buttonurl}
         ></TextInput>
       </Card>
     </>
   );
 }
-
 export default Hero;
