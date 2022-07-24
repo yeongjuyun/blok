@@ -75,7 +75,7 @@ export default function EditorPreview() {
     <Container>
       <SiteBlockList blockCount={blocks.length}>
         <ErrorBoundary>
-          <SiteBlockContainer theme={blocks[0].template.theme}>
+          <SiteBlockContainer theme={blocks[0]?.template.theme}>
             <Suspense fallback={<PageLoading />}>{siteBlocks}</Suspense>
           </SiteBlockContainer>
         </ErrorBoundary>
