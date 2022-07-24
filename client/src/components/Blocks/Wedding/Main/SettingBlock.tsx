@@ -12,6 +12,40 @@ import type { RootState } from '../../../../reducers/store';
 import * as icon from '../../../../icons';
 import { SettingBlockProps, StyleData } from '../../blockValidator';
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
+import styled from 'styled-components';
+import { Width100, Label, Required, Guideline } from '../../../Input';
+
+const DateTitle = styled.div`
+  display: flex;
+`;
+
+const Calendar = styled(DatePicker)`
+  font-size: 16px;
+  line-height: 19px;
+  width: 100%;
+  height: 48px;
+  border: 1px solid #ececec;
+  box-sizing: border-box;
+  padding: 15px 19px;
+  border-radius: 5px;
+`;
+export const dataFomatting = (e: Date) => {
+  let dayArr = ['일', '월', '화', '수', '목', '금', '토'];
+  let day = dayArr[e.getDay()];
+  let yyyy = e.getFullYear().toString();
+  let MM = e.getMonth() < 10 ? `0${e.getMonth()}` : e.getMonth();
+  let dd = e.getDate() < 10 ? `0${e.getDate()}` : e.getDate();
+  let hh = e.getHours();
+  hh = hh % 12;
+  hh = hh ? hh : 12;
+  let h = e.getHours() < 12 ? '오전' : '오후';
+  let mm = e.getMinutes() === 0 ? '' : e.getMinutes().toString() + '분';
+
+  return `${yyyy}년 ${MM}월 ${dd}일 ${day}요일 ${h} ${hh}시` + ` ${mm}`;
+};
 
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const { id, template, data, isCardOpened } = useSelector((state: RootState) =>
@@ -22,13 +56,12 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const dispatch = useDispatch();
 
   //Input
-  const [navTitle, setNavTitle] = useState(data.navTitle);
   const [style, setStyle] = useState(currentStyle);
-  const [date, setDate] = useState(data.date?.value);
   const [venue, setVenue] = useState(data.venue?.value);
   const [header, setHeader] = useState(data.header?.value);
   const [body, setBody] = useState(data.body?.value);
   const [image, setImage] = useState(data.image);
+  const [date, setDate] = useState(new Date());
 
   const imgHandler = async (data: any) => {
     const formData = new FormData();
@@ -75,7 +108,6 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           }}
           value={style}
         />
-
         <TextInput
           title='신랑/신부 이름'
           required
@@ -116,22 +148,32 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           placeholder={image?.src}
           onChange={imgHandler}
         />
-        <TextInput
-          title='결혼 날짜'
-          required
-          guideline='yyyy-mm-dd-hh-mm 형식으로 입력해주세요'
-          value={date}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setDate(e.target.value);
-            dispatch(
-              updateBlockData({
-                blockId: id,
-                field: 'date',
-                value: { value: e.target.value },
-              })
-            );
-          }}
-        ></TextInput>
+
+        <Width100>
+          <DateTitle>
+            <Label>결혼 날짜</Label>
+            <Required>*</Required>
+          </DateTitle>
+          <Calendar
+            selected={date}
+            onChange={(e: Date) => {
+              setDate(e);
+              dispatch(
+                updateBlockData({
+                  blockId: id,
+                  field: 'date',
+                  value: { value: dataFomatting(e) },
+                })
+              );
+            }}
+            showTimeSelect
+            timeFormat='HH:mm'
+            timeIntervals={15}
+            timeCaption='time'
+            dateFormat='MMMM d, yyyy h:mm aa'
+          />
+          <Guideline>결혼 날짜를 선택해주세요</Guideline>
+        </Width100>
         <TextInput
           title='결혼 장소'
           required

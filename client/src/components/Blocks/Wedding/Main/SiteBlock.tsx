@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { SiteBlockProps, ColorSet } from '../../blockValidator';
 import { SiteBlockByType } from '../../../../reducers/HostReducer';
+import DatePicker from 'react-datepicker';
 
 const RemtoVw = (px: number, rem: number) => {
   return (rem * 100 * px) / 550 + 'vw';
@@ -20,6 +21,8 @@ const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   justify-content: center;
   align-items: center;
 `;
+
+const Calendar = styled(DatePicker)``;
 
 export const ImgDiv = styled.div`
   width: 100%;
@@ -55,14 +58,14 @@ const MainDate = styled.div<{ colorSet: ColorSet }>`
 `;
 
 const Date = styled.div<{ colorSet: ColorSet }>`
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
   /* color: ${(props) => props.colorSet.primary}; */
   margin-bottom: 0.5rem;
   text-align: center;
 
   @media screen and (max-width: 550px) {
-    font-size: ${RemtoVw(REM, 2)};
+    font-size: ${RemtoVw(REM, 1.8)};
     margin-bottom: ${RemtoVw(REM, 0.5)};
   }
 `;
@@ -102,13 +105,11 @@ export default function SiteBlock(props: SiteBlockProps) {
   const { blockId, type } = props;
   const { colorSet, font, data } = SiteBlockByType({ blockId, type });
 
-  console.log(3333, data);
-
   return (
     <>
       <Container colorSet={colorSet} font={font} id={data.navTitle ?? ''}>
         <MainDate colorSet={colorSet}>
-          {data.date.value.slice(5, 10).replace('-', '/')}
+          {data.date.value.slice(5, 8)}/{data.date.value.slice(10, 12)}
         </MainDate>
         <TextContainer>
           {data.header?.value && <Name>{data.header.value}</Name>}

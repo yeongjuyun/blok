@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, { useMemo, useRef, useState, forwardRef } from 'react';
 import ReactSelect from 'react-select';
 
-const Width100 = styled.div`
+export const Width100 = styled.div`
   width: 100%;
   margin-top: 28px;
 `;

@@ -348,7 +348,39 @@
         "layout": ""
       },
       "creationData": {
-        "title": "이미지+텍스트",
+        "title": "메인",
+        "icon": "Feature",
+        "isUnique": false
+      },
+      "defaultData": {
+        "style": { "value": "Simple Default" },
+        "navTitle": "기능 1",
+        "image": {
+          "src": "",
+          "alt": "image"
+        },
+        "header": {
+          "value": "준호 그리고 아름"
+        },
+        "body": {
+          "value": "SAVE THE DATE"
+        },
+        "date": {
+          "value": "2024년 03월 05일 오전 11시"
+        },
+        "venue": {
+          "value": "미리웨딩하우스 1층 그랜드홀"
+        }
+      }
+    },
+    {
+      "template": {
+        "theme": "Wedding",
+        "blockType": "Calendar",
+        "layout": ""
+      },
+      "creationData": {
+        "title": "달력",
         "icon": "Feature",
         "isUnique": false
       },
