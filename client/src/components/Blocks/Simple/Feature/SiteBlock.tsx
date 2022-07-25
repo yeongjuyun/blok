@@ -109,16 +109,20 @@ function highlightHandler(header: string, keyword: string, colorSet: ColorSet) {
     for (let i = 0; i < splitedByKeyword.length - 1; i++) {
       result.push(
         <>
-          <Header>{splitedByKeyword[i]}</Header>
-          <HeaderHighlight colorSet={colorSet}>{keyword}</HeaderHighlight>
+          <Header key={`${i}-keyword`}>{splitedByKeyword[i]}</Header>
+          <HeaderHighlight key={`${i}-HeaderHighlight`} colorSet={colorSet}>
+            {keyword}
+          </HeaderHighlight>
         </>
       );
     }
     result.push(
-      <Header>{splitedByKeyword[splitedByKeyword.length - 1]}</Header>
+      <Header key={`${keyword}-keyword`}>
+        {splitedByKeyword[splitedByKeyword.length - 1]}
+      </Header>
     );
   } else {
-    result.push(<Header>{header}</Header>);
+    result.push(<Header key={`${keyword}-header`}>{header}</Header>);
   }
 
   return result.map((item) => item);
