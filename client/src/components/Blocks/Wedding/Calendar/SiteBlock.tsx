@@ -1,6 +1,17 @@
 import styled from 'styled-components';
 import { SiteBlockProps, ColorSet } from '../../blockValidator';
+import { useState } from 'react';
 import { SiteBlockByType } from '../../../../reducers/HostReducer';
+import { dataFomatting } from '../Main/SiteBlock';
+import { useAppSelector, useAppDispatch } from '../../../../reducers';
+import Calendar from 'react-calendar';
+// import 'react-calendar/dist/Calendar.css';
+import './Calendar.css';
+import DatePicker from 'react-datepicker';
+import {
+  updateBlockData,
+  selectBlockById,
+} from '../../../../reducers/SiteReducer';
 
 const RemtoVw = (px: number, rem: number) => {
   return (rem * 100 * px) / 550 + 'vw';
@@ -32,13 +43,6 @@ export const ImgDiv = styled.div`
   }
 `;
 
-const Img = styled.img`
-  max-width: 500px;
-  @media screen and (max-width: 550px) {
-    width: 100%;
-  }
-`;
-
 const TextContainer = styled.div`
   vertical-align: middle;
   padding: 3rem;
@@ -67,27 +71,6 @@ const DateTest = styled.div<{ colorSet: ColorSet }>`
   }
 `;
 
-const Venue = styled.div<{ colorSet: ColorSet }>`
-  font-size: 1.5rem;
-  font-weight: 600;
-  /* color: ${(props) => props.colorSet.primary}; */
-  text-align: center;
-
-  @media screen and (max-width: 550px) {
-    font-size: ${RemtoVw(REM, 1.5)};
-  }
-`;
-
-const Name = styled.span`
-  font-size: 2rem;
-  font-weight: 700;
-  color: black;
-
-  @media screen and (max-width: 550px) {
-    font-size: ${RemtoVw(REM, 2)};
-  }
-`;
-
 const ExtraText = styled.div<{ colorSet: ColorSet }>`
   color: ${(props) => props.colorSet.surface};
   font-size: 1rem;
@@ -98,56 +81,34 @@ const ExtraText = styled.div<{ colorSet: ColorSet }>`
   }
 `;
 
-export const dataFomatting = (e: Date) => {
-  let dayArr = ['일', '월', '화', '수', '목', '금', '토'];
-  let day = dayArr[e.getDay()];
-  let yyyy = e.getFullYear().toString();
-  let MM = e.getMonth() < 10 ? `0${e.getMonth() + 1}` : e.getMonth() + 1;
-  let dd = e.getDate() < 10 ? `0${e.getDate()}` : e.getDate();
-  let hh = e.getHours();
-  hh = hh % 12;
-  hh = hh ? hh : 12;
-  let h = e.getHours() < 12 ? '오전' : '오후';
-  let mm = e.getMinutes() === 0 ? '' : e.getMinutes().toString() + '분';
-
-  return `${yyyy}년 ${MM}월 ${dd}일 ${day}요일 ${h} ${hh}시` + ` ${mm}`;
-};
-
 export default function SiteBlock(props: SiteBlockProps) {
   const { blockId, type } = props;
   const { colorSet, font, data } = SiteBlockByType({ blockId, type });
+  const unformattedDate = useAppSelector(
+    (state) => state.site.blocks[0].data.date?.value
+  );
 
   return (
     <>
       <Container colorSet={colorSet} font={font} id={data.navTitle ?? ''}>
-        <MainDate colorSet={colorSet}>
-          {dataFomatting(new Date(data.date.value)).slice(5, 8)}/
-          {dataFomatting(new Date(data.date.value)).slice(10, 12)}
-        </MainDate>
+        <MainDate colorSet={colorSet}>Wedding Day</MainDate>
         <TextContainer>
-          {data.header?.value && <Name>{data.header.value}</Name>}
+          {unformattedDate && (
+            <DateTest colorSet={colorSet}>
+              {dataFomatting(new Date(unformattedDate)).substring(6, 8)}/
+              {dataFomatting(new Date(unformattedDate)).substring(10, 12)}
+              {data.body?.value && (
+                <ExtraText colorSet={colorSet}>
+                  {dataFomatting(new Date(unformattedDate)).substring(14)}
+                </ExtraText>
+              )}
+            </DateTest>
+          )}
           {data.body?.value && (
             <ExtraText colorSet={colorSet}>{data.body.value}</ExtraText>
           )}
         </TextContainer>
-        {data.image?.src ? (
-          <Img src={data.image.src} alt={data.image.alt ?? ''} />
-        ) : (
-          <ImgDiv style={{ marginRight: '20px' }}>
-            여기에 이미지가 보여집니다.
-          </ImgDiv>
-        )}
-        <TextContainer>
-          {data.date?.value && (
-            <DateTest colorSet={colorSet}>
-              {dataFomatting(new Date(data.date.value))}
-            </DateTest>
-          )}
-
-          {data.venue?.value && (
-            <Venue colorSet={colorSet}>{data.venue.value}</Venue>
-          )}
-        </TextContainer>
+        {unformattedDate && <Calendar value={new Date(unformattedDate)} />}
       </Container>
     </>
   );
