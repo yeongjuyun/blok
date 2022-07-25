@@ -1,14 +1,14 @@
-import is from "@sindresorhus/is";
-import { siteService } from "../services";
-import { asyncHandler, s3Uploadv2 } from "../utils";
+import is from '@sindresorhus/is';
+import { siteService } from '../services';
+import { asyncHandler, s3Uploadv2 } from '../utils';
 
-import { BadRequestError } from "../errors";
+import { BadRequestError } from '../errors';
 
 const siteController = {
   addsite: asyncHandler(async (req, res, next) => {
     if (is.emptyObject(req.body)) {
       throw new BadRequestError(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
+        'headers의 Content-Type을 application/json으로 설정해주세요'
       );
     }
     const { userId, name, domain, theme, font, colorSet, blocks } = req.body;
@@ -45,7 +45,7 @@ const siteController = {
   updateSite: asyncHandler(async (req, res) => {
     if (is.emptyObject(req.body)) {
       throw new BadRequestError(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
+        'headers의 Content-Type을 application/json으로 설정해주세요'
       );
     }
     const siteId = req.params.siteId;
@@ -71,6 +71,16 @@ const siteController = {
     const results = await s3Uploadv2(req.file);
     const imageUrl = results.Location;
     return res.ok(200, imageUrl);
+  }),
+
+  uploadImages: asyncHandler(async (req, res) => {
+    let imageUrlArr = [];
+    for (let i = 0; i < req.files.length; i++) {
+      const file = req.files[i];
+      const results = await s3Uploadv2(file);
+      imageUrlArr.push(results.Location);
+    }
+    return res.ok(200, imageUrlArr);
   }),
 
   deleteSite: asyncHandler(async (req, res) => {

@@ -1,21 +1,21 @@
 // AWS S3 업로드
-import multer from "multer";
-import "dotenv/config";
+import multer from 'multer';
+import 'dotenv/config';
 
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype.split("/")[0] === "image") {
+  if (file.mimetype.split('/')[0] === 'image') {
     cb(null, true);
   } else {
-    cb(new Error("Only images are allowed"), false);
+    cb(new Error('Only images are allowed'), false);
   }
 };
 
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 10000000, files: 2 },
+  limits: { fileSize: 10000000, files: 10 },
 });
 
 export { upload };
