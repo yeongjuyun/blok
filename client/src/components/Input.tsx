@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useMemo, useRef, useState, forwardRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState, forwardRef } from 'react';
 import ReactSelect from 'react-select';
 
 export const Width100 = styled.div`
@@ -420,3 +420,206 @@ export const ImgInput = forwardRef<HTMLInputElement, ImgInputprops>(
     );
   }
 );
+export const MultiImgInput = forwardRef<HTMLInputElement, ImgInputprops>(
+  (props: ImgInputprops, ref) => {
+    const [images, setImages] = useState([] as any);
+    const [imageURLS, setImageURLs] = useState([]);
+
+    useEffect(() => {
+      if (images.length < 1) return;
+      const newImageUrls: any = [];
+      images.forEach((image: any) =>
+        newImageUrls.push(URL.createObjectURL(image))
+      );
+      setImageURLs(newImageUrls);
+    }, [images]);
+
+    function onImageChange(e: any, imgHandler: Function) {
+      setImages([...e.target.files]);
+      imgHandler(e.target.files);
+    }
+
+    return (
+      <Width100>
+        {props.title ? (
+          <Label required={props.required}>
+            {props.title}
+            <Required>*</Required>
+          </Label>
+        ) : (
+          <DisplayNone />
+        )}
+        <Widthflex>
+          <Input
+            style={{
+              width: '100%',
+              backgroundColor: 'white',
+              padding: '7px 12px',
+            }}
+            disabled
+            value={imageURLS.map((url: any) => url)}
+          ></Input>
+          <ImgBnt htmlFor='imgUpload'>올리기</ImgBnt>
+        </Widthflex>
+
+        <InputImg
+          style={{ display: 'none' }}
+          key={props.key}
+          id='imgUpload'
+          ref={ref}
+          type='file'
+          className='imgInput'
+          accept='image/*'
+          name='file'
+          multiple
+          onChange={(e: any) => {
+            onImageChange(e, props.onChange);
+          }}
+        />
+        {props.guideline ? (
+          <Guideline>{props.guideline}</Guideline>
+        ) : (
+          <DisplayNone />
+        )}
+        {imageURLS.map((imageURL) =>
+          imageURL !== null ? (
+            <PreviewImg key={imageURL} src={imageURL} />
+          ) : (
+            <DisplayNone />
+          )
+        )}
+      </Width100>
+    );
+  }
+);
+
+// export const MultiImgInput = (props: ImgInputprops) => {
+//   const [images, setImages] = useState([] as any);
+//   const [imageURLS, setImageURLs] = useState([]);
+
+//   useEffect(() => {
+//     if (images.length < 1) return;
+//     const newImageUrls: any = [];
+//     images.forEach((image: any) =>
+//       newImageUrls.push(URL.createObjectURL(image))
+//     );
+//     setImageURLs(newImageUrls);
+//   }, [images]);
+
+//   function onImageChange(e: any) {
+//     setImages([...e.target.files]);
+//   }
+
+//   return (
+//     <Width100>
+//       {props.title ? (
+//         <Label required={props.required}>
+//           {props.title}
+//           <Required>*</Required>
+//         </Label>
+//       ) : (
+//         <DisplayNone />
+//       )}
+//       <Widthflex>
+//         <Input
+//           style={{
+//             width: '100%',
+//             backgroundColor: 'white',
+//             padding: '7px 12px',
+//           }}
+//           disabled
+//           value={imageURLS.map((url: any) => url)}
+//         ></Input>
+//         <ImgBnt htmlFor='imgUpload'>올리기</ImgBnt>
+//       </Widthflex>
+//       <InputImg
+//         style={{ display: 'none' }}
+//         key={props.key}
+//         id='imgUpload'
+//         type='file'
+//         className='imgInput'
+//         accept='image/*'
+//         name='file'
+//         onChange={onImageChange}
+//         multiple
+//       />
+//       {props.guideline ? (
+//         <Guideline>{props.guideline}</Guideline>
+//       ) : (
+//         <DisplayNone />
+//       )}
+//       {imageURLS.map((imageURL) =>
+//         imageURL !== null ? (
+//           <PreviewImg key={imageURL} src={imageURL} />
+//         ) : (
+//           <DisplayNone />
+//         )
+//       )}
+//     </Width100>
+//   );
+// };
+// export const MultiImgInput = (props: ImgInputprops) => {
+//   const [images, setImages] = useState([] as any);
+//   const [imageURLS, setImageURLs] = useState([]);
+
+//   useEffect(() => {
+//     if (images.length < 1) return;
+//     const newImageUrls: any = [];
+//     images.forEach((image: any) =>
+//       newImageUrls.push(URL.createObjectURL(image))
+//     );
+//     setImageURLs(newImageUrls);
+//   }, [images]);
+
+//   function onImageChange(e: any) {
+//     setImages([...e.target.files]);
+//   }
+
+//   return (
+//     <Width100>
+//       {props.title ? (
+//         <Label required={props.required}>
+//           {props.title}
+//           <Required>*</Required>
+//         </Label>
+//       ) : (
+//         <DisplayNone />
+//       )}
+//       <Widthflex>
+//         <Input
+//           style={{
+//             width: '100%',
+//             backgroundColor: 'white',
+//             padding: '7px 12px',
+//           }}
+//           disabled
+//           value={imageURLS.map((url: any) => url)}
+//         ></Input>
+//         <ImgBnt htmlFor='imgUpload'>올리기</ImgBnt>
+//       </Widthflex>
+//       <InputImg
+//         style={{ display: 'none' }}
+//         key={props.key}
+//         id='imgUpload'
+//         type='file'
+//         className='imgInput'
+//         accept='image/*'
+//         name='file'
+//         onChange={onImageChange}
+//         multiple
+//       />
+//       {props.guideline ? (
+//         <Guideline>{props.guideline}</Guideline>
+//       ) : (
+//         <DisplayNone />
+//       )}
+//       {imageURLS.map((imageURL) =>
+//         imageURL !== null ? (
+//           <PreviewImg key={imageURL} src={imageURL} />
+//         ) : (
+//           <DisplayNone />
+//         )
+//       )}
+//     </Width100>
+//   );
+// };

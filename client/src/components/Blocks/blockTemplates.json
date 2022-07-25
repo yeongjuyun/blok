@@ -354,7 +354,6 @@
       },
       "defaultData": {
         "style": { "value": "Simple Default" },
-        "navTitle": "기능 1",
         "image": {
           "src": "",
           "alt": "image"
@@ -386,7 +385,6 @@
       },
       "defaultData": {
         "style": { "value": "Simple Default" },
-        "navTitle": "기능 1",
         "image": {
           "src": "",
           "alt": "image"
@@ -398,10 +396,29 @@
           "value": "SAVE THE DATE"
         },
         "date": {
-          "value": "2022-03-05-10-00"
+          "value": "2024-12-12"
+        }
+      }
+    },
+    {
+      "template": {
+        "theme": "Wedding",
+        "blockType": "Gallery",
+        "layout": ""
+      },
+      "creationData": {
+        "title": "갤러리",
+        "icon": "Feature",
+        "isUnique": false
+      },
+      "defaultData": {
+        "style": { "value": "Simple Default" },
+        "images": [],
+        "header": {
+          "value": "Gallery"
         },
-        "venue": {
-          "value": "미리웨딩하우스 1층 그랜드홀"
+        "body": {
+          "value": "SAVE THE DATE"
         }
       }
     }
