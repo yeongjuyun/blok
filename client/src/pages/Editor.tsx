@@ -71,7 +71,6 @@ export default function Editor() {
   useEffect(() => {
     const getSiteInfo = async () => {
       const res = await axios.get(`/api/site/${siteId}`);
-      console.log('SiteData:', res.data);
       setData(res.data);
     };
     getSiteInfo();
@@ -100,7 +99,7 @@ export default function Editor() {
         <EditorSection />
         {AlertModalState && <AlertModal alertData={alertData} />}
         {ConfirmModalState && <ConfirmModal confirmData={confirmData} />}
-        {AddModalState && <AddModal theme="Simple" />}
+        {AddModalState && <AddModal theme='Simple' />}
       </DesktopContainer>
       <MobileContainer>
         <div>
@@ -110,8 +109,8 @@ export default function Editor() {
           빠른 시일 내에 <b>업데이트</b> 하도록 하겠습니다.
         </div>
         <br />
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <Button color="white" size="large">
+        <Link to='/' style={{ textDecoration: 'none' }}>
+          <Button color='white' size='large'>
             Home
           </Button>
         </Link>

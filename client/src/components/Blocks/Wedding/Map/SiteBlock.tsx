@@ -110,7 +110,6 @@ export default function SiteBlock(props: SiteBlockProps) {
   const venue = useAppSelector(
     (state) => state.site.blocks[0].data.venue?.value
   );
-  console.log(venue);
 
   return (
     <>

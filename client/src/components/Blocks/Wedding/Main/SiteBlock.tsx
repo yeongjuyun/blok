@@ -36,9 +36,9 @@ const MainDate = styled.div<{ colorSet: ColorSet }>`
 
 const TextContainer = styled.div`
   vertical-align: middle;
-  padding: 3rem;
+  padding: 3rem 0;
   @media screen and (max-width: 550px) {
-    padding: ${RemtoVw(REM, 3)};
+    padding: ${RemtoVw(REM, 3)} 0;
   }
 `;
 
@@ -65,10 +65,11 @@ const ExtraText = styled.div<{ colorSet: ColorSet }>`
 `;
 
 export const ImgDiv = styled.div`
-  width: 100%;
+  width: 500px;
+  height: 500px;
   background-color: #efefef;
   text-align: center;
-  line-height: 200px;
+  line-height: 500px;
   @media screen and (max-width: 550px) {
     width: 400px;
     padding-right: 0;
@@ -131,7 +132,7 @@ export const dataFomatting = (e: Date) => {
   let dayArr = ['일', '월', '화', '수', '목', '금', '토'];
   let day = dayArr[e.getDay()];
   let yyyy = e.getFullYear().toString();
-  let MM = e.getMonth() < 10 ? `0${e.getMonth() + 1}` : e.getMonth() + 1;
+  let MM = e.getMonth() < 9 ? `0${e.getMonth() + 1}` : e.getMonth() + 1;
   let dd = e.getDate() < 10 ? `0${e.getDate()}` : e.getDate();
   let hh = e.getHours();
   hh = hh % 12;
