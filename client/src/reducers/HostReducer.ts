@@ -57,7 +57,7 @@ export function SiteBlockByType(props: SiteBlockProps) {
 
   const { data } = blocks.find((block: Block) => block.id === blockId);
 
-  return { colorSet, font, data };
+  return { colorSet, font, data, blocks };
 }
 
 //Action creators are generated for each case reducer function

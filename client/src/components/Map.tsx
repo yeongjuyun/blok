@@ -57,6 +57,7 @@ export const Map = (props: any) => {
         }
       }
     );
+    map.relayout();
   }, [props.props.value]);
 
   return (

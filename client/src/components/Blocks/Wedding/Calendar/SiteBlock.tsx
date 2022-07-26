@@ -79,10 +79,8 @@ const ExtraText = styled.div<{ colorSet: ColorSet }>`
 
 export default function SiteBlock(props: SiteBlockProps) {
   const { blockId, type } = props;
-  const { colorSet, font, data } = SiteBlockByType({ blockId, type });
-  const unformattedDate = useAppSelector(
-    (state) => state.site.blocks[0].data.date?.value
-  );
+  const { colorSet, font, data, blocks } = SiteBlockByType({ blockId, type });
+  const unformattedDate = blocks[0].data.date.value;
 
   return (
     <>

@@ -107,10 +107,6 @@ export default function SiteBlock(props: SiteBlockProps) {
   const { blockId, type } = props;
   const { colorSet, font, data } = SiteBlockByType({ blockId, type });
 
-  const venue = useAppSelector(
-    (state) => state.site.blocks[0].data.venue?.value
-  );
-
   return (
     <>
       <Container colorSet={colorSet} font={font} id={data.navTitle ?? ''}>
