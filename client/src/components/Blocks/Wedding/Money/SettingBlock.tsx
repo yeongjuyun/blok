@@ -11,6 +11,11 @@ import {
 import type { RootState } from '../../../../reducers/store';
 import * as icon from '../../../../icons';
 import { SettingBlockProps, StyleData } from '../../blockValidator';
+import styled from 'styled-components';
+
+const AccountInput = styled(TextInput)`
+  margin-top: 0;
+`;
 
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const { id, template, data, isCardOpened } = useSelector((state: RootState) =>
@@ -23,17 +28,18 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   //Input
   const [style, setStyle] = useState(currentStyle);
   const [header, setHeader] = useState(data.header?.value);
-  const [venue, setVenue] = useState(data.venue?.value);
-  const [address, setAddress] = useState(data.address?.value);
-  const [contact, setContact] = useState(data.contact?.value);
+  const [groom, setGroom] = useState(data.groom?.value);
+  const [bride, setBride] = useState(data.bride?.value);
+  const [groomAccount, setGroomAccount] = useState(data.groomAccount?.value);
+  const [brideAccount, setBrideAccount] = useState(data.brideAccount?.value);
   const [body, setBody] = useState(data.body?.value);
 
   return (
     <>
       <Card
-        title='Map'
+        title='Money'
         onRemove={onRemove}
-        icon={icon.Map}
+        icon={icon.Money}
         isCardOpened={isCardOpened}
         blockId={blockId}
       >
@@ -66,48 +72,62 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           }}
         ></TextInput>
         <TextInput
-          title='결혼식 장소'
+          title='신랑 측 계좌정보'
           required
-          guideline='결혼식 장소를 입력해주세요'
-          value={venue}
+          guideline='신랑 측 예금주를 입력해주세요'
+          value={groom}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setVenue(e.target.value);
+            setGroom(e.target.value);
             dispatch(
               updateBlockData({
                 blockId: id,
-                field: 'venue',
+                field: 'groom',
+                value: { value: e.target.value },
+              })
+            );
+          }}
+        />
+        <AccountInput
+          required
+          guideline='은행과 계좌번호를 입력해주세요'
+          value={groomAccount}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setGroomAccount(e.target.value);
+            dispatch(
+              updateBlockData({
+                blockId: id,
+                field: 'groomAccount',
                 value: { value: e.target.value },
               })
             );
           }}
         />
         <TextInput
-          title='도로명 주소'
+          title='신부 측 계좌정보'
           required
-          guideline='결혼식 장소를 도로명 주소로 입력해주세요'
-          value={address}
+          guideline='신부 측 예금주를 입력해주세요'
+          value={bride}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setAddress(e.target.value);
+            setBride(e.target.value);
             dispatch(
               updateBlockData({
                 blockId: id,
-                field: 'address',
+                field: 'bride',
                 value: { value: e.target.value },
               })
             );
           }}
         />
-        <TextInput
-          title='결혼식장 연락처'
+        <AccountInput
           required
-          guideline='예식장 연락처를 02-0000-0000 형식으로 입력해주세요'
-          value={contact}
+          guideline='은행과 계좌번호를 입력해주세요'
+          value={brideAccount}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setContact(e.target.value);
+            setBrideAccount(e.target.value);
             dispatch(
               updateBlockData({
                 blockId: id,
-                field: 'contact',
+                field: 'brideAccount',
                 value: { value: e.target.value },
               })
             );

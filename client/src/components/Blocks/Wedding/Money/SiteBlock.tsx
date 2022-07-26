@@ -36,15 +36,29 @@ const MainTitle = styled.div<{ colorSet: ColorSet }>`
   }
 `;
 
+const AccountContainer = styled.div`
+  vertical-align: middle;
+  text-align: center;
+  padding: 3rem;
+  width: 100%;
+  border: 0;
+  border-radius: 7px;
+  /* background-color: wheat; */
+  @media screen and (max-width: 550px) {
+    padding: ${RemtoVw(REM, 3)};
+  }
+`;
+
 const TextContainer = styled.div`
   vertical-align: middle;
+  text-align: center;
   padding: 3rem;
   @media screen and (max-width: 550px) {
     padding: ${RemtoVw(REM, 3)};
   }
 `;
 
-const Venue = styled.div<{ colorSet: ColorSet }>`
+const Name = styled.div<{ colorSet: ColorSet }>`
   font-size: 2rem;
   font-weight: 600;
   color: ${(props) => props.colorSet.secondary};
@@ -57,7 +71,7 @@ const Venue = styled.div<{ colorSet: ColorSet }>`
   }
 `;
 
-const Address = styled.div<{ colorSet: ColorSet }>`
+const Account = styled.div<{ colorSet: ColorSet }>`
   font-size: 1.5rem;
   font-weight: 600;
   color: ${(props) => props.colorSet.surface};
@@ -70,7 +84,24 @@ const Address = styled.div<{ colorSet: ColorSet }>`
   }
 `;
 
-const Contact = styled.div<{ colorSet: ColorSet }>`
+const CopyButton = styled.button<{ colorSet: ColorSet }>`
+  background-color: ${(props) => props.colorSet.primary};
+  color: white;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 7px;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 0.8rem;
+  cursor: pointer;
+
+  @media screen and (max-width: 550px) {
+    font-size: ${RemtoVw(REM, 1.4)};
+    margin-top: ${RemtoVw(REM, 0.8)};
+  }
+`;
+
+const ExtraText = styled.div<{ colorSet: ColorSet }>`
   font-size: 1.5rem;
   font-weight: 600;
   color: ${(props) => props.colorSet.surface};
@@ -81,36 +112,16 @@ const Contact = styled.div<{ colorSet: ColorSet }>`
   }
 `;
 
-const PhoneIcon = styled.img<{ colorSet: ColorSet }>`
-  width: 1.2rem;
-  height: 1.2rem;
-  padding-right: 0.5rem;
-  filter: opacity(0.5) drop-shadow(0 0 0 #ececec);
-
-  @media screen and (max-width: 550px) {
-    width: ${RemtoVw(REM, 1.2)};
-    height: ${RemtoVw(REM, 1.2)};
-    padding-right: ${RemtoVw(REM, 0.5)};
-  }
-`;
-
-const MapWidth100 = styled.div`
-  width: 500px;
-  height: 350px;
-  @media screen and (max-width: 550px) {
-    width: ${PxVw(500)};
-    height: ${PxVw(350)};
-  }
-`;
-
 export default function SiteBlock(props: SiteBlockProps) {
   const { blockId, type } = props;
   const { colorSet, font, data } = SiteBlockByType({ blockId, type });
 
-  const venue = useAppSelector(
-    (state) => state.site.blocks[0].data.venue?.value
-  );
-  console.log(venue);
+  const onClickGroomAccount = () => {
+    navigator.clipboard.writeText(data.groomAccount.value);
+  };
+  const onClickBrideAccount = () => {
+    navigator.clipboard.writeText(data.brideAccount.value);
+  };
 
   return (
     <>
@@ -118,26 +129,32 @@ export default function SiteBlock(props: SiteBlockProps) {
         {data.header?.value && (
           <MainTitle colorSet={colorSet}>{data.header.value}</MainTitle>
         )}
-        <TextContainer>
-          {data.venue?.value && (
-            <Venue colorSet={colorSet}>{data.venue.value}</Venue>
+        <AccountContainer>
+          {data.groom?.value && (
+            <Name colorSet={colorSet}>{data.groom.value}</Name>
           )}
-          {data.address?.value && (
-            <Address colorSet={colorSet}>{data.address.value}</Address>
+          {data.groomAccount?.value && (
+            <Account colorSet={colorSet}>{data.groomAccount.value}</Account>
           )}
-          {data.contact?.value && (
-            <Contact colorSet={colorSet}>
-              <PhoneIcon src={icons.Contact} colorSet={colorSet} />
-              {data.contact.value}
-            </Contact>
+          <CopyButton colorSet={colorSet} onClick={onClickGroomAccount}>
+            계좌번호 복사
+          </CopyButton>
+        </AccountContainer>
+        <AccountContainer>
+          {data.bride?.value && (
+            <Name colorSet={colorSet}>{data.bride.value}</Name>
           )}
-        </TextContainer>
-        <MapWidth100>
-          <Map props={data.address} />
-        </MapWidth100>
+          {data.brideAccount?.value && (
+            <Account colorSet={colorSet}>{data.brideAccount.value}</Account>
+          )}
+          <CopyButton colorSet={colorSet} onClick={onClickBrideAccount}>
+            계좌번호 복사
+          </CopyButton>
+        </AccountContainer>
+
         <TextContainer>
           {data.body?.value && (
-            <Contact colorSet={colorSet}>{data.body.value}</Contact>
+            <ExtraText colorSet={colorSet}>{data.body.value}</ExtraText>
           )}
         </TextContainer>
       </Container>
