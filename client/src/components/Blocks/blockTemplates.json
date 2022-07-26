@@ -390,7 +390,7 @@
           "alt": "image"
         },
         "header": {
-          "value": "준호 그리고 아름"
+          "value": "Calendar"
         },
         "body": {
           "value": "SAVE THE DATE"
@@ -419,6 +419,36 @@
         },
         "body": {
           "value": "SAVE THE DATE"
+        }
+      }
+    },
+    {
+      "template": {
+        "theme": "Wedding",
+        "blockType": "Map",
+        "layout": ""
+      },
+      "creationData": {
+        "title": "지도",
+        "icon": "Feature",
+        "isUnique": false
+      },
+      "defaultData": {
+        "style": { "value": "Simple Default" },
+        "header": {
+          "value": "Map"
+        },
+        "body": {
+          "value": "SAVE THE DATE"
+        },
+        "venue": {
+          "value": "미리웨딩하우스 1층 그랜드홀"
+        },
+        "address": {
+          "value": "서울특별시 강남구 대치2동 역삼로 607"
+        },
+        "contact": {
+          "value": "02-1222-1232"
         }
       }
     }
