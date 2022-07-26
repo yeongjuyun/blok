@@ -399,27 +399,27 @@ export default function templateListData() {
           },
         },
       },
-      // {
-      //   id: 2,
-      //   template: {
-      //     theme: 'Wedding',
-      //     blockType: 'Calendar',
-      //     layout: '',
-      //   },
-      //   data: {
-      //     style: { value: 'Simple Default' },
-      //     image: {
-      //       src: '',
-      //       alt: 'image',
-      //     },
-      //     header: {
-      //       value: 'Calendar',
-      //     },
-      //     body: {
-      //       value: 'SAVE THE DATE',
-      //     },
-      //   },
-      // },
+      {
+        id: 2,
+        template: {
+          theme: 'Wedding',
+          blockType: 'Calendar',
+          layout: '',
+        },
+        data: {
+          style: { value: 'Simple Default' },
+          image: {
+            src: '',
+            alt: 'image',
+          },
+          header: {
+            value: 'Calendar',
+          },
+          body: {
+            value: 'SAVE THE DATE',
+          },
+        },
+      },
       {
         id: 3,
         template: {
