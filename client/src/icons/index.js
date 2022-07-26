@@ -18,6 +18,13 @@ import Project from './Project.png';
 import Skillset from './Skillset.png';
 import Introduce from './Introduce.png';
 import x from './x.png';
+import Contact from './Contact.png';
+import Calendar from './Calendar.png';
+import Comment from './Comment.png';
+import Gallery from './Gallery.png';
+import Main from './Main.png';
+import Map from './Map.png';
+import Text from './Text.png';
 import BlockFeature from './blockCreation/feature.png';
 import BlockFooter from './blockCreation/footer.png';
 import BlockHome from './blockCreation/home.png';
@@ -48,4 +55,11 @@ export {
   BlockFeature,
   LinkTag,
   x,
+  Contact,
+  Calendar,
+  Comment,
+  Gallery,
+  Main,
+  Map,
+  Text,
 };
