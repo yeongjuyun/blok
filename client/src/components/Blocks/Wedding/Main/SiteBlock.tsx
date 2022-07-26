@@ -71,7 +71,7 @@ export const ImgDiv = styled.div`
   text-align: center;
   line-height: 500px;
   @media screen and (max-width: 550px) {
-    width: 400px;
+    width: ${PxVw(500)};
     padding-right: 0;
   }
 `;
@@ -165,9 +165,7 @@ export default function SiteBlock(props: SiteBlockProps) {
         {data.image?.src ? (
           <Img src={data.image.src} alt={data.image.alt ?? ''} />
         ) : (
-          <ImgDiv style={{ marginRight: '20px' }}>
-            여기에 이미지가 보여집니다.
-          </ImgDiv>
+          <ImgDiv>여기에 이미지가 보여집니다.</ImgDiv>
         )}
         <TextContainer>
           {data.date?.value && (

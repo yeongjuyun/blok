@@ -102,7 +102,7 @@ export const ImgDiv = styled.div`
   text-align: center;
   line-height: 500px;
   @media screen and (max-width: 550px) {
-    width: 400px;
+    width: ${PxVw(500)};
     padding-right: 0;
   }
 `;

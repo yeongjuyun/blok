@@ -358,7 +358,7 @@ export default function templateListData() {
     name: '',
     domain: '',
     theme: 'Wedding',
-    font: 'Roboto',
+    font: 'Song Myung',
     colorSet: {
       primary: '#358873',
       secondary: '#6BAF92',

@@ -10,6 +10,10 @@ const RemtoVw = (px: number, rem: number) => {
   return (rem * 100 * px) / 550 + 'vw';
 };
 
+const PxVw = (px: number) => {
+  return (100 * px) / 550 + 'vw';
+};
+
 const REM = 16;
 const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   background-color: ${(props) => props.colorSet.background};
@@ -77,6 +81,13 @@ const ExtraText = styled.div<{ colorSet: ColorSet }>`
   }
 `;
 
+const CalendarContainer = styled.div`
+  width: 500px;
+  @media screen and (max-width: 550px) {
+    width: ${PxVw(500)};
+  }
+`;
+
 export default function SiteBlock(props: SiteBlockProps) {
   const { blockId, type } = props;
   const { colorSet, font, data, blocks } = SiteBlockByType({ blockId, type });
@@ -102,7 +113,11 @@ export default function SiteBlock(props: SiteBlockProps) {
             <ExtraText colorSet={colorSet}>{data.body.value}</ExtraText>
           )}
         </TextContainer>
-        {unformattedDate && <Calendar value={new Date(unformattedDate)} />}
+        {unformattedDate && (
+          <CalendarContainer>
+            <Calendar value={new Date(unformattedDate)} />
+          </CalendarContainer>
+        )}
       </Container>
     </>
   );
