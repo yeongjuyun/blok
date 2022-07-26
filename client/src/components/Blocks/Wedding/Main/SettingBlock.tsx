@@ -45,6 +45,8 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const [venue, setVenue] = useState(data.venue?.value);
   const [header, setHeader] = useState(data.header?.value);
   const [body, setBody] = useState(data.body?.value);
+  const [groomParent, setGroomParent] = useState(data.groomParent?.value);
+  const [brideParent, setBrideParent] = useState(data.brideParent?.value);
   const [image, setImage] = useState(data.image);
   const [date, setDate] = useState(new Date());
 
@@ -77,7 +79,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
       <Card
         title='Main'
         onRemove={onRemove}
-        icon={icon.Main}
+        icon={icon.Home}
         isCardOpened={isCardOpened}
         blockId={blockId}
       >
@@ -169,6 +171,36 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
               updateBlockData({
                 blockId: id,
                 field: 'venue',
+                value: { value: e.target.value },
+              })
+            );
+          }}
+        ></TextInput>
+        <TextInput
+          title='신랑 아버지/어머니 성함'
+          guideline='부모님 이름을 입력해주세요'
+          value={groomParent}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setGroomParent(e.target.value);
+            dispatch(
+              updateBlockData({
+                blockId: id,
+                field: 'groomParent',
+                value: { value: e.target.value },
+              })
+            );
+          }}
+        ></TextInput>
+        <TextInput
+          title='신부 아버지/어머니 성함'
+          guideline='부모님 이름을 입력해주세요'
+          value={brideParent}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setBrideParent(e.target.value);
+            dispatch(
+              updateBlockData({
+                blockId: id,
+                field: 'brideParent',
                 value: { value: e.target.value },
               })
             );

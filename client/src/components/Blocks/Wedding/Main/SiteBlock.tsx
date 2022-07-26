@@ -6,6 +6,10 @@ const RemtoVw = (px: number, rem: number) => {
   return (rem * 100 * px) / 550 + 'vw';
 };
 
+export const PxVw = (px: number) => {
+  return (100 * px) / 550 + 'vw';
+};
+
 const REM = 16;
 const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   background-color: ${(props) => props.colorSet.background};
@@ -101,6 +105,27 @@ const Venue = styled.div<{ colorSet: ColorSet }>`
     font-size: ${RemtoVw(REM, 1.5)};
   }
 `;
+const ParentContainer = styled.div<{ colorSet: ColorSet }>`
+  width: 500px;
+  padding: 1rem 0;
+  background-color: ${(props) => props.colorSet.secondary};
+
+  @media screen and (max-width: 550px) {
+    width: ${PxVw(500)};
+  }
+`;
+
+const Parent = styled.div<{ colorSet: ColorSet }>`
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.3rem 0;
+  color: white;
+  text-align: center;
+
+  @media screen and (max-width: 550px) {
+    font-size: ${RemtoVw(REM, 1.5)};
+  }
+`;
 
 export const dataFomatting = (e: Date) => {
   let dayArr = ['일', '월', '화', '수', '목', '금', '토'];
@@ -149,11 +174,24 @@ export default function SiteBlock(props: SiteBlockProps) {
               {dataFomatting(new Date(data.date.value))}
             </DateTest>
           )}
-
           {data.venue?.value && (
             <Venue colorSet={colorSet}>{data.venue.value}</Venue>
           )}
         </TextContainer>
+        {data.groomParent?.value || data.brideParent?.value ? (
+          <ParentContainer colorSet={colorSet}>
+            <hr color='white' />
+            {data.groomParent?.value && (
+              <Parent colorSet={colorSet}>{data.groomParent.value}</Parent>
+            )}
+            {data.brideParent?.value && (
+              <Parent colorSet={colorSet}>{data.brideParent.value}</Parent>
+            )}
+            <hr color='white' />
+          </ParentContainer>
+        ) : (
+          ''
+        )}
       </Container>
     </>
   );
