@@ -25,6 +25,14 @@ const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   align-items: center;
 `;
 
+const MainTitle = styled.div<{ colorSet: ColorSet }>`
+  color: ${(props) => props.colorSet.primary};
+  font-size: 5rem;
+  @media screen and (max-width: 550px) {
+    font-size: ${RemtoVw(REM, 5)};
+  }
+`;
+
 const TextContainer = styled.div`
   vertical-align: middle;
   padding: 3rem;
@@ -33,33 +41,39 @@ const TextContainer = styled.div`
   }
 `;
 
-const MainTitle = styled.div<{ colorSet: ColorSet }>`
-  font-size: 5rem;
-  @media screen and (max-width: 550px) {
-    font-size: ${RemtoVw(REM, 5)};
-  }
-`;
-
 const DateText = styled.div<{ colorSet: ColorSet }>`
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: ${(props) => props.colorSet.primary};
-  margin-bottom: 0.5rem;
+  font-size: 3rem;
+  font-weight: 800;
+  color: ${(props) => props.colorSet.secondary};
+  margin-bottom: 1rem;
   text-align: center;
 
   @media screen and (max-width: 550px) {
     font-size: ${RemtoVw(REM, 1.8)};
-    margin-bottom: ${RemtoVw(REM, 0.5)};
+    margin-bottom: ${RemtoVw(REM, 1)};
+  }
+`;
+
+const DayText = styled.div<{ colorSet: ColorSet }>`
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: ${(props) => props.colorSet.secondary};
+  text-align: center;
+  margin-top: 0.5rem;
+
+  @media screen and (max-width: 550px) {
+    font-size: ${RemtoVw(REM, 1.8)};
+    margin-top: ${RemtoVw(REM, 0.5)};
   }
 `;
 
 const ExtraText = styled.div<{ colorSet: ColorSet }>`
   color: ${(props) => props.colorSet.surface};
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: center;
 
   @media screen and (max-width: 550px) {
-    font-size: ${RemtoVw(REM, 1)};
+    font-size: ${RemtoVw(REM, 1.5)};
   }
 `;
 
@@ -81,11 +95,9 @@ export default function SiteBlock(props: SiteBlockProps) {
             <DateText colorSet={colorSet}>
               {dataFomatting(new Date(unformattedDate)).substring(6, 8)}/
               {dataFomatting(new Date(unformattedDate)).substring(10, 12)}
-              {data.body?.value && (
-                <ExtraText colorSet={colorSet}>
-                  {dataFomatting(new Date(unformattedDate)).substring(14)}
-                </ExtraText>
-              )}
+              <DayText colorSet={colorSet}>
+                {dataFomatting(new Date(unformattedDate)).substring(14)}
+              </DayText>
             </DateText>
           )}
           {data.body?.value && (

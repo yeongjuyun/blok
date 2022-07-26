@@ -77,7 +77,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
       <Card
         title='Gallery'
         onRemove={onRemove}
-        icon={icon.Feature}
+        icon={icon.Gallery}
         isCardOpened={isCardOpened}
         blockId={blockId}
       >

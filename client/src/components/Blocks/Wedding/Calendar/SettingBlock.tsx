@@ -29,7 +29,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
       <Card
         title='Calendar'
         onRemove={onRemove}
-        icon={icon.Feature}
+        icon={icon.Calendar}
         isCardOpened={isCardOpened}
         blockId={blockId}
       >

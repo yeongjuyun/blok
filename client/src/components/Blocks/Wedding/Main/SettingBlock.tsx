@@ -21,7 +21,7 @@ const DateTitle = styled.div`
   display: flex;
 `;
 
-const Calendar = styled(DatePicker)`
+export const Calendar = styled(DatePicker)`
   font-size: 16px;
   line-height: 19px;
   width: 100%;
@@ -77,7 +77,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
       <Card
         title='Main'
         onRemove={onRemove}
-        icon={icon.Feature}
+        icon={icon.Main}
         isCardOpened={isCardOpened}
         blockId={blockId}
       >

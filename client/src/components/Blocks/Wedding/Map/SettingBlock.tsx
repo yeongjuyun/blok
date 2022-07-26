@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextInput, CustomSelect, ImgInput } from '../../../Input';
+import { TextInput, CustomSelect } from '../../../Input';
 import { Card } from '../../../Card/Card';
 import { getCurrentStyleOption, getStyleOptions } from '../../blockHelper';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,15 +11,6 @@ import {
 import type { RootState } from '../../../../reducers/store';
 import * as icon from '../../../../icons';
 import { SettingBlockProps, StyleData } from '../../blockValidator';
-import axios from 'axios';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import styled from 'styled-components';
-import { Width100, Label, Required, Guideline } from '../../../Input';
-
-const DateTitle = styled.div`
-  display: flex;
-`;
 
 function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const { id, template, data, isCardOpened } = useSelector((state: RootState) =>
@@ -35,7 +26,6 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const [contact, setContact] = useState(data.contact?.value);
   const [venue, setVenue] = useState(data.venue?.value);
   const [header, setHeader] = useState(data.header?.value);
-  const [body, setBody] = useState(data.body?.value);
 
   return (
     <>
@@ -74,23 +64,6 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
             );
           }}
         ></TextInput>
-        <TextInput
-          title='추가 문구'
-          required={false}
-          guideline='설명에 표시될 내용을 입력하세요'
-          value={body}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setBody(e.target.value);
-            dispatch(
-              updateBlockData({
-                blockId: id,
-                field: 'body',
-                value: { value: e.target.value },
-              })
-            );
-          }}
-        ></TextInput>
-
         <TextInput
           title='결혼식 장소'
           required

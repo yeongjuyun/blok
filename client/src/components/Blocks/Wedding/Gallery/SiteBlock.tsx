@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 import { SiteBlockProps, ColorSet } from '../../blockValidator';
-import { useState } from 'react';
 import { SiteBlockByType } from '../../../../reducers/HostReducer';
-import { dataFomatting } from '../Main/SiteBlock';
-import { useAppSelector, useAppDispatch } from '../../../../reducers';
-import Calendar from 'react-calendar';
 
 const RemtoVw = (px: number, rem: number) => {
   return (rem * 100 * px) / 550 + 'vw';
+};
+const PxVw = (px: number) => {
+  return (100 * px) / 550 + 'vw';
 };
 
 const REM = 16;
@@ -17,7 +16,7 @@ const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   color: ${(props) => props.colorSet.surface};
 
   max-width: 550px;
-  /* padding: 50px 10px; */
+  padding: 50px 10px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -25,15 +24,8 @@ const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   align-items: center;
 `;
 
-const TextContainer = styled.div`
-  vertical-align: middle;
-  padding: 1rem 0 3rem 0;
-  @media screen and (max-width: 550px) {
-    padding: ${RemtoVw(REM, 3)};
-  }
-`;
-
 const MainTitle = styled.div<{ colorSet: ColorSet }>`
+  color: ${(props) => props.colorSet.primary};
   font-size: 5rem;
   @media screen and (max-width: 550px) {
     font-size: ${RemtoVw(REM, 5)};
@@ -42,11 +34,13 @@ const MainTitle = styled.div<{ colorSet: ColorSet }>`
 
 const ExtraText = styled.div<{ colorSet: ColorSet }>`
   color: ${(props) => props.colorSet.surface};
-  font-size: 1rem;
+  font-size: 1.5rem;
+  padding: 1rem 0 3rem 0;
   text-align: center;
 
   @media screen and (max-width: 550px) {
-    font-size: ${RemtoVw(REM, 1)};
+    font-size: ${RemtoVw(REM, 1.5)};
+    padding: ${RemtoVw(REM, 1)} 0 ${RemtoVw(REM, 3)} 0;
   }
 `;
 
@@ -56,6 +50,11 @@ const ImageContainer = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 550px) {
+    width: ${PxVw(500)};
+  }
 `;
 
 const ImageRow = styled.div`
@@ -63,6 +62,14 @@ const ImageRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+
+  img:not(:first-child) {
+    margin-left: 0.5rem;
+  }
+
+  @media screen and (max-width: 550px) {
+    width: ${PxVw(250)};
+  }
 `;
 
 const ImageRowThree = styled.div`
@@ -70,12 +77,19 @@ const ImageRowThree = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+
+  img:not(:first-child) {
+    margin-left: 0.5rem;
+  }
+
+  @media screen and (max-width: 550px) {
+    width: ${PxVw(166.6667)};
+  }
 `;
 
 const Img = styled.img`
   max-width: 100%;
   margin-bottom: 0.5rem;
-  margin-left: 0.5rem;
   @media screen and (max-width: 550px) {
     width: 100%;
   }
@@ -235,9 +249,7 @@ export default function SiteBlock(props: SiteBlockProps) {
           <MainTitle colorSet={colorSet}>{data.header.value}</MainTitle>
         )}
         {data.body?.value && (
-          <TextContainer>
-            <ExtraText colorSet={colorSet}>{data.body.value}</ExtraText>
-          </TextContainer>
+          <ExtraText colorSet={colorSet}>{data.body.value}</ExtraText>
         )}
         <ImageLayout data={data} />
       </Container>

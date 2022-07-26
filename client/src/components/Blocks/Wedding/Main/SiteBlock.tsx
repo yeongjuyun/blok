@@ -21,6 +21,45 @@ const Container = styled.div<{ colorSet: ColorSet; font: string }>`
   align-items: center;
 `;
 
+const MainDate = styled.div<{ colorSet: ColorSet }>`
+  font-size: 8rem;
+  margin-top: 3rem;
+  @media screen and (max-width: 550px) {
+    font-size: ${RemtoVw(REM, 8)};
+    margin-top: ${RemtoVw(REM, 3)};
+  }
+`;
+
+const TextContainer = styled.div`
+  vertical-align: middle;
+  padding: 3rem;
+  @media screen and (max-width: 550px) {
+    padding: ${RemtoVw(REM, 3)};
+  }
+`;
+
+const Name = styled.span<{ colorSet: ColorSet }>`
+  font-size: 3rem;
+  font-weight: 700;
+  color: ${(props) => props.colorSet.primary};
+
+  @media screen and (max-width: 550px) {
+    font-size: ${RemtoVw(REM, 2)};
+  }
+`;
+
+const ExtraText = styled.div<{ colorSet: ColorSet }>`
+  color: ${(props) => props.colorSet.surface};
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  text-align: center;
+
+  @media screen and (max-width: 550px) {
+    font-size: ${RemtoVw(REM, 1)};
+    margin-top: ${RemtoVw(REM, 1)};
+  }
+`;
+
 export const ImgDiv = styled.div`
   width: 100%;
   background-color: #efefef;
@@ -39,25 +78,10 @@ const Img = styled.img`
   }
 `;
 
-const TextContainer = styled.div`
-  vertical-align: middle;
-  padding: 3rem;
-  @media screen and (max-width: 550px) {
-    padding: ${RemtoVw(REM, 3)};
-  }
-`;
-
-const MainDate = styled.div<{ colorSet: ColorSet }>`
-  font-size: 5rem;
-  @media screen and (max-width: 550px) {
-    font-size: ${RemtoVw(REM, 5)};
-  }
-`;
-
 const DateTest = styled.div<{ colorSet: ColorSet }>`
   font-size: 1.8rem;
   font-weight: 600;
-  /* color: ${(props) => props.colorSet.primary}; */
+  color: ${(props) => props.colorSet.surface};
   margin-bottom: 0.5rem;
   text-align: center;
 
@@ -70,31 +94,11 @@ const DateTest = styled.div<{ colorSet: ColorSet }>`
 const Venue = styled.div<{ colorSet: ColorSet }>`
   font-size: 1.5rem;
   font-weight: 600;
-  /* color: ${(props) => props.colorSet.primary}; */
+  color: ${(props) => props.colorSet.surface};
   text-align: center;
 
   @media screen and (max-width: 550px) {
     font-size: ${RemtoVw(REM, 1.5)};
-  }
-`;
-
-const Name = styled.span`
-  font-size: 2rem;
-  font-weight: 700;
-  color: black;
-
-  @media screen and (max-width: 550px) {
-    font-size: ${RemtoVw(REM, 2)};
-  }
-`;
-
-const ExtraText = styled.div<{ colorSet: ColorSet }>`
-  color: ${(props) => props.colorSet.surface};
-  font-size: 1rem;
-  text-align: center;
-
-  @media screen and (max-width: 550px) {
-    font-size: ${RemtoVw(REM, 1)};
   }
 `;
 
@@ -125,7 +129,9 @@ export default function SiteBlock(props: SiteBlockProps) {
           {dataFomatting(new Date(data.date.value)).slice(10, 12)}
         </MainDate>
         <TextContainer>
-          {data.header?.value && <Name>{data.header.value}</Name>}
+          {data.header?.value && (
+            <Name colorSet={colorSet}>{data.header.value}</Name>
+          )}
           {data.body?.value && (
             <ExtraText colorSet={colorSet}>{data.body.value}</ExtraText>
           )}

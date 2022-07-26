@@ -29,6 +29,7 @@ const Container = styled.div<{ colorSet: ColorSet; font: string }>`
 `;
 
 const MainTitle = styled.div<{ colorSet: ColorSet }>`
+  color: ${(props) => props.colorSet.primary};
   font-size: 5rem;
   @media screen and (max-width: 550px) {
     font-size: ${RemtoVw(REM, 5)};
@@ -44,31 +45,35 @@ const TextContainer = styled.div`
 `;
 
 const Venue = styled.div<{ colorSet: ColorSet }>`
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
-  /* color: ${(props) => props.colorSet.primary}; */
+  color: ${(props) => props.colorSet.secondary};
   text-align: center;
+  margin-bottom: 1rem;
 
   @media screen and (max-width: 550px) {
-    font-size: ${RemtoVw(REM, 1.5)};
+    font-size: ${RemtoVw(REM, 2)};
+    margin-bottom: ${RemtoVw(REM, 1)};
   }
 `;
 
 const Address = styled.div<{ colorSet: ColorSet }>`
   font-size: 1.5rem;
   font-weight: 600;
-  /* color: ${(props) => props.colorSet.primary}; */
+  color: ${(props) => props.colorSet.surface};
   text-align: center;
+  margin-bottom: 0.3rem;
 
   @media screen and (max-width: 550px) {
     font-size: ${RemtoVw(REM, 1.5)};
+    margin-bottom: ${RemtoVw(REM, 0.3)};
   }
 `;
 
 const Contact = styled.div<{ colorSet: ColorSet }>`
   font-size: 1.5rem;
   font-weight: 600;
-  /* color: ${(props) => props.colorSet.primary}; */
+  color: ${(props) => props.colorSet.surface};
   text-align: center;
 
   @media screen and (max-width: 550px) {
@@ -76,12 +81,11 @@ const Contact = styled.div<{ colorSet: ColorSet }>`
   }
 `;
 
-const MapImage = styled.img<{ colorSet: ColorSet }>`
+const PhoneIcon = styled.img<{ colorSet: ColorSet }>`
   width: 1.2rem;
   height: 1.2rem;
   padding-right: 0.5rem;
-  color: ${(props) => props.colorSet.primary};
-  filter: opacity(0.5) drop-shadow(0 0 0 gray);
+  filter: opacity(0.5) drop-shadow(0 0 0 #ececec);
 
   @media screen and (max-width: 550px) {
     width: ${RemtoVw(REM, 1.2)};
@@ -96,17 +100,6 @@ const MapWidth100 = styled.div`
   @media screen and (max-width: 550px) {
     width: ${PxVw(500)};
     height: ${PxVw(350)};
-  }
-`;
-
-const ExtraText = styled.div<{ colorSet: ColorSet }>`
-  color: ${(props) => props.colorSet.surface};
-  font-size: 1rem;
-  text-align: center;
-  padding-top: 1rem;
-
-  @media screen and (max-width: 550px) {
-    font-size: ${RemtoVw(REM, 1)};
   }
 `;
 
@@ -125,9 +118,6 @@ export default function SiteBlock(props: SiteBlockProps) {
         {data.header?.value && (
           <MainTitle colorSet={colorSet}>{data.header.value}</MainTitle>
         )}
-        {data.body?.value && (
-          <ExtraText colorSet={colorSet}>{data.body.value}</ExtraText>
-        )}
         <TextContainer>
           {data.venue?.value && (
             <Venue colorSet={colorSet}>{data.venue.value}</Venue>
@@ -137,7 +127,7 @@ export default function SiteBlock(props: SiteBlockProps) {
           )}
           {data.contact?.value && (
             <Contact colorSet={colorSet}>
-              <MapImage src={icons.Contact} colorSet={colorSet} />
+              <PhoneIcon src={icons.Contact} colorSet={colorSet} />
               {data.contact.value}
             </Contact>
           )}
