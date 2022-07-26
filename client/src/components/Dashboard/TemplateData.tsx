@@ -357,7 +357,7 @@ export default function templateListData() {
     id: null,
     name: '',
     domain: '',
-    theme: 'Minimal',
+    theme: 'Wedding',
     font: 'Roboto',
     colorSet: {
       primary: '#358873',
