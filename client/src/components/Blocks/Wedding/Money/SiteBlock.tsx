@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { SiteBlockProps, ColorSet } from '../../blockValidator';
 import { SiteBlockByType } from '../../../../reducers/HostReducer';
 import Map from '../../../Map';
-import { useAppSelector } from '../../../../reducers';
+import { useAppSelector, useAppDispatch } from '../../../../reducers';
 import * as icons from '../../../../icons';
 
 const RemtoVw = (px: number, rem: number) => {
@@ -113,14 +113,23 @@ const ExtraText = styled.div<{ colorSet: ColorSet }>`
 `;
 
 export default function SiteBlock(props: SiteBlockProps) {
+  const dispatch = useAppDispatch();
   const { blockId, type } = props;
   const { colorSet, font, data } = SiteBlockByType({ blockId, type });
 
   const onClickGroomAccount = () => {
     navigator.clipboard.writeText(data.groomAccount.value);
+    dispatch({
+      type: 'alertOn',
+      payload: { msg: '계좌번호가 복사되었습니다.' },
+    });
   };
   const onClickBrideAccount = () => {
     navigator.clipboard.writeText(data.brideAccount.value);
+    dispatch({
+      type: 'alertOn',
+      payload: { msg: '계좌번호가 복사되었습니다.' },
+    });
   };
 
   return (
