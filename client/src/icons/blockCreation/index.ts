@@ -5,6 +5,7 @@ import FeatureRight from './featureRight.png';
 import FeatureText from './featureText.png';
 import Footer from './footer.png';
 import { Skillset, Project, Introduce, Education, Career } from '..';
+import { Calendar, Gallery, Map, Money, Text } from '..';
 import Header from './Header.png';
 
 export {
@@ -20,4 +21,9 @@ export {
   Education,
   Career,
   Header,
+  Calendar,
+  Gallery,
+  Map,
+  Money,
+  Text,
 };

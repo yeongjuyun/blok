@@ -25,10 +25,12 @@ import Gallery from './Gallery.png';
 import Main from './Main.png';
 import Map from './Map.png';
 import Text from './Text.png';
+import Money from './Money.png';
 import BlockFeature from './blockCreation/feature.png';
 import BlockFooter from './blockCreation/footer.png';
 import BlockHome from './blockCreation/home.png';
 import BlockNav from './blockCreation/navbar.png';
+import { Home } from './blockCreation';
 
 export {
   Introduce,
@@ -62,4 +64,6 @@ export {
   Main,
   Map,
   Text,
+  Money,
+  Home,
 };
