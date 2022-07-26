@@ -78,6 +78,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
     <>
       <Card
         title='Main'
+        pinned
         onRemove={onRemove}
         icon={icon.Home}
         isCardOpened={isCardOpened}

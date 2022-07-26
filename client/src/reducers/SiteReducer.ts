@@ -329,7 +329,7 @@ export const selectBlockById = (state: RootState, blockId: string) => {
 };
 
 //Helpers & Values
-export const pinnedBlockTypes = ['Nav', 'Footer', 'Hero'];
+export const pinnedBlockTypes = ['Nav', 'Footer', 'Hero', 'Main'];
 export const blockDataUpdateChecker = (
   prevBlocks: Block[],
   currentBlocks: Block[]
