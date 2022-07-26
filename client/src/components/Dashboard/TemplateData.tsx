@@ -7,8 +7,8 @@ export const templateCardData = [
     color2: '#CEF0E2',
   },
   {
-    title: '기업소개 웹사이트',
-    description: '기업소개 템플릿 입니다.',
+    title: '모바일 청첩장',
+    description: '모바일 청첩장 템플릿 입니다.',
     color1: '#F5E44C',
     color2: '#CEA9D3',
   },
@@ -353,171 +353,166 @@ export default function templateListData() {
     ],
   };
 
-  const companyProfile = {
+  const weddingInvitation = {
+    id: null,
     name: '',
     domain: '',
     theme: 'Minimal',
     font: 'Roboto',
     colorSet: {
-      primary: '#5754DE',
-      secondary: '#ABA9FF',
+      primary: '#358873',
+      secondary: '#6BAF92',
       background: '#FFFFFF',
-      surface: '#B0B0B0',
+      surface: '#95A3A0',
     },
     blocks: [
       {
         id: 1,
         template: {
-          theme: 'Simple',
-          blockType: 'Nav',
-          layout: '',
-        },
-        data: {
-          navTitle: null,
-          logoImage: {
-            src: 'www.image.com/source/12312',
-            alt: 'logo',
-          },
-          logoText: {
-            value: '블록',
-          },
-        },
-      },
-      {
-        id: 2,
-        template: {
-          theme: 'Simple',
-          blockType: 'Hero',
-          layout: '',
-        },
-        data: {
-          navTitle: '홈',
-          caption: {
-            value: '노코드 웹사이트 빌더 플랫폼',
-          },
-          header: {
-            value: '여기에 블록에 입력한 제목이 들어갑니다. 여러줄도 오케이',
-          },
-          headerHighlight: {
-            value: '',
-          },
-          body: {
-            value:
-              '여기에는 설명이 들어갑니다. 여기에는 설명이 들어갑니다. 여러줄도 괜찮습니다.',
-          },
-          button: {
-            title: '여기에는 버튼명',
-            url: 'www.google.com',
-          },
-        },
-      },
-      {
-        id: 3,
-        template: {
-          theme: 'Simple',
-          blockType: 'Feature',
+          theme: 'Wedding',
+          blockType: 'Main',
           layout: '',
         },
         data: {
           style: { value: 'Simple Default' },
-          navTitle: '기능 1',
           image: {
             src: '',
             alt: 'image',
           },
-          caption: {
-            value: '여기는 캡션',
-          },
           header: {
-            value: '여기에 Feature 블록에서 입력한 값이 들어갑니다.',
-          },
-          headerHighlight: {
-            value: '',
+            value: '준호 그리고 아름',
           },
           body: {
-            value:
-              '여기에는 설명이 들어갑니다. 여기에는 설명이 들어갑니다. 여러줄도 괜찮습니다.',
+            value: 'SAVE THE DATE',
           },
-          button: {
-            title: '버튼',
-            url: 'naver.com',
+          date: {
+            value: 'Wed Oct 26 2024 11:00:00 GMT+0900 (한국 표준시)',
+          },
+          venue: {
+            value: '미리웨딩하우스 1층 그랜드홀',
+          },
+          groomParent: {
+            value: '이창훈 김미소의 아들 이준호',
+          },
+          brideParent: {
+            value: '한지훈 박주명의 딸 한아름',
+          },
+        },
+      },
+      // {
+      //   id: 2,
+      //   template: {
+      //     theme: 'Wedding',
+      //     blockType: 'Calendar',
+      //     layout: '',
+      //   },
+      //   data: {
+      //     style: { value: 'Simple Default' },
+      //     image: {
+      //       src: '',
+      //       alt: 'image',
+      //     },
+      //     header: {
+      //       value: 'Calendar',
+      //     },
+      //     body: {
+      //       value: 'SAVE THE DATE',
+      //     },
+      //   },
+      // },
+      {
+        id: 3,
+        template: {
+          theme: 'Wedding',
+          blockType: 'Gallery',
+          layout: '',
+        },
+        data: {
+          style: { value: 'Simple Default' },
+          images: [],
+          header: {
+            value: 'Gallery',
+          },
+          body: {
+            value: 'SAVE THE DATE',
           },
         },
       },
       {
         id: 4,
         template: {
-          theme: 'Simple',
-          blockType: 'Feature',
-          layout: 'RightImg',
+          theme: 'Wedding',
+          blockType: 'Map',
+          layout: '',
         },
         data: {
-          navTitle: '기능 1',
-          image: {
-            src: '',
-            alt: 'image',
-          },
-          caption: {
-            value: '여기는 캡션',
-          },
+          style: { value: 'Simple Default' },
           header: {
-            value: '여기에 Feature 블록에서 입력한 값이 들어갑니다.',
+            value: 'Map',
           },
-          headerHighlight: {
-            value: '',
+          venue: {
+            value: '미리웨딩하우스 1층 그랜드홀',
+          },
+          address: {
+            value: '서울특별시 강남구 대치2동 역삼로 607',
+          },
+          contact: {
+            value: '02-1222-1232',
           },
           body: {
-            value:
-              '여기에는 설명이 들어갑니다. 여기에는 설명이 들어갑니다. 여러줄도 괜찮습니다.',
-          },
-          button: {
-            title: '버튼',
-            url: 'naver.com',
+            value: '피로연은 신랑/신부 따로 진행됩니다.',
           },
         },
       },
       {
         id: 5,
         template: {
-          theme: 'Simple',
-          blockType: 'Feature',
-          layout: 'Text',
+          theme: 'Wedding',
+          blockType: 'Money',
+          layout: '',
         },
         data: {
-          navTitle: '기능 1',
-          image: {
-            src: '',
-            alt: 'image',
-          },
-          caption: {
-            value: '여기는 캡션',
-          },
+          style: { value: 'Simple Default' },
           header: {
-            value: '여기에 Feature 블록에서 입력한 값이 들어갑니다.',
+            value: 'Money Gift',
           },
-          headerHighlight: {
-            value: '',
+          groom: {
+            value: '이준호',
+          },
+          groomAccount: {
+            value: '농협 356-12311-12344',
+          },
+          bride: {
+            value: '한아름',
+          },
+          brideAccount: {
+            value: '농협 356-12311-12344',
           },
           body: {
-            value:
-              '여기에는 설명이 들어갑니다. 여기에는 설명이 들어갑니다. 여러줄도 괜찮습니다.',
+            value: '피로연은 신랑/신부 따로 진행됩니다.',
           },
         },
       },
       {
         id: 6,
         template: {
-          theme: 'Simple',
-          blockType: 'Footer',
+          theme: 'Wedding',
+          blockType: 'Text',
           layout: '',
         },
         data: {
-          navTitle: null,
-          leftText: {
-            value: '노코드 웹사이트 빌더 플랫폼',
+          style: { value: 'Simple Default' },
+          header: {
+            value: 'Text',
           },
-          rightText: {
-            value: '여기에 블록에 입력한 제목이 들어갑니다. 여러줄도 오케이',
+          text: {
+            value: '마지막으로 할 말',
+          },
+          desc: {
+            value: '축하주신 여러분 정말 감사합니다.',
+          },
+          body: {
+            value: '',
           },
         },
       },
@@ -538,5 +533,5 @@ export default function templateListData() {
     },
     blocks: [],
   };
-  return { landingPage, portfolio, companyProfile, basicWeb };
+  return { landingPage, portfolio, weddingInvitation, basicWeb };
 }
