@@ -349,7 +349,7 @@
       },
       "creationData": {
         "title": "메인",
-        "icon": "Feature",
+        "icon": "Home",
         "isUnique": false
       },
       "defaultData": {
@@ -369,6 +369,12 @@
         },
         "venue": {
           "value": "미리웨딩하우스 1층 그랜드홀"
+        },
+        "groomParent": {
+          "value": "이창훈 김미소의 아들 이준호"
+        },
+        "brideParent": {
+          "value": "한지훈 박주명의 딸 한아름"
         }
       }
     },
@@ -380,7 +386,7 @@
       },
       "creationData": {
         "title": "달력",
-        "icon": "Feature",
+        "icon": "Calendar",
         "isUnique": false
       },
       "defaultData": {
@@ -408,7 +414,7 @@
       },
       "creationData": {
         "title": "갤러리",
-        "icon": "Feature",
+        "icon": "Gallery",
         "isUnique": false
       },
       "defaultData": {
@@ -430,16 +436,13 @@
       },
       "creationData": {
         "title": "지도",
-        "icon": "Feature",
+        "icon": "Map",
         "isUnique": false
       },
       "defaultData": {
         "style": { "value": "Simple Default" },
         "header": {
           "value": "Map"
-        },
-        "body": {
-          "value": "SAVE THE DATE"
         },
         "venue": {
           "value": "미리웨딩하우스 1층 그랜드홀"
@@ -449,6 +452,69 @@
         },
         "contact": {
           "value": "02-1222-1232"
+        },
+        "body": {
+          "value": "피로연은 신랑/신부 따로 진행됩니다."
+        }
+      }
+    },
+    {
+      "template": {
+        "theme": "Wedding",
+        "blockType": "Money",
+        "layout": ""
+      },
+      "creationData": {
+        "title": "축의금",
+        "icon": "Money",
+        "isUnique": false
+      },
+      "defaultData": {
+        "style": { "value": "Simple Default" },
+        "header": {
+          "value": "Money Gift"
+        },
+        "groom": {
+          "value": "이준호"
+        },
+        "groomAccount": {
+          "value": "농협 356-12311-12344"
+        },
+        "bride": {
+          "value": "한아름"
+        },
+        "brideAccount": {
+          "value": "농협 356-12311-12344"
+        },
+        "body": {
+          "value": "피로연은 신랑/신부 따로 진행됩니다."
+        }
+      }
+    },
+    {
+      "template": {
+        "theme": "Wedding",
+        "blockType": "Text",
+        "layout": ""
+      },
+      "creationData": {
+        "title": "텍스트",
+        "icon": "Text",
+        "isUnique": false
+      },
+      "defaultData": {
+        "style": { "value": "Simple Default" },
+        "header": {
+          "value": "Text"
+        },
+        "text": {
+          "value": "마지막으로 할 말"
+        },
+        "desc": {
+          "value": "축하주신 여러분 정말 감사합니다."
+        },
+        "body": {
+          "value": ""
         }
       }
     }
