@@ -7,6 +7,7 @@ import { MainTitle } from './MyInfo';
 import { useAppDispatch, useAppSelector } from '../../reducers';
 import { useNavigate } from 'react-router-dom';
 import { ImgInput, TextInputWidth90, CustomSelectWidth90 } from '../Input';
+import type { User } from './DataTypes';
 
 const Container = styled.div`
   margin-bottom: 10px;
@@ -70,51 +71,36 @@ const EmailDiv = styled.div`
   text-align: center;
   margin: 10px 0 32px 0;
 `;
-interface IUser {
-  createdAt: string;
-  email: string;
-  oauth: string;
-  password: string;
-  passwordReset: boolean;
-  plan: string;
-  profileImage: string;
-  role: string;
-  sites: [];
-  updatedAt: string;
-  userName: string;
-  __v: number;
-  _id: string;
-}
+
+const InitUser = {
+  createdAt: '',
+  email: '',
+  oauth: '',
+  password: '',
+  passwordReset: false,
+  plan: '',
+  profileImage: '',
+  role: '',
+  sites: [],
+  updatedAt: '',
+  userName: '',
+  __v: 0,
+  _id: '',
+};
 
 export default function User() {
   const { userId } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const userData = useAppSelector((state) => state.loginCheckReducer.loginData);
-  const profileImage = useRef<HTMLInputElement>(null);
   const userName = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
+  const profileImage = useRef<HTMLInputElement>(null);
   const [userNameError, setUserNameError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
-  const [data, setData] = useState<IUser>({
-    createdAt: '',
-    email: '',
-    oauth: '',
-    password: '',
-    passwordReset: false,
-    plan: '',
-    profileImage: '',
-    role: '',
-    sites: [],
-    updatedAt: '',
-    userName: '',
-    __v: 0,
-    _id: '',
-  });
-
+  const [data, setData] = useState<User>(InitUser);
   const [role, setRole] = useState({ value: data.role, label: data.role });
   const [plan, setPlan] = useState({ value: data.plan, label: data.plan });
-
   const roleOptions = [
     { value: 'basic', label: 'basic' },
     { value: 'admin', label: 'admin' },
@@ -134,17 +120,20 @@ export default function User() {
 
   // userId로 userData 불러오기
   const getUserInfo = async () => {
-    const res = await axios.get(`/api/admin/user/${userId}`);
-    setData(() => res.data);
-    setRole({ value: res.data.role, label: res.data.role });
-    setPlan({ value: res.data.plan, label: res.data.plan });
+    try {
+      const res = await axios.get(`/api/admin/user/${userId}`);
+      setData(() => res.data);
+      setRole({ value: res.data.role, label: res.data.role });
+      setPlan({ value: res.data.plan, label: res.data.plan });
+    } catch (err) {
+      console.log(err);
+    }
   };
-
   useEffect(() => {
     getUserInfo();
   }, []);
 
-  const userNameHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const ChangeUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (
       userName.current!.value.length < 2 &&
       userName.current!.value.length >= 1
@@ -155,7 +144,7 @@ export default function User() {
     }
   };
 
-  const passwordHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const ChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (
       password.current!.value.length < 6 &&
       password.current!.value.length >= 1
@@ -198,52 +187,52 @@ export default function User() {
 
   return (
     <Container>
-      <MainTitle className="title">User Infomation</MainTitle>
+      <MainTitle className='title'>User Infomation</MainTitle>
       <UserContainer>
         <UserUpdate>
-          <div className="editTitle">회원정보 수정</div>
+          <div className='editTitle'>회원정보 수정</div>
           <div>
             <EmailDiv>{data.email}</EmailDiv>
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="userUpdateInputBox">
-              <div className="inputBox">
-                <div className="input">
+            <div className='userUpdateInputBox'>
+              <div className='inputBox'>
+                <div className='input'>
                   <TextInputWidth90
                     key={data.userName}
-                    title="이름"
+                    title='이름'
                     ref={userName}
-                    onChange={userNameHandler}
+                    onChange={ChangeUserName}
                     defaultValue={data.userName}
-                    placeholder="이름을 입력해주세요"
+                    placeholder='이름을 입력해주세요'
                   />
                   <ValidationText>
                     {userNameError && '2글자 이상 입력해주세요'}
                   </ValidationText>
                 </div>
-                <div className="input">
+                <div className='input'>
                   <TextInputWidth90
                     key={`${data.userName}/password`}
-                    title="비밀번호"
+                    title='비밀번호'
                     ref={password}
-                    placeholder=" "
-                    onChange={passwordHandler}
-                    type="password"
+                    placeholder=' '
+                    onChange={ChangePassword}
+                    type='password'
                   />
                   <ValidationText>
                     {passwordError && '비밀번호는 6자리 이상이여야 합니다.'}
                   </ValidationText>
                 </div>
               </div>
-              <div className="inputBox">
+              <div className='inputBox'>
                 <CustomSelectWidth90
-                  title="분류"
+                  title='분류'
                   options={roleOptions}
                   onChange={(e: any) => setRole(() => e)}
                   value={role}
                 />
                 <CustomSelectWidth90
-                  title="플랜"
+                  title='플랜'
                   options={planOptions}
                   onChange={(e: any) => setPlan(() => e)}
                   value={plan}
@@ -252,14 +241,14 @@ export default function User() {
             </div>
             <ImgInput
               key={data.profileImage}
-              title="프로필 이미지"
+              title='프로필 이미지'
               ref={profileImage}
               defaultValue={data.profileImage}
             />
             <Button
-              className="updateButton"
-              type="submit"
-              size="large"
+              className='updateButton'
+              type='submit'
+              size='large'
               fullWidth
               disabled={userNameError || passwordError}
             >

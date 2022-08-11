@@ -7,7 +7,7 @@ import Button from '../Button';
 import { MainTitle } from './MyInfo';
 import { useAppDispatch, useAppSelector } from '../../reducers';
 import ReactSelect from 'react-select';
-import type { User } from './SiteTable';
+import type { UserData } from './DataTypes';
 
 const Container = styled.div`
   .controlBox {
@@ -143,7 +143,7 @@ export default function UserTable() {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const [text, setText] = useState('');
-  const [data, setData] = useState<User[]>([]);
+  const [data, setData] = useState<UserData[]>([]);
   const [page, setPage] = useState(1);
   const [perPage, setPerpage] = useState(10);
   const [totalCount, setTotalCount] = useState(0);

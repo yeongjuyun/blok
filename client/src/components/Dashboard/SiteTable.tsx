@@ -6,8 +6,8 @@ import Button from '../Button';
 import { MainTitle } from './MyInfo';
 import { useAppDispatch, useAppSelector } from '../../reducers';
 import { useNavigate } from 'react-router-dom';
-import type { Site } from '../Blocks/blockValidator';
 import { CustomSelect } from './UserTable';
+import { SiteData } from './DataTypes';
 
 const Container = styled.div`
   .controlBox {
@@ -100,29 +100,6 @@ const Table = styled.table`
     padding: 8px 0;
   }
 `;
-
-// SiteData from server
-export interface SiteData extends Site {
-  _id: string;
-  user: User[];
-  userId: string;
-  createdAt: string;
-}
-
-export interface User {
-  createdAt: string;
-  email: string;
-  oauth: string;
-  password: string;
-  passwordReset: boolean;
-  plan: string;
-  profileImage: string | null;
-  role: string;
-  sites: [];
-  updatedAt: string;
-  userId: string;
-  userName: string;
-}
 
 export default function SiteTable() {
   const dispatch = useAppDispatch();
