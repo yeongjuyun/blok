@@ -6,6 +6,7 @@ import Button from '../Button';
 import { MainTitle } from './MyInfo';
 import { useAppDispatch, useAppSelector } from '../../reducers';
 import { useNavigate } from 'react-router-dom';
+import type { Site } from '../Blocks/blockValidator';
 import { CustomSelect } from './UserTable';
 
 const Container = styled.div`
@@ -100,10 +101,33 @@ const Table = styled.table`
   }
 `;
 
+// SiteData from server
+export interface SiteData extends Site {
+  _id: string;
+  user: User[];
+  userId: string;
+  createdAt: string;
+}
+
+export interface User {
+  createdAt: string;
+  email: string;
+  oauth: string;
+  password: string;
+  passwordReset: boolean;
+  plan: string;
+  profileImage: string | null;
+  role: string;
+  sites: [];
+  updatedAt: string;
+  userId: string;
+  userName: string;
+}
+
 export default function SiteTable() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<SiteData[]>([]);
   const [text, setText] = useState('');
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
@@ -118,6 +142,7 @@ export default function SiteTable() {
 
   const user = useAppSelector((state) => state.loginCheckReducer.loginData);
 
+  // 관리자만 페이지 접속 가능
   if (user.role !== 'admin') {
     dispatch({
       type: 'alertOn',
@@ -127,46 +152,49 @@ export default function SiteTable() {
   }
 
   const getSites = async () => {
-    const res = await axios.get(
-      `/api/admin/site?page=${page}&perPage=${perPage}&searchKey=${option.value}&searchValue=${query}`
-    );
-    setData(res.data.sites);
-    setTotalCount(res.data.totalCount);
+    try {
+      const res = await axios.get(
+        `/api/admin/site?page=${page}&perPage=${perPage}&searchKey=${option.value}&searchValue=${query}`
+      );
+      setData(res.data.sites);
+      setTotalCount(res.data.totalCount);
+    } catch (err) {
+      console.log(err);
+    }
   };
-
   useEffect(() => {
     getSites();
   }, [query, page, perPage]);
 
-  const handleSearch = async (e: any) => {
+  const handleDelete = async (siteId: string) => {
+    try {
+      await axios.delete(`/api/admin/site/${siteId}`);
+      dispatch({
+        type: 'alertOn',
+        payload: { msg: '사이트가 삭제되었습니다.' },
+      });
+      // 삭제 후 재랜더링
+      getSites();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await setQuery(text);
+    setQuery(text);
     setText('');
+  };
+
+  const handleChangePerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPerpage(parseInt(e.target.value, 10));
+    setPage(1);
   };
 
   const handleReset = () => {
     setText('');
     setQuery('');
     setOption({ value: 'name', label: '사이트명' });
-    setPage(1);
-  };
-
-  const handleDelete = async (siteId: string) => {
-    await axios.delete(`/api/admin/site/${siteId}`);
-    dispatch({ type: 'alertOn', payload: { msg: '사이트가 삭제되었습니다.' } });
-    // 삭제 후 재랜더링
-    getSites();
-  };
-
-  const handlePrevPage = () => {
-    setPage(page - 1);
-  };
-
-  const handleNextPage = () => {
-    setPage(page + 1);
-  };
-  const handleChangePerPage = (e: any) => {
-    setPerpage(parseInt(e.target.value, 10));
     setPage(1);
   };
 
@@ -263,7 +291,7 @@ export default function SiteTable() {
             outline
             rounding
             className='border rounded p-1'
-            onClick={() => handlePrevPage()}
+            onClick={() => setPage(page - 1)}
             disabled={page === 1 ? true : false}
           >
             {'<'}
@@ -276,7 +304,7 @@ export default function SiteTable() {
             outline
             rounding
             className='border rounded p-1'
-            onClick={() => handleNextPage()}
+            onClick={() => setPage(page + 1)}
             disabled={page === Math.ceil(totalCount / perPage) ? true : false}
           >
             {'>'}

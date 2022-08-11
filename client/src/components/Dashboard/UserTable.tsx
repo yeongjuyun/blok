@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import { ControlButton } from './DashboardBox';
 import { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../Button';
 import { MainTitle } from './MyInfo';
-import { useAppDispatch } from '../../reducers';
+import { useAppDispatch, useAppSelector } from '../../reducers';
 import ReactSelect from 'react-select';
+import type { User } from './SiteTable';
 
 const Container = styled.div`
   .controlBox {
@@ -100,11 +101,7 @@ const Table = styled.table`
   }
 `;
 
-const options = [
-  { value: 'userName', label: '이름' },
-  { value: 'email', label: '이메일' },
-];
-
+// input 컴포넌트에서 Select 가져와서 스타일 따로 지정
 export const CustomSelect = (props: any) => {
   const customStyles = useMemo(
     () => ({
@@ -143,32 +140,44 @@ export const CustomSelect = (props: any) => {
 
 export default function UserTable() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const [text, setText] = useState('');
-  const [data, setData] = useState<any[]>([]);
-  const [option, setOption] = useState({ value: 'userName', label: '이름' });
-
+  const [data, setData] = useState<User[]>([]);
   const [page, setPage] = useState(1);
   const [perPage, setPerpage] = useState(10);
   const [totalCount, setTotalCount] = useState(0);
+  const [option, setOption] = useState({ value: 'userName', label: '이름' });
+  const options = [
+    { value: 'userName', label: '이름' },
+    { value: 'email', label: '이메일' },
+  ];
+
+  const user = useAppSelector((state) => state.loginCheckReducer.loginData);
+
+  // 관리자만 페이지 접속 가능
+  if (user.role !== 'admin') {
+    dispatch({
+      type: 'alertOn',
+      payload: { msg: `관리자만 이용 가능합니다.` },
+    });
+    navigate('/login');
+  }
 
   const getUsers = async () => {
-    const res = await axios.get(
-      `/api/admin/user?page=${page}&perPage=${perPage}&searchKey=${option.value}&searchValue=${query}`
-    );
-    setData(res.data.users);
-    setTotalCount(res.data.totalCount);
+    try {
+      const res = await axios.get(
+        `/api/admin/user?page=${page}&perPage=${perPage}&searchKey=${option.value}&searchValue=${query}`
+      );
+      setData(res.data.users);
+      setTotalCount(res.data.totalCount);
+    } catch (err) {
+      console.log(err);
+    }
   };
-
   useEffect(() => {
     getUsers();
-  }, [page, perPage, query, data]);
-
-  const handleSearch = async (e: any) => {
-    e.preventDefault();
-    await setQuery(text);
-    setText('');
-  };
+  }, [page, perPage, query]);
 
   const handleDelete = async (userId: string) => {
     console.log('delete user : ', userId);
@@ -180,54 +189,49 @@ export default function UserTable() {
     getUsers();
   };
 
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setQuery(text);
+    setText('');
+  };
+
+  const handleChangeperPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPerpage(parseInt(e.target.value, 10));
+    setPage(1);
+  };
+
   const handleReset = () => {
     setText('');
     setQuery('');
     setPage(1);
   };
 
-  const handlePrevPage = () => {
-    setPage(page - 1);
-  };
-
-  const handleNextPage = () => {
-    setPage(page + 1);
-  };
-  const handleChangeperPage = (e: any) => {
-    setPerpage(parseInt(e.target.value, 10));
-    setPage(1);
-  };
-
   return (
     <Container>
-      <MainTitle className="title">User Management</MainTitle>
-
-      <div className="controlBox">
+      <MainTitle className='title'>User Management</MainTitle>
+      <div className='controlBox'>
         <div>
           <CustomSelect
-            name="Searchfilter"
+            name='Searchfilter'
             value={option}
             options={options}
-            onChange={(e: any) => setOption(() => e)}
-          >
-            <option value="userName">이름</option>
-            <option value="email">이메일</option>
-          </CustomSelect>
+            onChange={(e: any) => setOption(e)}
+          ></CustomSelect>
         </div>
         <div>
-          <form onSubmit={handleSearch} className="searchForm">
-            <label htmlFor="search-query">Search: </label>
+          <form onSubmit={handleSearch} className='searchForm'>
+            <label htmlFor='search-query'>Search: </label>
             <SearchInput
               value={text}
               onChange={(e) => setText(e.target.value)}
-              type="text"
-              name="search-query"
-              placeholder="검색어를 입력하세요"
+              type='text'
+              name='search-query'
+              placeholder='검색어를 입력하세요'
             />
-            <Button type="submit" size="medium">
+            <Button type='submit' size='medium'>
               Search
             </Button>
-            <Button size="medium" onClick={() => handleReset()}>
+            <Button size='medium' onClick={() => handleReset()}>
               Reset
             </Button>
           </form>
@@ -267,7 +271,7 @@ export default function UserTable() {
                       <ControlButton
                         className={'editButton'}
                         rounding
-                        color="white"
+                        color='white'
                       >
                         Update
                       </ControlButton>
@@ -275,7 +279,7 @@ export default function UserTable() {
                     <ControlButton
                       className={'deleteButton'}
                       onClick={() => handleDelete(e.userId)}
-                      color="gray"
+                      color='gray'
                       rounding
                     >
                       Delete
@@ -285,7 +289,7 @@ export default function UserTable() {
               ))
             ) : (
               <tr>
-                <td className="noSite" colSpan={7}>
+                <td className='noSite' colSpan={7}>
                   조회된 유저가 존재하지 않습니다.
                 </td>
               </tr>
@@ -293,8 +297,8 @@ export default function UserTable() {
           </tbody>
         </Table>
       </TableContainer>
-      <div className="pagenationControlBox">
-        <div className="perPageBox">
+      <div className='pagenationControlBox'>
+        <div className='perPageBox'>
           <span>Rows per page: </span>
           <select onChange={handleChangeperPage}>
             {[10, 20, 30, 40, 50].map((pageSize) => (
@@ -305,31 +309,31 @@ export default function UserTable() {
           </select>
         </div>
 
-        <div className="pagenationBox">
+        <div className='pagenationBox'>
           <Button
             outline
             rounding
-            className="border rounded p-1"
-            onClick={() => handlePrevPage()}
+            className='border rounded p-1'
+            onClick={() => setPage(page - 1)}
             disabled={page === 1 ? true : false}
           >
             {'<'}
           </Button>
-          <span className="pageText">
+          <span className='pageText'>
             <strong>{page}</strong> / {Math.ceil(totalCount / perPage)} of{' '}
             {totalCount}
           </span>
           <Button
             outline
             rounding
-            className="border rounded p-1"
-            onClick={() => handleNextPage()}
+            className='border rounded p-1'
+            onClick={() => setPage(page + 1)}
             disabled={page === Math.ceil(totalCount / perPage) ? true : false}
           >
             {'>'}
           </Button>
         </div>
-        <div className="div"></div>
+        <div className='div'></div>
       </div>
     </Container>
   );
