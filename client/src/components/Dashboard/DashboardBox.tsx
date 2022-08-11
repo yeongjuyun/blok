@@ -8,6 +8,7 @@ import { TemplateCard } from './TemplateCard';
 import { templateCardData } from './TemplateData';
 import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../reducers';
+import type { SiteData } from './DataTypes';
 
 const Container = styled.div`
   margin-bottom: 10px;
@@ -125,32 +126,34 @@ export function TemplateList() {
     <Container>
       <MainTitle className='title'>Template</MainTitle>
       <TemplateBox>
-        {DashboardTemplateList()?.map((e: any, idx: number) => (
-          <div key={idx}>
-            <TemplateCard
-              title={e.title}
-              description={e.description}
-              color1={e.color1}
-              color2={e.color2}
-              onClick={() => showModalHandler(e.title)}
-            />
-          </div>
+        {DashboardTemplateList()?.map((template, idx: number) => (
+          <TemplateCard
+            key={idx}
+            title={template.title}
+            description={template.description}
+            color1={template.color1}
+            color2={template.color2}
+            onClick={() => showModalHandler(template.title)}
+          />
         ))}
       </TemplateBox>
     </Container>
   );
 }
 
+type UserSite = Omit<SiteData, 'createdAt' | 'user'>;
+
 export function DashboardInfo() {
-  const [data, setData] = useState<any[]>([]);
   const dispatch = useAppDispatch();
-  const nav = useNavigate();
+  const navigate = useNavigate();
+  const [data, setData] = useState<UserSite[]>([]);
   const user = useAppSelector((state) => state.loginCheckReducer.loginData);
+
   // userId 별 sites 데이터 조회
   const getUserInfo = async () => {
     try {
       if (!user.userId) {
-        nav('/login');
+        navigate('/login');
       }
       const res = await axios.get(`/api/site/user/${user.userId}`);
       setData(() => res.data);
@@ -158,7 +161,6 @@ export function DashboardInfo() {
       console.log(error);
     }
   };
-
   useEffect(() => {
     getUserInfo();
   }, []);
@@ -169,20 +171,20 @@ export function DashboardInfo() {
   };
 
   // siteId 별 사이트 삭제
-  const deleteHandler = (props: string) => {
+  const deleteHandler = (siteId: string) => {
     dispatch({
       type: 'CONFIRM/MODAL_ON',
       payload: {
         title: '삭제',
         msg: '정말 삭제하시겠습니까?',
-        onConfirm: deleteSite(props),
+        onConfirm: deleteSite(siteId),
       },
     });
   };
 
-  const deleteSite = (props: string) => async () => {
+  const deleteSite = (siteId: string) => async () => {
     try {
-      await axios.delete(`/api/site/${props}`);
+      await axios.delete(`/api/site/${siteId}`);
       dispatch({ type: 'CONFIRM/MODAL_OFF' });
       dispatch({
         type: 'alertOn',
