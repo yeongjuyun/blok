@@ -88,7 +88,12 @@ const InitUser = {
   _id: '',
 };
 
-export default function User() {
+type UserUpdate = Pick<
+  User,
+  'userName' | 'profileImage' | 'plan' | 'role' | 'password'
+>;
+
+export default function UpateUser() {
   const { userId } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -155,34 +160,35 @@ export default function User() {
     }
   };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
 
-    let userToPatch: any = {
-      userName: userName.current!.value,
-      profileImage: profileImage.current!.value,
-      plan: plan.value,
-      role: role.value,
-    };
+      let userToPatch: any = {
+        userName: userName.current!.value,
+        profileImage: profileImage.current!.value,
+        plan: plan.value,
+        role: role.value,
+      };
 
-    if (password.current!.value === '') {
-      console.log('비번인풋없음');
-    } else {
-      userToPatch.password = password.current!.value;
+      if (password.current!.value === '') {
+        console.log('비번인풋없음');
+      } else {
+        userToPatch.password = password.current!.value;
+      }
+
+      const res = await axios.patch(`/api/admin/user/${userId}`, userToPatch);
+      console.log(res);
+
+      dispatch({
+        type: 'alertOn',
+        payload: { msg: '회원정보 수정 되었습니다.' },
+      });
+      password.current!.value = '';
+      getUserInfo();
+    } catch (err) {
+      console.log(err);
     }
-
-    console.log('patchData', userToPatch);
-
-    await axios
-      .patch(`/api/admin/user/${userId}`, userToPatch)
-      .catch((error) => console.log('Error: ', error));
-
-    dispatch({
-      type: 'alertOn',
-      payload: { msg: '회원정보 수정 되었습니다.' },
-    });
-    password.current!.value = '';
-    getUserInfo();
   };
 
   return (

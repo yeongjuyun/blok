@@ -8,6 +8,7 @@ import templateListData from './TemplateData';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { useAppSelector, useAppDispatch } from '../../reducers';
+import type { SiteData } from './DataTypes';
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -166,20 +167,22 @@ const ButtonPadiing = styled(Button)`
   margin: auto;
 `;
 
-type SiteData = {
-  userId: string;
-  name: string;
-  domain: string;
-  theme: string;
-  font: string;
-  colorSet: {
-    primary: string;
-    secondary: string;
-    background: string;
-    surface: string;
-  };
-  blocks: [];
-};
+// type SiteData = {
+//   userId: string;
+//   name: string;
+//   domain: string;
+//   theme: string;
+//   font: string;
+//   colorSet: {
+//     primary: string;
+//     secondary: string;
+//     background: string;
+//     surface: string;
+//   };
+//   blocks: [];
+// };
+
+type UserSite = Omit<SiteData, 'createdAt' | '_id' | 'user'>;
 
 export default function TemplateModal() {
   const navigate = useNavigate();
@@ -188,15 +191,15 @@ export default function TemplateModal() {
   const directTemplate = useAppSelector(
     (state) => state.modalReducer.templateData
   );
-
   const siteName = useRef<HTMLInputElement>(null);
   const domain = useRef<HTMLInputElement>(null);
   const siteDesc = useRef<HTMLTextAreaElement>(null);
   const [siteNameError, setSiteNameError] = useState(false);
   const [domainError, setDomainError] = useState(false);
   const [template, setTemplate] = useState<any | null>(null);
-  const [data, setData] = useState<SiteData>({
+  const [data, setData] = useState<UserSite>({
     userId: userData.userId,
+    id: null,
     name: '',
     domain: '',
     theme: '',
@@ -255,7 +258,7 @@ export default function TemplateModal() {
   const checkSpace = /[\s]/g;
   const specialPattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 
-  const changeDomainHandler = (e: any) => {
+  const changeDomainHandler = (e: React.FormEvent<HTMLInputElement>) => {
     if (
       checkEnga.test(domain.current!.value) !== true ||
       checkSpace.test(domain.current!.value) === true ||
@@ -274,7 +277,7 @@ export default function TemplateModal() {
     }
   };
 
-  const changeSiteHandler = (e: any) => {
+  const changeSiteHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (siteName.current!.value.length <= 1) {
       setSiteNameError(true);
     } else {
@@ -289,8 +292,6 @@ export default function TemplateModal() {
   };
 
   const createSiteHandler = async () => {
-    console.log(44444, data);
-
     try {
       // 사이트 DB 추가, 저장
       const res = await axios.post(`/api/site`, data);
@@ -300,11 +301,11 @@ export default function TemplateModal() {
 
       // 에디터 페이지로 이동
       navigate(`/editor/${res.data._id}`);
-    } catch (e: any) {
-      console.log(e.response.data);
+    } catch (err: any) {
+      console.log(err.response.data);
       dispatch({
         type: 'alertOn',
-        payload: { msg: e.response.data.reason, time: 1000 },
+        payload: { msg: err.response.data.reason, time: 1000 },
       });
     }
   };
@@ -321,15 +322,15 @@ export default function TemplateModal() {
         </MainTitle>
         {data.theme === '' ? (
           <TemplateListContainer>
-            {templateCardData?.map((e: any) => (
+            {templateCardData.map((card) => (
               <TemplateCardCustom
-                key={e.title}
-                className={e.title === template ? 'selectedCard' : 'card'}
-                onClick={() => onSelectHandler(e.title)}
-                title={e.title}
-                description={e.description}
-                color1={e.color1}
-                color2={e.color2}
+                key={card.title}
+                className={card.title === template ? 'selectedCard' : 'card'}
+                onClick={() => onSelectHandler(card.title)}
+                title={card.title}
+                description={card.description}
+                color1={card.color1}
+                color2={card.color2}
               />
             ))}
           </TemplateListContainer>
@@ -354,7 +355,7 @@ export default function TemplateModal() {
             <CustomInputDiv>
               <CustomInputTitle htmlFor=''>도메인 주소</CustomInputTitle>
               <div className='inputBox'>
-                <p>block.com/</p>
+                <p>blok.com/</p>
                 <CustomInput
                   className='domainInput'
                   type='text'
