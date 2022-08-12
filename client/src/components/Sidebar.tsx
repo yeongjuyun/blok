@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import logoImg from './../imgs/logo.png';
 import { MdOutlineSpaceDashboard } from 'react-icons/md';
@@ -170,29 +170,29 @@ const Menu = (props: IMyProps) => {
       onMouseLeave={props.onMouseLeave}
       onMouseEnter={props.onMouseEnter}
     >
-      <Link to="/account" style={{ textDecoration: 'none' }}>
+      <Link to='/account' style={{ textDecoration: 'none' }}>
         <List>
-          <FaUserAlt color="black" />
+          <FaUserAlt color='black' />
           <ListSpan>Account</ListSpan>
         </List>
       </Link>
-      <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+      <Link to='/dashboard' style={{ textDecoration: 'none' }}>
         <List>
-          <MdOutlineSpaceDashboard color="black" />
+          <MdOutlineSpaceDashboard color='black' />
           <ListSpan>Dashboard</ListSpan>
         </List>
       </Link>
       {userData?.role === 'admin' ? (
         <>
-          <Link to="/admin/site" style={{ textDecoration: 'none' }}>
+          <Link to='/admin/site' style={{ textDecoration: 'none' }}>
             <List>
-              <MdOutlineSpaceDashboard color="black" />
+              <MdOutlineSpaceDashboard color='black' />
               <ListSpan>Manage Site</ListSpan>
             </List>
           </Link>
-          <Link to="/admin/user" style={{ textDecoration: 'none' }}>
+          <Link to='/admin/user' style={{ textDecoration: 'none' }}>
             <List>
-              <MdOutlineSpaceDashboard color="black" />
+              <MdOutlineSpaceDashboard color='black' />
               <ListSpan>Manage User</ListSpan>
             </List>
           </Link>
@@ -203,7 +203,7 @@ const Menu = (props: IMyProps) => {
 
       <div onClick={logoutHandler} style={{ textDecoration: 'none' }}>
         <List>
-          <BiLogOut color="black" />
+          <BiLogOut color='black' />
           <ListSpan>Logout</ListSpan>
         </List>
       </div>
@@ -221,35 +221,38 @@ export default function Sidebar() {
   };
 
   return (
-    <Nav>
-      <div className="navbarLogo">
-        <Link to="/dashboard">
-          <LogoImg src={logoImg} alt="logo" />
-        </Link>
-      </div>
-      <Hamburger onClick={() => setIsMobile(true)}>
-        {isMobile ? <CgClose size={32} /> : <GrMenu size={32} />}
-      </Hamburger>
-      <Profile
-        onMouseEnter={() => setIsMobile(true)}
-        onMouseLeave={() => setIsMobile(false)}
-      >
-        {profileImage == null ? (
-          <ProfileImage src={default_profile} alt="profile" />
-        ) : (
-          <ProfileImage
-            src={profileImage}
-            alt="profileImg"
-            onError={onErrorImg}
-          />
-        )}
-      </Profile>
-      {isMobile && (
-        <Menu
+    <>
+      <Nav>
+        <div className='navbarLogo'>
+          <Link to='/dashboard'>
+            <LogoImg src={logoImg} alt='logo' />
+          </Link>
+        </div>
+        <Hamburger onClick={() => setIsMobile(true)}>
+          {isMobile ? <CgClose size={32} /> : <GrMenu size={32} />}
+        </Hamburger>
+        <Profile
           onMouseEnter={() => setIsMobile(true)}
           onMouseLeave={() => setIsMobile(false)}
-        />
-      )}
-    </Nav>
+        >
+          {profileImage == null ? (
+            <ProfileImage src={default_profile} alt='profile' />
+          ) : (
+            <ProfileImage
+              src={profileImage}
+              alt='profileImg'
+              onError={onErrorImg}
+            />
+          )}
+        </Profile>
+        {isMobile && (
+          <Menu
+            onMouseEnter={() => setIsMobile(true)}
+            onMouseLeave={() => setIsMobile(false)}
+          />
+        )}
+      </Nav>
+      <Outlet />
+    </>
   );
 }
