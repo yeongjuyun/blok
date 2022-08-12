@@ -31,6 +31,14 @@ import BlockFooter from './blockCreation/footer.png';
 import BlockHome from './blockCreation/home.png';
 import BlockNav from './blockCreation/navbar.png';
 import { Home } from './blockCreation';
+import dashboard from './dashboard.png';
+import next from './next.png';
+import star from './star.png';
+import userSmall from './userSmall.png';
+import logout from './logout.png';
+import profile from './profile.png';
+import close from './close.png';
+import menu from './menu.png';
 
 export {
   Introduce,
@@ -66,4 +74,12 @@ export {
   Text,
   Money,
   Home,
+  dashboard,
+  next,
+  star,
+  userSmall,
+  logout,
+  profile,
+  close,
+  menu,
 };
