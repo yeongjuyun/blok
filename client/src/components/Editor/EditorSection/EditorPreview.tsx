@@ -19,6 +19,9 @@ const Container = styled.div`
   height: calc(100% - 60px);
   box-sizing: border-box;
   overflow-y: scroll;
+  @media screen and (max-width: 1120px) {
+    display: none;
+  }
 `;
 const SiteBlockList = styled.div<{ blockCount: number }>`
   width: 100%;

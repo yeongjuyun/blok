@@ -6,17 +6,25 @@ import styled from 'styled-components';
 import { RootState } from '../../../reducers';
 
 const Container = styled.div`
-  padding: 0 32px;
-  height: 60px;
-  flex-grow: 1;
-  position: sticky;
-  top: 0;
-  background-color: white;
+  height: 56px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1;
-  box-shadow: 0 4px 2px -2px #F5F5F5;
+  flex-grow: 1;
+  padding: 24px;
+  border-bottom: 1px solid #d1d1d1;
+
+  background-color: white;
+  /* box-shadow: 0 4px 2px -2px #f5f5f5; */
+  box-sizing: border-box;
+  z-index: 10;
+
+  @media screen and (max-width: 1120px) {
+    width: 100%;
+    position: fixed;
+    top: 52px;
+    left: 0;
+  }
 `;
 
 const DomainContainer = styled.div`

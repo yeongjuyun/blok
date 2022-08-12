@@ -9,6 +9,13 @@ const Container = styled.div`
   display: flex;
   box-sizing: border-box;
   height: 100%;
+
+  @media screen and (max-width: 1120px) {
+    border-right: none;
+    min-width: 0;
+    flex-grow: none;
+    height: 0;
+  }
 `;
 
 export default EditorSection;
