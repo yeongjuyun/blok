@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { RootState } from '../../../reducers';
+import { useAppDispatch, useAppSelector } from '../../../reducers';
+import type { PreviewProps } from './index';
 
 const Container = styled.div`
   height: 56px;
@@ -13,9 +13,7 @@ const Container = styled.div`
   flex-grow: 1;
   padding: 24px;
   border-bottom: 1px solid #d1d1d1;
-
   background-color: white;
-  /* box-shadow: 0 4px 2px -2px #f5f5f5; */
   box-sizing: border-box;
   z-index: 10;
 
@@ -56,6 +54,10 @@ const CopyButton = styled.button`
   }
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+`;
+
 const SaveButton = styled.button`
   background-color: black;
   border: 1px solid black;
@@ -71,9 +73,26 @@ const SaveButton = styled.button`
   }
 `;
 
-export default function PublishBar() {
-  const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.site);
+const PreviewButton = styled.button`
+  display: none;
+  background-color: black;
+  border: 1px solid black;
+  padding: 6px 16px;
+  border-radius: 40px;
+  margin-right: 5px;
+
+  font-weight: 600;
+  color: white;
+  font-size: 16px;
+
+  @media screen and (max-width: 1120px) {
+    display: block;
+  }
+`;
+
+export default function PublishBar(props: any) {
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.site);
   const [domain, setDomain] = useState(data.domain);
   let msg = '';
   const { siteId } = useParams();
@@ -111,10 +130,17 @@ export default function PublishBar() {
     <Container>
       <DomainContainer>
         <MyPage>도메인:</MyPage>
-        <Domain>block.com/{domain}</Domain>
+        <Domain>blok.com/{domain}</Domain>
         <CopyButton onClick={copyHandler}>복사</CopyButton>
       </DomainContainer>
-      <SaveButton onClick={saveHandler}>저장</SaveButton>
+      <ButtonContainer>
+        <PreviewButton
+          onClick={() => props.setPreview((prev: boolean) => !prev)}
+        >
+          미리보기
+        </PreviewButton>
+        <SaveButton onClick={saveHandler}>저장</SaveButton>
+      </ButtonContainer>
     </Container>
   );
 }

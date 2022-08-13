@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import EditorHeader from './EditorHeader';
 import EditorPreivew from './EditorPreview';
@@ -18,12 +19,19 @@ const Container = styled.div`
   }
 `;
 
+export interface PreviewProps {
+  preview: boolean;
+  setPreview?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 export default EditorSection;
 function EditorSection() {
+  const [preview, setPreview] = useState<boolean>(false);
+
   return (
     <Container>
-      <EditorHeader />
-      <EditorPreivew />
+      <EditorHeader preview setPreview={setPreview} />
+      <EditorPreivew preview={preview} />
     </Container>
   );
 }

@@ -15,7 +15,7 @@ import { GrMenu } from 'react-icons/gr';
 import { FaRegUserCircle } from 'react-icons/fa';
 
 const Nav = styled.nav`
-  width: 72px;
+  width: 64px;
   height: 100vh;
   background-color: #ffffff;
   border: 1px solid #cccccc;
@@ -24,13 +24,13 @@ const Nav = styled.nav`
   top: 0;
   left: 0;
   display: flex;
-  z-index: 2;
+  z-index: 13;
 
   .navbarLogo {
     margin: 0px auto;
   }
 
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     width: 100%;
     height: 52px;
     justify-content: space-between;
@@ -50,7 +50,7 @@ const Profile = styled.div`
   left: 12px;
   cursor: pointer;
 
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     display: none;
   }
 `;
@@ -61,16 +61,16 @@ const ProfileImage = styled.img`
   border-radius: 50%;
   cursor: pointer;
 
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     display: none;
   }
 `;
 
 const Hamburger = styled.span`
-  @media screen and (min-width: 780px) {
+  @media screen and (min-width: 1120px) {
     display: none;
   }
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     display: flex;
   }
 `;
@@ -86,7 +86,7 @@ const MenuContainer = styled.div`
   bottom: 50px;
   left: 50px;
 
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     top: 51px;
     right: 0;
     left: auto;
@@ -115,10 +115,10 @@ const List = styled.div`
     background-color: #e5e5e5;
   }
 
-  @media screen and (min-width: 780px) {
+  @media screen and (min-width: 1120px) {
     padding: 12px;
   }
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     width: auto;
     justify-content: center;
   }
@@ -129,7 +129,7 @@ const ListSpan = styled.span`
   display: inline-block;
   text-align: center;
   cursor: pointer;
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     margin-top: 6px;
     width: 100px;
   }
@@ -139,7 +139,7 @@ const LogoImg = styled.img`
   width: 49px;
   height: 43px;
   margin-top: 10px;
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     margin-top: 6px;
   }
 `;

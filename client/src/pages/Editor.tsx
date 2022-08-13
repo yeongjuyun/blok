@@ -16,6 +16,7 @@ const DesktopContainer = styled.div`
   top: 0;
   left: 64px;
   display: flex;
+  z-index: 12;
   @media screen and (max-width: 1120px) {
     flex-direction: column;
   }
