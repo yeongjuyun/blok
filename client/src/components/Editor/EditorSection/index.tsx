@@ -19,18 +19,13 @@ const Container = styled.div`
   }
 `;
 
-export interface PreviewProps {
-  preview: boolean;
-  setPreview?: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 export default EditorSection;
 function EditorSection() {
   const [preview, setPreview] = useState<boolean>(false);
 
   return (
     <Container>
-      <EditorHeader preview setPreview={setPreview} />
+      <EditorHeader setPreview={setPreview} />
       <EditorPreivew preview={preview} />
     </Container>
   );

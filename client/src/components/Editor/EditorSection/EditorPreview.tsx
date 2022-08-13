@@ -7,7 +7,6 @@ import {
   selectBlocks,
   blockDataUpdateChecker,
 } from '../../../reducers/SiteReducer';
-import type { PreviewProps } from './index';
 
 const NAV_WIDTH = 72;
 const SIDETAB_WIDTH = 440;
@@ -53,7 +52,7 @@ const SiteBlockContainer = styled.div<{ theme: any }>`
     `}
 `;
 
-export default function EditorPreview(props: PreviewProps) {
+export default function EditorPreview(props: { preview: boolean }) {
   const colorSet = useAppSelector((state) => state.site.colorSet);
   const font = useAppSelector((state) => state.site.font);
   const blocks = useAppSelector(selectBlocks, blockDataUpdateChecker);

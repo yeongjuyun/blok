@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../../reducers';
-import type { PreviewProps } from './index';
 
 const Container = styled.div`
   height: 56px;
@@ -89,8 +88,9 @@ const PreviewButton = styled.button`
     display: block;
   }
 `;
-
-export default function PublishBar(props: any) {
+export default function PublishBar(props: {
+  setPreview: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.site);
   const [domain, setDomain] = useState(data.domain);
