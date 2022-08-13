@@ -173,7 +173,12 @@ export default function MyInfo() {
 
   const deleteUser = async () => {
     try {
-      await axios.delete(`/api/user/${user.userId}`);
+      await axios.delete(`/api/user/deactivate`, {
+        data: {
+          userId: user.userId,
+        },
+      });
+
       dispatch({ type: 'CONFIRM/MODAL_OFF' });
       dispatch({
         type: 'alertOn',
