@@ -22,8 +22,8 @@ const Container = styled.div<{ preview: boolean }>`
   @media screen and (max-width: 1120px) {
     display: ${(props) => (props.preview ? 'block' : 'none')};
     width: 100%;
-    height: 100vh;
-    /* top: 104px; */
+    height: calc(100% - 104px);
+    top: 104px;
     left: 0;
     padding: 0;
   }
