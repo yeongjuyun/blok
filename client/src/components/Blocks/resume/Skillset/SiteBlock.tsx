@@ -65,6 +65,7 @@ export default function SiteBlock(props: SiteBlockProps) {
   const { blockId, type } = props;
   const { colorSet, font, data } = SiteBlockByType({ blockId, type });
 
+  console.log(1111, data);
   const skills = (data: any) => {
     const arr = [];
     if (!data) return;
@@ -76,7 +77,7 @@ export default function SiteBlock(props: SiteBlockProps) {
   return (
     <Container colorSet={colorSet} font={font}>
       <Title colorSet={colorSet}>{data.title?.value}</Title>
-      <Intro>{skills(data.arrText.value)}</Intro>
+      <Intro>{skills(data.arrText?.value)}</Intro>
     </Container>
   );
 }
