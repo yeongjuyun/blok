@@ -76,7 +76,7 @@ export default function SiteBlock(props: SiteBlockProps) {
   return (
     <Container colorSet={colorSet} font={font}>
       <Title colorSet={colorSet}>{data.title?.value}</Title>
-      <Intro>{skills(data.arrdata_set)}</Intro>
+      <Intro>{skills(data.arrText.value)}</Intro>
     </Container>
   );
 }
