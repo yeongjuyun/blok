@@ -43,6 +43,8 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const { id, template, data, isCardOpened } = useSelector((state: RootState) =>
     selectBlockById(state, blockId)
   );
+
+  console.log(111, data);
   const styleOptions = getStyleOptions(template);
   const currentStyle = getCurrentStyleOption(template);
   const dispatch = useDispatch();
@@ -54,6 +56,11 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const [intros, setIntros] = useState('');
   const [arr, setArr] = useState(data.arrText?.value);
 
+  const arrText = data.arrdata_set.map((data: any) => data.value);
+
+  console.log(arrText);
+
+  // skills setting block 확인필요
   const skills = (data: Array<string> | undefined) => {
     const arr = [];
     if (!data) {

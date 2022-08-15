@@ -72,7 +72,6 @@ export default function SiteBlock(props: SiteBlockProps) {
   alldata.forEach((res) => {
     if (res.data.navTitle) return NavTitles.push(res.data.navTitle);
   });
-  console.log(data);
   return (
     <Container
       colorSet={colorSet}
