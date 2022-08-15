@@ -110,14 +110,11 @@ export default function MyInfo() {
     dispatch({
       type: 'USER/LOGIN',
       payload: {
-        profileImage: res.data.profileImage,
+        // profileImage: res.data.profileImage,
         userId: user.userId,
         email: user.email,
-        role: user.role,
         userName: user.userName,
-        oauth: user.oauth,
-        passwordReset: user.passwordReset,
-        plan: user.plan,
+        // plan: user.plan,
       },
     });
     setTimeout(
@@ -134,17 +131,6 @@ export default function MyInfo() {
     e.target.src = default_profile;
   };
 
-  const resethandler = () => {
-    dispatch({
-      type: 'CONFIRM/MODAL_ON',
-      payload: {
-        title: '비밀번호 초기화',
-        msg: '정말 초기화하시겠습니까?',
-        onConfirm: resetPassword,
-      },
-    });
-  };
-
   const deleteHandler = () => {
     dispatch({
       type: 'CONFIRM/MODAL_ON',
@@ -156,24 +142,15 @@ export default function MyInfo() {
     });
   };
 
-  const resetPassword = async () => {
-    try {
-      const data = { userName: user.userName, email: user.email };
-      await axios.post('/api/user/reset-password', data);
-      dispatch({ type: 'CONFIRM/MODAL_OFF' });
-      dispatch({
-        type: 'alertOn',
-        payload: { msg: '성공적으로 메일을 보냈습니다.' },
-      });
-      navigate('/ChangePassword');
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const deleteUser = async () => {
     try {
-      await axios.delete(`/api/user/${user.userId}`);
+      const token = localStorage.getItem('token');
+      const data = {
+        userId: user.userId,
+      };
+      await axios.delete(`http://3.37.187.24:8080/api/user/deactivate/`, {
+        data,
+      });
       dispatch({ type: 'CONFIRM/MODAL_OFF' });
       dispatch({
         type: 'alertOn',
@@ -220,12 +197,12 @@ export default function MyInfo() {
       <Container>
         <Title>계정 관리</Title>
         <ControlButton
-          onClick={resethandler}
+          onClick={() => navigate('/ChangePassword')}
           size='large'
           color='white'
           rounding
         >
-          Reset Password
+          Change Password
         </ControlButton>
         <ControlButton onClick={deleteHandler} size='large' rounding>
           Delete Account

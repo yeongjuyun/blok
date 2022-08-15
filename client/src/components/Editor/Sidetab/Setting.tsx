@@ -68,7 +68,7 @@ export default function Setting() {
 
   const deleteSite = async () => {
     try {
-      await axios.delete(`/api/site/${siteId}`);
+      await axios.delete(`http://3.37.187.24:8080/api/site/${siteId}/`);
       dispatch({ type: 'CONFIRM/MODAL_OFF' });
       dispatch({
         type: 'alertOn',

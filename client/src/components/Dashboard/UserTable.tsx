@@ -257,12 +257,12 @@ export default function UserTable() {
               data.map((e, idx) => (
                 <tr key={e.userId}>
                   <td>{(page - 1) * perPage + idx + 1}</td>
-                  <td>{e.userName}</td>
+                  {/* <td>{e.userName}</td>
                   <td>{e.email}</td>
                   <td>{e.plan}</td>
                   <td>{e.createdAt.slice(0, 10)}</td>
                   <td>{e.oauth}</td>
-                  <td>{e.role}</td>
+                  <td>{e.role}</td> */}
                   <td>
                     <Link
                       to={'/admin/user/' + e.userId}

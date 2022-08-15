@@ -221,7 +221,7 @@ export default function SiteTable() {
             </tr>
           </thead>
           <tbody>
-            {data.length > 0 ? (
+            {/* {data.length > 0 ? (
               data.map((e, idx) => (
                 <tr key={e._id}>
                   <td>{(page - 1) * perPage + idx + 1}</td>
@@ -247,7 +247,7 @@ export default function SiteTable() {
                   사이트가 존재하지 않습니다.
                 </td>
               </tr>
-            )}
+            )} */}
           </tbody>
         </Table>
       </TableContainer>

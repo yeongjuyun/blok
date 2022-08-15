@@ -24,7 +24,7 @@ const Nav = styled.nav`
   top: 0;
   left: 0;
   display: flex;
-  z-index: 13;
+  z-index: 12;
 
   .navbarLogo {
     margin: 0px auto;
@@ -152,11 +152,13 @@ interface IMyProps {
 const Menu = (props: IMyProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
   const userData = useAppSelector((state) => state.loginCheckReducer.loginData);
 
   const logoutHandler = async () => {
-    await axios.get('/api/user/logout');
+    const token = localStorage.getItem('token');
+    await axios.post(`http://3.37.187.24:8080/api/user/logout/`, null, {
+      headers: { Authorization: `Token ${token}` },
+    });
     dispatch({ type: 'USER/LOGOUT' });
     dispatch({
       type: 'alertOn',

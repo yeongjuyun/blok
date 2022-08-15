@@ -107,7 +107,7 @@ function Signinfield() {
     const logindata = JSON.stringify(data);
     localStorage.setItem('login', logindata);
     try {
-      await axios.post('/api/user/register', data);
+      await axios.post(`http://3.37.187.24:8080/api/user/register/`, data);
       dispatch({
         type: 'alertOn',
         payload: { msg: '가입이 완료되었습니다.' },
@@ -115,10 +115,10 @@ function Signinfield() {
       nav('/login');
     } catch (e: any) {
       console.log('가입에러');
-      setEmailErrormshg(e.response.data.reason);
+      setEmailErrormshg(e.response.data);
       dispatch({
         type: 'alertOn',
-        payload: { msg: `${e.response.data.reason}` },
+        payload: { msg: `${e.response.data}` },
       });
       setEmailError(true);
     }

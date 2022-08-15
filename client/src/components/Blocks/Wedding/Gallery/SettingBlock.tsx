@@ -22,7 +22,7 @@ import styled from 'styled-components';
 import { Width100, Label, Required, Guideline } from '../../../Input';
 import { useAppDispatch, useAppSelector } from '../../../../reducers';
 import axios from 'axios';
-import { forEachTrailingCommentRange } from 'typescript';
+import ImageUploader from '../../../ImageUploader';
 
 const DateTitle = styled.div`
   display: flex;
@@ -64,11 +64,13 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
     };
     const result = await axios.post('/api/site/images', formData, config);
 
+    console.log(data);
+
     dispatch(
       updateBlockData({
         blockId: id,
         field: 'images',
-        value: result.data,
+        value: data,
       })
     );
   };
@@ -131,6 +133,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           guideline='사이트에 표시할 이미지를 업로드하세요'
           onChange={imgHandler}
         />
+        <ImageUploader id={id} />
       </Card>
     </>
   );

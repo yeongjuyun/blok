@@ -99,7 +99,11 @@ export default function PublishBar(props: {
 
   async function saveHandler() {
     try {
-      await axios.patch(`/api/site/${siteId}`, data);
+      const res = await axios.patch(
+        `http://3.37.187.24:8080/api/site/${siteId}/`,
+        data
+      );
+      console.log(33333, res);
       msg = '페이지가 저장되었습니다.';
       dispatch({
         type: 'alertOn',

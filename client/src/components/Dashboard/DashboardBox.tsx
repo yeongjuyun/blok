@@ -9,6 +9,7 @@ import { templateCardData } from './TemplateData';
 import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../reducers';
 import type { SiteData } from './DataTypes';
+import type { Site } from '../Blocks/blockValidator';
 
 const Container = styled.div`
   margin-bottom: 10px;
@@ -141,12 +142,12 @@ export function TemplateList() {
   );
 }
 
-type UserSite = Omit<SiteData, 'createdAt' | 'user'>;
+type UserSite = Omit<SiteData, 'createdAt'>;
 
 export function DashboardInfo() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [data, setData] = useState<UserSite[]>([]);
+  const [data, setData] = useState<Site[]>([]);
   const user = useAppSelector((state) => state.loginCheckReducer.loginData);
 
   // userId 별 sites 데이터 조회
@@ -155,7 +156,9 @@ export function DashboardInfo() {
       if (!user.userId) {
         navigate('/login');
       }
-      const res = await axios.get(`/api/site/user/${user.userId}`);
+      const res = await axios.get(
+        `http://3.37.187.24:8080/api/site?user=${user.userId}`
+      );
       setData(() => res.data);
     } catch (error: any) {
       console.log(error);
@@ -184,7 +187,7 @@ export function DashboardInfo() {
 
   const deleteSite = (siteId: string) => async () => {
     try {
-      await axios.delete(`/api/site/${siteId}`);
+      await axios.delete(`http://3.37.187.24:8080/api/site/${siteId}/`);
       dispatch({ type: 'CONFIRM/MODAL_OFF' });
       dispatch({
         type: 'alertOn',
@@ -220,21 +223,20 @@ export function DashboardInfo() {
                   <td>Free</td>
                   <td>
                     <Link
-                      to={`/editor/${e._id}`}
+                      to={`/editor/${e.id}`}
                       style={{ textDecoration: 'none' }}
                     >
                       <ControlButton
                         className='editButton'
                         rounding
                         color='white'
-                        onClick={() => dispatch({ type: 'Block' })}
                       >
                         Edit
                       </ControlButton>
                     </Link>
                     <ControlButton
                       className='deleteButton'
-                      onClick={() => deleteHandler(e._id)}
+                      onClick={() => deleteHandler(e.id)}
                       color='gray'
                       rounding
                     >

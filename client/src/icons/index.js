@@ -18,6 +18,7 @@ import Project from './Project.png';
 import Skillset from './Skillset.png';
 import Introduce from './Introduce.png';
 import x from './x.png';
+import x2 from './x2.png';
 import Contact from './Contact.png';
 import Calendar from './Calendar.png';
 import Comment from './Comment.png';
@@ -39,6 +40,7 @@ import logout from './logout.png';
 import profile from './profile.png';
 import close from './close.png';
 import menu from './menu.png';
+import plus from './plus.png';
 
 export {
   Introduce,
@@ -65,6 +67,7 @@ export {
   BlockFeature,
   LinkTag,
   x,
+  x2,
   Contact,
   Calendar,
   Comment,
@@ -82,4 +85,5 @@ export {
   profile,
   close,
   menu,
+  plus,
 };

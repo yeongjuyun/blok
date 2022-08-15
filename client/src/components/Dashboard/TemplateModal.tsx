@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { useAppSelector, useAppDispatch } from '../../reducers';
 import type { SiteData } from './DataTypes';
+import { testSite } from '../../reducers/SiteReducer';
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -19,7 +20,7 @@ const ModalBackground = styled.div`
   background-color: #202020;
   opacity: 0.55;
   overflow: hidden;
-  z-index: 2;
+  z-index: 50;
 `;
 
 const ModalContainer = styled.div`
@@ -31,7 +32,7 @@ const ModalContainer = styled.div`
   border-radius: 10px;
   background-color: #fff;
   padding: 3rem;
-  z-index: 5;
+  z-index: 100;
   overflow: hidden;
 
   .closeButton {
@@ -199,7 +200,7 @@ export default function TemplateModal() {
   const [template, setTemplate] = useState<any | null>(null);
   const [data, setData] = useState<UserSite>({
     userId: userData.userId,
-    id: null,
+    id: '',
     name: '',
     domain: '',
     theme: '',
@@ -294,13 +295,28 @@ export default function TemplateModal() {
   const createSiteHandler = async () => {
     try {
       // 사이트 DB 추가, 저장
-      const res = await axios.post(`/api/site`, data);
+      const res = await axios.post(`http://3.37.187.24:8080/api/site/`, data);
       console.log('POST 요청 - 사이트추가 : ', res.data);
+      setData(res.data);
+
       dispatch({ type: 'alertOn', payload: { msg: '사이트 추가되었습니다.' } });
       dispatch({ type: 'TEMPLATE/MODAL_OFF' });
 
+      dispatch({
+        type: 'site/getSite',
+        payload: {
+          id: null,
+          name: data.name,
+          domain: data.domain,
+          theme: data.theme,
+          font: data.font,
+          colorSet: data.colorSet,
+          blocks: data.blocks,
+        },
+      });
+
       // 에디터 페이지로 이동
-      navigate(`/editor/${res.data._id}`);
+      navigate(`/editor/${res.data.id}`);
     } catch (err: any) {
       console.log(err.response.data);
       dispatch({
