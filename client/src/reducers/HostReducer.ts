@@ -10,7 +10,7 @@ import { useAppSelector } from './hooks';
 
 //Initial Value
 export const initialState: Site = {
-  id: 1,
+  id: '',
   name: '',
   domain: '',
   theme: 'Simple',

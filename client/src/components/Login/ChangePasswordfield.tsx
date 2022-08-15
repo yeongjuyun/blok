@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import * as LoginForm from './LoginForm';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../reducers';
+import { useAppDispatch, useAppSelector } from '../../reducers';
 
 const Container = styled.div`
   background-color: #fff;
@@ -34,10 +34,14 @@ function ChangePasswordfield() {
   const newPswRef = useRef<HTMLInputElement>(null);
   const newPscheckRef = useRef<HTMLInputElement>(null);
   const [currentpswError, setCurrentpswError] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string>('');
+  // const [userId, setUserId] = useState<string>('');
   const [newpswError, setNewPswError] = useState<boolean>(false);
   const [newpswcheckError, setNewPswcheckError] = useState<boolean>(false);
   const [btnError, setbtnError] = useState<boolean>(true);
+
+  const { email, userId } = useAppSelector(
+    (state) => state.loginCheckReducer.loginData
+  );
 
   const btnactive =
     currentpswError === true ||
@@ -102,12 +106,19 @@ function ChangePasswordfield() {
       newPscheckRef.current!.focus();
       setNewPswcheckError(true);
     } else {
+      const token = localStorage.getItem('token');
       const data = {
+        email: email,
         currentPassword: current,
         toEditPassword: newpsw,
       };
+
       try {
-        await axios.patch(`/api/user/change-password/${userId}`, data);
+        await axios.patch(
+          `http://3.37.187.24:8080/api/user/change-password/`,
+          data,
+          { headers: { Authorization: `Token ${token}` } }
+        );
         dispatch({
           type: 'alertOn',
           payload: { msg: '비밀번호가 바뀌었습니다.' },
@@ -125,22 +136,23 @@ function ChangePasswordfield() {
     nav('/login');
   };
 
-  useEffect(() => {
-    async function loginCheck() {
-      try {
-        const res = await axios.get('/api/user/logincheck');
+  // useEffect(() => {
+  //   async function loginCheck() {
+  //     try {
+  //       const res = await axios.get('/api/user/logincheck');
 
-        if (res.data) {
-          setUserId(() => res.data.userId);
-        } else {
-          nav('/login');
-        }
-      } catch (e) {
-        nav('/login');
-      }
-    }
-    loginCheck();
-  });
+  //       if (res.data) {
+  //         setUserId(() => res.data.userId);
+  //       } else {
+  //         nav('/login');
+  //       }
+  //     } catch (e) {
+  //       nav('/login');
+  //     }
+  //   }
+  //   loginCheck();
+  // });
+
   return (
     <Container>
       <LoginForm.Title>비밀번호 변경</LoginForm.Title>

@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import styled, { css } from 'styled-components';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../../reducers/store';
+import { useAppSelector } from '../../../reducers';
 import PageLoading from './PageLoading';
 import ErrorBoundary from '../ErrorBoundary';
 import {
@@ -11,7 +10,7 @@ import {
 
 const NAV_WIDTH = 72;
 const SIDETAB_WIDTH = 440;
-const Container = styled.div`
+const Container = styled.div<{ preview: boolean }>`
   position: fixed;
   top: 60px;
   padding: 32px 64px;
@@ -19,6 +18,15 @@ const Container = styled.div`
   height: calc(100% - 60px);
   box-sizing: border-box;
   overflow-y: scroll;
+
+  @media screen and (max-width: 1120px) {
+    display: ${(props) => (props.preview ? 'block' : 'none')};
+    width: 100%;
+    height: calc(100% - 104px);
+    top: 104px;
+    left: 0;
+    padding: 0;
+  }
 `;
 const SiteBlockList = styled.div<{ blockCount: number }>`
   width: 100%;
@@ -44,10 +52,10 @@ const SiteBlockContainer = styled.div<{ theme: any }>`
     `}
 `;
 
-export default function EditorPreview() {
-  const colorSet = useSelector((state: RootState) => state.site.colorSet);
-  const font = useSelector((state: RootState) => state.site.font);
-  const blocks = useSelector(selectBlocks, blockDataUpdateChecker);
+export default function EditorPreview(props: { preview: boolean }) {
+  const colorSet = useAppSelector((state) => state.site.colorSet);
+  const font = useAppSelector((state) => state.site.font);
+  const blocks = useAppSelector(selectBlocks, blockDataUpdateChecker);
 
   const siteBlocks = blocks.map((block) => {
     const {
@@ -72,7 +80,7 @@ export default function EditorPreview() {
     );
   });
   return (
-    <Container>
+    <Container preview={props.preview}>
       <SiteBlockList blockCount={blocks.length}>
         <ErrorBoundary>
           <SiteBlockContainer theme={blocks[0]?.template.theme}>

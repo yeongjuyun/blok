@@ -88,10 +88,10 @@ const InitUser = {
   _id: '',
 };
 
-type UserUpdate = Pick<
-  User,
-  'userName' | 'profileImage' | 'plan' | 'role' | 'password'
->;
+// type UserUpdate = Pick<
+//   User,
+//   'userName' | 'profileImage' | 'plan' | 'role' | 'password'
+// >;
 
 export default function UpateUser() {
   const { userId } = useParams();
@@ -103,9 +103,9 @@ export default function UpateUser() {
   const profileImage = useRef<HTMLInputElement>(null);
   const [userNameError, setUserNameError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
-  const [data, setData] = useState<User>(InitUser);
-  const [role, setRole] = useState({ value: data.role, label: data.role });
-  const [plan, setPlan] = useState({ value: data.plan, label: data.plan });
+  // const [data, setData] = useState<User>(InitUser);
+  // const [role, setRole] = useState({ value: data.role, label: data.role });
+  // const [plan, setPlan] = useState({ value: data.plan, label: data.plan });
   const roleOptions = [
     { value: 'basic', label: 'basic' },
     { value: 'admin', label: 'admin' },
@@ -127,9 +127,9 @@ export default function UpateUser() {
   const getUserInfo = async () => {
     try {
       const res = await axios.get(`/api/admin/user/${userId}`);
-      setData(() => res.data);
-      setRole({ value: res.data.role, label: res.data.role });
-      setPlan({ value: res.data.plan, label: res.data.plan });
+      // setData(() => res.data);
+      // setRole({ value: res.data.role, label: res.data.role });
+      // setPlan({ value: res.data.plan, label: res.data.plan });
     } catch (err) {
       console.log(err);
     }
@@ -167,8 +167,8 @@ export default function UpateUser() {
       let userToPatch: any = {
         userName: userName.current!.value,
         profileImage: profileImage.current!.value,
-        plan: plan.value,
-        role: role.value,
+        // plan: plan.value,
+        // role: role.value,
       };
 
       if (password.current!.value === '') {
@@ -197,19 +197,17 @@ export default function UpateUser() {
       <UserContainer>
         <UserUpdate>
           <div className='editTitle'>회원정보 수정</div>
-          <div>
-            <EmailDiv>{data.email}</EmailDiv>
-          </div>
+          <div>{/* <EmailDiv>{data.email}</EmailDiv> */}</div>
           <form onSubmit={handleSubmit}>
             <div className='userUpdateInputBox'>
               <div className='inputBox'>
                 <div className='input'>
                   <TextInputWidth90
-                    key={data.userName}
+                    // key={data.userName}
                     title='이름'
                     ref={userName}
                     onChange={ChangeUserName}
-                    defaultValue={data.userName}
+                    // defaultValue={data.userName}
                     placeholder='이름을 입력해주세요'
                   />
                   <ValidationText>
@@ -218,7 +216,7 @@ export default function UpateUser() {
                 </div>
                 <div className='input'>
                   <TextInputWidth90
-                    key={`${data.userName}/password`}
+                    // key={`${data.userName}/password`}
                     title='비밀번호'
                     ref={password}
                     placeholder=' '
@@ -234,22 +232,22 @@ export default function UpateUser() {
                 <CustomSelectWidth90
                   title='분류'
                   options={roleOptions}
-                  onChange={(e: any) => setRole(() => e)}
-                  value={role}
+                  // onChange={(e: any) => setRole(() => e)}
+                  // value={role}
                 />
                 <CustomSelectWidth90
                   title='플랜'
                   options={planOptions}
-                  onChange={(e: any) => setPlan(() => e)}
-                  value={plan}
+                  // onChange={(e: any) => setPlan(() => e)}
+                  // value={plan}
                 />
               </div>
             </div>
             <ImgInput
-              key={data.profileImage}
+              // key={data.profileImage}
               title='프로필 이미지'
               ref={profileImage}
-              defaultValue={data.profileImage}
+              // defaultValue={data.profileImage}
             />
             <Button
               className='updateButton'

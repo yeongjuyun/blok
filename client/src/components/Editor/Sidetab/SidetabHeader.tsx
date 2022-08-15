@@ -5,16 +5,22 @@ const unclicked = '#999999';
 const clicked = '#000000';
 
 const Container = styled.div`
-  width: 440px;
-  height: 60px;
-  min-height: 60px;
-  background-color: white;
+  height: 56px;
   display: flex;
   align-items: center;
-  position: fixed;
-  top: 0;
-  z-index: 1;
-  box-shadow: 0 4px 2px -2px #F5F5F5;
+  justify-content: flex-start;
+  background-color: white;
+  border-bottom: 1px solid #d1d1d1;
+  box-sizing: border-box;
+  z-index: 10;
+  box-shadow: 0 4px 2px -2px #f5f5f5;
+
+  @media screen and (max-width: 1120px) {
+    width: 100%;
+    position: fixed;
+    top: 108px;
+    left: 0;
+  }
 `;
 
 export default function SidetabHeader() {

@@ -1,6 +1,6 @@
 //Site Interface
 export interface Site {
-  id: number | null;
+  id: string;
   name: string;
   domain: string;
   theme: string;
@@ -53,10 +53,21 @@ export interface BlockData {
   button?: ButtonData;
   rightText?: TextData;
   leftText?: TextData;
+  title?: TextData;
   arrText?: ArrData;
   number?: NumberData;
   venue?: TextData;
   date?: TextData;
+  groomParent?: TextData;
+  brideParent?: TextData;
+  address?: TextData;
+  contact?: TextData;
+  groom?: TextData;
+  groomAccount?: TextData;
+  bride?: TextData;
+  brideAccount?: TextData;
+  text?: TextData;
+  desc?: TextData;
 }
 export interface StyleData {
   label: string;

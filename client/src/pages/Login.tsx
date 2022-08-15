@@ -22,7 +22,6 @@ export default Login;
 function Login() {
   return (
     <Container>
-      <Logo></Logo>
       <Loginfield></Loginfield>
     </Container>
   );

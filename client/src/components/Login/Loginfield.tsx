@@ -7,6 +7,8 @@ import * as vaildation from '../../utils/validation';
 import * as imgs from '../../imgs';
 import { useAppDispatch } from '../../reducers';
 
+const SERVER_URL = process.env.REACT_APP_API_URL;
+
 const Container = styled.div`
   background-color: #fff;
   border-radius: 10px;
@@ -84,41 +86,35 @@ function Loginfield() {
       password: passwordRef.current!.value,
     };
 
+    console.log(process.env.REACT_APP_API_URL);
+
     try {
-      const res = await axios.post('/api/auth/login', data);
-      const resdata = res.data;
-      console.log(resdata.passwordReset);
-      if (resdata.passwordReset === true) {
-        nav('/changepassword');
-      }
-      const loginCheckData = await axios.get('/api/user/logincheck');
+      const res = await axios.post(
+        `http://3.37.187.24:8080/api/user/login/`,
+        data
+      );
+
+      console.log(111, res);
+      const { id, nickname, username } = res.data.data.user;
+      const { token } = res.data.data;
+
+      localStorage.setItem('token', token);
 
       // current loginUser 데이터 가져와서 redux store에 저장
-      const user = loginCheckData.data;
       dispatch({
         type: 'USER/LOGIN',
         payload: {
-          userId: user.userId,
-          email: user.email,
-          role: user.role,
-          userName: user.userName,
-          oauth: user.oauth,
-          passwordReset: user.passwordReset,
-          profileImage: user.profileImage,
-          plan: user.plan,
+          userId: id,
+          email: username,
+          userName: nickname,
         },
       });
-
-      if (loginCheckData.data.role === 'admin') {
-        nav('/account');
-      } else {
-        nav('/dashboard');
-      }
+      nav('/dashboard');
     } catch (e: any) {
-      console.log(e.response.data);
+      console.log(e);
       dispatch({
         type: 'alertOn',
-        payload: { msg: `${e.response.data.reason}` },
+        payload: { msg: `${e}` },
       });
     }
   };
@@ -156,23 +152,23 @@ function Loginfield() {
     nav('/findpassword');
   };
 
-  useEffect(() => {
-    async function loginCheck() {
-      const res = await axios.get('/api/user/logincheck');
-      if (res.data.userId) {
-        if (res.data.passwordReset) {
-          nav('/changepassword');
-        }
-        console.log('이미 로그인 되어있습니다.');
-        if (res.data.role === 'admin') {
-          nav('/account');
-        } else {
-          nav('/dashboard');
-        }
-      }
-    }
-    loginCheck();
-  }, []);
+  // useEffect(() => {
+  //   async function loginCheck() {
+  //     const res = await axios.get('/api/user/logincheck');
+  //     if (res.data.userId) {
+  //       if (res.data.passwordReset) {
+  //         nav('/changepassword');
+  //       }
+  //       console.log('이미 로그인 되어있습니다.');
+  //       if (res.data.role === 'admin') {
+  //         nav('/account');
+  //       } else {
+  //         nav('/dashboard');
+  //       }
+  //     }
+  //   }
+  //   loginCheck();
+  // }, []);
   return (
     <Container>
       <LoginForm.Title>로그인</LoginForm.Title>
@@ -184,9 +180,9 @@ function Loginfield() {
       </LoginForm.InputDiv>
       <LoginForm.Input
         onChange={handleEmailChange}
-        type="string"
+        type='string'
         ref={emailRef}
-        placeholder="이메일 주소를 입력하세요."
+        placeholder='이메일 주소를 입력하세요.'
         error={emailError}
       />
       <LoginForm.InputDiv>
@@ -197,9 +193,9 @@ function Loginfield() {
       </LoginForm.InputDiv>
       <LoginForm.Input
         onChange={handlePasswordChange}
-        type="password"
+        type='password'
         ref={passwordRef}
-        placeholder="비밀번호는 6자리 이상이여야합니다."
+        placeholder='비밀번호는 6자리 이상이여야합니다.'
         error={pswError}
       />
       <Atagbox>
@@ -217,7 +213,7 @@ function Loginfield() {
       </LoginForm.Button>
       <LoginForm.Text>또는</LoginForm.Text>
       <LoginForm.GoogleButton onClick={googleClick}>
-        <img src={imgs.googleloginicon} alt="구글"></img>구글로 로그인 하기
+        <img src={imgs.googleloginicon} alt='구글'></img>구글로 로그인 하기
       </LoginForm.GoogleButton>
     </Container>
   );
