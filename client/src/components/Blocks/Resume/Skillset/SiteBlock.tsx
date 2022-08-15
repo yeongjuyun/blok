@@ -60,6 +60,7 @@ const Skill = styled.div`
     margin-bottom: ${RemtoVw(REM, 0.6)};
   }
 `;
+
 export default function SiteBlock(props: SiteBlockProps) {
   const { blockId, type } = props;
   const { colorSet, font, data } = SiteBlockByType({ blockId, type });
@@ -75,7 +76,7 @@ export default function SiteBlock(props: SiteBlockProps) {
   return (
     <Container colorSet={colorSet} font={font}>
       <Title colorSet={colorSet}>{data.title?.value}</Title>
-      <Intro>{skills(data.arrText?.value)}</Intro>
+      <Intro>{skills(data.arrText.value)}</Intro>
     </Container>
   );
 }

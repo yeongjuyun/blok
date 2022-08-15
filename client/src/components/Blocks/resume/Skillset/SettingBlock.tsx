@@ -44,7 +44,6 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
     selectBlockById(state, blockId)
   );
 
-  console.log(111, data);
   const styleOptions = getStyleOptions(template);
   const currentStyle = getCurrentStyleOption(template);
   const dispatch = useDispatch();
@@ -53,12 +52,9 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const [title, setTitle] = useState(data.title?.value);
   const [navTitle, setNavTitle] = useState(data.navTitle);
 
-  const [intros, setIntros] = useState('');
-  const [arr, setArr] = useState(data.arrText?.value);
-
   const arrText = data.arrdata_set.map((data: any) => data.value);
-
-  console.log(arrText);
+  const [intros, setIntros] = useState('');
+  const [arr, setArr] = useState(arrText);
 
   // skills setting block 확인필요
   const skills = (data: Array<string> | undefined) => {
@@ -73,11 +69,13 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           <Del
             src={icons.x}
             onClick={() => {
-              setArr((res) => {
+              setArr((res: any) => {
                 if (!res) {
                   return;
                 }
-                const newarr = res.filter((value, index) => index !== i);
+                const newarr = res.filter(
+                  (value: string, index: number) => index !== i
+                );
                 return [...newarr];
               });
             }}
@@ -162,7 +160,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault();
 
-            setArr((res) => {
+            setArr((res: any) => {
               if (!res) {
                 return;
               }

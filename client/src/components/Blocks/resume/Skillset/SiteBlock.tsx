@@ -69,14 +69,14 @@ export default function SiteBlock(props: SiteBlockProps) {
     const arr = [];
     if (!data) return;
     for (let i = 0; i < data.length; i++) {
-      arr.push(<Skill>{data[i].value}</Skill>);
+      arr.push(<Skill>{data[i]}</Skill>);
     }
     return arr;
   };
   return (
     <Container colorSet={colorSet} font={font}>
       <Title colorSet={colorSet}>{data.title?.value}</Title>
-      <Intro>{skills(data.arrdata_set)}</Intro>
+      <Intro>{skills(data.arrText.value)}</Intro>
     </Container>
   );
 }

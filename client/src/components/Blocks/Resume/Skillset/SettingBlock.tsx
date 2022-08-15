@@ -43,6 +43,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const { id, template, data, isCardOpened } = useSelector((state: RootState) =>
     selectBlockById(state, blockId)
   );
+
   const styleOptions = getStyleOptions(template);
   const currentStyle = getCurrentStyleOption(template);
   const dispatch = useDispatch();
@@ -51,9 +52,11 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
   const [title, setTitle] = useState(data.title?.value);
   const [navTitle, setNavTitle] = useState(data.navTitle);
 
+  const arrText = data.arrdata_set.map((data: any) => data.value);
   const [intros, setIntros] = useState('');
-  const [arr, setArr] = useState(data.arrText?.value);
+  const [arr, setArr] = useState(arrText);
 
+  // skills setting block 확인필요
   const skills = (data: Array<string> | undefined) => {
     const arr = [];
     if (!data) {
@@ -66,11 +69,13 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           <Del
             src={icons.x}
             onClick={() => {
-              setArr((res) => {
+              setArr((res: any) => {
                 if (!res) {
                   return;
                 }
-                const newarr = res.filter((value, index) => index !== i);
+                const newarr = res.filter(
+                  (value: string, index: number) => index !== i
+                );
                 return [...newarr];
               });
             }}
@@ -155,7 +160,7 @@ function SettingBlock({ blockId, onRemove }: SettingBlockProps) {
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault();
 
-            setArr((res) => {
+            setArr((res: any) => {
               if (!res) {
                 return;
               }
