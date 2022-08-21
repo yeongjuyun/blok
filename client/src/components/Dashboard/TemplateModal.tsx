@@ -19,7 +19,7 @@ const ModalBackground = styled.div`
   background-color: #202020;
   opacity: 0.55;
   overflow: hidden;
-  z-index: 2;
+  z-index: 15;
 `;
 
 const ModalContainer = styled.div`
@@ -31,7 +31,7 @@ const ModalContainer = styled.div`
   border-radius: 10px;
   background-color: #fff;
   padding: 3rem;
-  z-index: 5;
+  z-index: 20;
   overflow: hidden;
 
   .closeButton {

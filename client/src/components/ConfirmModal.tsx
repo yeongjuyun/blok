@@ -12,7 +12,7 @@ const ModalBackground = styled.div`
   background-color: #202020;
   opacity: 0.55;
   overflow: hidden;
-  z-index: 2;
+  z-index: 15;
 `;
 
 const ModalContainer = styled.div`
@@ -24,7 +24,7 @@ const ModalContainer = styled.div`
   transform: translate(-50%, -75%);
   border-radius: 0.3rem;
   padding: 1rem;
-  z-index: 5;
+  z-index: 20;
 
   .confirmHeader {
     display: flex;
@@ -71,18 +71,18 @@ export default function ConfirmModal(props: IMyProps) {
   return (
     <>
       <ModalContainer>
-        <div className="confirmHeader">
-          <div className="confirmTitle">{props.confirmData.title}</div>
-          <div className="closeButton" onClick={closeModalHandler}>
+        <div className='confirmHeader'>
+          <div className='confirmTitle'>{props.confirmData.title}</div>
+          <div className='closeButton' onClick={closeModalHandler}>
             <CgClose size={23} color={'gray'} />
           </div>
         </div>
-        <div className="confirmText">{props.confirmData.msg}</div>
-        <div className="buttonContainer">
-          <Button size="medium" color="gray" onClick={closeModalHandler}>
+        <div className='confirmText'>{props.confirmData.msg}</div>
+        <div className='buttonContainer'>
+          <Button size='medium' color='gray' onClick={closeModalHandler}>
             취소
           </Button>
-          <Button size="medium" onClick={conFirmHandler}>
+          <Button size='medium' onClick={conFirmHandler}>
             확인
           </Button>
         </div>

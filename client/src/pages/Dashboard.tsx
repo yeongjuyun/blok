@@ -12,6 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   min-height: 100vh;
   background-color: #f7f7f9;
+  z-index: 12;
 `;
 
 export default function Dashboard() {

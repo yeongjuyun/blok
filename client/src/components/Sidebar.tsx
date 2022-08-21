@@ -24,7 +24,7 @@ const Nav = styled.nav`
   top: 0;
   left: 0;
   display: flex;
-  z-index: 12;
+  z-index: 10;
 
   .navbarLogo {
     margin: 0px auto;
