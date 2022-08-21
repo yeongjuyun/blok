@@ -34,7 +34,6 @@ export default Main;
 function Main() {
   return (
     <>
-      <Logo></Logo>
       <Container>
         <Maindiv>쉽게</Maindiv>
         <Maindiv></Maindiv>

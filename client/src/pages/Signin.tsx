@@ -21,7 +21,6 @@ export const Container = styled.div`
 function Signin() {
   return (
     <Container>
-      <Logo></Logo>
       <Signinfield></Signinfield>
     </Container>
   );

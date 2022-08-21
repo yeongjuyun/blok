@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import * as DashboardBox from "../components/Dashboard/DashboardBox";
-import Sidebar from "../components/Sidebar";
-import { useSelector } from "react-redux";
-import TemplateModal from "../components/Dashboard/TemplateModal";
-import ConfirmModal from "../components/ConfirmModal";
+import styled from 'styled-components';
+import * as DashboardBox from '../components/Dashboard/DashboardBox';
+import Sidebar from '../components/Sidebar';
+import { useSelector } from 'react-redux';
+import TemplateModal from '../components/Dashboard/TemplateModal';
+import ConfirmModal from '../components/ConfirmModal';
 
 const Container = styled.div`
   display: flex;
@@ -27,7 +27,6 @@ export default function Dashboard() {
 
   return (
     <Container>
-      <Sidebar />
       <DashboardBox.DashboardInfo></DashboardBox.DashboardInfo>
       <DashboardBox.TemplateList></DashboardBox.TemplateList>
       {templateModalState && <TemplateModal />}

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import * as icon from '../icons';
 
 const Logodiv = styled.div`
@@ -42,14 +42,17 @@ const Logo = () => {
     nav('/');
   };
   return (
-    <Logodiv
-      onClick={(e) => {
-        toMainClick(e);
-      }}
-    >
-      <LogoImg src={icon.Logo} />
-      blok
-    </Logodiv>
+    <>
+      <Logodiv
+        onClick={(e) => {
+          toMainClick(e);
+        }}
+      >
+        <LogoImg src={icon.Logo} />
+        blok
+      </Logodiv>
+      <Outlet />
+    </>
   );
 };
 

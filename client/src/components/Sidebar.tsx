@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import logoImg from './../imgs/logo.png';
 import { MdOutlineSpaceDashboard } from 'react-icons/md';
@@ -15,7 +15,7 @@ import { GrMenu } from 'react-icons/gr';
 import { FaRegUserCircle } from 'react-icons/fa';
 
 const Nav = styled.nav`
-  width: 72px;
+  width: 64px;
   height: 100vh;
   background-color: #ffffff;
   border: 1px solid #cccccc;
@@ -24,13 +24,13 @@ const Nav = styled.nav`
   top: 0;
   left: 0;
   display: flex;
-  z-index: 2;
+  z-index: 12;
 
   .navbarLogo {
     margin: 0px auto;
   }
 
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     width: 100%;
     height: 52px;
     justify-content: space-between;
@@ -50,7 +50,7 @@ const Profile = styled.div`
   left: 12px;
   cursor: pointer;
 
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     display: none;
   }
 `;
@@ -61,16 +61,16 @@ const ProfileImage = styled.img`
   border-radius: 50%;
   cursor: pointer;
 
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     display: none;
   }
 `;
 
 const Hamburger = styled.span`
-  @media screen and (min-width: 780px) {
+  @media screen and (min-width: 1120px) {
     display: none;
   }
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     display: flex;
   }
 `;
@@ -86,7 +86,7 @@ const MenuContainer = styled.div`
   bottom: 50px;
   left: 50px;
 
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     top: 51px;
     right: 0;
     left: auto;
@@ -115,10 +115,10 @@ const List = styled.div`
     background-color: #e5e5e5;
   }
 
-  @media screen and (min-width: 780px) {
+  @media screen and (min-width: 1120px) {
     padding: 12px;
   }
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     width: auto;
     justify-content: center;
   }
@@ -129,7 +129,7 @@ const ListSpan = styled.span`
   display: inline-block;
   text-align: center;
   cursor: pointer;
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     margin-top: 6px;
     width: 100px;
   }
@@ -139,7 +139,7 @@ const LogoImg = styled.img`
   width: 49px;
   height: 43px;
   margin-top: 10px;
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 1120px) {
     margin-top: 6px;
   }
 `;
@@ -170,29 +170,29 @@ const Menu = (props: IMyProps) => {
       onMouseLeave={props.onMouseLeave}
       onMouseEnter={props.onMouseEnter}
     >
-      <Link to="/account" style={{ textDecoration: 'none' }}>
+      <Link to='/account' style={{ textDecoration: 'none' }}>
         <List>
-          <FaUserAlt color="black" />
+          <FaUserAlt color='black' />
           <ListSpan>Account</ListSpan>
         </List>
       </Link>
-      <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+      <Link to='/dashboard' style={{ textDecoration: 'none' }}>
         <List>
-          <MdOutlineSpaceDashboard color="black" />
+          <MdOutlineSpaceDashboard color='black' />
           <ListSpan>Dashboard</ListSpan>
         </List>
       </Link>
       {userData?.role === 'admin' ? (
         <>
-          <Link to="/admin/site" style={{ textDecoration: 'none' }}>
+          <Link to='/admin/site' style={{ textDecoration: 'none' }}>
             <List>
-              <MdOutlineSpaceDashboard color="black" />
+              <MdOutlineSpaceDashboard color='black' />
               <ListSpan>Manage Site</ListSpan>
             </List>
           </Link>
-          <Link to="/admin/user" style={{ textDecoration: 'none' }}>
+          <Link to='/admin/user' style={{ textDecoration: 'none' }}>
             <List>
-              <MdOutlineSpaceDashboard color="black" />
+              <MdOutlineSpaceDashboard color='black' />
               <ListSpan>Manage User</ListSpan>
             </List>
           </Link>
@@ -203,7 +203,7 @@ const Menu = (props: IMyProps) => {
 
       <div onClick={logoutHandler} style={{ textDecoration: 'none' }}>
         <List>
-          <BiLogOut color="black" />
+          <BiLogOut color='black' />
           <ListSpan>Logout</ListSpan>
         </List>
       </div>
@@ -221,35 +221,38 @@ export default function Sidebar() {
   };
 
   return (
-    <Nav>
-      <div className="navbarLogo">
-        <Link to="/dashboard">
-          <LogoImg src={logoImg} alt="logo" />
-        </Link>
-      </div>
-      <Hamburger onClick={() => setIsMobile(true)}>
-        {isMobile ? <CgClose size={32} /> : <GrMenu size={32} />}
-      </Hamburger>
-      <Profile
-        onMouseEnter={() => setIsMobile(true)}
-        onMouseLeave={() => setIsMobile(false)}
-      >
-        {profileImage == null ? (
-          <ProfileImage src={default_profile} alt="profile" />
-        ) : (
-          <ProfileImage
-            src={profileImage}
-            alt="profileImg"
-            onError={onErrorImg}
-          />
-        )}
-      </Profile>
-      {isMobile && (
-        <Menu
+    <>
+      <Nav>
+        <div className='navbarLogo'>
+          <Link to='/dashboard'>
+            <LogoImg src={logoImg} alt='logo' />
+          </Link>
+        </div>
+        <Hamburger onClick={() => setIsMobile(true)}>
+          {isMobile ? <CgClose size={32} /> : <GrMenu size={32} />}
+        </Hamburger>
+        <Profile
           onMouseEnter={() => setIsMobile(true)}
           onMouseLeave={() => setIsMobile(false)}
-        />
-      )}
-    </Nav>
+        >
+          {profileImage == null ? (
+            <ProfileImage src={default_profile} alt='profile' />
+          ) : (
+            <ProfileImage
+              src={profileImage}
+              alt='profileImg'
+              onError={onErrorImg}
+            />
+          )}
+        </Profile>
+        {isMobile && (
+          <Menu
+            onMouseEnter={() => setIsMobile(true)}
+            onMouseLeave={() => setIsMobile(false)}
+          />
+        )}
+      </Nav>
+      <Outlet />
+    </>
   );
 }

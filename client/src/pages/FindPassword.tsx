@@ -21,7 +21,6 @@ export const Container = styled.div`
 function FindPassword() {
   return (
     <Container>
-      <Logo></Logo>
       <FindPasswordfield></FindPasswordfield>
     </Container>
   );

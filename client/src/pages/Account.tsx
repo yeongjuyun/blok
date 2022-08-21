@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import MyInfo from "../components/Dashboard/MyInfo";
-import Sidebar from "../components/Sidebar";
+import styled from 'styled-components';
+import MyInfo from '../components/Dashboard/MyInfo';
+import Sidebar from '../components/Sidebar';
 
 const Container = styled.div`
   background-color: #f7f7f9;
@@ -12,7 +12,6 @@ const Container = styled.div`
 export default function Account() {
   return (
     <Container>
-      <Sidebar />
       <MyInfo />
     </Container>
   );
