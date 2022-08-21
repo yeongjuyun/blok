@@ -17,6 +17,14 @@ const Container = styled.div`
     border-radius: 2px;
     background: red;
   }
+
+  @media screen and (max-width: 1120px) {
+    width: 100%;
+    height: calc(100% - 163px);
+    top: 172px;
+    left: 0;
+    background-color: #f5f5f8;
+  }
 `;
 
 export default function SidetabHeader() {

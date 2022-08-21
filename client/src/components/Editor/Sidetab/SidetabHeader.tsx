@@ -12,9 +12,18 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   position: fixed;
+  border-bottom: 1px solid #d1d1d1;
+  box-sizing: border-box;
   top: 0;
   z-index: 1;
-  box-shadow: 0 4px 2px -2px #F5F5F5;
+  box-shadow: 0 4px 2px -2px #f5f5f5;
+
+  @media screen and (max-width: 1120px) {
+    position: fixed;
+    width: 100%;
+    top: 112px;
+    left: 0;
+  }
 `;
 
 export default function SidetabHeader() {

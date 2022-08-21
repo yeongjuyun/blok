@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import EditorHeader from './EditorHeader';
 import EditorPreivew from './EditorPreview';
@@ -9,14 +10,22 @@ const Container = styled.div`
   display: flex;
   box-sizing: border-box;
   height: 100%;
+
+  @media screen and (max-width: 1120px) {
+    border-right: none;
+    min-width: 0;
+    flex-grow: none;
+    height: 0;
+  }
 `;
 
-export default EditorSection;
-function EditorSection() {
+export default function EditorSection() {
+  const [preview, setPreview] = useState<boolean>(false);
+
   return (
     <Container>
-      <EditorHeader />
-      <EditorPreivew />
+      <EditorHeader setPreview={setPreview} />
+      <EditorPreivew preview={preview} />
     </Container>
   );
 }
