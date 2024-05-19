@@ -60,11 +60,13 @@
 ### 2-2. 시장조사
 
 - 국내외 다양한 노코드툴을 써보며 서비스 기획초안 제작
+
   <img width="500" alt="시장조사" src="https://user-images.githubusercontent.com/32115010/180593295-7051a7d4-d763-4cad-b643-86532ba12cd1.png">
 
 ### 2-3. 디자인
 
 - Figma를 활용하여 UI 및 디자인시스템 제작
+
   <img width="500"  alt="디자인요약본" src="https://user-images.githubusercontent.com/32115010/180593412-26732cd9-0d6a-4620-9c49-ee8e9173e3d7.png">
   <br>
   <br>
